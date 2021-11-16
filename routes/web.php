@@ -249,5 +249,5 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
 
 
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
-    Route::get('dashboard', 'DashboardController@author')->name('dashboard');
+    Route::get('dashboard', 'Admin\DashboardController@author')->name('dashboard');
 });
