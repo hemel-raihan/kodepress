@@ -118,7 +118,7 @@ use Faker\Provider\ar_SA\Color;
 */
 
 Route::get('/', function () {
-    return view('homepage');
+    return view('userdashboard');
 });
 // Route::get('index', Index::class);
 // Route::get('about', About::class);
