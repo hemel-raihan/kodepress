@@ -7,6 +7,7 @@ use App\Providers\RouteServiceProvider;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+
 class LoginController extends Controller
 {
     /*
@@ -27,7 +28,7 @@ class LoginController extends Controller
      *
      * @var string
      */
-    protected $redirectTo;
+    protected $redirectTo = RouteServiceProvider::HOME;
 
     /**
      * Create a new controller instance.
@@ -37,10 +38,10 @@ class LoginController extends Controller
 
     public function __construct()
     {
-        if(Auth::check() && Auth::user()->role->id==2)
-        {
-            $this->redirectTo = route('backend.user.dashboard');
-        }
+        // if(Auth::check() && Auth::user()->role->id==2)
+        // {
+        //     $this->redirectTo = route('backend.user.dashboard');
+        // }
         // // elseif(Auth::check() && Auth::user()->role->id==2)
         // // {
         // //     $this->redirectTo = route('author.dashboard');

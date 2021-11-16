@@ -19,6 +19,8 @@ class CreateCategoriesTable extends Migration
             $table->string('slug');
             $table->integer('parent_id')->unsigned()->default(0);
             $table->string('image')->default('default.png');
+            $table->string('decs')->nullable();
+            $table->foreignId('sidebar_id');
             $table->boolean('status')->default(true);
             $table->timestamps();
         });
