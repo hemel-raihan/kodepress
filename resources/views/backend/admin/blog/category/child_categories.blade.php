@@ -23,12 +23,12 @@
 @endphp -->
 
 <ul class="transfer-double-group-list-li-ul transfer-double-group-list-li-ul-1636878492751">
-@foreach($sub_category->childrenRecursive as $sub)
+@foreach($sub_category->childrenRecursive as $key => $sub)
 
     <li class="transfer-double-group-list-li-ul-li transfer-double-group-list-li-ul-li-1636878492751">
     <div class="checkbox-group">
-            <input type="checkbox" value="122" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-0-1636878492751" id="group_0_checkbox_0_1636878492751" />
-            <label for="group_0_checkbox_0_1636878492751" class="group-checkbox-name-1636878492751">{{$sub->name}}</label>
+            <input type="checkbox" name="parent_id" value="{{$sub->id}}" value="122" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-0-1636878492751" id="group_<?php echo $sub_category->id; ?>_checkbox_<?php echo $key ?>_1636878492751" />
+            <label for="group_<?php echo $sub_category->id; ?>_checkbox_<?php echo $key; ?>_1636878492751" class="group-checkbox-name-1636878492751">{{$sub->name}}</label>
         </div>
 
         @if($category->childrenRecursive->count()>0)
