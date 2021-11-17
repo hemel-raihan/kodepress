@@ -161,9 +161,11 @@
 									</div>
 									<div class="transfer-double-list-content">
 										<div class="transfer-double-list-main">
+										
 											<ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
 
                                             @foreach($categories as $category)
+										
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
 														<input type="checkbox" class="checkbox-normal group-select-all-1636878492751" id="group_0_1636878492751" /><label for="group_0_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
@@ -179,49 +181,7 @@
 
 												</li>
                                                 @endforeach
-												<!-- <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
-													<div class="checkbox-group">
-														<input type="checkbox" class="checkbox-normal group-select-all-1636878492751" id="group_1_1636878492751" /><label for="group_1_1636878492751" class="group-name-1636878492751">Popular</label>
-													</div>
-													<ul class="transfer-double-group-list-li-ul transfer-double-group-list-li-ul-1636878492751">
-														<li class="transfer-double-group-list-li-ul-li transfer-double-group-list-li-ul-li-1636878492751">
-															<div class="checkbox-group">
-																<input type="checkbox" value="132" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-1-1636878492751" id="group_1_checkbox_0_1636878492751" />
-																<label for="group_1_checkbox_0_1636878492751" class="group-checkbox-name-1636878492751">JavaScript</label>
-															</div>
-														</li>
-														<li class="transfer-double-group-list-li-ul-li transfer-double-group-list-li-ul-li-1636878492751">
-															<div class="checkbox-group">
-																<input type="checkbox" value="112" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-1-1636878492751" id="group_1_checkbox_1_1636878492751" />
-																<label for="group_1_checkbox_1_1636878492751" class="group-checkbox-name-1636878492751">Java</label>
-															</div>
-														</li>
-														<li class="transfer-double-group-list-li-ul-li transfer-double-group-list-li-ul-li-1636878492751">
-															<div class="checkbox-group">
-																<input type="checkbox" value="124" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-1-1636878492751" id="group_1_checkbox_2_1636878492751" />
-																<label for="group_1_checkbox_2_1636878492751" class="group-checkbox-name-1636878492751">Python</label>
-															</div>
-														</li>
-														<li class="transfer-double-group-list-li-ul-li transfer-double-group-list-li-ul-li-1636878492751">
-															<div class="checkbox-group">
-																<input type="checkbox" value="121" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-1-1636878492751" id="group_1_checkbox_3_1636878492751" />
-																<label for="group_1_checkbox_3_1636878492751" class="group-checkbox-name-1636878492751">TypeScript</label>
-															</div>
-														</li>
-														<li class="transfer-double-group-list-li-ul-li transfer-double-group-list-li-ul-li-1636878492751">
-															<div class="checkbox-group">
-																<input type="checkbox" value="432" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-1-1636878492751" id="group_1_checkbox_4_1636878492751" />
-																<label for="group_1_checkbox_4_1636878492751" class="group-checkbox-name-1636878492751">PHP</label>
-															</div>
-														</li>
-														<li class="transfer-double-group-list-li-ul-li transfer-double-group-list-li-ul-li-1636878492751">
-															<div class="checkbox-group">
-																<input type="checkbox" value="421" class="checkbox-normal group-checkbox-item-1636878492751 belongs-group-1-1636878492751" id="group_1_checkbox_5_1636878492751" />
-																<label for="group_1_checkbox_5_1636878492751" class="group-checkbox-name-1636878492751">Ruby on Rails</label>
-															</div>
-														</li>
-													</ul>
-												</li> -->
+
 											</ul>
 										</div>
 									</div>

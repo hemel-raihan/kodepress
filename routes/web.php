@@ -118,7 +118,7 @@ use Faker\Provider\ar_SA\Color;
 */
 
 Route::get('/', function () {
-    return view('userdashboard');
+    return view('homepage');
 });
 // Route::get('index', Index::class);
 // Route::get('about', About::class);
@@ -202,7 +202,7 @@ Route::get('/', function () {
 // Route::get('progress', Progress::class);
 // Route::get('rangeslider', Rangeslider::class);
 // Route::get('rating', Rating::class);
-// Route::get('register', Register::class);
+//Route::get('register', Register::class);
 // Route::get('scroll', Scroll::class);
 // Route::get('search', Search::class);
 // Route::get('services', Services::class);
@@ -243,11 +243,12 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
     Route::resource('blog/categories','blog\CategoryController');
+    Route::resource('widget','widget\WidgetController');
     
 });
 
 
 
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
-    Route::get('dashboard', 'Admin\DashboardController@author')->name('dashboard');
+    Route::get('dashboard', 'DashboardController@author')->name('dashboard');
 });
