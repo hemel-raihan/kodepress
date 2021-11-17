@@ -107,6 +107,11 @@ class PermissionSeeder extends Seeder
             'name' => 'Delete BlogCategory',
             'slug' => 'app.blog.categories.destroy'
         ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogCategory->id,
+            'name' => 'Approve BlogCategory',
+            'slug' => 'app.blog.categories.approve'
+        ]);
 
     }
 }

@@ -53,7 +53,7 @@ class CategoryController extends Controller
             'name' => 'required|unique:categories',
             'desc' => 'required',
             'image' => 'required',
-            //'kodepressSidebar' => 'required',
+            'sidebar_id' => 'required',
 
         ]);
 
@@ -78,12 +78,32 @@ class CategoryController extends Controller
 
         }
 
+        if(!$request->parent_id)
+        {
+            $parent_id = 0;
+        }
+        else
+        {
+            $parent_id = $request->parent_id;
+        }
+
+        if(!$request->status)
+        {
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
+
         $category = Category::create([
             'name' => $request->name,
             'slug' => $slug,
-            'parent_id' =>$request->parent_id,
+            'parent_id' => $parent_id,
             'image' => $imagename,
             'desc' => $request->desc,
+            'sidebar_id' => $request->sidebar_id,
+            'status' => $status,
 
         ]);
 
@@ -104,6 +124,7 @@ class CategoryController extends Controller
 
     public function approval($id)
     {
+        Gate::authorize('app.blog.categories.approve');
         $category = Category::find($id);
         if($category->status == true)
         {
@@ -131,7 +152,10 @@ class CategoryController extends Controller
      */
     public function edit(category $category)
     {
-        //
+        Gate::authorize('app.blog.categories.edit');
+        $categories = Category::where('parent_id', '=', 0)->get();
+        $subcat = Category::all();
+        return view('backend.admin.blog.category.form',compact('categories','subcat'));
     }
 
     /**

@@ -120,7 +120,12 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label for="exampleInputname">Category Name</label>
-						<input type="text" class="form-control" name="name" id="exampleInputname" placeholder="Category Name">
+						<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$category->name ?? old('name')}}" name="name" id="exampleInputname" placeholder="Category Name">
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
 
 					<div class="form-group">
@@ -129,7 +134,7 @@
 							<!-- <div id="quillEditor">
 
 							</div> -->
-                            <textarea cols="20" class="form-control" id="quillEditor" name="desc"></textarea>
+                            <textarea style="height: 200px;" class="form-control" id="quillEditor" name="desc"></textarea>
 						</div>
 					</div>
 
@@ -137,6 +142,11 @@
 						<label class="form-label">Category Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
                         <input type="file" class=" dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($category) ? Storage::disk('public')->url('categoryphoto/'.$category->image) : '' }}" name="image">
+                        @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
 
 				</div>
@@ -208,35 +218,32 @@
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
+							<input type="checkbox" name="status" class="custom-switch-input">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>
 					<div class="form-group">
 						<label class="form-label">Left Sidebar</label>
-						<select name="country" class="form-control form-select select2" data-bs-placeholder="Select Country">
+						<select name="sidebar_id" class="form-control form-select select2 @error('sidebar_id') is-invalid @enderror" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Left Sidebar</option>
-							<option value="br">Brazil</option>
-							<option value="cz">Czech Republic</option>
+							<option value="1">Brazil</option>
+							<option value="2">Czech Republic</option>
 						</select>
+                        @error('sidebar_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
 
-					<div class="form-group">
+					{{-- <div class="form-group">
 						<label class="form-label">Right Sidebar</label>
 						<select name="country" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Right Sidebar</option>
 							<option value="br">Brazil</option>
 							<option value="cz">Czech Republic</option>
 						</select>
-					</div>
-
-					<div class="form-group">
-						<div class="form-label">Titlebar</div>
-						<label class="custom-switch">
-							<input type="checkbox" name="custom-switch-checkbox" class="custom-switch-input">
-							<span class="custom-switch-indicator"></span>
-						</label>
-					</div>
+					</div> --}}
 
 				</div>
 
