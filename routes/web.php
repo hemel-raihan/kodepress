@@ -203,7 +203,7 @@ Route::get('/', function () {
 // Route::get('progress', Progress::class);
 // Route::get('rangeslider', Rangeslider::class);
 // Route::get('rating', Rating::class);
-// Route::get('register', Register::class);
+//Route::get('register', Register::class);
 // Route::get('scroll', Scroll::class);
 // Route::get('search', Search::class);
 // Route::get('services', Services::class);
@@ -244,6 +244,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
     Route::resource('blog/categories','blog\CategoryController');
+    Route::resource('widget','widget\WidgetController');
+    
     Route::get('blog/category/{id}/approve', 'blog\CategoryController@approval')->name('blog.category.approve');
 
 });

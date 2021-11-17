@@ -36,6 +36,16 @@
                                 <li><a href="#" class="slide-item">Manage Comments</a></li>
 							</ul>
 						</li>
+
+						{{-- Widget --}}
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Widget</span><span class="badge bg-success side-badge">5</span></a>
+							<ul class="slide-menu">
+								<li><a href="{{ route('admin.widget.create') }}" class="slide-item"> Add Widget</a></li>
+								<li><a href="#" class="slide-item"> All Widget</a></li>
+							</ul>
+						</li>
+
 						<!-- <li><h3>Elements</h3></li>
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>

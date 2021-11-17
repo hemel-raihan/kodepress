@@ -176,6 +176,7 @@
 									</div>
 									<div class="transfer-double-list-content">
 										<div class="transfer-double-list-main">
+										
 											<ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
 
                                             @foreach($categories as $key => $category)
