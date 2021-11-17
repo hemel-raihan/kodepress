@@ -60,24 +60,27 @@
 														<td>{{$user->email}}</td>
 														<td>{{$user->created_at->diffForHumans()}}</td>
                                                         <td>
-                                                            @if($auth->hasPermission('app.users.edit'))
-                                                    <a href="{{route('admin.users.edit',$user->id)}}" class="btn btn-success">
-                                                    <i class="fa fa-edit"></i>
-                                                    </a>
-                                                    @endif
+                                                    @if($auth->hasPermission('app.users.edit'))
+
+															<a href="{{route('admin.categories.edit',$category->id)}}" class="btn btn-success">
+															<i class="fa fa-edit"></i>
+															</a>
+
+													@endif
 
 
                                                     @if($auth->hasPermission('app.users.destroy'))
 
-                                                    <button class="btn btn-danger waves effect" type="button"
-                                                        onclick="deletepost$user({{ $user->id}})" >
-                                                        <i class="fa fa-trash"></i>
-                                                        </button>
-                                                        <form id="deleteform-{{$user->id}}" action="{{route('admin.users.destroy',$user->id)}}" method="POST" style="display: none;">
-                                                        @csrf
-                                                        @method('DELETE')
-                                                        </form>
-                                                        @endif
+															<button class="btn btn-danger waves effect" type="button"
+															onclick="deletepost$user({{ $user->id}})" >
+															<i class="fa fa-trash"></i>
+															</button>
+															<form id="deleteform-{{$user->id}}" action="{{route('admin.users.destroy',$user->id)}}" method="POST" style="display: none;">
+															@csrf
+															@method('DELETE')
+															</form>
+
+													@endif
                                                         </td>
 													</tr>
                                                     @endforeach

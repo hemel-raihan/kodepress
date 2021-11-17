@@ -42,7 +42,7 @@
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Widget</span><span class="badge bg-success side-badge">5</span></a>
 							<ul class="slide-menu">
 								<li><a href="{{ route('admin.widget.create') }}" class="slide-item"> Add Widget</a></li>
-								<li><a href="{{ url('chart-chartist') }}" class="slide-item"> All Widget</a></li>
+								<li><a href="#" class="slide-item"> All Widget</a></li>
 							</ul>
 						</li>
 

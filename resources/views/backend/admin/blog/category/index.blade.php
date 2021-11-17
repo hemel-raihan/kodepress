@@ -73,15 +73,32 @@
                                         </td>
 										<td>
                                             @if($category->status == true)
-                                            <a class="btn btn-info">Active</a>
+                                            <a href="{{route('admin.blog.category.approve',$category->id)}}" class="btn btn-info">Active</a>
                                             @else
-                                            <a class="btn btn-primary">InActive</a>
+                                            <a href="{{route('admin.blog.category.approve',$category->id)}}" class="btn btn-primary">InActive</a>
                                             @endif
                                         </td>
+
 										<td>
-											<a class="btn btn-sm btn-primary" href="#"><i class="fa fa-edit"></i> Edit</a>
-											<a class="btn btn-sm btn-danger" href="#"><i class="fa fa-trash"></i> Delete</a>
-										</td>
+                                            @if($auth->hasPermission('app.categories.edit'))
+                                            <a href="{{route('admin.categories.edit',$category->id)}}" class="btn btn-success">
+                                            <i class="fa fa-edit"></i>
+                                            </a>
+                                            @endif
+
+
+                                        <!-- @if($auth->hasPermission('app.categories.destroy')) -->
+
+                                        <button class="btn btn-danger waves effect" type="button"
+                                            onclick="deletepost$category({{ $category->id}})" >
+                                            <i class="fa fa-trash"></i>
+                                            </button>
+                                            <form id="deleteform-{{$category->id}}" action="{{route('admin.categories.destroy',$category->id)}}" method="POST" style="display: none;">
+                                            @csrf
+                                            @method('DELETE')
+                                            </form>
+                                            <!-- @endif -->
+                                            </td>
 
 									</tr>
                                 @endforeach
@@ -100,7 +117,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
-    function deletepost$user(id)
+    function deletepost$category(id)
 
     {
         Swal.fire({

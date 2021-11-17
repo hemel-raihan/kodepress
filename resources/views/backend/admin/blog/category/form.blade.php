@@ -2,6 +2,8 @@
 
 @section('styles')
 
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/css/dropify.min.css" integrity="sha512-EZSUkJWTjzDlspOoPSpUFR0o0Xy7jdzW//6qhUkoZ9c4StFkVsp9fbbd0O06p9ELS3H486m4wmrCELjza4JEog==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
         <!-- FILE UPLODE CSS -->
         <link href="{{ asset('assets/plugins/fileuploads/css/fileupload.css') }}" rel="stylesheet" type="text/css"/>
 		<!-- INTERNAL Fancy File Upload css -->
@@ -103,6 +105,11 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
+    <form method="POST" action="{{isset($user) ? route('admin.categories.update',$user->id) : route('admin.categories.store')}}" enctype="multipart/form-data">
+    @csrf
+    @isset($user)
+    @method('PUT')
+    @endisset
 	<div class="row">
 		{{-- Left Side --}}
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
@@ -113,30 +120,28 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label for="exampleInputname">Category Name</label>
-						<input type="text" class="form-control" id="exampleInputname" placeholder="Category Name">
-					</div>
-					<div class="form-group">
-						<label for="exampleInputname">Slug</label>
-						<input type="text" class="form-control" id="exampleInputname" placeholder="Slug....">
+						<input type="text" class="form-control" name="name" id="exampleInputname" placeholder="Category Name">
 					</div>
 
 					<div class="form-group">
 						<label for="exampleInputContent">Category Description</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
-							<div id="quillEditor">
+							<!-- <div id="quillEditor">
 
-							</div>
+							</div> -->
+                            <textarea cols="20" class="form-control" id="quillEditor" name="desc"></textarea>
 						</div>
 					</div>
 
 					<div class="form-group">
 						<label class="form-label">Category Image</label>
-						<input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden">
+						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
+                        <input type="file" class=" dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($category) ? Storage::disk('public')->url('categoryphoto/'.$category->image) : '' }}" name="image">
 					</div>
 
 				</div>
 				<div class="card-footer text-end">
-					<a href="#" class="btn btn-success mt-1">Save</a>
+					<button type="submit" class="btn btn-success mt-1">Save</button>
 					<a href="#" class="btn btn-danger mt-1">Cancel</a>
 				</div>
 			</div>
@@ -164,23 +169,23 @@
 										
 											<ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
 
-                                            @foreach($categories as $category)
-										
+                                            @foreach($categories as $key => $category)
+
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
-														<input type="checkbox" class="checkbox-normal group-select-all-1636878492751" id="group_0_1636878492751" /><label for="group_0_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
+														<input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
 													</div>
                                                     @if($category->childrenRecursive->count()>0)
 
 
 													  @include('backend.admin.blog.category.child_categories', ['sub_category' => $category])
-                                                    
+
 
                                                     @endif
 
 
 												</li>
-                                                @endforeach
+                                            @endforeach
 
 											</ul>
 										</div>
@@ -240,6 +245,7 @@
 		</div>
 
 	</div>
+    </form>
 	<!-- ROW-1 CLOSED -->
 @endsection('content')
 
@@ -247,7 +253,7 @@
 
 
 
-        <script>
+        <!-- <script>
             $('#select-all').click(function(event){
                 if(this.checked)
                 {
@@ -262,7 +268,9 @@
                     });
                 }
             });
-         </script>
+         </script> -->
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
         <!-- CHARTJS JS -->

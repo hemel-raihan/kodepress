@@ -245,6 +245,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('blog/categories','blog\CategoryController');
     Route::resource('widget','widget\WidgetController');
     
+    Route::get('blog/category/{id}/approve', 'blog\CategoryController@approval')->name('blog.category.approve');
+
 });
 
 
