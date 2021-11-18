@@ -29,8 +29,8 @@
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Blog Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href="#" class="slide-item">Create New Post </a></li>
-								<li><a href="#" class="slide-item">All Posts</a></li>
+								<li><a href="{{route('admin.posts.create')}}" class="slide-item">Create New Post </a></li>
+								<li><a href="{{route('admin.posts.index')}}" class="slide-item">All Posts</a></li>
 								<li><a href="{{route('admin.categories.create')}}" class="slide-item">Add Categories</a></li>
                                 <li><a href="{{route('admin.categories.index')}}" class="slide-item">All Categories</a></li>
                                 <li><a href="#" class="slide-item">Manage Comments</a></li>

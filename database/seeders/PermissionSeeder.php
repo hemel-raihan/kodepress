@@ -113,5 +113,49 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.blog.categories.approve'
         ]);
 
+
+        $moduleAppBlogPost = Module::updateOrCreate(['name' => 'Blog-Post Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.blog.posts.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.blog.posts.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'Create BlogPost',
+            'slug' => 'app.blog.posts.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'Edit BlogPost',
+            'slug' => 'app.blog.posts.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'Details BlogPost',
+            'slug' => 'app.blog.posts.details'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'Delete BlogPost',
+            'slug' => 'app.blog.posts.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'Approve BlogPost',
+            'slug' => 'app.blog.posts.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppBlogPost->id,
+            'name' => 'Approve BlogPost',
+            'slug' => 'app.blog.posts.approve'
+        ]);
+
     }
 }

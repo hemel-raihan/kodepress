@@ -25,4 +25,9 @@ class category extends Model
     {
         return $this->children()->with('childrenRecursive');
     }
+
+    public function posts()
+    {
+        return $this->belongsToMany(Post::class);
+    }
 }

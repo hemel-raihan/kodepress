@@ -244,10 +244,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
     Route::resource('blog/categories','blog\CategoryController');
-    Route::resource('widget','widget\WidgetController');
-    
     Route::get('blog/category/{id}/approve', 'blog\CategoryController@approval')->name('blog.category.approve');
-
+    Route::resource('widget','widget\WidgetController');
+    Route::resource('blog/posts','blog\PostController');
+    Route::get('blog/post/{id}/status', 'blog\PostController@status_approval')->name('blog.post.status');
 });
 
 

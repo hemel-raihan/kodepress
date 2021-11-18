@@ -51,4 +51,9 @@ class Admin extends Authenticatable
     {
         return $this->role->permissions()->where('slug', $permission)->first() ? true : false;
     }
+
+    public function posts()
+    {
+        return $this->hasMany(Post::class);
+    }
 }

@@ -51,9 +51,9 @@ class CategoryController extends Controller
         Gate::authorize('app.blog.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:categories',
-            'desc' => 'required',
-            'image' => 'required',
-            'sidebar_id' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg,bmp',
+            'leftsidebar_id' => 'required',
+            'rightsidebar_id' => 'required',
 
         ]);
 
@@ -67,9 +67,9 @@ class CategoryController extends Controller
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             //check image folder existance
-            if(!Storage::disk('public')->exists('categoryphoto'))
+            if(!Storage::disk('public')->exists('categoryphoto/'))
             {
-                Storage::disk('public')->makeDirectory('categoryphoto');
+                Storage::disk('public')->makeDirectory('categoryphoto/');
             }
 
             //resize image
@@ -102,7 +102,8 @@ class CategoryController extends Controller
             'parent_id' => $parent_id,
             'image' => $imagename,
             'desc' => $request->desc,
-            'sidebar_id' => $request->sidebar_id,
+            'leftsidebar_id' => $request->leftsidebar_id,
+            'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
 
         ]);
@@ -155,7 +156,7 @@ class CategoryController extends Controller
         Gate::authorize('app.blog.categories.edit');
         $categories = Category::where('parent_id', '=', 0)->get();
         $subcat = Category::all();
-        return view('backend.admin.blog.category.form',compact('categories','subcat'));
+        return view('backend.admin.blog.category.form',compact('category','categories','subcat'));
     }
 
     /**
@@ -167,7 +168,80 @@ class CategoryController extends Controller
      */
     public function update(Request $request, category $category)
     {
-        //
+        Gate::authorize('app.blog.categories.edit');
+        $this->validate($request,[
+            'name' => 'required',
+            'image' => 'mimes:png,jpg,jpeg,bmp',
+            'leftsidebar_id' => 'required',
+            'rightsidebar_id' => 'required',
+
+        ]);
+
+        //get form image
+        $image = $request->file('image');
+        $slug = Str::slug($request->name);
+
+        if(isset($image))
+        {
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+            //check image folder existance
+            if(!Storage::disk('public')->exists('categoryphoto'))
+            {
+                Storage::disk('public')->makeDirectory('categoryphoto');
+            }
+
+            //delete old image
+            if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
+            {
+                Storage::disk('public')->delete('categoryphoto/'.$category->image);
+            }
+
+            //resize image
+            $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
+            Storage::disk('public')->put('categoryphoto/'.$imagename,$categoryimg);
+
+        }
+        else
+        {
+            $imagename = $category->image;
+        }
+
+        if(!$request->parent_id)
+        {
+            $parent_id = 0;
+        }
+        else
+        {
+            $parent_id = $request->parent_id;
+        }
+
+        if(!$request->status)
+        {
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
+
+        $category->update([
+            'name' => $request->name,
+            'slug' => $slug,
+            'parent_id' => $parent_id,
+            'image' => $imagename,
+            'desc' => $request->desc,
+            'leftsidebar_id' => $request->leftsidebar_id,
+            'rightsidebar_id' => $request->rightsidebar_id,
+            'status' => $status,
+
+        ]);
+
+        notify()->success("Category Successfully Updated","Update");
+        return redirect()->route('admin.categories.index');
+
+
     }
 
     /**
@@ -178,6 +252,14 @@ class CategoryController extends Controller
      */
     public function destroy(category $category)
     {
-        //
+        Gate::authorize('app.blog.categories.destroy');
+        //delete old image
+        if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
+        {
+            Storage::disk('public')->delete('categoryphoto/'.$category->image);
+        }
+        $category->delete();
+        notify()->success('Category Deleted Successfully','Delete');
+        return back();
     }
 }

@@ -29,10 +29,8 @@
 							</div>
 						</div>
 						<!-- PAGE-HEADER END -->
-<div class="row">
-    <div class="col-12">
-
-
+                    <div class="row">
+                        <div class="col-12">
                         <form method="POST" action="{{isset($user) ? route('admin.users.update',$user->id) : route('admin.users.store')}}">
                         @csrf
                         @isset($user)
