@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Admin\blog;
+namespace App\Http\Controllers\Admin\general_content;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\blog\category;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\storage;
-use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Models\general_content\Contentcategory;
 
-class CategoryController extends Controller
+class ContentCategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -21,10 +21,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        Gate::authorize('app.blog.categories.self');
-        $categories = Category::all();
+        Gate::authorize('app.content.categories.self');
+        $categories = Contentcategory::all();
         $auth = Auth::guard('admin')->user();
-        return view('backend.admin.blog.category.index',compact('categories','auth'));
+        return view('backend.admin.general_content.category.index',compact('categories','auth'));
     }
 
     /**
@@ -34,10 +34,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        Gate::authorize('app.blog.categories.create');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
-        return view('backend.admin.blog.category.form',compact('categories','subcat'));
+        Gate::authorize('app.content.categories.create');
+        $categories = Contentcategory::where('parent_id', '=', 0)->get();
+        $subcat = Contentcategory::all();
+        return view('backend.admin.general_content.category.form',compact('categories','subcat'));
     }
 
     /**
@@ -48,7 +48,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('app.blog.categories.create');
+        Gate::authorize('app.content.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:categories',
             'image' => 'required|mimes:png,jpg,jpeg,bmp',
@@ -67,14 +67,14 @@ class CategoryController extends Controller
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             //check image folder existance
-            if(!Storage::disk('public')->exists('categoryphoto/'))
+            if(!Storage::disk('public')->exists('contentcategoryphoto/'))
             {
-                Storage::disk('public')->makeDirectory('categoryphoto/');
+                Storage::disk('public')->makeDirectory('contentcategoryphoto/');
             }
 
             //resize image
             $category = Image::make($image)->resize(500,333)->save($imagename,90);
-            Storage::disk('public')->put('categoryphoto/'.$imagename,$category);
+            Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$category);
 
         }
 
@@ -96,7 +96,7 @@ class CategoryController extends Controller
             $status = 1;
         }
 
-        $category = Category::create([
+        $category = Contentcategory::create([
             'name' => $request->name,
             'slug' => $slug,
             'parent_id' => $parent_id,
@@ -109,24 +109,24 @@ class CategoryController extends Controller
         ]);
 
         notify()->success("Category Successfully created","Added");
-        return redirect()->route('admin.categories.index');
+        return redirect()->route('admin.contentcategories.index');
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\blog\category  $category
+     * @param  \App\Models\general_content\Contentcategory  $contentcategory
      * @return \Illuminate\Http\Response
      */
-    public function show(category $category)
+    public function show(Contentcategory $contentcategory)
     {
         //
     }
 
     public function approval($id)
     {
-        Gate::authorize('app.blog.categories.approve');
-        $category = Category::find($id);
+        Gate::authorize('app.content.categories.approve');
+        $category = Contentcategory::find($id);
         if($category->status == true)
         {
             $category->status = false;
@@ -148,27 +148,27 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\blog\category  $category
+     * @param  \App\Models\general_content\Contentcategory  $contentcategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(category $category)
+    public function edit(Contentcategory $contentcategory)
     {
         Gate::authorize('app.blog.categories.edit');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
-        return view('backend.admin.blog.category.form',compact('category','categories','subcat'));
+        $categories = Contentcategory::where('parent_id', '=', 0)->get();
+        $subcat = Contentcategory::all();
+        return view('backend.admin.general_content.category.form',compact('contentcategory','categories','subcat'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\blog\category  $category
+     * @param  \App\Models\general_content\Contentcategory  $contentcategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, category $category)
+    public function update(Request $request, Contentcategory $contentcategory)
     {
-        Gate::authorize('app.blog.categories.edit');
+        Gate::authorize('app.content.categories.edit');
         $this->validate($request,[
             'name' => 'required',
             'image' => 'mimes:png,jpg,jpeg,bmp',
@@ -187,25 +187,25 @@ class CategoryController extends Controller
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             //check image folder existance
-            if(!Storage::disk('public')->exists('categoryphoto'))
+            if(!Storage::disk('public')->exists('contentcategoryphoto'))
             {
-                Storage::disk('public')->makeDirectory('categoryphoto');
+                Storage::disk('public')->makeDirectory('contentcategoryphoto');
             }
 
             //delete old image
-            if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
+            if(Storage::disk('public')->exists('contentcategoryphoto/'.$contentcategory->image))
             {
-                Storage::disk('public')->delete('categoryphoto/'.$category->image);
+                Storage::disk('public')->delete('contentcategoryphoto/'.$contentcategory->image);
             }
 
             //resize image
             $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
-            Storage::disk('public')->put('categoryphoto/'.$imagename,$categoryimg);
+            Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$categoryimg);
 
         }
         else
         {
-            $imagename = $category->image;
+            $imagename = $contentcategory->image;
         }
 
         if(!$request->parent_id)
@@ -226,7 +226,7 @@ class CategoryController extends Controller
             $status = 1;
         }
 
-        $category->update([
+        $contentcategory->update([
             'name' => $request->name,
             'slug' => $slug,
             'parent_id' => $parent_id,
@@ -239,41 +239,48 @@ class CategoryController extends Controller
         ]);
 
         notify()->success("Category Successfully Updated","Update");
-        return redirect()->route('admin.categories.index');
-
-
+        return redirect()->route('admin.contentcategories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\blog\category  $category
+     * @param  \App\Models\general_content\Contentcategory  $contentcategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(category $category)
+    public function destroy(Contentcategory $contentcategory)
     {
-        Gate::authorize('app.blog.categories.destroy');
+        Gate::authorize('app.content.categories.destroy');
         //delete old image
-        if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
+        if(Storage::disk('public')->exists('contentcategoryphoto/'.$contentcategory->image))
         {
-            Storage::disk('public')->delete('categoryphoto/'.$category->image);
+            Storage::disk('public')->delete('contentcategoryphoto/'.$contentcategory->image);
         }
-        
-        if($category->childrenRecursive->count()>0)
+
+        if($contentcategory->childrenRecursive->count()>0)
         {
             notify()->error('You Can not Delete this Item !! Sub-category exist','Alert');
         }
-        elseif($category->posts()->count() >0)
-        {
-            notify()->error('You Can not Delete this Item !! Post exist under this category','Alert');
-        }
+        // elseif($contentcategory->posts()->count() >0)
+        // {
+        //     notify()->error('You Can not Delete this Item !! Post exist under this category','Alert');
+        // }
         else
+        
         {
-            $category->delete();
+            $contentcategory->delete();
             notify()->success('Category Deleted Successfully','Delete');
         }
 
-
+        // if($contentcategory->childrenRecursive->count()>0)
+        // {
+        //     notify()->error('You Can not Delete this Item !! Sub-Item exist','Alert');
+        // }
+        // else
+        // {
+        //     $contentcategory->delete();
+        //     notify()->success('Category Deleted Successfully','Delete');
+        // }
         return back();
     }
 }

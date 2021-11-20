@@ -24,11 +24,11 @@
 							</div>
 
 							<div class="ms-auto pageheader-btn">
-                            @if($auth->hasPermission('app.blog.categories.create'))
-								<a href="{{route('admin.categories.create')}}" class="btn btn-primary btn-icon text-white me-2">
+                            @if($auth->hasPermission('app.blog.posts.create'))
+								<a href="{{route('admin.posts.create')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										<i class="fe fe-plus"></i>
-									</span> Create New Category
+									</span> Create New Post
 								</a>
                                 @endif
 
@@ -46,54 +46,74 @@
 			<div class="col-lg-12">
 				<div class="card">
 					<div class="card-header">
-						<h3 class="card-title">All Categories</h3>
+						<h3 class="card-title">All Posts</h3>
 					</div>
 					<div class="card-body">
 						<div class="table-responsive export-table">
 							<table id="file-datatable" class="table table-bordered text-nowrap key-buttons border-bottom  w-100">
 								<thead>
 									<tr>
-										<th class="border-bottom-0">Name</th>
+										<th class="border-bottom-0">Title</th>
+                                        <th class="border-bottom-0">Author</th>
 										<th class="border-bottom-0">Category</th>
+                                        <th class="border-bottom-0">File</th>
+                                        <th class="border-bottom-0">Published Date</th>
+                                        <th class="border-bottom-0">Is Approved</th>
 										<th class="border-bottom-0">Status</th>
+                                        <th class="border-bottom-0">View</th>
 										<th class="border-bottom-0">Action</th>
 
 									</tr>
 								</thead>
 								<tbody>
-                                @foreach($categories as $category)
+                                @foreach($posts as $post)
 									<tr>
-										<td>{{$category->name}}</td>
+										<td>{{Str::limit($post->title,'10')}}</td>
+                                        <td>{{$post->admin->name}}</td>
+                                        <td>
+                                        @foreach($post->categories as $category)
+                                        {{$category->name}},
+                                        @endforeach
+                                        </td>
+                                        <td><a href="#">{{$post->files}}</a></td>
+                                        <td>{{$category->created_at->diffForHumans()}}</td>
 										<td>
-                                            @if($category->parent_id == 0)
-                                            <a class="btn btn-info">Main-Category</a>
+                                            @if($post->is_approved == true)
+                                            <a class="btn btn-info">Approved</a>
                                             @else
-                                            <a class="btn btn-primary">Sub-Category</a>
+                                            <a class="btn btn-primary">Pending</a>
                                             @endif
                                         </td>
 										<td>
-                                            @if($category->status == true)
-                                            <a href="{{route('admin.blog.category.approve',$category->id)}}" class="btn btn-info">Active</a>
+                                            @if($post->status == true)
+                                            <a href="{{route('admin.blog.post.status',$post->id)}}" class="btn btn-green">Active</a>
                                             @else
-                                            <a href="{{route('admin.blog.category.approve',$category->id)}}" class="btn btn-primary">InActive</a>
+                                            <a href="{{route('admin.blog.post.status',$post->id)}}" class="btn btn-red">InActive</a>
                                             @endif
                                         </td>
+                                        <td>{{$post->view_count}}</td>
 
 										<td>
-                                            @if($auth->hasPermission('app.blog.categories.edit'))
-                                            <a href="{{route('admin.categories.edit',$category->id)}}" class="btn btn-success">
+                                            @if($auth->hasPermission('app.blog.posts.details'))
+                                            <a href="{{route('admin.posts.show',$post->id)}}" class="btn btn-secondary">
+                                                <i class="fa fa-eye"></i>
+                                            </a>
+                                            @endif
+
+                                            @if($auth->hasPermission('app.blog.posts.edit'))
+                                            <a href="{{route('admin.posts.edit',$post->id)}}" class="btn btn-success">
                                             <i class="fa fa-edit"></i>
                                             </a>
                                             @endif
 
 
-                                        @if($auth->hasPermission('app.blog.categories.destroy'))
+                                        @if($auth->hasPermission('app.blog.posts.destroy'))
 
                                         <button class="btn btn-danger waves effect" type="button"
-                                            onclick="deletepost$category({{ $category->id}})" >
+                                            onclick="deletepost$post({{ $post->id}})" >
                                             <i class="fa fa-trash"></i>
                                             </button>
-                                            <form id="deleteform-{{$category->id}}" action="{{route('admin.categories.destroy',$category->id)}}" method="POST" style="display: none;">
+                                            <form id="deleteform-{{$post->id}}" action="{{route('admin.posts.destroy',$post->id)}}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                             </form>
@@ -117,7 +137,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
-    function deletepost$category(id)
+    function deletepost$post(id)
 
     {
         Swal.fire({

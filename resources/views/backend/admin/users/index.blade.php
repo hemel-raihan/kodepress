@@ -62,7 +62,7 @@
                                                         <td>
                                                     @if($auth->hasPermission('app.users.edit'))
 
-															<a href="{{route('admin.categories.edit',$category->id)}}" class="btn btn-success">
+															<a href="{{route('admin.categories.edit',$user->id)}}" class="btn btn-success">
 															<i class="fa fa-edit"></i>
 															</a>
 

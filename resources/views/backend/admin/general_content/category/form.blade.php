@@ -83,17 +83,17 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($post) ? 'Edit ' : 'Create '}}Posts</h1>
+								<h1 class="page-title">{{ isset($contentcategory) ? 'Edit ' : 'Create '}}Categories</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.posts.index')}}" class="btn btn-primary btn-icon text-white me-2">
+								<a href="{{route('admin.contentcategories.index')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
-									</span> Back To PostList
+									</span> Back To CategoryList
 								</a>
 								{{-- <a href="#" class="btn btn-success btn-icon text-white">
 									<span>
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($post) ? route('admin.posts.update',$post->id) : route('admin.posts.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($contentcategory) ? route('admin.contentcategories.update',$contentcategory->id) : route('admin.contentcategories.store')}}" enctype="multipart/form-data">
     @csrf
-    @isset($post)
+    @isset($contentcategory)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -115,66 +115,44 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Blog Post</h3>
+					<h3 class="card-title">Create Blog Category</h3>
 				</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$post->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
-                        @error('title')
+						<label for="exampleInputname">Category Name</label>
+						<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$contentcategory->name ?? old('name')}}" name="name" id="exampleInputname" placeholder="Category Name">
+                        @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
                         @enderror
 					</div>
 
-                    @isset($post)
-                    <div class="form-group">
-						<label for="exampleInputname">Post Slug</label>
-						<input type="text" class="form-control" value="{{$post->slug ?? old('slug')}}" name="slug" id="postslug" placeholder="Post Slug">
-					</div>
-                    @endisset
-
-
-
 					<div class="form-group">
-						<label for="exampleInputContent">Post Description</label>
+						<label for="exampleInputContent">Category Description</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
 							<!-- <div id="quillEditor">
 
 							</div> -->
-                            <textarea style="height: 200px;" class="form-control" id="" name="body">{{$post->body ?? old('body')}}</textarea>
+                            <textarea style="height: 200px;" class="form-control" id="" name="desc">{{$contentcategory->desc ?? old('desc')}}</textarea>
 						</div>
 					</div>
 
-
-                    <input type="radio" name="link" checked id="test2">
-                    <label for="css">Feature Image</label>
-                    <input type="radio" name="link" id="test1">
-                    <label for="html">Youtube Link</label>
-
-
-                    <div class="form-group youtube" style="display:none">
-						<label for="exampleInputname">Youtube Link</label>
-						<input type="text" class="form-control" value="{{$post->youtube_link ?? old('youtube_link')}}" name="youtube_link" id="youtube_link" placeholder="Youtube Video Link">
-					</div>
-
-					<div class="form-group featur">
-						<label class="form-label">Feature Image</label>
-						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset($post->image) : '' }}" name="image">
-					</div>
-
 					<div class="form-group">
-						<label class="form-label">Gallary Image</label>
+						<label class="form-label">Category Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('gallary_image/'.$post->gallaryimage) : '' }}" multiple name="gallaryimage[]">
+                        <input type="file" data-height="100" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($contentcategory) ? asset($contentcategory->image) : '' }}" name="image">
+                        @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
 
 				</div>
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($post)
+                        @isset($contentcategory)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -182,7 +160,7 @@
                         Create
                         @endisset
                     </button>
-					<a href="{{route('admin.posts.index')}}" class="btn btn-danger mt-1">Cancel</a>
+					<a href="{{route('admin.contentcategories.index')}}" class="btn btn-danger mt-1">Cancel</a>
 				</div>
 			</div>
 		</div>
@@ -205,7 +183,7 @@
 										<div class="transfer-double-list-search"><input class="transfer-double-list-search-input" type="text" id="groupListSearch_1636878492751" placeholder="Search" value="" /></div>
 									</div> --}}
 
-                                    @isset($post)
+                                    @isset($contentcategory)
 
                                     <div class="transfer-double-list-content">
 										<div class="transfer-double-list-main">
@@ -216,14 +194,12 @@
 
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
-
-														<input type="checkbox" name="categories[]" value="{{$categoryy->id}}" @foreach($post->categories as $category) {{$categoryy->id == $category->id ? 'checked' : ''}} @endforeach class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
-
+														<input type="checkbox" name="parent_id" value="{{$categoryy->id}}" {{$categoryy->id == $contentcategory->parent_id ? 'checked' : ''}} class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
 													</div>
                                                     @if($categoryy->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.blog.post.child_category_edit', ['sub_category' => $categoryy,'post' => $post])
+													  @include('backend.admin.general_content.category.child_category_edit', ['sub_category' => $categoryy,'category' => $contentcategory])
 
 
                                                     @endif
@@ -246,26 +222,21 @@
 
                                             @foreach($categories as $key => $category)
 
-                                            @if($category->status == true)
-
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
-														<input type="checkbox" name="categories[]" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
+														<input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
 													</div>
                                                     @if($category->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.blog.post.child_categories', ['sub_category' => $category])
+													  @include('backend.admin.general_content.category.child_categories', ['sub_category' => $category])
 
 
                                                     @endif
 
 
 												</li>
-
-                                            @endif
                                             @endforeach
-
 
 											</ul>
 										</div>
@@ -288,11 +259,11 @@
 					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
-                    @isset($post)
+                    @isset($contentcategory)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$post->status == true ? 'checked' : ''}} class="custom-switch-input ">
+							<input type="checkbox" name="status" {{$contentcategory->status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>
@@ -346,12 +317,6 @@
                         @enderror
 					</div>
 
-                    <div class="form-group">
-						<label class="form-label">File</label>
-						<input type="file" name="files" class="dropify" data-default-file="{{ isset($post) ? asset('files/'.$post->files) : ''}}" data-bs-height="180"  />
-
-					</div>
-
 				</div>
 
 			</div>
@@ -364,42 +329,6 @@
 
 @section('scripts')
 
-<script>
-$(document).ready(function() {
-    $("input[id$='test1']").click(function() {
-        var link = $(this).val();
-
-        $("div.youtube").show();
-        $("div.featur").hide();
-    });
-
-    $("input[id$='test2']").click(function() {
-        var link = $(this).val();
-
-        $("div.youtube").hide();
-        $("div.featur").show();
-    });
-});
-</script>
-
-
-     {{-- <script>
-
-function myFunction() {
-    var title = document.getElementById('posttitle').value;
-  document.getElementById("postslug").value = title;
-}
-//         document.getElementById('postslug').addEventListener('click', FILLSLUG);
-
-// function FILLSLUG() {
-
-//     var title = document.getElementById('posttitle');
-//     var slug = document.getElementById('postslug');
-
-//     slug.value = title.value;
-
-// };
-    </script> --}}
 
 
         <!-- <script>

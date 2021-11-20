@@ -18,7 +18,9 @@ class CreatePostsTable extends Migration
             $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
             $table->string('title');
             $table->string('slug')->unique();
-            $table->string('image')->default('default.png');
+            $table->string('image')->default('default.png')->nullable();
+            $table->string('youtube_link')->nullable();
+            $table->string('gallaryimage');
             $table->text('body');
             $table->integer('view_count')->default(0);
             $table->boolean('status')->default(false);

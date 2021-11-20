@@ -24,8 +24,8 @@
 							</div>
 
 							<div class="ms-auto pageheader-btn">
-                            @if($auth->hasPermission('app.blog.categories.create'))
-								<a href="{{route('admin.categories.create')}}" class="btn btn-primary btn-icon text-white me-2">
+                            @if($auth->hasPermission('app.content.categories.create'))
+								<a href="{{route('admin.contentcategories.create')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										<i class="fe fe-plus"></i>
 									</span> Create New Category
@@ -73,27 +73,27 @@
                                         </td>
 										<td>
                                             @if($category->status == true)
-                                            <a href="{{route('admin.blog.category.approve',$category->id)}}" class="btn btn-info">Active</a>
+                                            <a href="{{route('admin.general.contentcategory.approve',$category->id)}}" class="btn btn-info">Active</a>
                                             @else
-                                            <a href="{{route('admin.blog.category.approve',$category->id)}}" class="btn btn-primary">InActive</a>
+                                            <a href="{{route('admin.general.contentcategory.approve',$category->id)}}" class="btn btn-primary">InActive</a>
                                             @endif
                                         </td>
 
 										<td>
-                                            @if($auth->hasPermission('app.blog.categories.edit'))
-                                            <a href="{{route('admin.categories.edit',$category->id)}}" class="btn btn-success">
+                                            @if($auth->hasPermission('app.content.categories.edit'))
+                                            <a href="{{route('admin.contentcategories.edit',$category->id)}}" class="btn btn-success">
                                             <i class="fa fa-edit"></i>
                                             </a>
                                             @endif
 
 
-                                        @if($auth->hasPermission('app.blog.categories.destroy'))
+                                        @if($auth->hasPermission('app.content.categories.destroy'))
 
                                         <button class="btn btn-danger waves effect" type="button"
                                             onclick="deletepost$category({{ $category->id}})" >
                                             <i class="fa fa-trash"></i>
                                             </button>
-                                            <form id="deleteform-{{$category->id}}" action="{{route('admin.categories.destroy',$category->id)}}" method="POST" style="display: none;">
+                                            <form id="deleteform-{{$category->id}}" action="{{route('admin.contentcategories.destroy',$category->id)}}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                             </form>

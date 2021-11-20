@@ -157,5 +157,83 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.blog.posts.approve'
         ]);
 
+
+        $moduleAppContentCategory = Module::updateOrCreate(['name' => 'Content-Category Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentCategory->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.content.categories.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentCategory->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.content.categories.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentCategory->id,
+            'name' => 'Create ContentCategory',
+            'slug' => 'app.content.categories.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentCategory->id,
+            'name' => 'Edit ContentCategory',
+            'slug' => 'app.content.categories.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentCategory->id,
+            'name' => 'Delete ContentCategory',
+            'slug' => 'app.content.categories.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentCategory->id,
+            'name' => 'Approve ContentCategory',
+            'slug' => 'app.content.categories.approve'
+        ]);
+
+
+        $moduleAppContentPost = Module::updateOrCreate(['name' => 'Content-Post Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.content.posts.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.content.posts.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'Create ContentPost',
+            'slug' => 'app.content.posts.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'Edit ContentPost',
+            'slug' => 'app.content.posts.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'Details ContentPost',
+            'slug' => 'app.content.posts.details'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'Delete ContentPost',
+            'slug' => 'app.content.posts.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'Approve ContentPost',
+            'slug' => 'app.content.posts.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppContentPost->id,
+            'name' => 'Approve ContentPost',
+            'slug' => 'app.content.posts.approve'
+        ]);
+
     }
 }

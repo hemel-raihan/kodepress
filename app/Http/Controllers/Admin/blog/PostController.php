@@ -53,7 +53,8 @@ class PostController extends Controller
         Gate::authorize('app.blog.posts.create');
         $this->validate($request,[
             'title' => 'required',
-            'image' => 'required',
+            //'image' => 'required',
+            //'gallaryimage' => 'required',
             'categories' => 'required',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
@@ -79,6 +80,23 @@ class PostController extends Controller
             Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
 
         }
+
+
+         //get form Gallary image
+         $gallaryimage = $request->file('gallaryimage');
+         $images=array();
+         $destination = public_path('/gallary_image');
+
+         if(isset($gallaryimage))
+         {
+             foreach($gallaryimage as $gimage)
+             {
+                $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
+                $gimage->move($destination,$gallaryimagename);
+                $images[]=$gallaryimagename;
+             }
+
+         }
 
         //get form file
         $file = $request->file('files');
@@ -120,11 +138,31 @@ class PostController extends Controller
             $is_approved = true;
         }
 
+        if(!$request->youtube_link)
+        {
+            $youtube = null;
+        }
+        else
+        {
+            $youtube = $request->youtube_link;
+        }
+
+        if(!$request->image)
+        {
+            $featureimg = null;
+        }
+        else
+        {
+            $featureimg = $imagename;
+        }
+
         $post = Post::create([
             'title' => $request->title,
             'slug' => $slug,
             'admin_id' => Auth::id(),
-            'image' => $imagename,
+            'image' => $featureimg,
+            'youtube_link' => $youtube,
+            'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'body' => $request->body,
             'leftsidebar_id' => $request->leftsidebar_id,
@@ -238,6 +276,40 @@ class PostController extends Controller
             $imagename = $post->image;
         }
 
+        //get form Gallary image
+        $gallaryimage = $request->file('gallaryimage');
+        $images=array();
+        $destination = public_path('/gallary_image');
+        $updateimages = explode(",", $post->gallaryimage);
+
+        if(isset($gallaryimage))
+        {
+
+            foreach($updateimages as $updateimage){
+
+                $gallary_path = public_path().'gallary_image/'.$updateimage;
+
+                if (file_exists($gallary_path)) {
+
+                    @unlink($gallary_path);
+
+                }
+            }
+
+            foreach($gallaryimage as $gimage)
+            {
+
+               $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
+               $gimage->move($destination,$gallaryimagename);
+               $images[]=$gallaryimagename;
+            }
+
+        }
+        else
+        {
+            $images[]=$post->gallaryimage;
+        }
+
         //get form file
         $file = $request->file('files');
 
@@ -248,11 +320,12 @@ class PostController extends Controller
             $destinationPath = public_path('/files');
 
 
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('postfile'))
-            // {
-            //     Storage::disk('public')->makeDirectory('postfile');
-            // }
+            $file_path = public_path('files/'.$post->files);  // Value is not URL but directory file path
+            if (file_exists($file_path)) {
+
+                @unlink($file_path);
+
+            }
             $file->move($destinationPath,$filename);
 
             // //resize image
@@ -283,11 +356,31 @@ class PostController extends Controller
             $is_approved = true;
         }
 
+        if(!$request->youtube_link)
+        {
+            $youtube = null;
+        }
+        else
+        {
+            $youtube = $request->youtube_link;
+        }
+
+        if(!$request->image)
+        {
+            $featureimg = null;
+        }
+        else
+        {
+            $featureimg = $imagename;
+        }
+
         $post->update([
             'title' => $request->title,
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
-            'image' => $imagename,
+            'image' => $featureimg,
+            'youtube_link' => $youtube,
+            'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'body' => $request->body,
             'leftsidebar_id' => $request->leftsidebar_id,
