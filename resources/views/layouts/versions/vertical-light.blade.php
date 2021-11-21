@@ -14,6 +14,8 @@
         <title>Zanex – Laravel Admin & Dashboard Template </title>
 
         @include('layouts.vertical.styles')
+        @FilemanagerScript
+
 
 	</head>
 
@@ -47,7 +49,7 @@
             @include('layouts.sidebar-right')
 
             @include('layouts.footer')
-			
+
             @yield('modal')
 
 		</div>

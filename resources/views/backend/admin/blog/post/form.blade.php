@@ -143,7 +143,10 @@
 							<!-- <div id="quillEditor">
 
 							</div> -->
-                            <textarea style="height: 200px;" class="form-control" id="" name="body">{{$post->body ?? old('body')}}</textarea>
+                            {{-- <textarea style="height: 200px;" class="form-control" id="" name="body">{{$post->body ?? old('body')}}</textarea> --}}
+
+                            <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$post->body ?? old('body')!!}</textarea>
+
 						</div>
 					</div>
 
@@ -363,6 +366,16 @@
 @endsection('content')
 
 @section('scripts')
+
+
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+	window.onload = function () {
+		CKEDITOR.replace('ckeditor', {
+	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+	    });
+	}
+</script>
 
 <script>
 $(document).ready(function() {

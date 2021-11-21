@@ -105,7 +105,7 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($contentpost) ? route('admin.contentposts.update',$contentpost->id) : route('admin.contentposts.store')}}" enctype="multipart/form-data">
+    <form method="POST" id="identifier" action="{{isset($contentpost) ? route('admin.contentposts.update',$contentpost->id) : route('admin.contentposts.store')}}" enctype="multipart/form-data">
     @csrf
     @isset($contentpost)
     @method('PUT')
@@ -135,15 +135,20 @@
 					</div>
                     @endisset
 
-
+{{-- <a href="http://localhost/kodepress/public/admin/filemanager?editor=ckEditor&CKEditor=ckeditor&CKEditorFuncNum=1&langCode=en">test</a> --}}
 
 					<div class="form-group">
 						<label for="exampleInputContent">Post Description</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
-							<!-- <div id="quillEditor">
+							{{-- <div id="quillEditor">
+                                {!!$contentpost->body ?? old('body')!!}
+							</div> --}}
+                            {{-- <textarea name="body" style="display:none" id="hiddenArea"></textarea> --}}
+                            {{-- <textarea style="height: 200px;" class="form-control" id="" name="body">{{$contentpost->body ?? old('body')}}</textarea> --}}
+                            {{-- <textarea class="form-control" id="summary-ckeditor" name="summary-ckeditor"></textarea> --}}
 
-							</div> -->
-                            <textarea style="height: 200px;" class="form-control" id="" name="body">{{$contentpost->body ?? old('body')}}</textarea>
+                            <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$contentpost->body ?? old('body')!!}</textarea>
+
 						</div>
 					</div>
 
@@ -363,6 +368,63 @@
 @endsection('content')
 
 @section('scripts')
+
+
+{{-- <script src="//cdn.ckeditor.com/4.6.2/standard/ckeditor.js"></script>
+<script>
+  var options = {
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+  };
+
+</script>
+<script>
+    CKEDITOR.replace('my-editor', options);
+    </script> --}}
+
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+	window.onload = function () {
+		CKEDITOR.replace('ckeditor', {
+	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+	    });
+	}
+</script>
+
+
+
+{{-- <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+  var options = {
+    filebrowserImageBrowseUrl: '/laravel-filemanager?type=Images',
+    filebrowserImageUploadUrl: '/laravel-filemanager/upload?type=Images&_token=',
+    filebrowserBrowseUrl: '/laravel-filemanager?type=Files',
+    filebrowserUploadUrl: '/laravel-filemanager/upload?type=Files&_token='
+  };
+</script>
+<script>
+    CKEDITOR.replace('my-editor', options);
+    </script> --}}
+
+{{-- <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+<script>
+CKEDITOR.replace( 'summary-ckeditor' );
+</script> --}}
+
+{{-- <script>
+    $("#identifier").on("submit",function(){
+    $("#hiddenArea").val($("#quillEditor .ql-editor").html());
+    })
+
+// $(document).ready(function(){
+//   $("#identifier").on("submit", function () {
+//     var hvalue = $('.ql-editor').html();
+//     $(this).append("<textarea name='content' style='display:none'>"+hvalue+"</textarea>");
+//    });
+// })
+    </script> --}}
 
 <script>
 $(document).ready(function() {

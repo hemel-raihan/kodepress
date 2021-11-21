@@ -100,6 +100,7 @@ use App\Http\Livewire\FormElements;
 use App\Http\Livewire\ChartChartist;
 use App\Http\Livewire\Emailservices;
 use Illuminate\Support\Facades\Auth;
+use UniSharp\LaravelFilemanager\Lfm;
 use App\Http\Livewire\ForgotPassword;
 use App\Http\Livewire\FormValidation;
 use Illuminate\Support\Facades\Route;
@@ -240,6 +241,7 @@ Route::get('admin-password/reset/{token}', 'Adminlogin\ResetPasswordController@s
 
 //Admin
 Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
+
     Route::get('dashboard', 'DashboardController@index')->name('dashboard');
     Route::resource('roles','RoleController');
     Route::resource('users','UserController');
@@ -253,7 +255,6 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('general/contentposts','general_content\ContentPostController');
     Route::get('general/contentposts/{id}/status', 'general_content\ContentPostController@status_approval')->name('general.contentpost.status');
 });
-
 
 
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
