@@ -91,13 +91,13 @@
     </div>
 
     <div class="ms-auto pageheader-btn">
-    @if($auth->hasPermission('app.blog.posts.create'))
+    {{-- @if($auth->hasPermission('app.blog.posts.create'))
         <a href="{{route('admin.posts.create')}}" class="btn btn-primary btn-icon text-white me-2">
             <span>
                 <i class="fe fe-plus"></i>
             </span> Create New Post
         </a>
-        @endif
+        @endif --}}
 
         {{-- <a href="#" class="btn btn-success btn-icon text-white">
             <span>
@@ -110,11 +110,11 @@
 
 <div class="container-fluid">
 
-    @if(Auth::user()->hasPermission('app.blog.posts.approve'))
-    <a href="{{route('admin.posts.index')}}" class="btn btn-danger waves-effect">BACK</a>
-    @if($post->is_approved == false)
+    @if(Auth::user()->hasPermission('app.content.posts.approve'))
+    <a href="{{route('admin.contentposts.index')}}" class="btn btn-danger waves-effect">BACK</a>
+    @if($contentpost->is_approved == false)
     <button type="button" class="btn btn-success pull-right waves-effect" onclick="approvepost$post({{$post->id}})"><i class="material-icons">done</i><span>Approve</span></button>
-    <form id="approvalform" action="{{route('admin.post.approve',$post->id)}}" method="POST" style="display: none;">
+    <form id="approvalform" action="{{route('admin.contentpost.approve',$post->id)}}" method="POST" style="display: none;">
                            @csrf
                           @method('PUT')
                           </form>
@@ -129,14 +129,14 @@
               <div class="card">
                   <div class="header">
                       <h2>
-                          {{$post->title}}
-                          <small>posted by : <strong><a href="">{{$post->admin->name}}</a></strong> on {{ Carbon\Carbon::parse($post->created_at)->format('d-m-Y H:i:s') }}</small>
+                          {{$contentpost->title}}
+                          <small>posted by : <strong><a href="">{{$contentpost->admin->name}}</a></strong> on {{ Carbon\Carbon::parse($contentpost->created_at)->format('d-m-Y H:i:s') }}</small>
 
                       </h2>
 
                   </div>
                   <div class="body">
-                     {!! html_entity_decode($post->body) !!}
+                     {!! html_entity_decode($contentpost->body) !!}
                   </div>
               </div>
           </div>
@@ -151,7 +151,7 @@
                   </div>
                   <div class="body">
 
-                          @foreach($post->categories as $category)
+                          @foreach($contentpost->contentcategories as $category)
                           <span class="label bg-cyan">{{$category->name}}</span>
                           @endforeach
 
@@ -167,7 +167,7 @@
                   </div>
                   <div class="body">
 
-                     <img class="img-responsive thumbnail" src="{{Storage::disk('public')->url('postphoto/'.$post->image)}}" alt="">
+                     <img class="img-responsive thumbnail" src="{{url('/storage/contentpostphoto/'.$contentpost->image)}}" alt="">
 
                   </div>
               </div>

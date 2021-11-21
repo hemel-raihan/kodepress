@@ -40,8 +40,8 @@
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Genaral Content</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
-								<li><a href="#" class="slide-item">Add New Content </a></li>
-								<li><a href="#" class="slide-item">All Contents</a></li>
+								<li><a href="{{route('admin.contentposts.create')}}" class="slide-item">Add New Content </a></li>
+								<li><a href="{{route('admin.contentposts.index')}}" class="slide-item">All Contents</a></li>
 								<li><a href="{{route('admin.contentcategories.create')}}" class="slide-item">Add Content Category</a></li>
                                 <li><a href="{{route('admin.contentcategories.index')}}" class="slide-item">All Categories</a></li>
 							</ul>

@@ -5,6 +5,8 @@ namespace App\Models;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use App\Models\blog\Post;
+use App\Models\general_content\Contentpost;
 use Illuminate\Notifications\Notifiable;
 
 class Admin extends Authenticatable
@@ -55,5 +57,10 @@ class Admin extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function contentposts()
+    {
+        return $this->hasMany(Contentpost::class);
     }
 }

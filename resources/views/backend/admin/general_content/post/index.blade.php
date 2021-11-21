@@ -16,7 +16,7 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">Blog Management</h1>
+								<h1 class="page-title">General Content Management</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
@@ -24,8 +24,8 @@
 							</div>
 
 							<div class="ms-auto pageheader-btn">
-                            @if($auth->hasPermission('app.blog.posts.create'))
-								<a href="{{route('admin.posts.create')}}" class="btn btn-primary btn-icon text-white me-2">
+                            @if($auth->hasPermission('app.content.posts.create'))
+								<a href="{{route('admin.contentposts.create')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										<i class="fe fe-plus"></i>
 									</span> Create New Post
@@ -71,7 +71,7 @@
 										<td>{{Str::limit($post->title,'10')}}</td>
                                         <td>{{$post->admin->name}}</td>
                                         <td>
-                                        @foreach($post->categories as $category)
+                                        @foreach($post->contentcategories as $category)
                                         {{$category->name}},
                                         @endforeach
                                         </td>
@@ -86,34 +86,34 @@
                                         </td>
 										<td>
                                             @if($post->status == true)
-                                            <a href="{{route('admin.blog.post.status',$post->id)}}" class="btn btn-green">Active</a>
+                                            <a href="{{route('admin.general.contentpost.status',$post->id)}}" class="btn btn-green">Active</a>
                                             @else
-                                            <a href="{{route('admin.blog.post.status',$post->id)}}" class="btn btn-red">InActive</a>
+                                            <a href="{{route('admin.general.contentpost.status',$post->id)}}" class="btn btn-red">InActive</a>
                                             @endif
                                         </td>
                                         <td>{{$post->view_count}}</td>
 
 										<td>
-                                            @if($auth->hasPermission('app.blog.posts.details'))
-                                            <a href="{{route('admin.posts.show',$post->id)}}" class="btn btn-secondary">
+                                            @if($auth->hasPermission('app.content.posts.details'))
+                                            <a href="{{route('admin.contentposts.show',$post->id)}}" class="btn btn-secondary">
                                                 <i class="fa fa-eye"></i>
                                             </a>
                                             @endif
 
-                                            @if($auth->hasPermission('app.blog.posts.edit'))
-                                            <a href="{{route('admin.posts.edit',$post->id)}}" class="btn btn-success">
+                                            @if($auth->hasPermission('app.content.posts.edit'))
+                                            <a href="{{route('admin.contentposts.edit',$post->id)}}" class="btn btn-success">
                                             <i class="fa fa-edit"></i>
                                             </a>
                                             @endif
 
 
-                                        @if($auth->hasPermission('app.blog.posts.destroy'))
+                                        @if($auth->hasPermission('app.content.posts.destroy'))
 
                                         <button class="btn btn-danger waves effect" type="button"
                                             onclick="deletepost$post({{ $post->id}})" >
                                             <i class="fa fa-trash"></i>
                                             </button>
-                                            <form id="deleteform-{{$post->id}}" action="{{route('admin.posts.destroy',$post->id)}}" method="POST" style="display: none;">
+                                            <form id="deleteform-{{$post->id}}" action="{{route('admin.contentposts.destroy',$post->id)}}" method="POST" style="display: none;">
                                             @csrf
                                             @method('DELETE')
                                             </form>

@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin\blog;
+namespace App\Http\Controllers\Admin\general_content;
 
 use Carbon\Carbon;
-use App\Models\blog\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\blog\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
+use App\Models\general_content\Contentpost;
+use App\Models\general_content\Contentcategory;
 
-class PostController extends Controller
+class ContentPostController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,11 +22,11 @@ class PostController extends Controller
      */
     public function index()
     {
-        Gate::authorize('app.blog.posts.self');
+        Gate::authorize('app.content.posts.self');
         //$posts = Auth::guard('admin')->user()->posts()->latest()->get();
         $auth = Auth::guard('admin')->user();
-        $posts = Post::latest()->get();
-        return view('backend.admin.blog.post.index',compact('posts','auth'));
+        $posts = Contentpost::latest()->get();
+        return view('backend.admin.general_content.post.index',compact('posts','auth'));
     }
 
     /**
@@ -36,10 +36,10 @@ class PostController extends Controller
      */
     public function create()
     {
-        Gate::authorize('app.blog.posts.create');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
-        return view('backend.admin.blog.post.form',compact('categories','subcat'));
+        Gate::authorize('app.content.posts.create');
+        $categories = Contentcategory::where('parent_id', '=', 0)->get();
+        $subcat = Contentcategory::all();
+        return view('backend.admin.general_content.post.form',compact('categories','subcat'));
     }
 
     /**
@@ -50,7 +50,7 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('app.blog.posts.create');
+        Gate::authorize('app.content.posts.create');
         $this->validate($request,[
             'title' => 'required',
             //'image' => 'required',
@@ -70,14 +70,14 @@ class PostController extends Controller
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             //check image folder existance
-            if(!Storage::disk('public')->exists('postphoto/'))
+            if(!Storage::disk('public')->exists('contentpostphoto/'))
             {
-                Storage::disk('public')->makeDirectory('postphoto/');
+                Storage::disk('public')->makeDirectory('contentpostphoto/');
             }
 
             //resize image
             $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
+            Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
 
         }
 
@@ -85,7 +85,7 @@ class PostController extends Controller
          //get form Gallary image
          $gallaryimage = $request->file('gallaryimage');
          $images=array();
-         $destination = public_path('/gallary_image');
+         $destination = public_path('/Contentgallary_image');
 
          if(isset($gallaryimage))
          {
@@ -105,7 +105,7 @@ class PostController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-            $destinationPath = public_path('/files');
+            $destinationPath = public_path('/contentfiles');
 
             // //check image folder existance
             // if(!Storage::disk('public')->exists('postfile'))
@@ -156,7 +156,7 @@ class PostController extends Controller
             $featureimg = $imagename;
         }
 
-        $post = Post::create([
+        $post = Contentpost::create([
             'title' => $request->title,
             'slug' => $slug,
             'admin_id' => Auth::id(),
@@ -173,30 +173,30 @@ class PostController extends Controller
         ]);
 
         //for many to many
-        $post->categories()->attach($request->categories);
+        $post->contentcategories()->attach($request->categories);
 
 
         notify()->success("Post Successfully created","Added");
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.contentposts.index');
     }
 
     public function status_approval($id)
     {
-        Gate::authorize('app.blog.posts.status');
-        $post = Post::find($id);
+        Gate::authorize('app.content.posts.status');
+        $post = Contentpost::find($id);
         if($post->status == true)
         {
             $post->status = false;
             $post->save();
 
-            notify()->success('Successfully Deactiveated Post');
+            notify()->success('Successfully Deactivated Post');
         }
         elseif($post->status == false)
         {
             $post->status = true;
             $post->save();
 
-            notify()->success('Removed the Activeated Approval');
+            notify()->success('Removed the Activated Approval');
         }
 
         return redirect()->back();
@@ -205,39 +205,39 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\blog\Post  $post
+     * @param  \App\Models\general_content\Contentpost  $contentpost
      * @return \Illuminate\Http\Response
      */
-    public function show(Post $post)
+    public function show(Contentpost $contentpost)
     {
         Gate::authorize('app.blog.posts.details');
-        return view('backend.admin.blog.post.show',compact('post'));
+        return view('backend.admin.general_content.post.show',compact('contentpost'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\blog\Post  $post
+     * @param  \App\Models\general_content\Contentpost  $contentpost
      * @return \Illuminate\Http\Response
      */
-    public function edit(Post $post)
+    public function edit(Contentpost $contentpost)
     {
-        Gate::authorize('app.blog.posts.edit');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
-        return view('backend.admin.blog.post.form',compact('post','categories','subcat'));
+        Gate::authorize('app.content.posts.edit');
+        $categories = Contentcategory::where('parent_id', '=', 0)->get();
+        $subcat = Contentcategory::all();
+        return view('backend.admin.general_content.post.form',compact('contentpost','categories','subcat'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\blog\Post  $post
+     * @param  \App\Models\general_content\Contentpost  $contentpost
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Post $post)
+    public function update(Request $request, Contentpost $contentpost)
     {
-        Gate::authorize('app.blog.posts.edit');
+        Gate::authorize('app.content.posts.edit');
         $this->validate($request,[
             'title' => 'required',
             'categories' => 'required',
@@ -255,39 +255,39 @@ class PostController extends Controller
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             //check image folder existance
-            if(!Storage::disk('public')->exists('postphoto'))
+            if(!Storage::disk('public')->exists('contentpostphoto'))
             {
-                Storage::disk('public')->makeDirectory('postphoto');
+                Storage::disk('public')->makeDirectory('contentpostphoto');
             }
 
              //delete old image
-             if(Storage::disk('public')->exists('postphoto/'.$post->image))
+             if(Storage::disk('public')->exists('contentpostphoto/'.$contentpost->image))
              {
-                 Storage::disk('public')->delete('postphoto/'.$post->image);
+                 Storage::disk('public')->delete('contentpostphoto/'.$contentpost->image);
              }
 
             //resize image
             $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
+            Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
 
         }
         else
         {
-            $imagename = $post->image;
+            $imagename = $contentpost->image;
         }
 
         //get form Gallary image
         $gallaryimage = $request->file('gallaryimage');
         $images=array();
-        $destination = public_path('/gallary_image');
-        $updateimages = explode(",", $post->gallaryimage);
+        $destination = public_path('/contentgallary_image');
+        $updateimages = explode(",", $contentpost->gallaryimage);
 
         if(isset($gallaryimage))
         {
 
             foreach($updateimages as $updateimage){
 
-                $gallary_path = public_path().'gallary_image/'.$updateimage;
+                $gallary_path = public_path().'contentgallary_image/'.$updateimage;
 
                 if (file_exists($gallary_path)) {
 
@@ -307,7 +307,7 @@ class PostController extends Controller
         }
         else
         {
-            $images[]=$post->gallaryimage;
+            $images[]=$contentpost->gallaryimage;
         }
 
         //get form file
@@ -317,10 +317,10 @@ class PostController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-            $destinationPath = public_path('/files');
+            $destinationPath = public_path('/contentfiles');
 
 
-            $file_path = public_path('files/'.$post->files);  // Value is not URL but directory file path
+            $file_path = public_path('files/'.$contentpost->files);  // Value is not URL but directory file path
             if (file_exists($file_path)) {
 
                 @unlink($file_path);
@@ -335,7 +335,7 @@ class PostController extends Controller
         }
         else
         {
-            $filename = $post->files;
+            $filename = $contentpost->files;
         }
 
         if(!$request->status)
@@ -374,7 +374,7 @@ class PostController extends Controller
             $featureimg = $imagename;
         }
 
-        $post->update([
+        $contentpost->update([
             'title' => $request->title,
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
@@ -391,33 +391,32 @@ class PostController extends Controller
         ]);
 
         //for many to many
-        $post->categories()->sync($request->categories);
+        $contentpost->contentcategories()->sync($request->categories);
 
 
         notify()->success("Post Successfully Updated","Update");
-        return redirect()->route('admin.posts.index');
+        return redirect()->route('admin.contentposts.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\blog\Post  $post
+     * @param  \App\Models\general_content\Contentpost  $contentpost
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Post $post)
+    public function destroy(Contentpost $contentpost)
     {
-        Gate::authorize('app.blog.posts.destroy');
+        Gate::authorize('app.content.posts.destroy');
         //delete old image
-        if(Storage::disk('public')->exists('postphoto/'.$post->image))
+        if(Storage::disk('public')->exists('contentpostphoto/'.$contentpost->image))
         {
-            Storage::disk('public')->delete('postphoto/'.$post->image);
+            Storage::disk('public')->delete('contentpostphoto/'.$contentpost->image);
         }
 
-        $post->categories()->detach();
+        $contentpost->contentcategories()->detach();
 
-        $post->delete();
+        $contentpost->delete();
         notify()->success('Post Deleted Successfully','Delete');
         return back();
-
     }
 }

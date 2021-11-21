@@ -83,7 +83,7 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($post) ? 'Edit ' : 'Create '}}Posts</h1>
+								<h1 class="page-title">{{ isset($contentpost) ? 'Edit ' : 'Create '}}Content Posts</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
@@ -93,7 +93,7 @@
 								<a href="{{route('admin.posts.index')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
-									</span> Back To PostList
+									</span> Back To ContentPostList
 								</a>
 								{{-- <a href="#" class="btn btn-success btn-icon text-white">
 									<span>
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($post) ? route('admin.posts.update',$post->id) : route('admin.posts.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($contentpost) ? route('admin.contentposts.update',$contentpost->id) : route('admin.contentposts.store')}}" enctype="multipart/form-data">
     @csrf
-    @isset($post)
+    @isset($contentpost)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -120,7 +120,7 @@
 				<div class="card-body">
 					<div class="form-group">
 						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$post->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
+						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$contentpost->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
                         @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
@@ -128,10 +128,10 @@
                         @enderror
 					</div>
 
-                    @isset($post)
+                    @isset($contentpost)
                     <div class="form-group">
 						<label for="exampleInputname">Post Slug</label>
-						<input type="text" class="form-control" value="{{$post->slug ?? old('slug')}}" name="slug" id="postslug" placeholder="Post Slug">
+						<input type="text" class="form-control" value="{{$contentpost->slug ?? old('slug')}}" name="slug" id="postslug" placeholder="Post Slug">
 					</div>
                     @endisset
 
@@ -143,7 +143,7 @@
 							<!-- <div id="quillEditor">
 
 							</div> -->
-                            <textarea style="height: 200px;" class="form-control" id="" name="body">{{$post->body ?? old('body')}}</textarea>
+                            <textarea style="height: 200px;" class="form-control" id="" name="body">{{$contentpost->body ?? old('body')}}</textarea>
 						</div>
 					</div>
 
@@ -156,25 +156,25 @@
 
                     <div class="form-group youtube" style="display:none">
 						<label for="exampleInputname">Youtube Link</label>
-						<input type="text" class="form-control" value="{{$post->youtube_link ?? old('youtube_link')}}" name="youtube_link" id="youtube_link" placeholder="Youtube Video Link">
+						<input type="text" class="form-control" value="{{$contentpost->youtube_link ?? old('youtube_link')}}" name="youtube_link" id="youtube_link" placeholder="Youtube Video Link">
 					</div>
 
 					<div class="form-group featur">
 						<label class="form-label">Feature Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset($post->image) : '' }}" name="image">
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($contentpost) ? asset($contentpost->image) : '' }}" name="image">
 					</div>
 
 					<div class="form-group">
 						<label class="form-label">Gallary Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('gallary_image/'.$post->gallaryimage) : '' }}" multiple name="gallaryimage[]">
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($contentpost) ? asset('gallary_image/'.$contentpost->gallaryimage) : '' }}" multiple name="gallaryimage[]">
 					</div>
 
 				</div>
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($post)
+                        @isset($contentpost)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -205,7 +205,7 @@
 										<div class="transfer-double-list-search"><input class="transfer-double-list-search-input" type="text" id="groupListSearch_1636878492751" placeholder="Search" value="" /></div>
 									</div> --}}
 
-                                    @isset($post)
+                                    @isset($contentpost)
 
                                     <div class="transfer-double-list-content">
 										<div class="transfer-double-list-main">
@@ -217,13 +217,13 @@
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
 
-														<input type="checkbox" name="categories[]" value="{{$categoryy->id}}" @foreach($post->categories as $category) {{$categoryy->id == $category->id ? 'checked' : ''}} @endforeach class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
+														<input type="checkbox" name="categories[]" value="{{$categoryy->id}}" @foreach($contentpost->contentcategories as $category) {{$categoryy->id == $category->id ? 'checked' : ''}} @endforeach class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
 
 													</div>
                                                     @if($categoryy->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.blog.post.child_category_edit', ['sub_category' => $categoryy,'post' => $post])
+													  @include('backend.admin.general_content.post.child_category_edit', ['sub_category' => $categoryy,'post' => $contentpost])
 
 
                                                     @endif
@@ -255,7 +255,7 @@
                                                     @if($category->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.blog.post.child_categories', ['sub_category' => $category])
+													  @include('backend.admin.general_content.post.child_categories', ['sub_category' => $category])
 
 
                                                     @endif
@@ -288,11 +288,11 @@
 					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
-                    @isset($post)
+                    @isset($contentpost)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$post->status == true ? 'checked' : ''}} class="custom-switch-input ">
+							<input type="checkbox" name="status" {{$contentpost->status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>
@@ -348,7 +348,7 @@
 
                     <div class="form-group">
 						<label class="form-label">File</label>
-						<input type="file" name="files" class="dropify" data-default-file="{{ isset($post) ? asset('files/'.$post->files) : ''}}" data-bs-height="180"  />
+						<input type="file" name="files" class="dropify" data-default-file="{{ isset($contentpost) ? asset('files/'.$contentpost->files) : ''}}" data-bs-height="180"  />
 
 					</div>
 

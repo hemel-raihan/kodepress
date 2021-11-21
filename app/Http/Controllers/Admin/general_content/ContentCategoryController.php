@@ -261,12 +261,12 @@ class ContentCategoryController extends Controller
         {
             notify()->error('You Can not Delete this Item !! Sub-category exist','Alert');
         }
-        // elseif($contentcategory->posts()->count() >0)
-        // {
-        //     notify()->error('You Can not Delete this Item !! Post exist under this category','Alert');
-        // }
+        elseif($contentcategory->contentposts()->count() >0)
+        {
+            notify()->error('You Can not Delete this Item !! Post exist under this category','Alert');
+        }
         else
-        
+
         {
             $contentcategory->delete();
             notify()->success('Category Deleted Successfully','Delete');

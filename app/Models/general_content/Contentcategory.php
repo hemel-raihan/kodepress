@@ -25,4 +25,9 @@ class Contentcategory extends Model
     {
         return $this->children()->with('childrenRecursive');
     }
+
+    public function contentposts()
+    {
+        return $this->belongsToMany(Contentpost::class);
+    }
 }

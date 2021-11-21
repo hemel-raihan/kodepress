@@ -250,6 +250,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('blog/post/{id}/status', 'blog\PostController@status_approval')->name('blog.post.status');
     Route::resource('general/contentcategories','general_content\ContentCategoryController');
     Route::get('general/contentcategory/{id}/approve', 'general_content\ContentCategoryController@approval')->name('general.contentcategory.approve');
+    Route::resource('general/contentposts','general_content\ContentPostController');
+    Route::get('general/contentposts/{id}/status', 'general_content\ContentPostController@status_approval')->name('general.contentpost.status');
 });
 
 

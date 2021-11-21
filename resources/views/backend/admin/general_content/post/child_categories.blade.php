@@ -33,7 +33,7 @@
         </div>
 
         @if($category->childrenRecursive->count()>0)
-        @include('backend.admin.blog.post.child_categories', ['sub_category' => $sub])
+        @include('backend.admin.general_content.post.child_categories', ['sub_category' => $sub])
         @endif
      </li>
      @endforeach
