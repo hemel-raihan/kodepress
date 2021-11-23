@@ -235,5 +235,93 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.content.posts.approve'
         ]);
 
+
+        $moduleAppPage = Module::updateOrCreate(['name' => 'Page Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.pages.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.pages.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'Create Page',
+            'slug' => 'app.pages.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'Edit Page',
+            'slug' => 'app.pages.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'Details Page',
+            'slug' => 'app.pages.details'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'Delete Page',
+            'slug' => 'app.pages.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'Approve Page',
+            'slug' => 'app.pages.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPage->id,
+            'name' => 'Approve Page',
+            'slug' => 'app.pages.approve'
+        ]);
+
+
+        $moduleAppSidebar = Module::updateOrCreate(['name' => 'Sidebar Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.sidebars.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.sidebars.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'Create Sidebar',
+            'slug' => 'app.sidebars.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'Edit Sidebar',
+            'slug' => 'app.sidebars.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'Details Sidebar',
+            'slug' => 'app.sidebars.details'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'Delete Sidebar',
+            'slug' => 'app.sidebars.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'Approve Sidebar',
+            'slug' => 'app.sidebars.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppSidebar->id,
+            'name' => 'Approve Sidebar',
+            'slug' => 'app.sidebars.approve'
+        ]);
+
     }
 }

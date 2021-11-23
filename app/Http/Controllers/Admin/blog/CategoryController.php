@@ -2,15 +2,16 @@
 
 namespace App\Http\Controllers\Admin\blog;
 
-use App\Http\Controllers\Controller;
+use Carbon\Carbon;
+use Illuminate\Support\Str;
+use Illuminate\Http\Request;
+use App\Models\Admin\Sidebar;
 use App\Models\blog\category;
+use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\storage;
-use Carbon\Carbon;
 use Intervention\Image\Facades\Image;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\storage;
 
 class CategoryController extends Controller
 {
@@ -35,9 +36,10 @@ class CategoryController extends Controller
     public function create()
     {
         Gate::authorize('app.blog.categories.create');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
-        return view('backend.admin.blog.category.form',compact('categories','subcat'));
+        $categories = category::where('parent_id', '=', 0)->get();
+        $subcat = category::all();
+        $sidebars = Sidebar::all();
+        return view('backend.admin.blog.category.form',compact('categories','subcat','sidebars'));
     }
 
     /**
@@ -154,8 +156,8 @@ class CategoryController extends Controller
     public function edit(category $category)
     {
         Gate::authorize('app.blog.categories.edit');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
+        $categories = category::where('parent_id', '=', 0)->get();
+        $subcat = category::all();
         return view('backend.admin.blog.category.form',compact('category','categories','subcat'));
     }
 
@@ -258,7 +260,7 @@ class CategoryController extends Controller
         {
             Storage::disk('public')->delete('categoryphoto/'.$category->image);
         }
-        
+
         if($category->childrenRecursive->count()>0)
         {
             notify()->error('You Can not Delete this Item !! Sub-category exist','Alert');

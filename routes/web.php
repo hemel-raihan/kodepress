@@ -254,7 +254,12 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('general/contentcategory/{id}/approve', 'general_content\ContentCategoryController@approval')->name('general.contentcategory.approve');
     Route::resource('general/contentposts','general_content\ContentPostController');
     Route::get('general/contentposts/{id}/status', 'general_content\ContentPostController@status_approval')->name('general.contentpost.status');
+    Route::resource('pages','page\PageController');
+    Route::get('pages/{id}/status', 'page\PageController@status_approval')->name('page.status');
+    Route::resource('sidebars','sidebar\SidebarController');
 });
+
+Route::get('{slug}', 'PageController@index')->name('page');
 
 
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){

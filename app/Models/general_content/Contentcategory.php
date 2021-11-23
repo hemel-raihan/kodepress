@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\general_content;
-
+use App\Models\Admin\Sidebar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,5 +29,10 @@ class Contentcategory extends Model
     public function contentposts()
     {
         return $this->belongsToMany(Contentpost::class);
+    }
+
+    public function sidebars()
+    {
+        return $this->belongsToMany(Sidebar::class);
     }
 }

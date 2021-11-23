@@ -83,17 +83,17 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($category) ? 'Edit ' : 'Create '}}Categories</h1>
+								<h1 class="page-title">{{ isset($page) ? 'Edit ' : 'Create '}}Pages</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.categories.index')}}" class="btn btn-primary btn-icon text-white me-2">
+								<a href="{{route('admin.pages.index')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
-									</span> Back To CategoryList
+									</span> Back To PageList
 								</a>
 								{{-- <a href="#" class="btn btn-success btn-icon text-white">
 									<span>
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($category) ? route('admin.categories.update',$category->id) : route('admin.categories.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($page) ? route('admin.pages.update',$page->id) : route('admin.pages.store')}}" enctype="multipart/form-data">
     @csrf
-    @isset($category)
+    @isset($page)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -115,44 +115,69 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Blog Category</h3>
+					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="exampleInputname">Category Name</label>
-						<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$category->name ?? old('name')}}" name="name" id="exampleInputname" placeholder="Category Name">
-                        @error('name')
+						<label for="exampleInputname">Page Title</label>
+						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$page->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
+                        @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
                         @enderror
 					</div>
 
+                    @isset($page)
+                    <div class="form-group">
+						<label for="exampleInputname">Post Slug</label>
+						<input type="text" class="form-control" value="{{$page->slug ?? old('slug')}}" name="slug" id="postslug" placeholder="Post Slug">
+					</div>
+                    @endisset
+
+
+
 					<div class="form-group">
-						<label for="exampleInputContent">Category Description</label>
+						<label for="exampleInputContent">Post Description</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
 							<!-- <div id="quillEditor">
 
 							</div> -->
-                            <textarea style="height: 200px;" class="form-control" id="" name="desc">{{$category->desc ?? old('desc')}}</textarea>
+                            {{-- <textarea style="height: 200px;" class="form-control" id="" name="body">{{$post->body ?? old('body')}}</textarea> --}}
+
+                            <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$page->body ?? old('page')!!}</textarea>
+
 						</div>
 					</div>
 
-					<div class="form-group">
-						<label class="form-label">Category Image</label>
+
+                    {{-- <input type="radio" name="link" checked id="test2">
+                    <label for="css">Feature Image</label>
+                    <input type="radio" name="link" id="test1">
+                    <label for="html">Youtube Link</label>
+
+
+                    <div class="form-group youtube" style="display:none">
+						<label for="exampleInputname">Youtube Link</label>
+						<input type="text" class="form-control" value="{{$post->youtube_link ?? old('youtube_link')}}" name="youtube_link" id="youtube_link" placeholder="Youtube Video Link">
+					</div>
+
+					<div class="form-group featur">
+						<label class="form-label">Feature Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($category) ? asset($category->image) : '' }}" name="image">
-                        @error('image')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset($post->image) : '' }}" name="image">
+					</div> --}}
+
+					<div class="form-group">
+						<label class="form-label">Gallary Image</label>
+						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($page) ? asset('pagegallary_image/'.$page->gallaryimage) : '' }}" multiple name="gallaryimage[]">
 					</div>
 
 				</div>
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($category)
+                        @isset($page)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -160,7 +185,7 @@
                         Create
                         @endisset
                     </button>
-					<a href="{{route('admin.categories.index')}}" class="btn btn-danger mt-1">Cancel</a>
+					<a href="{{route('admin.posts.index')}}" class="btn btn-danger mt-1">Cancel</a>
 				</div>
 			</div>
 		</div>
@@ -168,102 +193,16 @@
 		{{-- Right Side --}}
 		<div class="col-lg-3 col-xl-3 col-md-12 col-sm-12" style="float: left">
 
-			<div class="card shadow-none border">
-				<div class="card-header">
-					<h5 class="card-title">Parent Category</h5>
-				</div>
-				<div class="card-body" style="padding:2px;">
-					<div class="transfer">
-						<div class="transfer-double" id="transfer_double_languageInput">
-							<div class="transfer-double-header"></div>
-							<div class="transfer-double-content clearfix">
-
-								<div class="transfer-double-list transfer-double-list-1636878492751 tab-content-first-1636878492751 tab-content-active">
-									{{-- <div class="transfer-double-list-header">
-										<div class="transfer-double-list-search"><input class="transfer-double-list-search-input" type="text" id="groupListSearch_1636878492751" placeholder="Search" value="" /></div>
-									</div> --}}
-
-                                    @isset($category)
-
-                                    <div class="transfer-double-list-content">
-										<div class="transfer-double-list-main">
-
-											<ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
-
-                                            @foreach($categories as $key => $categoryy)
-
-												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
-													<div class="checkbox-group">
-														<input type="checkbox" name="parent_id" value="{{$categoryy->id}}" {{$categoryy->id == $category->parent_id ? 'checked' : ''}} class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
-													</div>
-                                                    @if($categoryy->childrenRecursive->count()>0)
-
-
-													  @include('backend.admin.blog.category.child_category_edit', ['sub_category' => $categoryy,'category' => $category])
-
-
-                                                    @endif
-
-
-												</li>
-                                            @endforeach
-
-											</ul>
-										</div>
-									</div>
-
-
-                                    @else
-
-									<div class="transfer-double-list-content">
-										<div class="transfer-double-list-main">
-
-											<ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
-
-                                            @foreach($categories as $key => $category)
-
-												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
-													<div class="checkbox-group">
-														<input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
-													</div>
-                                                    @if($category->childrenRecursive->count()>0)
-
-
-													  @include('backend.admin.blog.category.child_categories', ['sub_category' => $category])
-
-
-                                                    @endif
-
-
-												</li>
-                                            @endforeach
-
-											</ul>
-										</div>
-									</div>
-
-                                    @endisset
-
-								</div>
-
-							</div>
-							<div class="transfer-double-footer"></div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-
 			<div class="card">
 				<div class="card-header">
 					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
-                    @isset($category)
+                    @isset($post)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$category->status == true ? 'checked' : ''}} class="custom-switch-input ">
+							<input type="checkbox" name="status" {{$page->status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>
@@ -280,67 +219,54 @@
 
                     @endisset
 
+                    {{-- <div class="form-group">
+						<label class="form-label">Left Sidebar</label>
+						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+							<option label="Select Country">Select Left Sidebar</option>
+                            @foreach ($subcat as $cat)
+                            <option value="{{$cat->id}}">{{}}</option>
+                            @endforeach
 
-
-                    @isset($category)
-
-                    <div class="form-group">
+							<option value="1">Brazil</option>
+							<option value="2">Czech Republic</option>
+						</select>
+					</div> --}}
+					<div class="form-group">
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Left Sidebar</option>
                             <option value="0">None</option>
-                            @foreach ($subcat as $categories)
-                            @if($categories->sidebar == 'Left Side Bar')
-                            <option value="{{$categories->sidebar->id}}" {{($category->leftsidebar_id == $categories->sidebar->id) ? 'selected' : ''}}>{{$categories->sidebar->title}}</option>
-                            @endif
-                            @endforeach
+							<option value="1">Brazil</option>
+							<option value="2">Czech Republic</option>
 						</select>
 					</div>
-
-
+                    {{-- @endisset --}}
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+						<select name="rightsidebar_id" class="form-control form-select select2 @error('rightsidebar_id') is-invalid @enderror" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Right Sidebar</option>
                             <option value="0">None</option>
-                            @foreach ($subcat as $categories)
-                            @if($categories->sidebar == 'Right Side Bar')
-							<option value="{{$categories->sidebar->id}}" {{($category->rightsidebar_id == $categories->sidebar->id) ? 'selected' : ''}} >{{$categories->sidebar->title}}</option>
-                            @endif
-                            @endforeach
+							<option value="3">Brazil</option>
+							<option value="4">Czech Republic</option>
 						</select>
+                        @error('rightsidebar_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
-
-                    @else
 
                     <div class="form-group">
-						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Left Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($sidebars as $sidebar)
-                            @if($sidebar->type == 'Left Side Bar')
-                            <option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
+						<label class="form-label">Feature Image</label>
+						<input type="file" name="image" class="dropify" data-default-file="{{ isset($page) ? asset($page->image) : ''}}" data-bs-height="180"  />
+
 					</div>
 
+                    {{-- <div class="form-group">
+						<label class="form-label">File</label>
+						<input type="file" name="files" class="dropify" data-default-file="{{ isset($post) ? asset('files/'.$post->files) : ''}}" data-bs-height="180"  />
 
-					<div class="form-group">
-						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Right Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($sidebars as $sidebar)
-                            @if($sidebar->type == 'Right Side Bar')
-							<option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
-                            @endif
-                            @endforeach
-						</select>
-					</div>
-
-                    @endisset
+					</div> --}}
 
 				</div>
 
@@ -354,6 +280,52 @@
 
 @section('scripts')
 
+
+    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+	window.onload = function () {
+		CKEDITOR.replace('ckeditor', {
+	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+	    });
+	}
+</script>
+
+<script>
+$(document).ready(function() {
+    $("input[id$='test1']").click(function() {
+        var link = $(this).val();
+
+        $("div.youtube").show();
+        $("div.featur").hide();
+    });
+
+    $("input[id$='test2']").click(function() {
+        var link = $(this).val();
+
+        $("div.youtube").hide();
+        $("div.featur").show();
+    });
+});
+</script>
+
+
+     {{-- <script>
+
+function myFunction() {
+    var title = document.getElementById('posttitle').value;
+  document.getElementById("postslug").value = title;
+}
+//         document.getElementById('postslug').addEventListener('click', FILLSLUG);
+
+// function FILLSLUG() {
+
+//     var title = document.getElementById('posttitle');
+//     var slug = document.getElementById('postslug');
+
+//     slug.value = title.value;
+
+// };
+    </script> --}}
 
 
         <!-- <script>

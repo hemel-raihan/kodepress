@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Models\blog;
-
+use App\Models\Admin\Sidebar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -29,5 +29,10 @@ class category extends Model
     public function posts()
     {
         return $this->belongsToMany(Post::class);
+    }
+
+    public function sidebar()
+    {
+        return $this->belongsTo(Sidebar::class);
     }
 }

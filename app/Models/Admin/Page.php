@@ -1,20 +1,16 @@
 <?php
 
-namespace App\Models\general_content;
+namespace App\Models\Admin;
+use App\Models\Admin;
 use App\Models\Admin\Sidebar;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use App\Models\Admin;
 use Illuminate\Database\Eloquent\Model;
 
-class Contentpost extends Model
+class Page extends Model
 {
     use HasFactory;
-    protected $guarded = ['id'];
 
-    public function contentcategories()
-    {
-        return $this->belongsToMany(Contentcategory::class);
-    }
+    protected $guarded = ['id'];
 
     public function admin()
     {
@@ -24,5 +20,10 @@ class Contentpost extends Model
     public function sidebars()
     {
         return $this->belongsToMany(Sidebar::class);
+    }
+
+    public static function findBySlug($slug)
+    {
+        return self::where('slug',$slug)->where('status',true)->firstOrFail();
     }
 }

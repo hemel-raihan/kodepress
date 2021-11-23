@@ -26,6 +26,15 @@
 								<li><a href="{{ route('admin.roles.index') }}" class="slide-item">Role Management</a></li>
 							</ul>
 						</li>
+
+                        <li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-layers"></i><span class="side-menu__label">Page Management</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{route('admin.pages.create')}}" class="slide-item">Create New Page </a></li>
+								<li><a href="{{route('admin.pages.index')}}" class="slide-item">All Pages</a></li>
+							</ul>
+						</li>
+
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-globe"></i><span class="side-menu__label">Blog Management</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
@@ -44,6 +53,14 @@
 								<li><a href="{{route('admin.contentposts.index')}}" class="slide-item">All Contents</a></li>
 								<li><a href="{{route('admin.contentcategories.create')}}" class="slide-item">Add Content Category</a></li>
                                 <li><a href="{{route('admin.contentcategories.index')}}" class="slide-item">All Categories</a></li>
+							</ul>
+						</li>
+
+                        <li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Sidebar</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{route('admin.sidebars.create')}}" class="slide-item">Create New Sidebar </a></li>
+								<li><a href="{{route('admin.sidebars.index')}}" class="slide-item">All Sidebars</a></li>
 							</ul>
 						</li>
 
