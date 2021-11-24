@@ -83,129 +83,63 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($sidebar) ? 'Edit ' : 'Create '}}Sidebar</h1>
+								<h1 class="page-title">Sidebar Builder ({{$sidebar->title}})</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.sidebars.index')}}" class="btn btn-primary btn-icon text-white me-2">
-									<span>
-										{{-- <i class="fe fe-minus"></i> --}}
-									</span> Back To PostList
-								</a>
-								{{-- <a href="#" class="btn btn-success btn-icon text-white">
+								<a href="{{route('admin.widget.create',$sidebar->id)}}" class="btn btn-success btn-icon text-white">
 									<span>
 										<i class="fe fe-log-in"></i>
-									</span> Export
-								</a> --}}
+									</span> Create New Widget
+								</a>
+								<a href="{{route('admin.sidebars.index')}}" class="btn btn-danger btn-icon text-white me-2">
+									<span>
+										<i class="fas fa-arrow-circle-left"></i>
+									</span> Back
+								</a>
+								
 							</div>
 						</div>
 						<!-- PAGE-HEADER END -->
 
+						<div class="row">
+							<div class="col-12">
+								<div class="main-card mb-3 card">
+									<div class="card-body">
+										<h5 class="card-title">
+											How To Use: 
+										</h5>
+										<p>You can output a sidebar anywhere on your site by calling <code>sidebar('name')</code></p>										
+									</div>
+								</div>
+
+								<div class="main-card mb-3 card">
+									<div class="card-body menu-builder">
+										<h5 class="card-title">
+											Drag and Drop the sidebar Item below to re-arrange them.
+										</h5>
+										<div class="dd">
+											<ol>
+												@forelse ($sidebar->widgets as $widget)
+													<li>
+														<span>{{$widget->title}}</span>
+													</li>
+												@empty
+													<div class="text-center">
+														<strong>No Sidebar item found</strong>
+													</div>
+												@endforelse
+											</ol>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($sidebar) ? route('admin.sidebars.update',$sidebar->id) : route('admin.sidebars.store')}}" enctype="multipart/form-data">
-    @csrf
-    @isset($sidebar)
-    @method('PUT')
-    @endisset
-	<div class="row">
-		{{-- Left Side --}}
-		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
-			<div class="card">
-				<div class="card-header">
-					<h3 class="card-title">Create Blog Post</h3>
-				</div>
-				<div class="card-body">
-					<div class="form-group">
-						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$sidebar->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
-                        @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
-					</div>
-
-				</div>
-				
-				<div class="card-footer text-end">
-					<button type="submit" class="btn btn-success mt-1">
-                        @isset($sidebar)
-                        <i class="fas fa-arrow-circle-up"></i>
-                        Update
-                        @else
-                        <i class="fe fe-plus"></i>
-                        Create
-                        @endisset
-                    </button>
-					<a href="{{route('admin.sidebars.index')}}" class="btn btn-danger mt-1">Cancel</a>
-				</div>
-			</div>
-		</div>
-
-		{{-- Right Side --}}
-		<div class="col-lg-3 col-xl-3 col-md-12 col-sm-12" style="float: left">
-
-			<div class="card">
-				<div class="card-header">
-					<h3 class="card-title">Create Page</h3>
-				</div>
-				<div class="card-body">
-
-					@isset($sidebar)
-					<div class="form-group">
-						<div class="form-label">Status</div>
-						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$sidebar->status == true ? 'checked' : ''}} class="custom-switch-input ">
-							<span class="custom-switch-indicator"></span>
-						</label>
-					</div>
-
-                    @else
-
-                    <div class="form-group">
-						<div class="form-label">Status</div>
-						<label class="custom-switch">
-							<input type="checkbox" name="status" class="custom-switch-input ">
-							<span class="custom-switch-indicator"></span>
-						</label>
-					</div>
-
-                    @endisset
-
-                    @isset($sidebar)
-                    <div class="form-group">
-						<label class="form-label">Sidebar Type</label>
-						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Sidebar Type</option>
-							<option value="Left Side Bar" {{($sidebar->type == 'Left Side Bar') ? 'selected' : ''}}  >Left Side Bar</option>
-							<option value="Right Side Bar" {{($sidebar->type == 'Right Side Bar') ? 'selected' : ''}}>Right Side Bar</option>
-						</select>
-					</div>
-
-                    @else
-
-					<div class="form-group">
-						<label class="form-label">Sidebar Type</label>
-						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Sidebar Type</option>
-							<option value="Left Side Bar">Left Side Bar</option>
-							<option value="Right Side Bar">Right Side Bar</option>
-						</select>
-					</div>
-
-                    @endisset
-
-
-				</div>
-
-			</div>
-		</div>
-
-	</div>
-    </form>
+    
 	<!-- ROW-1 CLOSED -->
 @endsection('content')
 

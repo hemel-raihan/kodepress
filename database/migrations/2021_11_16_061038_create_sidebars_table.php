@@ -15,7 +15,8 @@ class CreateSidebarsTable extends Migration
     {
         Schema::create('sidebars', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
+            $table->string('title')->unique();
+            $table->boolean('status')->default(false);
             $table->string('type');
             $table->timestamps();
         });

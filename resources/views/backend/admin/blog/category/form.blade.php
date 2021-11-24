@@ -282,16 +282,16 @@
 
 
 
-                    @isset($category)
+                    @isset($editsidebars)
 
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Left Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($subcat as $categories)
-                            @if($categories->sidebar == 'Left Side Bar')
-                            <option value="{{$categories->sidebar->id}}" {{($category->leftsidebar_id == $categories->sidebar->id) ? 'selected' : ''}}>{{$categories->sidebar->title}}</option>
+                            <option value="0" {{($category->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Left Side Bar')
+                            <option value="{{$editsidebar->id}}" {{($category->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
                             @endif
                             @endforeach
 						</select>
@@ -302,10 +302,10 @@
 						<label class="form-label">Right Sidebar</label>
 						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Right Sidebar</option>
-                            <option value="0">None</option>
-                            @foreach ($subcat as $categories)
-                            @if($categories->sidebar == 'Right Side Bar')
-							<option value="{{$categories->sidebar->id}}" {{($category->rightsidebar_id == $categories->sidebar->id) ? 'selected' : ''}} >{{$categories->sidebar->title}}</option>
+                            <option value="0" {{($category->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Right Side Bar')
+							<option value="{{$editsidebar->id}}" {{($category->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
                             @endif
                             @endforeach
 						</select>

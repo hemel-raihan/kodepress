@@ -158,7 +158,8 @@ class CategoryController extends Controller
         Gate::authorize('app.blog.categories.edit');
         $categories = category::where('parent_id', '=', 0)->get();
         $subcat = category::all();
-        return view('backend.admin.blog.category.form',compact('category','categories','subcat'));
+        $editsidebars = Sidebar::all();
+        return view('backend.admin.blog.category.form',compact('category','categories','subcat','editsidebars'));
     }
 
     /**

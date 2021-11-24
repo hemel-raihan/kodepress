@@ -319,9 +319,10 @@ class PermissionSeeder extends Seeder
         ]);
         Permission::updateOrCreate([
             'module_id' => $moduleAppSidebar->id,
-            'name' => 'Approve Sidebar',
-            'slug' => 'app.sidebars.approve'
+            'name' => 'Widget Builder',
+            'slug' => 'app.sidebars.widgetbuilder'
         ]);
+        
 
     }
 }

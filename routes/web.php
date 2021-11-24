@@ -247,7 +247,6 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('users','UserController');
     Route::resource('blog/categories','blog\CategoryController');
     Route::get('blog/category/{id}/approve', 'blog\CategoryController@approval')->name('blog.category.approve');
-    Route::resource('widget','widget\WidgetController');
     Route::resource('blog/posts','blog\PostController');
     Route::get('blog/post/{id}/status', 'blog\PostController@status_approval')->name('blog.post.status');
     Route::resource('general/contentcategories','general_content\ContentCategoryController');
@@ -257,6 +256,11 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('pages','page\PageController');
     Route::get('pages/{id}/status', 'page\PageController@status_approval')->name('page.status');
     Route::resource('sidebars','sidebar\SidebarController');
+    Route::get('sidebars/{id}/status', 'sidebar\SidebarController@status_approval')->name('sidebar.status');
+    Route::get('widget/{id}/builder', 'sidebar\WidgetbuilderController@index')->name('widget.builder');
+    Route::get('widget/{id}/create', 'sidebar\WidgetbuilderController@create')->name('widget.create');
+    Route::get('widget/{id}/store', 'sidebar\WidgetbuilderController@store')->name('widget.store');
+    Route::get('widget/{id}/update', 'sidebar\WidgetbuilderController@update')->name('widget.update');
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');

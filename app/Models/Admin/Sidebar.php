@@ -40,4 +40,9 @@ class Sidebar extends Model
         return $this->belongsToMany(Page::class);
     }
 
+    public function widgets()
+    {
+        return $this->hasMany(Widget::class);
+    }
+
 }

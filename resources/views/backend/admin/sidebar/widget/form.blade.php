@@ -83,17 +83,17 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($sidebar) ? 'Edit ' : 'Create '}}Sidebar</h1>
+								<h1 class="page-title">{{ isset($widget) ? 'Edit ' : 'Create '}}Widget ({{$sidebar->title}})</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.sidebars.index')}}" class="btn btn-primary btn-icon text-white me-2">
+								<a href="{{route('admin.widget.builder',$sidebar->id)}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
-									</span> Back To PostList
+									</span> Back To WidgetList
 								</a>
 								{{-- <a href="#" class="btn btn-success btn-icon text-white">
 									<span>
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($sidebar) ? route('admin.sidebars.update',$sidebar->id) : route('admin.sidebars.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($widget) ? route('admin.widget.update',$widget->id) : route('admin.widget.store',$sidebar->id)}}" enctype="multipart/form-data">
     @csrf
-    @isset($sidebar)
+    @isset($widget)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -115,12 +115,49 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Blog Post</h3>
+					<h3 class="card-title">Manage Widget Item</h3>
 				</div>
-				<div class="card-body">
+
+				<div class="form-group">
+					<label for="type">Type</label>
+					<select class="custom-select" name="type" id="type" onchange="setWidget()">
+						<option value="item">Widget Item</option>
+						<option value="child">Child Item</option>
+					</select>
+				</div>
+
+				<div id="child_fields">
+					<div class="card-body">
+						<div class="form-group">
+							<label for="exampleInputname">Child Title</label>
+							<input type="text" class="form-control @error('child_title') is-invalid @enderror" value="{{$widget->child_title ?? old('child_title')}}" name="child_title" id="posttitle" placeholder="D=Child Title">
+							@error('child_title')
+							<span class="invalid-feedback" role="alert">
+								<strong>{{$message}}</strong>
+							</span>
+							@enderror
+						</div>
+					</div>
+				</div>
+
+				<div id="widget_fields">
+					<div class="card-body">
+						<div class="form-group">
+							<label for="exampleInputname">Title</label>
+							<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$widget->title ?? old('title')}}" name="title" id="posttitle" placeholder="Widget Title">
+							@error('title')
+							<span class="invalid-feedback" role="alert">
+								<strong>{{$message}}</strong>
+							</span>
+							@enderror
+						</div>
+					</div>
+				</div>
+
+				{{-- <div class="card-body">
 					<div class="form-group">
 						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$sidebar->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
+						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$widget->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
                         @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
@@ -128,11 +165,11 @@
                         @enderror
 					</div>
 
-				</div>
+				</div> --}}
 				
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($sidebar)
+                        @isset($widget)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -212,6 +249,22 @@
 @section('scripts')
 
 
+<script>
+	function setwidget()
+	{
+		if($('select[name="type"]').val() === 'child')
+		{
+			$('#child_fields').removeClass('d-none');
+			$('#widget_fields').addClass('d-none');
+		}
+		else
+		{
+			$('#child_fields').addClass('d-none');
+			$('#widget_fields').removeClass('d-none');
+		}
+	}
+	setwidget();
+</script>
 
 
 

@@ -55,6 +55,7 @@
 									<tr>
 										<th class="border-bottom-0">Title</th>
                                         <th class="border-bottom-0">Type</th>
+										<th class="border-bottom-0">Status</th>
 										<th class="border-bottom-0">Action</th>
 
 									</tr>
@@ -64,8 +65,21 @@
 									<tr>
 										<td>{{Str::limit($sidebar->title,'10')}}</td>
                                         <td><a href="#">{{$sidebar->type}}</a></td>
+										<td>
+                                            @if($sidebar->status == true)
+                                            <a href="{{route('admin.sidebar.status',$sidebar->id)}}" class="btn btn-info">Active</a>
+                                            @else
+                                            <a href="{{route('admin.sidebar.status',$sidebar->id)}}" class="btn btn-primary">InActive</a>
+                                            @endif
+                                        </td>
 
 										<td>
+
+											@if($auth->hasPermission('app.sidebars.widgetbuilder'))
+                                            <a href="{{route('admin.widget.builder',$sidebar->id)}}" class="btn btn-primary">
+                                            <i class="side-menu__icon fe fe-file-text">Widget Builder</i>
+                                            </a>
+                                            @endif
 
                                             @if($auth->hasPermission('app.sidebars.edit'))
                                             <a href="{{route('admin.sidebars.edit',$sidebar->id)}}" class="btn btn-success">

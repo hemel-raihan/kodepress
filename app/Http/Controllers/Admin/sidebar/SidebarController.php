@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin\sidebar;
 
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
@@ -48,15 +49,48 @@ class SidebarController extends Controller
             'type' => 'required',
         ]);
 
+        if(!$request->status)
+        {
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
+
 
         $sidebar = Sidebar::create([
-            'title' => $request->title,
+            'title' => Str::slug($request->title),
             'type' => $request->type,
+            'status' => $status,
         ]);
 
 
         notify()->success("Sidebar Successfully created","Added");
         return redirect()->route('admin.sidebars.index');
+    }
+
+
+    public function status_approval($id)
+    {
+        Gate::authorize('app.sidebars.status');
+        $sidebar = Sidebar::find($id);
+        if($sidebar->status == true)
+        {
+            $sidebar->status = false;
+            $sidebar->save();
+
+            notify()->success('Successfully Deactiveated Sidebar');
+        }
+        elseif($sidebar->status == false)
+        {
+            $sidebar->status = true;
+            $sidebar->save();
+
+            notify()->success('Successfully Activeated Sidebar');
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -98,10 +132,19 @@ class SidebarController extends Controller
         ]);
 
 
-        $sidebar->update([
-            'title' => $request->title,
-            'type' => $request->type,
+        if(!$request->status)
+        {
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
 
+        $sidebar->update([
+            'title' => Str::slug($request->title),
+            'type' => $request->type,
+            'status' => $status,
         ]);
 
 
