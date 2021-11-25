@@ -118,55 +118,95 @@
 					<h3 class="card-title">Manage Widget Item</h3>
 				</div>
 
+                <div class="card-body">
 				<div class="form-group">
-					<label for="type">Type</label>
-					<select class="custom-select" name="type" id="type" onchange="setWidget()">
-						<option value="item">Widget Item</option>
-						<option value="child">Child Item</option>
+					<label class="form-label" for="type">Select Widget Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" onChange="setWidget()">
+						<option value="Blog Category">Blog Category</option>
+						<option value="Recent Post">Recent Post</option>
+                        <option value="Popular Post">Popular Post</option>
+                        <option value="Menu Widget">Menu Widget</option>
+                        <option value="Text Widget">Text Widget</option>
+                        <option value="Gallary Widget">Gallary Widget</option>
 					</select>
 				</div>
+                </div>
 
-				<div id="child_fields">
+				<div id="blog_category">
 					<div class="card-body">
 						<div class="form-group">
-							<label for="exampleInputname">Child Title</label>
-							<input type="text" class="form-control @error('child_title') is-invalid @enderror" value="{{$widget->child_title ?? old('child_title')}}" name="child_title" id="posttitle" placeholder="D=Child Title">
-							@error('child_title')
-							<span class="invalid-feedback" role="alert">
-								<strong>{{$message}}</strong>
-							</span>
-							@enderror
+							<label for="exampleInputname">Widget Title</label>
+							<input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
+						</div>
+
+						<div class="form-group row" id="category">
+                            <label class="col-md-3 col-from-label">Select Category<span class="text-danger">*</span></label>
+                            <div>
+                                <select class="form-control sismoo-selectpicker" name="category_id" id="category_id" data-live-search="true" required>
+                                    @foreach ($categories as $key => $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @if($category->childrenRecursive->count()>0)
+                                    @include('backend.admin.sidebar.widget.child_category', ['sub_category' => $category])
+                                    @endif
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+{{-- 
+                        @foreach($categories as $key => $category)
+
+                        <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
+                            <div class="checkbox-group">
+                                <input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
+                            </div>
+                            @if($category->childrenRecursive->count()>0)
+
+
+                              @include('backend.admin.sidebar.widget.child_category', ['sub_category' => $category])
+
+
+                            @endif
+
+
+                        </li>
+                    @endforeach --}}
+
+                        <div class="form-group">
+							<label for="exampleInputname">No of Posts</label>
+							<input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="title" id="" placeholder="How many post you want to show">
 						</div>
 					</div>
 				</div>
 
-				<div id="widget_fields">
+                <div id="recent_post">
 					<div class="card-body">
 						<div class="form-group">
-							<label for="exampleInputname">Title</label>
-							<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$widget->title ?? old('title')}}" name="title" id="posttitle" placeholder="Widget Title">
-							@error('title')
-							<span class="invalid-feedback" role="alert">
-								<strong>{{$message}}</strong>
-							</span>
-							@enderror
+							<label for="exampleInputname">Widget Title</label>
+							<input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
+						</div>
+
+                        <div class="form-group">
+							<label for="exampleInputname">No of Recent Posts</label>
+							<input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="title" id="" placeholder="How many post you want to show">
 						</div>
 					</div>
 				</div>
 
-				{{-- <div class="card-body">
-					<div class="form-group">
-						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$widget->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
-                        @error('title')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
-					</div>
+				<div id="popular_post">
+					<div class="card-body">
+						<div class="form-group">
+							<label for="exampleInputname">Widget Title</label>
+							<input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
+						</div>
 
-				</div> --}}
-				
+                        <div class="form-group">
+							<label for="exampleInputname">No of Popular Posts</label>
+							<input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="title" id="" placeholder="How many post you want to show">
+						</div>
+					</div>
+				</div>
+
+
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
                         @isset($widget)
@@ -183,63 +223,48 @@
 		</div>
 
 		{{-- Right Side --}}
-		<div class="col-lg-3 col-xl-3 col-md-12 col-sm-12" style="float: left">
+		{{-- <div class="col-lg-3 col-xl-3 col-md-12 col-sm-12" style="float: left">
 
 			<div class="card">
 				<div class="card-header">
 					<h3 class="card-title">Create Page</h3>
 				</div>
-				<div class="card-body">
 
-					@isset($sidebar)
-					<div class="form-group">
-						<div class="form-label">Status</div>
-						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$sidebar->status == true ? 'checked' : ''}} class="custom-switch-input ">
-							<span class="custom-switch-indicator"></span>
-						</label>
-					</div>
+                    <div id="category" class="card-body">
 
-                    @else
+                        <div  class="transfer-double-list-content">
+                            <div class="transfer-double-list-main">
 
-                    <div class="form-group">
-						<div class="form-label">Status</div>
-						<label class="custom-switch">
-							<input type="checkbox" name="status" class="custom-switch-input ">
-							<span class="custom-switch-indicator"></span>
-						</label>
-					</div>
+                                <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
 
-                    @endisset
+                                @foreach($categories as $key => $category)
 
-                    @isset($sidebar)
-                    <div class="form-group">
-						<label class="form-label">Sidebar Type</label>
-						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Sidebar Type</option>
-							<option value="Left Side Bar" {{($sidebar->type == 'Left Side Bar') ? 'selected' : ''}}  >Left Side Bar</option>
-							<option value="Right Side Bar" {{($sidebar->type == 'Right Side Bar') ? 'selected' : ''}}>Right Side Bar</option>
-						</select>
-					</div>
-
-                    @else
-
-					<div class="form-group">
-						<label class="form-label">Sidebar Type</label>
-						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Sidebar Type</option>
-							<option value="Left Side Bar">Left Side Bar</option>
-							<option value="Right Side Bar">Right Side Bar</option>
-						</select>
-					</div>
-
-                    @endisset
+                                    <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
+                                        <div class="checkbox-group">
+                                            <input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
+                                        </div>
+                                        @if($category->childrenRecursive->count()>0)
 
 
-				</div>
+                                          @include('backend.admin.sidebar.widget.child_category', ['sub_category' => $category])
+
+
+                                        @endif
+
+
+                                    </li>
+                                @endforeach
+
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </div>
+
 
 			</div>
-		</div>
+		</div> --}}
 
 	</div>
     </form>
@@ -250,20 +275,31 @@
 
 
 <script>
-	function setwidget()
+	function setWidget()
 	{
-		if($('select[name="type"]').val() === 'child')
+		if($('select[name="type"]').val() === 'Blog Category')
 		{
-			$('#child_fields').removeClass('d-none');
-			$('#widget_fields').addClass('d-none');
+			$('#blog_category').removeClass('d-none');
+            $('#category').removeClass('d-none');
+            $('#recent_post').addClass('d-none');
+			$('#popular_post').addClass('d-none');
 		}
-		else
+		else if($('select[name="type"]').val() === 'Recent Post')
 		{
-			$('#child_fields').addClass('d-none');
-			$('#widget_fields').removeClass('d-none');
+			$('#recent_post').removeClass('d-none');
+			$('#blog_category').addClass('d-none');
+            $('#category').addClass('d-none');
+			$('#popular_post').addClass('d-none');
+		}
+		else if($('select[name="type"]').val() === 'Popular Post')
+		{
+			$('#recent_post').addClass('d-none');
+			$('#blog_category').addClass('d-none');
+            $('#category').addClass('d-none');
+			$('#popular_post').removeClass('d-none');
 		}
 	}
-	setwidget();
+	setWidget();
 </script>
 
 

@@ -1,4 +1,6 @@
-		<!-- BACK-TO-TOP -->
+
+        
+        <!-- BACK-TO-TOP -->
 		<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 
 		<!-- JQUERY JS -->
@@ -22,9 +24,11 @@
 		<script src="{{ asset('assets/plugins/p-scroll/pscroll.js') }}"></script>
 		<script src="{{ asset('assets/plugins/p-scroll/pscroll-1.js') }}"></script>
 
-        <script src="{{ asset('js/iziToast.js') }}"></script>
 
-		@yield('scripts')
+
+        <script src="{{ asset('js/iziToast.js') }}"></script>
+        @yield('scripts')
+
 
 		<!-- CUSTOM JS-->
 		<script src="{{ asset('assets/js/custom.js') }}"></script>

@@ -15,13 +15,13 @@ class CreateWidgetsTable extends Migration
     {
         Schema::create('widgets', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('sidebar_id');
+            $table->foreignId('sidebar_id')->nullable();
+            $table->foreignId('category_id')->nullable();
+            $table->integer('no_of_post')->nullable();
             $table->string('title')->nullable();
-            $table->string('child_title')->nullable();
-            $table->text('body');
-            $table->boolean('status');
-            $table->string('type');
-            $table->integer('parent_id')->nullable();
+            $table->text('body')->nullable();
+            $table->boolean('status')->nullable();
+            $table->string('type')->nullable();
             $table->integer('order')->nullable();
             $table->timestamps();
         });

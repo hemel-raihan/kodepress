@@ -42,7 +42,7 @@ class Sidebar extends Model
 
     public function widgets()
     {
-        return $this->hasMany(Widget::class);
+        return $this->hasMany(Widget::class)->orderBy('order');
     }
 
 }

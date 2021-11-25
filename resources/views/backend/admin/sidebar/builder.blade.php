@@ -76,6 +76,7 @@
 				<!-- INTERNAL multi css-->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/multi/multi.min.css') }}">
 
+
 @endsection
 
 @section('content')
@@ -100,7 +101,7 @@
 										<i class="fas fa-arrow-circle-left"></i>
 									</span> Back
 								</a>
-								
+
 							</div>
 						</div>
 						<!-- PAGE-HEADER END -->
@@ -110,9 +111,9 @@
 								<div class="main-card mb-3 card">
 									<div class="card-body">
 										<h5 class="card-title">
-											How To Use: 
+											How To Use:
 										</h5>
-										<p>You can output a sidebar anywhere on your site by calling <code>sidebar('name')</code></p>										
+										<p>You can output a sidebar anywhere on your site by calling <code>sidebar('name')</code></p>
 									</div>
 								</div>
 
@@ -122,10 +123,20 @@
 											Drag and Drop the sidebar Item below to re-arrange them.
 										</h5>
 										<div class="dd">
-											<ol>
+											<ol class="dd-list">
 												@forelse ($sidebar->widgets as $widget)
-													<li>
-														<span>{{$widget->title}}</span>
+													<li class="dd-item" data-id="{{$widget->id}}">
+                                                        <div class="pull-right item_actions">
+                                                            <a href="#" class="btn btn-success">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                            <a href="#" class="btn btn-success">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a>
+                                                        </div>
+                                                        <div class="dd-handle">
+                                                            <span>{{$widget->title}}</span>
+                                                        </div>
 													</li>
 												@empty
 													<div class="text-center">
@@ -139,12 +150,31 @@
 							</div>
 						</div>
                    <!-- ROW-1 OPEN -->
-    
+
 	<!-- ROW-1 CLOSED -->
 @endsection('content')
 
-@section('scripts')
+@section('dragscripts')
 
+<script type="text/javascript">
+    $('.dd').nestable({maxDepth: 2});
+    $('.dd').on('change',function(e)
+    {
+        $.post("{{route('admin.widget.order',$sidebar->id)}}",{
+            order:JSON.stringify($('.dd').nestable('serialize')),
+            _token: '{{csrf_token()}}'
+        },function(data){
+            iziToast.success({
+                title: 'Success',
+                message: 'Successfully updatd Widget order',
+            });
+        })
+    })
+
+</script>
+@endsection
+
+@section('scripts')
 
 
 

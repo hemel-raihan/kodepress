@@ -54,7 +54,8 @@
 
 		</div>
 
-        @include('layouts.vertical.scripts')
 
+        @include('layouts.vertical.scripts')
+        @include('layouts.vertical.dragscripts')
 	</body>
 </html>

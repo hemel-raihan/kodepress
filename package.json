@@ -21,12 +21,14 @@
         "sass": "^1.32.11",
         "sass-loader": "^11.0.1",
         "vue": "^2.6.12",
+        "vue-loader": "^15.9.7",
         "vue-template-compiler": "^2.6.12"
     },
     "dependencies": {
         "browser-sync": "^2.27.5",
         "browser-sync-webpack-plugin": "^2.3.0",
         "jquery": "^3.6.0",
+        "nestable2": "^1.6.0",
         "sass": "^1.38.1",
         "sass-loader": "^12.1.0"
     }

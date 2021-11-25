@@ -1,4 +1,5 @@
-		<!-- FAVICON -->
+
+    <!-- FAVICON -->
 		<link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets/images/brand/favicon.ico') }}" />
 
 		<!-- BOOTSTRAP CSS -->
@@ -24,8 +25,11 @@
 		<!-- SIDEBAR CSS -->
 		<link href="{{ asset('assets/plugins/sidebar/sidebar.css') }}" rel="stylesheet"/>
 
+        <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
         <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
 
+        
 		@yield('styles')
 
 		<!-- COLOR SKIN CSS -->

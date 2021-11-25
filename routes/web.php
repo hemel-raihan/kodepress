@@ -259,8 +259,11 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('sidebars/{id}/status', 'sidebar\SidebarController@status_approval')->name('sidebar.status');
     Route::get('widget/{id}/builder', 'sidebar\WidgetbuilderController@index')->name('widget.builder');
     Route::get('widget/{id}/create', 'sidebar\WidgetbuilderController@create')->name('widget.create');
-    Route::get('widget/{id}/store', 'sidebar\WidgetbuilderController@store')->name('widget.store');
-    Route::get('widget/{id}/update', 'sidebar\WidgetbuilderController@update')->name('widget.update');
+    Route::post('widget/{id}/store', 'sidebar\WidgetbuilderController@store')->name('widget.store');
+    Route::get('widget/{id}/edit', 'sidebar\WidgetbuilderController@edit')->name('widget.edit');
+    Route::put('widget/{id}/update', 'sidebar\WidgetbuilderController@update')->name('widget.update');
+    Route::put('widget/{id}/destroy', 'sidebar\WidgetbuilderController@destroy')->name('widget.destroy');
+    Route::post('widget/{id}/order', 'sidebar\WidgetbuilderController@order')->name('widget.order');
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');
