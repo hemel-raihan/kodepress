@@ -84,19 +84,19 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">Sidebar Builder ({{$sidebar->title}})</h1>
+								<h1 class="page-title">Menu Builder ({{$menu->title}})</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.widget.create',$sidebar->id)}}" class="btn btn-success btn-icon text-white">
+								<a href="{{route('admin.menuitem.create',$menu->id)}}" class="btn btn-success btn-icon text-white">
 									<span>
 										<i class="fe fe-log-in"></i>
-									</span> Create New Widget
+									</span> Create New MenuItem
 								</a>
-								<a href="{{route('admin.sidebars.index')}}" class="btn btn-danger btn-icon text-white me-2">
+								<a href="{{route('admin.frontmenus.index')}}" class="btn btn-danger btn-icon text-white me-2">
 									<span>
 										<i class="fas fa-arrow-circle-left"></i>
 									</span> Back
@@ -113,7 +113,7 @@
 										<h5 class="card-title">
 											How To Use:
 										</h5>
-										<p>You can output a sidebar anywhere on your site by calling <code>sidebar('name')</code></p>
+										<p>You can output a sidebar anywhere on your site by calling <code>menu('name')</code></p>
 									</div>
 								</div>
 
@@ -124,33 +124,78 @@
 										</h5>
 										<div class="dd">
 											<ol class="dd-list">
-												@forelse ($sidebar->widgets as $widget)
-													<li class="dd-item" data-id="{{$widget->id}}">
+												@forelse ($menu->menuItems as $item)
+													<li class="dd-item" data-id="{{$item->id}}">
                                                         <div class="pull-right item_actions">
-                                                            <a href="{{route('admin.widget.edit',['id'=>$sidebar->id,'widgetId'=>$widget->id])}}" class="btn btn-success">
+                                                            <a href="{{route('admin.menuitem.edit',['id'=>$menu->id,'menuId'=>$item->id])}}" class="btn btn-success">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
-                                                            @if($auth->hasPermission('app.sidebars.destroy'))
+                                                            @if($auth->hasPermission('app.front.menuitems.destroy'))
 
                                                             <button class="btn btn-danger waves effect" type="button"
-                                                                onclick="deletepost$widget({{ $widget->id}})" >
+                                                                onclick="deletepost$menuitem({{ $item->id}})" >
                                                                 <i class="fa fa-trash"></i>
                                                                 </button>
-                                                                <form id="deleteform-{{$widget->id}}" action="{{route('admin.widget.destroy',['id'=>$sidebar->id,'widgetId'=>$widget->id])}}" method="POST" style="display: none;">
+                                                                <form id="deleteform-{{$item->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id])}}" method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 </form>
                                                             @endif
                                                         </div>
+
                                                         <div class="dd-handle">
-                                                            <span>{{$widget->title}}</span>
+                                                            @if($item->type == 'divider')
+                                                            <strong> Divider: {{$item->divider_title }}</strong>
+                                                            @else
+                                                            <span> {{$item->title }}</span>
+                                                            <small class="url">{{$item->url}}</small>
+                                                            @endif
                                                         </div>
-													</li>
-												@empty
-													<div class="text-center">
-														<strong>No Sidebar item found</strong>
-													</div>
-												@endforelse
+
+                                                        @if(!$item->childs->isEmpty())
+                                                        <ol class="dd-list">
+                                                            @foreach($item->childs as $childItem)
+                                                            <li class="dd-item" data-id="{{$childItem->id}}">
+
+                                                                <div class="pull-right item_actions">
+                                                                    @if($auth->hasPermission('app.front.menuitems.edit'))
+                                                               <a href="{{route('admin.menuitem.edit',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" class="btn btn-success">
+                                                                <i class="fa fa-edit"></i>
+                                                                </a>
+                                                                @endif
+
+                                                               @if($auth->hasPermission('app.front.menuitems.destroy'))
+                                                               <button class="btn btn-danger waves effect" type="button"
+                                                                   onclick="deletepost$menuitem({{ $childItem->id}})" >
+                                                                   <i class="fa fa-trash"></i>
+                                                                   </button>
+                                                                   <form id="deleteform-{{$childItem->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" method="POST" style="display: none;">
+                                                                   @csrf
+                                                                   @method('DELETE')
+                                                                   </form>
+
+                                                                   @endif
+                                                                </div>
+
+                                                                <div class="dd-handle">
+                                                                    @if($childItem->type == 'divider')
+                                                                    <strong> Divider: {{$childItem->divider_title }}</strong>
+                                                                    @else
+                                                                    <span> {{$childItem->title }}</span>
+                                                                    <small class="url">{{$childItem->url}}</small>
+                                                                    @endif
+                                                                </div>
+                                                            </li>
+                                                            @endforeach
+                                                        </ol>
+                                                        @endif
+
+                                                    </li>
+                                                    @empty
+                                                    <div class="text-center">
+                                                        <strong>No menu item found.</strong>
+                                                    </div>
+                                                    @endforelse
 											</ol>
 										</div>
 									</div>
@@ -170,13 +215,13 @@
     $('.dd').nestable({maxDepth: 2});
     $('.dd').on('change',function(e)
     {
-        $.post("{{route('admin.widget.order',$sidebar->id)}}",{
+        $.post("{{route('admin.menuitem.order',$menu->id)}}",{
             order:JSON.stringify($('.dd').nestable('serialize')),
             _token: '{{csrf_token()}}'
         },function(data){
             iziToast.success({
                 title: 'Success',
-                message: 'Successfully updatd Widget order',
+                message: 'Successfully updatd Menu order',
             });
         })
     })
@@ -188,7 +233,7 @@
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">
-    function deletepost$widget(id)
+    function deletepost$menuitem(id)
 
     {
         Swal.fire({

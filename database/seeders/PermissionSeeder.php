@@ -304,11 +304,6 @@ class PermissionSeeder extends Seeder
         ]);
         Permission::updateOrCreate([
             'module_id' => $moduleAppSidebar->id,
-            'name' => 'Details Sidebar',
-            'slug' => 'app.sidebars.details'
-        ]);
-        Permission::updateOrCreate([
-            'module_id' => $moduleAppSidebar->id,
             'name' => 'Delete Sidebar',
             'slug' => 'app.sidebars.destroy'
         ]);
@@ -319,10 +314,117 @@ class PermissionSeeder extends Seeder
         ]);
         Permission::updateOrCreate([
             'module_id' => $moduleAppSidebar->id,
-            'name' => 'Widget Builder',
+            'name' => 'Sidebar Builder',
             'slug' => 'app.sidebars.widgetbuilder'
         ]);
-        
+
+
+        $moduleAppWidget = Module::updateOrCreate(['name' => 'Widget Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppWidget->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.widgets.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppWidget->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.widgets.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppWidget->id,
+            'name' => 'Create Widget',
+            'slug' => 'app.widgets.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppWidget->id,
+            'name' => 'Edit Widget',
+            'slug' => 'app.widgets.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppWidget->id,
+            'name' => 'Delete Widget',
+            'slug' => 'app.widgets.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppWidget->id,
+            'name' => 'Widget Builder',
+            'slug' => 'app.widgets.widgetbuilder'
+        ]);
+
+
+        $moduleAppFrontMenu = Module::updateOrCreate(['name' => 'Front Menu Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontMenu->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.front.menus.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontMenu->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.front.menus.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontMenu->id,
+            'name' => 'Create Frontmenu',
+            'slug' => 'app.front.menus.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontMenu->id,
+            'name' => 'Edit Frontmenu',
+            'slug' => 'app.front.menus.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontMenu->id,
+            'name' => 'Delete Frontmenu',
+            'slug' => 'app.front.menus.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontMenu->id,
+            'name' => 'Approve Frontmenu',
+            'slug' => 'app.front.menus.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontMenu->id,
+            'name' => 'Menu Builder',
+            'slug' => 'app.front.menus.widgetbuilder'
+        ]);
+
+
+        $moduleAppFrontmenuitem = Module::updateOrCreate(['name' => 'Widget Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontmenuitem->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.front.menuitems.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontmenuitem->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.front.menuitems.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontmenuitem->id,
+            'name' => 'Create Frontmenuitem',
+            'slug' => 'app.front.menuitems.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontmenuitem->id,
+            'name' => 'Edit Frontmenuitem',
+            'slug' => 'app.front.menuitems.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontmenuitem->id,
+            'name' => 'Delete Frontmenuitem',
+            'slug' => 'app.front.menuitems.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppFrontmenuitem->id,
+            'name' => 'menuitem Builder',
+            'slug' => 'app.front.menuitems.widgetbuilder'
+        ]);
+
 
     }
 }

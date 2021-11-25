@@ -23,9 +23,9 @@ class WidgetbuilderController extends Controller
     public function create($id)
     {
         $sidebar = Sidebar::findOrFail($id);
-        $categories = category::where('parent_id', '=', 0)->get();
-        $subcat = category::all();
-        return view('backend.admin.sidebar.widget.form',compact('sidebar','categories','subcat'));
+        //$categories = category::where('parent_id', '=', 0)->get();
+        $categories = category::all();
+        return view('backend.admin.sidebar.widget.form',compact('sidebar','categories'));
     }
 
     public function store(Request $request,$id)
@@ -34,9 +34,14 @@ class WidgetbuilderController extends Controller
 
         $sidebar->widgets()->create([
             'title' => $request->title,
+            'category_id' => $request->category_id,
+            'no_of_post' => $request->no_of_post,
+            'type' => $request->type,
+            'body' => $request->body,
 
         ]);
-        return back();
+        notify()->success("Widget Successfully created","Added");
+        return redirect()->route('admin.widget.builder',$id);
     }
 
     public function order(Request $request, $id)
@@ -56,5 +61,42 @@ class WidgetbuilderController extends Controller
             ]);
 
         }
+    }
+
+    public function edit($id,$widgetId)
+    {
+        $auth = Auth::user();
+        $sidebar = Sidebar::findOrFail($id);
+        $widget = $sidebar->widgets()->findOrFail($widgetId);
+        $editcategories = category::all();
+        return view('backend.admin.sidebar.widget.form',compact('sidebar','auth','widget','editcategories'));
+    }
+
+    public function update(Request $request,$id,$widgetId)
+    {
+        //Gate::authorize('app.menus.edit');
+        $sidebar = Sidebar::findOrFail($id);
+
+        $sidebar->widgets()->findOrFail($widgetId)->update([
+            'title' => $request->title,
+            'category_id' => $request->category_id,
+            'no_of_post' => $request->no_of_post,
+            'type' => $request->type,
+            'body' => $request->body,
+        ]);
+
+        notify()->success('Widget Item Updated','Update');
+        return redirect()->route('admin.widget.builder',$id);
+    }
+
+    public function destroy($id,$widgetId)
+    {
+        Sidebar::findOrFail($id)
+                 ->widgets()
+                 ->findOrFail($widgetId)
+                 ->delete();
+
+        notify()->success('Widget Delete Successfully');
+        return back();
     }
 }

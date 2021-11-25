@@ -64,6 +64,14 @@
 							</ul>
 						</li>
 
+                        <li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Front Menu</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{route('admin.frontmenus.create')}}" class="slide-item">Create New Menu </a></li>
+								<li><a href="{{route('admin.frontmenus.index')}}" class="slide-item">All Menus</a></li>
+							</ul>
+						</li>
+
 						<!-- <li><h3>Elements</h3></li>
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>

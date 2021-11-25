@@ -76,7 +76,6 @@
 				<!-- INTERNAL multi css-->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/multi/multi.min.css') }}">
 
-
 @endsection
 
 @section('content')
@@ -84,129 +83,150 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">Sidebar Builder ({{$sidebar->title}})</h1>
+								<h1 class="page-title">{{ isset($frontmenuitem) ? 'Edit ' : 'Create '}}Widget ({{$menu->title}})</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.widget.create',$sidebar->id)}}" class="btn btn-success btn-icon text-white">
+								<a href="{{route('admin.widget.builder',$menu->id)}}" class="btn btn-primary btn-icon text-white me-2">
+									<span>
+										{{-- <i class="fe fe-minus"></i> --}}
+									</span> Back To WidgetList
+								</a>
+								{{-- <a href="#" class="btn btn-success btn-icon text-white">
 									<span>
 										<i class="fe fe-log-in"></i>
-									</span> Create New Widget
-								</a>
-								<a href="{{route('admin.sidebars.index')}}" class="btn btn-danger btn-icon text-white me-2">
-									<span>
-										<i class="fas fa-arrow-circle-left"></i>
-									</span> Back
-								</a>
-
+									</span> Export
+								</a> --}}
 							</div>
 						</div>
 						<!-- PAGE-HEADER END -->
 
-						<div class="row">
-							<div class="col-12">
-								<div class="main-card mb-3 card">
-									<div class="card-body">
-										<h5 class="card-title">
-											How To Use:
-										</h5>
-										<p>You can output a sidebar anywhere on your site by calling <code>sidebar('name')</code></p>
-									</div>
-								</div>
-
-								<div class="main-card mb-3 card">
-									<div class="card-body menu-builder">
-										<h5 class="card-title">
-											Drag and Drop the sidebar Item below to re-arrange them.
-										</h5>
-										<div class="dd">
-											<ol class="dd-list">
-												@forelse ($sidebar->widgets as $widget)
-													<li class="dd-item" data-id="{{$widget->id}}">
-                                                        <div class="pull-right item_actions">
-                                                            <a href="{{route('admin.widget.edit',['id'=>$sidebar->id,'widgetId'=>$widget->id])}}" class="btn btn-success">
-                                                                <i class="fa fa-edit"></i>
-                                                            </a>
-                                                            @if($auth->hasPermission('app.sidebars.destroy'))
-
-                                                            <button class="btn btn-danger waves effect" type="button"
-                                                                onclick="deletepost$widget({{ $widget->id}})" >
-                                                                <i class="fa fa-trash"></i>
-                                                                </button>
-                                                                <form id="deleteform-{{$widget->id}}" action="{{route('admin.widget.destroy',['id'=>$sidebar->id,'widgetId'=>$widget->id])}}" method="POST" style="display: none;">
-                                                                @csrf
-                                                                @method('DELETE')
-                                                                </form>
-                                                            @endif
-                                                        </div>
-                                                        <div class="dd-handle">
-                                                            <span>{{$widget->title}}</span>
-                                                        </div>
-													</li>
-												@empty
-													<div class="text-center">
-														<strong>No Sidebar item found</strong>
-													</div>
-												@endforelse
-											</ol>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
                    <!-- ROW-1 OPEN -->
+    <form method="POST" action="{{isset($frontmenuitem) ? route('admin.menuitem.update',['id'=>$menu->id,'menuId'=>$frontmenuitem->id]) : route('admin.menuitem.store',$menu->id)}}" enctype="multipart/form-data">
+    @csrf
+    @isset($frontmenuitem)
+    @method('PUT')
+    @endisset
+	<div class="row">
+        <div class="col-md-8">
+            <div class="main-card mb-3 card">
 
+                <div class="card-body">
+                <h5 class="card-title">Manage Menu Item</h5>
+
+                <div class="form-group">
+                    <label for="type">Type</label>
+                    <select class="form-control form-select select2" onchange="setItemType()" name="type" id="type">
+                        <option value="item" @isset($menuItem) {{$menuItem->type == 'item' ? 'selected' : ''}} @endisset >Menu Item</option>
+                        <option value="divider" @isset($menuItem) {{$menuItem->type == 'divider' ? 'selected' : ''}} @endisset >Divider</option>
+                    </select>
+                </div>
+
+                <div id="divider_fields">
+
+                    <div class="form-group">
+                        <label for="divider_title">Title Of the Divider</label>
+                        <input id="divider_title" type="text" class="form-control @error('divider_title') is-invalid @enderror" name="divider_title" value="{{ $menuItem->divider_title ?? old('divider_title') }}"  autofocus>
+
+                                   @error('divider_title')
+                                       <span class="invalid-feedback" page="alert">
+                                           <strong>{{ $message }}</strong>
+                                       </span>
+                                   @enderror
+                            </div>
+
+
+                </div>
+
+
+                <div id="item_fields">
+
+                    <div class="form-group">
+                        <label for="title">Title</label>
+                        <input id="title" type="text" class="form-control @error('title') is-invalid @enderror" name="title" value="{{ $menuItem->title ?? old('title') }}"  autofocus>
+
+                                   @error('title')
+                                       <span class="invalid-feedback" page="alert">
+                                           <strong>{{ $message }}</strong>
+                                       </span>
+                                   @enderror
+                            </div>
+
+                            <div class="form-group">
+                                <label for="url">Url for the menu item</label>
+                                <input id="url" type="text" class="form-control @error('url') is-invalid @enderror" name="url" value="{{ $menuItem->url ?? old('url') }}"  autofocus>
+
+                                           @error('url')
+                                               <span class="invalid-feedback" page="alert">
+                                                   <strong>{{ $message }}</strong>
+                                               </span>
+                                           @enderror
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label for="target">Open In</label>
+                                        <select @error('target') is-invalid @enderror class="form-control form-select select2" name="target" id="target">
+                                            <option value="_self" @isset($menuItem) {{$menuItem->target == '_self' ? 'selected' : ''}} @endisset >Same Tab/Window</option>
+                                            <option value="_blank" @isset($menuItem) {{$menuItem->target == '_blank' ? 'selected' : ''}} @endisset>New Tab/Window</option>
+                                        </select>
+                                        @error('target')
+                                               <span class="invalid-feedback" page="alert">
+                                                   <strong>{{ $message }}</strong>
+                                               </span>
+                                           @enderror
+                                    </div>
+                                  </div>
+
+
+                            <button type="submit" class="btn btn-primary">
+                                @isset($frontmenuitem)
+                                <i class="fas fa-arrow-circle-up"></i>
+                                Update
+                                @else
+                                <i class="fas fa-plus-circle"></i>
+                                Create
+                                @endisset
+                                </button>
+
+                </div>
+            </div>
+        </div>
+    </div>
+    </form>
 	<!-- ROW-1 CLOSED -->
 @endsection('content')
 
-
-
-@section('dragscripts')
-
-<script type="text/javascript">
-    $('.dd').nestable({maxDepth: 2});
-    $('.dd').on('change',function(e)
-    {
-        $.post("{{route('admin.widget.order',$sidebar->id)}}",{
-            order:JSON.stringify($('.dd').nestable('serialize')),
-            _token: '{{csrf_token()}}'
-        },function(data){
-            iziToast.success({
-                title: 'Success',
-                message: 'Successfully updatd Widget order',
-            });
-        })
-    })
-
-</script>
-@endsection
-
 @section('scripts')
 
-<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-<script type="text/javascript">
-    function deletepost$widget(id)
 
+<script>
+    function setItemType()
     {
-        Swal.fire({
-  title: 'Are you sure?',
-  text: "You won't be able to revert this!",
-  icon: 'warning',
-  showCancelButton: true,
-  confirmButtonColor: '#3085d6',
-  cancelButtonColor: '#d33',
-  confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-   event.preventDefault();
-   document.getElementById('deleteform-'+id).submit();
-  }
-})
+        if($('select[name="type"]').val() === 'divider')
+        {
+            $('#divider_fields').removeClass('d-none');  // d-none => display none
+            $('#item_fields').addClass('d-none');         // d-none => display add
+        }
+        else
+        {
+            $('#divider_fields').addClass('d-none');  // d-none => display none
+            $('#item_fields').removeClass('d-none');
+        }
     }
-    </script>
+    setItemType();
+</script>
+
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+	window.onload = function () {
+		CKEDITOR.replace('ckeditor', {
+	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+	    });
+	}
+</script>
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>

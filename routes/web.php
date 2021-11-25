@@ -255,15 +255,29 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('general/contentposts/{id}/status', 'general_content\ContentPostController@status_approval')->name('general.contentpost.status');
     Route::resource('pages','page\PageController');
     Route::get('pages/{id}/status', 'page\PageController@status_approval')->name('page.status');
+
+    //for sidebar & widget
     Route::resource('sidebars','sidebar\SidebarController');
     Route::get('sidebars/{id}/status', 'sidebar\SidebarController@status_approval')->name('sidebar.status');
     Route::get('widget/{id}/builder', 'sidebar\WidgetbuilderController@index')->name('widget.builder');
     Route::get('widget/{id}/create', 'sidebar\WidgetbuilderController@create')->name('widget.create');
     Route::post('widget/{id}/store', 'sidebar\WidgetbuilderController@store')->name('widget.store');
-    Route::get('widget/{id}/edit', 'sidebar\WidgetbuilderController@edit')->name('widget.edit');
-    Route::put('widget/{id}/update', 'sidebar\WidgetbuilderController@update')->name('widget.update');
-    Route::put('widget/{id}/destroy', 'sidebar\WidgetbuilderController@destroy')->name('widget.destroy');
+    Route::get('widget/{id}/edit/{widgetId}', 'sidebar\WidgetbuilderController@edit')->name('widget.edit');
+    Route::put('widget/{id}/update/{widgetId}', 'sidebar\WidgetbuilderController@update')->name('widget.update');
+    Route::delete('widget/{id}/destroy/{widgetId}', 'sidebar\WidgetbuilderController@destroy')->name('widget.destroy');
     Route::post('widget/{id}/order', 'sidebar\WidgetbuilderController@order')->name('widget.order');
+    //end sidebar & widget
+
+    //for Front end Menu Builder
+    Route::resource('frontmenus','frontmenu\MenuController');
+    Route::get('frontmenus/{id}/status', 'frontmenu\MenuController@status_approval')->name('frontmenu.status');
+    Route::get('menuitem/{id}/builder', 'frontmenu\MenuitemController@index')->name('menuitem.builder');
+    Route::get('menuitem/{id}/create', 'frontmenu\MenuitemController@create')->name('menuitem.create');
+    Route::post('menuitem/{id}/store', 'frontmenu\MenuitemController@store')->name('menuitem.store');
+    Route::get('menuitem/{id}/edit/{menuId}', 'frontmenu\MenuitemController@edit')->name('menuitem.edit');
+    Route::put('menuitem/{id}/update/{menuId}', 'frontmenu\MenuitemController@update')->name('menuitem.update');
+    Route::delete('menuitem/{id}/destroy/{menuId}', 'frontmenu\MenuitemController@destroy')->name('menuitem.destroy');
+    Route::post('menuitem/{id}/order', 'frontmenu\MenuitemController@order')->name('menuitem.order');
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');

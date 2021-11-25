@@ -105,7 +105,7 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($widget) ? route('admin.widget.update',$widget->id) : route('admin.widget.store',$sidebar->id)}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($widget) ? route('admin.widget.update',['id'=>$sidebar->id,'widgetId'=>$widget->id]) : route('admin.widget.store',$sidebar->id)}}" enctype="multipart/form-data">
     @csrf
     @isset($widget)
     @method('PUT')
@@ -120,8 +120,19 @@
 
                 <div class="card-body">
 				<div class="form-group">
-					<label class="form-label" for="type">Select Widget Type</label>
-					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" onChange="setWidget()">
+                    @isset($widget)
+                    <label class="form-label" for="type">Select Widget Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" required onChange="setWidget()">
+						<option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
+						<option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
+                        <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
+                        <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
+                        <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
+                        <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
+					</select>
+                    @else
+                    <label class="form-label" for="type">Select Widget Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" required onChange="setWidget()">
 						<option value="Blog Category">Blog Category</option>
 						<option value="Recent Post">Recent Post</option>
                         <option value="Popular Post">Popular Post</option>
@@ -129,80 +140,68 @@
                         <option value="Text Widget">Text Widget</option>
                         <option value="Gallary Widget">Gallary Widget</option>
 					</select>
+                    @endisset
 				</div>
+
+                <div class="form-group">
+                    <label for="exampleInputname">Widget Title</label>
+                    <input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputname">No of Posts</label>
+                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="no_of_post" id="" placeholder="How many post you want to show">
+                </div>
+
                 </div>
 
 				<div id="blog_category">
 					<div class="card-body">
-						<div class="form-group">
-							<label for="exampleInputname">Widget Title</label>
-							<input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
-						</div>
-
 						<div class="form-group row" id="category">
                             <label class="col-md-3 col-from-label">Select Category<span class="text-danger">*</span></label>
+                            @isset($editcategories)
                             <div>
-                                <select class="form-control sismoo-selectpicker" name="category_id" id="category_id" data-live-search="true" required>
-                                    @foreach ($categories as $key => $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @if($category->childrenRecursive->count()>0)
-                                    @include('backend.admin.sidebar.widget.child_category', ['sub_category' => $category])
-                                    @endif
+                                <select class="form-control" name="category_id" id="category_id" data-live-search="true">
+                                    <option value="0">Select Category</option>
+                                    @foreach ($editcategories as $key => $category)
+                                    <option value="{{ $category->id }}" {{($widget->category_id == $category->id) ? 'selected' : ''}} >{{ $category->name }} ({{$category->posts()->count()}})</option>
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
-{{-- 
-                        @foreach($categories as $key => $category)
-
-                        <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
-                            <div class="checkbox-group">
-                                <input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
+                            @else
+                            <div>
+                                <select class="form-control" name="category_id" id="category_id" data-live-search="true">
+                                    <option value="0">Select Category</option>
+                                    @foreach ($categories as $key => $category)
+                                    <option value="{{ $category->id }}">{{ $category->name }} ({{$category->posts()->count()}})</option>
+                                    @endforeach
+                                </select>
                             </div>
-                            @if($category->childrenRecursive->count()>0)
-
-
-                              @include('backend.admin.sidebar.widget.child_category', ['sub_category' => $category])
-
-
-                            @endif
-
-
-                        </li>
-                    @endforeach --}}
-
-                        <div class="form-group">
-							<label for="exampleInputname">No of Posts</label>
-							<input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="title" id="" placeholder="How many post you want to show">
-						</div>
+                            @endisset
+                        </div>
 					</div>
 				</div>
 
                 <div id="recent_post">
 					<div class="card-body">
-						<div class="form-group">
-							<label for="exampleInputname">Widget Title</label>
-							<input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
-						</div>
-
-                        <div class="form-group">
-							<label for="exampleInputname">No of Recent Posts</label>
-							<input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="title" id="" placeholder="How many post you want to show">
-						</div>
 					</div>
 				</div>
 
 				<div id="popular_post">
 					<div class="card-body">
-						<div class="form-group">
-							<label for="exampleInputname">Widget Title</label>
-							<input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
-						</div>
+					</div>
+				</div>
 
+                <div id="text_widget">
+					<div class="card-body">
                         <div class="form-group">
-							<label for="exampleInputname">No of Popular Posts</label>
-							<input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="title" id="" placeholder="How many post you want to show">
-						</div>
+                            <label for="exampleInputContent">Post Description</label>
+                            <div class="ql-wrapper ql-wrapper-demo bg-light">
+
+                                <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$widget->body ?? old('body')!!}</textarea>
+
+                            </div>
+                        </div>
 					</div>
 				</div>
 
@@ -283,6 +282,7 @@
             $('#category').removeClass('d-none');
             $('#recent_post').addClass('d-none');
 			$('#popular_post').addClass('d-none');
+            $('#text_widget').addClass('d-none');
 		}
 		else if($('select[name="type"]').val() === 'Recent Post')
 		{
@@ -290,6 +290,7 @@
 			$('#blog_category').addClass('d-none');
             $('#category').addClass('d-none');
 			$('#popular_post').addClass('d-none');
+            $('#text_widget').addClass('d-none');
 		}
 		else if($('select[name="type"]').val() === 'Popular Post')
 		{
@@ -297,11 +298,28 @@
 			$('#blog_category').addClass('d-none');
             $('#category').addClass('d-none');
 			$('#popular_post').removeClass('d-none');
+            $('#text_widget').addClass('d-none');
+		}
+        else if($('select[name="type"]').val() === 'Text Widget')
+		{
+			$('#recent_post').addClass('d-none');
+			$('#blog_category').addClass('d-none');
+            $('#category').addClass('d-none');
+			$('#popular_post').addClass('d-none');
+            $('#text_widget').removeClass('d-none');
 		}
 	}
 	setWidget();
 </script>
 
+<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+<script>
+	window.onload = function () {
+		CKEDITOR.replace('ckeditor', {
+	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+	    });
+	}
+</script>
 
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Dropify/0.2.2/js/dropify.min.js" integrity="sha512-8QFTrG0oeOiyWo/VM9Y8kgxdlCryqhIxVeRpWSezdRRAvarxVtwLnGroJgnVW9/XBRduxO/z1GblzPrMQoeuew==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
