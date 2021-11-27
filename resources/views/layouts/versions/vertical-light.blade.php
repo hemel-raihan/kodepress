@@ -17,6 +17,7 @@
         @FilemanagerScript
 
 
+
 	</head>
 
 	<body class="app sidebar-mini">

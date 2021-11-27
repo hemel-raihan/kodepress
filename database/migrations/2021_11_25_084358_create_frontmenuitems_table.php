@@ -16,13 +16,14 @@ class CreateFrontmenuitemsTable extends Migration
         Schema::create('frontmenuitems', function (Blueprint $table) {
             $table->id();
             $table->foreignId('frontmenu_id');
-            $table->enum('type',['item','divider'])->default('item');
+            //$table->enum('type',['item','divider'])->default('item');
+            $table->string('type')->nullable();
             $table->integer('parent_id')->nullable();
             $table->integer('order')->nullable();
             $table->string('title')->nullable();
             $table->string('divider_title')->nullable();
-            $table->string('url')->nullable();
-            $table->string('target')->default('_self');
+            $table->string('slug')->nullable();
+            $table->string('target')->nullable();
             $table->timestamps();
         });
     }

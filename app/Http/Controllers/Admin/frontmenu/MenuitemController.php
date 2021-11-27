@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\frontmenu;
 
+use App\Models\Admin\Page;
+use App\Models\blog\Category;
 use Illuminate\Http\Request;
 use App\Models\Frontmenu\Frontmenu;
 use App\Http\Controllers\Controller;
@@ -16,7 +18,9 @@ class MenuitemController extends Controller
             Gate::authorize('app.front.menuitems.widgetbuilder');
             $menu = Frontmenu::findOrFail($id);
             $auth = Auth::guard('admin')->user();
-            return view('backend.admin.frontmenu.builder',compact('menu','auth'));
+            $pages = Page::all();
+            $categories = Category::all();
+            return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories'));
         }
 
         public function create($id)
@@ -27,23 +31,33 @@ class MenuitemController extends Controller
 
     public function store(Request $request,$id)
     {
+        // $menu = Frontmenu::findOrFail($id);
+        // foreach($request->input('title') as $key => $value) {
+        //     $menu->menuItems()->create([
+        //         'title' => $request->input('title')[$key],
+        //         'url' => $request->title,
+        //         // etc
+        //     ]);
+        //     }
 
-        $this->validate($request,[
-            'type' => 'required|string',
-            'divider_title' => 'nullable|string',
-            'title' => 'nullable|string',
-            'url' => 'nullable|string',
-            'target' => 'nullable|string',
-        ]);
+        // $this->validate($request,[
+        //     'type' => 'required|string',
+        //     'divider_title' => 'nullable|string',
+        //     'title' => 'nullable|string',
+        //     'url' => 'nullable|string',
+        //     'target' => 'nullable|string',
+        // ]);
         $menu = Frontmenu::findOrFail($id);
 
+        foreach($request->input('title') as $key => $value) {
         $menu->menuItems()->create([
-            'title' => $request->title,
-            'type' => $request->type,
-            'divider_title' => $request->divider_title,
-            'url' => $request->url,
-            'target' => $request->target,
+            'title' => $request->input('title')[$key],
+            'slug' => $request->input('title')[$key],
+            //'type' => $request->type,
+            //'divider_title' => $request->divider_title,
+            //'target' => $request->target,
         ]);
+    }
 
         notify()->success('Menu Item Added','Added');
         return redirect()->route('admin.menuitem.builder',$menu->id);
@@ -100,14 +114,14 @@ class MenuitemController extends Controller
     //     return redirect()->route('admin.widget.builder',$id);
     // }
 
-    // public function destroy($id,$widgetId)
-    // {
-    //     Sidebar::findOrFail($id)
-    //              ->widgets()
-    //              ->findOrFail($widgetId)
-    //              ->delete();
+    public function destroy($id,$menuId)
+    {
+        Frontmenu::findOrFail($id)
+                 ->menuItems()
+                 ->findOrFail($menuId)
+                 ->delete();
 
-    //     notify()->success('Widget Delete Successfully');
-    //     return back();
-    // }
+        notify()->success('Widget Delete Successfully');
+        return back();
+    }
 }
