@@ -165,13 +165,13 @@
 					<div class="form-group featur">
 						<label class="form-label">Feature Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset($post->image) : '' }}" name="image">
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('uploads/postphoto/'.$post->image) : '' }}" name="image">
 					</div>
 
 					<div class="form-group">
 						<label class="form-label">Gallary Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('gallary_image/'.$post->gallaryimage) : '' }}" multiple name="gallaryimage[]">
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($post) ? asset('uploads/gallary_image/'.$post->gallaryimage) : '' }}" multiple name="gallaryimage[]">
 					</div>
 
 				</div>
@@ -312,46 +312,69 @@
 
                     @endisset
 
-                    {{-- <div class="form-group">
-						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Left Sidebar</option>
-                            @foreach ($subcat as $cat)
-                            <option value="{{$cat->id}}">{{}}</option>
-                            @endforeach
+					@isset($editsidebars)
 
-							<option value="1">Brazil</option>
-							<option value="2">Czech Republic</option>
-						</select>
-					</div> --}}
-					<div class="form-group">
+                    <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Left Sidebar</option>
-                            <option value="0">None</option>
-							<option value="1">Brazil</option>
-							<option value="2">Czech Republic</option>
+                            <option value="0" {{($post->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Left Side Bar')
+                            <option value="{{$editsidebar->id}}" {{($post->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
+                            @endif
+                            @endforeach
 						</select>
 					</div>
-                    {{-- @endisset --}}
+
+
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2 @error('rightsidebar_id') is-invalid @enderror" data-bs-placeholder="Select Country">
+						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+							<option label="Select Country">Select Right Sidebar</option>
+                            <option value="0" {{($category->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Right Side Bar')
+							<option value="{{$editsidebar->id}}" {{($category->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+					</div>
+
+                    @else
+
+                    <div class="form-group">
+						<label class="form-label">Left Sidebar</label>
+						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+							<option label="Select Country">Select Left Sidebar</option>
+                            <option value="0">None</option>
+                            @foreach ($sidebars as $sidebar)
+                            @if($sidebar->type == 'Left Side Bar')
+                            <option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+					</div>
+
+
+					<div class="form-group">
+						<label class="form-label">Right Sidebar</label>
+						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Right Sidebar</option>
                             <option value="0">None</option>
-							<option value="3">Brazil</option>
-							<option value="4">Czech Republic</option>
+                            @foreach ($sidebars as $sidebar)
+                            @if($sidebar->type == 'Right Side Bar')
+							<option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
+                            @endif
+                            @endforeach
 						</select>
-                        @error('rightsidebar_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
 					</div>
+
+                    @endisset
 
                     <div class="form-group">
 						<label class="form-label">File</label>
-						<input type="file" name="files" class="dropify" data-default-file="{{ isset($post) ? asset('files/'.$post->files) : ''}}" data-bs-height="180"  />
+						<input type="file" name="files" class="dropify" data-default-file="{{ isset($post) ? asset('uploads/files/'.$post->files) : ''}}" data-bs-height="180"  />
 
 					</div>
 

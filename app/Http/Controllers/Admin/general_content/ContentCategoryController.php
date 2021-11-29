@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\general_content;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -37,7 +38,8 @@ class ContentCategoryController extends Controller
         Gate::authorize('app.content.categories.create');
         $categories = Contentcategory::where('parent_id', '=', 0)->get();
         $subcat = Contentcategory::all();
-        return view('backend.admin.general_content.category.form',compact('categories','subcat'));
+        $sidebars = Sidebar::all();
+        return view('backend.admin.general_content.category.form',compact('categories','subcat','sidebars'));
     }
 
     /**
@@ -66,15 +68,18 @@ class ContentCategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('contentcategoryphoto/'))
-            {
-                Storage::disk('public')->makeDirectory('contentcategoryphoto/');
-            }
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('contentcategoryphoto/'))
+            // {
+            //     Storage::disk('public')->makeDirectory('contentcategoryphoto/');
+            // }
 
-            //resize image
-            $category = Image::make($image)->resize(500,333)->save($imagename,90);
-            Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$category);
+            // //resize image
+            // $category = Image::make($image)->resize(500,333)->save($imagename,90);
+            // Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$category);
+
+            $categoryphotoPath = public_path('uploads/contentcategoryphoto');
+            $image->move($categoryphotoPath,$imagename);
 
         }
 
@@ -156,7 +161,8 @@ class ContentCategoryController extends Controller
         Gate::authorize('app.blog.categories.edit');
         $categories = Contentcategory::where('parent_id', '=', 0)->get();
         $subcat = Contentcategory::all();
-        return view('backend.admin.general_content.category.form',compact('contentcategory','categories','subcat'));
+        $editsidebars = Sidebar::all();
+        return view('backend.admin.general_content.category.form',compact('contentcategory','categories','subcat','editsidebars'));
     }
 
     /**
@@ -186,21 +192,32 @@ class ContentCategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('contentcategoryphoto'))
-            {
-                Storage::disk('public')->makeDirectory('contentcategoryphoto');
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('contentcategoryphoto'))
+            // {
+            //     Storage::disk('public')->makeDirectory('contentcategoryphoto');
+            // }
+
+            // //delete old image
+            // if(Storage::disk('public')->exists('contentcategoryphoto/'.$contentcategory->image))
+            // {
+            //     Storage::disk('public')->delete('contentcategoryphoto/'.$contentcategory->image);
+            // }
+
+            // //resize image
+            // $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
+            // Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$categoryimg);
+
+            $categoryphotoPath = public_path('uploads/contentcategory');
+
+            $categoryphoto_path = public_path('uploads/contentcategory/'.$contentcategory->image);  // Value is not URL but directory file path
+            if (file_exists($categoryphoto_path)) {
+
+                @unlink($categoryphoto_path);
+
             }
 
-            //delete old image
-            if(Storage::disk('public')->exists('contentcategoryphoto/'.$contentcategory->image))
-            {
-                Storage::disk('public')->delete('contentcategoryphoto/'.$contentcategory->image);
-            }
-
-            //resize image
-            $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
-            Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$categoryimg);
+            $image->move($categoryphotoPath,$imagename);
 
         }
         else

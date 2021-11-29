@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\blog\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Admin\Sidebar;
 use App\Models\blog\Category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -39,7 +40,8 @@ class PostController extends Controller
         Gate::authorize('app.blog.posts.create');
         $categories = Category::where('parent_id', '=', 0)->get();
         $subcat = Category::all();
-        return view('backend.admin.blog.post.form',compact('categories','subcat'));
+        $sidebars = Sidebar::all();
+        return view('backend.admin.blog.post.form',compact('categories','subcat','sidebars'));
     }
 
     /**
@@ -69,15 +71,18 @@ class PostController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('postphoto/'))
-            {
-                Storage::disk('public')->makeDirectory('postphoto/');
-            }
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('postphoto/'))
+            // {
+            //     Storage::disk('public')->makeDirectory('postphoto/');
+            // }
 
-            //resize image
-            $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
+            // //resize image
+            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
+            // Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
+
+            $postphotoPath = public_path('uploads/postphoto');
+            $image->move($postphotoPath,$imagename);
 
         }
 
@@ -85,7 +90,7 @@ class PostController extends Controller
          //get form Gallary image
          $gallaryimage = $request->file('gallaryimage');
          $images=array();
-         $destination = public_path('/gallary_image');
+         $destination = public_path('uploads/gallary_image');
 
          if(isset($gallaryimage))
          {
@@ -105,7 +110,7 @@ class PostController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-            $destinationPath = public_path('/files');
+            $destinationPath = public_path('uploads/files');
 
             // //check image folder existance
             // if(!Storage::disk('public')->exists('postfile'))
@@ -225,7 +230,8 @@ class PostController extends Controller
         Gate::authorize('app.blog.posts.edit');
         $categories = Category::where('parent_id', '=', 0)->get();
         $subcat = Category::all();
-        return view('backend.admin.blog.post.form',compact('post','categories','subcat'));
+        $editsidebars = Sidebar::all();
+        return view('backend.admin.blog.post.form',compact('post','categories','subcat','editsidebars'));
     }
 
     /**
@@ -254,21 +260,32 @@ class PostController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('postphoto'))
-            {
-                Storage::disk('public')->makeDirectory('postphoto');
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('postphoto'))
+            // {
+            //     Storage::disk('public')->makeDirectory('postphoto');
+            // }
+
+            //  //delete old image
+            //  if(Storage::disk('public')->exists('postphoto/'.$post->image))
+            //  {
+            //      Storage::disk('public')->delete('postphoto/'.$post->image);
+            //  }
+
+            // //resize image
+            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
+            // Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
+
+            $postphotoPath = public_path('uploads/postphoto');
+
+            $postphoto_path = public_path('uploads/postphoto/'.$post->image);  // Value is not URL but directory file path
+            if (file_exists($postphoto_path)) {
+
+                @unlink($postphoto_path);
+
             }
 
-             //delete old image
-             if(Storage::disk('public')->exists('postphoto/'.$post->image))
-             {
-                 Storage::disk('public')->delete('postphoto/'.$post->image);
-             }
-
-            //resize image
-            $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
+            $image->move($postphotoPath,$imagename);
 
         }
         else
@@ -279,15 +296,15 @@ class PostController extends Controller
         //get form Gallary image
         $gallaryimage = $request->file('gallaryimage');
         $images=array();
-        $destination = public_path('/gallary_image');
-        $updateimages = explode(",", $post->gallaryimage);
+        $destination = public_path('uploads/gallary_image');
+        $updateimages = explode("|", $post->gallaryimage);
+
 
         if(isset($gallaryimage))
         {
-
             foreach($updateimages as $updateimage){
 
-                $gallary_path = public_path().'gallary_image/'.$updateimage;
+                $gallary_path = public_path('uploads/gallary_image/'.$updateimage);
 
                 if (file_exists($gallary_path)) {
 
@@ -317,10 +334,10 @@ class PostController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-            $destinationPath = public_path('/files');
+            $destinationPath = public_path('uploads/files');
 
 
-            $file_path = public_path('files/'.$post->files);  // Value is not URL but directory file path
+            $file_path = public_path('uploads/files/'.$post->files);  // Value is not URL but directory file path
             if (file_exists($file_path)) {
 
                 @unlink($file_path);
@@ -407,11 +424,39 @@ class PostController extends Controller
     public function destroy(Post $post)
     {
         Gate::authorize('app.blog.posts.destroy');
-        //delete old image
-        if(Storage::disk('public')->exists('postphoto/'.$post->image))
-        {
-            Storage::disk('public')->delete('postphoto/'.$post->image);
+        // //delete old image
+        // if(Storage::disk('public')->exists('postphoto/'.$post->image))
+        // {
+        //     Storage::disk('public')->delete('postphoto/'.$post->image);
+        // }
+
+        $postphoto_path = public_path('uploads/postphoto/'.$post->image);  // Value is not URL but directory file path
+            if (file_exists($postphoto_path)) {
+
+                @unlink($postphoto_path);
+
+            }
+
+        $gallaryimages = explode("|", $post->gallaryimage);
+
+        foreach($gallaryimages as $gimage){
+
+            $gallaryimage_path = public_path('uploads/gallary_image/'.$gimage);
+
+            if (file_exists($gallaryimage_path)) {
+
+                @unlink($gallaryimage_path);
+
+            }
+
         }
+
+        $postfile_path = public_path('uploads/files/'.$post->image);  // Value is not URL but directory file path
+            if (file_exists($postfile_path)) {
+
+                @unlink($postfile_path);
+
+            }
 
         $post->categories()->detach();
 
