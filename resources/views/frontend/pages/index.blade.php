@@ -11,9 +11,9 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <!-- Online Polling -->
-        <script src="//polling.portal.gov.bd/js/npop.script.js" defer></script>
+        <script src="{{ asset('frontend/js/npop.script.js')}}" defer></script>
         <!-- Comment Management Tools -->
-        <script src="//polling.portal.gov.bd/js/npc.script.js" defer></script>
+        <script src="{{ asset('frontend/js/npc.script.js')}}" defer></script>
         <!-- userway accessibility start -->
         <!-- <script type="text/javascript">
       var _userway_config = {
@@ -32,36 +32,36 @@
 
         <!-- =============== tt canonical End =============================== -->
 
-        <link type="text/css" rel="stylesheet" media="all" href="/themes/responsive_npf/stylesheets/base.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/themes/responsive_npf/stylesheets/skeleton.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/themes/responsive_npf/stylesheets/style.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/themes/responsive_npf/stylesheets/meganizr.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/npfadmin/public/css/flaticon/flaticon.css" />
-        <link type="text/css" rel="stylesheet" media="all" href="/themes/responsive_npf/templates/ministry/style.css" />
+        <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/base.css') }}" />
+        <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/skeleton.css') }}" />
+        <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/style.css') }}" />
+        <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/meganizr.css') }}" />
+        <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/flaticon.css') }}" />
+        <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/ministry/style.css') }}" />
         <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>-->
-        <script type="text/javascript" src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/jquery-1.11.1.min.js') }}"></script>
 
         <!-- include the jquery-accessibleMegaMenu plugin script -->
-        <script src="/themes/responsive_npf/js/jquery-accessibleMegaMenu.js"></script>
+        <script src="{{ asset('frontend/js/jquery-accessibleMegaMenu.js') }}"></script>
 
         <script>
             //jq160 = jQuery.noConflict( true );
         </script>
 
-        <link rel="stylesheet" href="/themes/responsive_npf/stylesheets/responsiveslides.css" />
+        <link rel="stylesheet" href="{{ asset('frontend/js/responsiveslides.css')}}" />
 
-        <link rel="stylesheet" href="/themes/responsive_npf/templates/ministry/responsive.css" />
-        <link rel="stylesheet" href="/themes/responsive_npf/templates/ministry/accessibility.css" />
-        <script src="/themes/responsive_npf/js/responsiveslides.min.js"></script>
-        <script src="/themes/responsive_npf/js/jquery.vticker.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="{{ asset('frontend/css/ministry/responsive.css')}}" />
+        <link rel="stylesheet" href="{{ asset('frontend/css/ministry/accessibility.css')}}" />
+        <script src="{{ asset('frontend/js/responsiveslides.min.js') }}"></script>
+        <script src="{{ asset('frontend/js/jquery.vticker.js') }}" type="text/javascript"></script>
 
-        <script src="/themes/responsive_npf/js/domain_selector.js" type="text/javascript"></script>
-        <script src="/themes/responsive_npf/js/utils.js" type="text/javascript"></script>
-        <script type="text/javascript" src="/themes/responsive_npf/js/yoxview/yoxview-init.js"></script>
+        <script src="{{ asset('frontend/js/domain_selector.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('frontend/js/utils.js') }}" type="text/javascript"></script>
+        <script type="text/javascript" src="{{ asset('frontend/js/yoxview-init.js') }}"></script>
 
         <!-- custom accessibility start -->
-        <link rel="stylesheet" href="/accessibility/css/asb.css" />
-        <script src="/accessibility/js/asb.js" type="text/javascript"></script>
+        <link rel="stylesheet" href="{{ asset('frontend/css/asb.css') }}" />
+        <script src="{{ asset('frontend/js/asb.js') }}" type="text/javascript"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/css/all.min.css" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js"></script>
         <!-- custom accessibility end -->
@@ -78,15 +78,15 @@
 
         <div class="container">
             <script src="//bangladesh.gov.bd/nav/js/obd.main.js?v=1.0.1"></script>
-            <script src="//cdnjs.cloudflare.com/ajax/libs/select2/4.0.5/js/select2.js"></script>
-            <link rel="stylesheet" media="all" type="text/css" href="//bangladesh.gov.bd/nav/css/obd.main.css" />
+            <script src="{{ asset('frontend/js/select2.js') }}"></script>
+            <link rel="stylesheet" media="all" type="text/css" href="{{ asset('frontend/css/obd.main.css') }}" />
 
-            <div class="sixteen columns" style="background-color: #683091; box-shadow: 0 1px 5px #999999; height: 40px; margin-top: -20px;">
+            <div class="sixteen columns" style="background-color: #683091; box-shadow: 0 1px 5px #999999; height: 40px; ">
                 <div style="display: inline-block; float: left; width: 960px; border-bottom: 4px solid #8bc643;">
                     <div class="slide-panel-btns" style="width: 165px; float: left;">
                         <div class="slide-panel-button" style="display: block;">
                             <!-- <i class="flaticon-menu10" style="float: left"></i> -->
-                            <a style="color: white; height: 100%; font-size: 0.9em; margin-top: 7px;" href="http://www.bangladesh.gov.bd/" target="_blank">বাংলাদেশ জাতীয় তথ্য বাতায়ন</a>
+                            <a style="color: white; height: 100%; font-size:11px; margin-top: 7px;" href="http://www.bangladesh.gov.bd/" target="_blank">বাংলাদেশ জাতীয় তথ্য বাতায়ন</a>
                         </div>
                     </div>
                     <div id="div-lang" style="float: left; width: 795px; height: 32px;">
