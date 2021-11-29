@@ -41,4 +41,9 @@ class category extends Model
     {
         return $this->hasMany(Widget::class);
     }
+
+    public static function findBySlug($slug)
+    {
+        return self::where('slug',$slug)->where('status',true)->firstOrFail();
+    }
 }

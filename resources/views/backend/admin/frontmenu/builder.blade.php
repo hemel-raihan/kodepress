@@ -106,9 +106,9 @@
 						</div>
 						<!-- PAGE-HEADER END -->
 
-						<div class="row">
-							<div class="col-12">
-								<div class="main-card mb-3 card">
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="main-card mb-3 card">
 									<div class="card-body">
 										<h5 class="card-title">
 											How To Use:
@@ -116,31 +116,96 @@
 										<p>You can output a sidebar anywhere on your site by calling <code>menu('name')</code></p>
 									</div>
 								</div>
+                            </div>
+                        </div>
+
+						<div class="row">
+                            <div class="col-3">
+                                <div class="main-card mb-3 card">
+                                    <div class="expand" style="margin-left: 10%; margin-right: 10%; margin-top:10px;">
+
+                                        <p style="background: #f3f8fb;">
+                                            <a class="btn" data-bs-toggle="collapse" style="" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Pages
+                                            </a>
+                                          </p>
+                                          <div class="collapse" id="collapseExample">
+                                            <div class="card card-body">
+                                                <div class="transfer-double-list-content">
+                                                    <div class="transfer-double-list-main">
+                                                        <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
+                                                            @foreach($pages as $key => $page)
+                                                            <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
+                                                                <div class="checkbox-group">
+                                                                    <input type="checkbox" value="{{$page->slug}}" name="pagebox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$page->title}}</label>
+                                                                </div>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <button id="add_menu" class="btn btn-primary">Add to Menu</button>
+                                            </div>
+                                          </div>
+
+                                          <p style="background: #f3f8fb;">
+                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExamplee" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Categories
+                                            </a>
+                                          </p>
+                                          <div class="collapse" id="collapseExamplee">
+                                            <div class="card card-body">
+                                                <div class="transfer-double-list-content">
+                                                    <div class="transfer-double-list-main">
+                                                        <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
+                                                            @foreach($categories as $key => $category)
+                                                            <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
+                                                                <div class="checkbox-group">
+                                                                    <input type="checkbox" value="{{$category->slug}}" name="categorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492752" /><label for="group_{{$key}}_1636878492752" class="group-name-163687849275">{{$category->name}}</label>
+                                                                </div>
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <button id="add_category" class="btn btn-primary">Add to Menu</button>
+                                            </div>
+                                          </div>
+
+                                    </div>
+                                </div>
+                            </div>
+
+
+							<div class="col-9">
 
 								<div class="main-card mb-3 card">
 									<div class="card-body menu-builder">
 										<h5 class="card-title">
 											Drag and Drop the sidebar Item below to re-arrange them.
 										</h5>
+                                        <form method="POST" action="{{route('admin.menuitem.store',$menu->id)}}" enctype="multipart/form-data">
+                                            @csrf
 										<div class="dd">
-											<ol class="dd-list">
+											<ol id="dd_handle" class="dd-list">
 												@forelse ($menu->menuItems as $item)
 													<li class="dd-item" data-id="{{$item->id}}">
                                                         <div class="pull-right item_actions">
                                                             <a href="{{route('admin.menuitem.edit',['id'=>$menu->id,'menuId'=>$item->id])}}" class="btn btn-success">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
-                                                            @if($auth->hasPermission('app.front.menuitems.destroy'))
+                                                            {{-- @if($auth->hasPermission('app.front.menuitems.destroy')) --}}
 
-                                                            <button class="btn btn-danger waves effect" type="button"
-                                                                onclick="deletepost$menuitem({{ $item->id}})" >
+                                                            <a class="btn btn-danger waves effect" href="{{route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id])}}">
                                                                 <i class="fa fa-trash"></i>
-                                                                </button>
-                                                                <form id="deleteform-{{$item->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id])}}" method="POST" style="display: none;">
+                                                            </a>
+                                                                {{-- <form id="deleteform-{{$item->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id])}}" method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
-                                                                </form>
-                                                            @endif
+                                                                </form> --}}
+                                                            {{-- @endif --}}
                                                         </div>
 
                                                         <div class="dd-handle">
@@ -164,17 +229,16 @@
                                                                 </a>
                                                                 @endif
 
-                                                               @if($auth->hasPermission('app.front.menuitems.destroy'))
-                                                               <button class="btn btn-danger waves effect" type="button"
-                                                                   onclick="deletepost$menuitem({{ $childItem->id}})" >
+                                                               {{-- @if($auth->hasPermission('app.front.menuitems.destroy')) --}}
+                                                               <a class="btn btn-danger waves effect" href="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" >
                                                                    <i class="fa fa-trash"></i>
-                                                                   </button>
-                                                                   <form id="deleteform-{{$childItem->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" method="POST" style="display: none;">
+                                                            </a>
+                                                                   {{-- <form id="deleteform-{{$childItem->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" method="POST" style="display: none;">
                                                                    @csrf
                                                                    @method('DELETE')
-                                                                   </form>
+                                                                   </form> --}}
 
-                                                                   @endif
+                                                                   {{-- @endif --}}
                                                                 </div>
 
                                                                 <div class="dd-handle">
@@ -191,13 +255,17 @@
                                                         @endif
 
                                                     </li>
+
                                                     @empty
                                                     <div class="text-center">
                                                         <strong>No menu item found.</strong>
                                                     </div>
                                                     @endforelse
 											</ol>
+
+                                            <button class="btn btn-primary" type="submit">Save Item</button>
 										</div>
+                                        </form>
 									</div>
 								</div>
 							</div>
@@ -212,7 +280,7 @@
 @section('dragscripts')
 
 <script type="text/javascript">
-    $('.dd').nestable({maxDepth: 2});
+    $('.dd').nestable();
     $('.dd').on('change',function(e)
     {
         $.post("{{route('admin.menuitem.order',$menu->id)}}",{
@@ -230,6 +298,43 @@
 @endsection
 
 @section('scripts')
+
+
+<script>
+        $('#add_menu').click(function () {
+        var checkboxes = document.getElementsByName('pagebox[]');
+for (var i=0, n=checkboxes.length;i<n;i++)
+{
+    if (checkboxes[i].checked)
+    {
+
+        $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
+                                                                <i class="fa fa-trash"></i>
+                                                            </a></div><div class="dd-handle"><span>`+checkboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+checkboxes[i].value+`"></div></li>`);
+
+    }
+}
+});
+
+$('#add_category').click(function(){
+
+var categoryboxes = document.getElementsByName('categorybox[]');
+for (var i=0, n=categoryboxes.length;i<n;i++)
+{
+    if (categoryboxes[i].checked)
+    {
+
+        $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
+                                                                <i class="fa fa-trash"></i>
+                                                            </a></div><div class="dd-handle"><span>`+categoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+categoryboxes[i].value+`"></div></li>`);
+
+    }
+}
+});
+
+
+
+</script>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script type="text/javascript">

@@ -276,7 +276,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::post('menuitem/{id}/store', 'frontmenu\MenuitemController@store')->name('menuitem.store');
     Route::get('menuitem/{id}/edit/{menuId}', 'frontmenu\MenuitemController@edit')->name('menuitem.edit');
     Route::put('menuitem/{id}/update/{menuId}', 'frontmenu\MenuitemController@update')->name('menuitem.update');
-    Route::delete('menuitem/{id}/destroy/{menuId}', 'frontmenu\MenuitemController@destroy')->name('menuitem.destroy');
+    Route::get('menuitem/{id}/destroy/{menuId}', 'frontmenu\MenuitemController@destroy')->name('menuitem.destroy');
     Route::post('menuitem/{id}/order', 'frontmenu\MenuitemController@order')->name('menuitem.order');
 
     //Slider
@@ -286,6 +286,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');
+Route::get('{slug}', 'PageController@category')->name('category.page');
 
 
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
