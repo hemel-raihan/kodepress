@@ -72,6 +72,17 @@
 							</ul>
 						</li>
 
+						{{-- Slide + Slider--}}
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-shopping-cart"></i><span class="side-menu__label">Slider</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{ route('admin.slides.create') }}" class="slide-item"> Create Slide</a></li>
+								<li><a href="{{ route('admin.slides.index') }}" class="slide-item"> All Slide</a></li>
+								<li><a href="{{ route('admin.sliders.create') }}" class="slide-item"> Create Slider</a></li>
+								<li><a href="{{ route('admin.sliders.index') }}" class="slide-item">All Slider</a></li>
+							</ul>
+						</li>
+
 						<!-- <li><h3>Elements</h3></li>
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>

@@ -278,6 +278,11 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::put('menuitem/{id}/update/{menuId}', 'frontmenu\MenuitemController@update')->name('menuitem.update');
     Route::delete('menuitem/{id}/destroy/{menuId}', 'frontmenu\MenuitemController@destroy')->name('menuitem.destroy');
     Route::post('menuitem/{id}/order', 'frontmenu\MenuitemController@order')->name('menuitem.order');
+
+    //Slider
+    Route::resource('sliders', 'Slide\SliderController');
+    //Slide
+    Route::resource('slides', 'Slide\SlideController');
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');
