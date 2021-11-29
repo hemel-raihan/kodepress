@@ -19,4 +19,5 @@ class PageController extends Controller
         $page = Category::findBySlug($slug);
         return $page;
     }
+
 }

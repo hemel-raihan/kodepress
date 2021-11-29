@@ -122,6 +122,9 @@ use App\Http\Livewire\Tooltipandpopover;
 Route::get('/', function () {
     return view('homepage');
 });
+Route::get('/testpage', function () {
+    return view('frontend.pages.index');
+});
 // Route::get('index', Index::class);
 // Route::get('about', About::class);
 // Route::get('accordion', Accordion::class);
@@ -292,3 +295,6 @@ Route::get('{slug}', 'PageController@category')->name('category.page');
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
     Route::get('dashboard', 'DashboardController@author')->name('dashboard');
 });
+
+
+// Route::get('/test','PageController@test');
