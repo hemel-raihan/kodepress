@@ -219,42 +219,65 @@
 
                     @endisset
 
-                    {{-- <div class="form-group">
-						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Left Sidebar</option>
-                            @foreach ($subcat as $cat)
-                            <option value="{{$cat->id}}">{{}}</option>
-                            @endforeach
+					@isset($editsidebars)
 
-							<option value="1">Brazil</option>
-							<option value="2">Czech Republic</option>
-						</select>
-					</div> --}}
-					<div class="form-group">
+                    <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Left Sidebar</option>
-                            <option value="0">None</option>
-							<option value="1">Brazil</option>
-							<option value="2">Czech Republic</option>
+                            <option value="0" {{($post->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Left Side Bar')
+                            <option value="{{$editsidebar->id}}" {{($post->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
+                            @endif
+                            @endforeach
 						</select>
 					</div>
-                    {{-- @endisset --}}
+
+
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2 @error('rightsidebar_id') is-invalid @enderror" data-bs-placeholder="Select Country">
+						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+							<option label="Select Country">Select Right Sidebar</option>
+                            <option value="0" {{($category->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Right Side Bar')
+							<option value="{{$editsidebar->id}}" {{($category->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+					</div>
+
+                    @else
+
+                    <div class="form-group">
+						<label class="form-label">Left Sidebar</label>
+						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+							<option label="Select Country">Select Left Sidebar</option>
+                            <option value="0">None</option>
+                            @foreach ($sidebars as $sidebar)
+                            @if($sidebar->type == 'Left Side Bar')
+                            <option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+					</div>
+
+
+					<div class="form-group">
+						<label class="form-label">Right Sidebar</label>
+						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Right Sidebar</option>
                             <option value="0">None</option>
-							<option value="3">Brazil</option>
-							<option value="4">Czech Republic</option>
+                            @foreach ($sidebars as $sidebar)
+                            @if($sidebar->type == 'Right Side Bar')
+							<option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
+                            @endif
+                            @endforeach
 						</select>
-                        @error('rightsidebar_id')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
 					</div>
+
+                    @endisset
 
                     <div class="form-group">
 						<label class="form-label">Feature Image</label>

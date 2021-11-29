@@ -50,7 +50,7 @@ class SlideController extends Controller
         //get form Slide images
         $slideimages = $request->file('slideimage');
         $images=array();
-        $destination = public_path('/slide_image');
+        $destination = public_path('uploads/slide_image');
 
         //dd($slideimages);
 
@@ -122,7 +122,7 @@ class SlideController extends Controller
         //get form Gallary image
         $slideimages = $request->file('slideimage');
         $images=array();
-        $destination = public_path('/slide_image');
+        $destination = public_path('uploads/slide_image');
         $oldimages = explode("|", $slide->slideimage);
 
         if(isset($slideimages))
@@ -130,14 +130,14 @@ class SlideController extends Controller
 
             foreach($oldimages as $image){
 
-                $image_path = public_path('slide_image/'.$image);
-    
+                $image_path = public_path('uploads/slide_image/'.$image);
+
                 if (file_exists($image_path)) {
-    
+
                     @unlink($image_path);
-    
+
                 }
-                
+
             }
 
             foreach($slideimages as $slideimage)
@@ -187,7 +187,7 @@ class SlideController extends Controller
 
         foreach($images as $image){
 
-            $image_path = public_path('slide_image/'.$image);
+            $image_path = public_path('uploads/slide_image/'.$image);
 
             if (file_exists($image_path)) {
 

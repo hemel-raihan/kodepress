@@ -68,15 +68,18 @@ class CategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('categoryphoto/'))
-            {
-                Storage::disk('public')->makeDirectory('categoryphoto/');
-            }
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('categoryphoto/'))
+            // {
+            //     Storage::disk('public')->makeDirectory('categoryphoto/');
+            // }
 
-            //resize image
-            $category = Image::make($image)->resize(500,333)->save($imagename,90);
-            Storage::disk('public')->put('categoryphoto/'.$imagename,$category);
+            // //resize image
+            // $category = Image::make($image)->resize(500,333)->save($imagename,90);
+            // Storage::disk('public')->put('categoryphoto/'.$imagename,$category);
+
+            $categoryphotoPath = public_path('uploads/categoryphoto');
+            $image->move($categoryphotoPath,$imagename);
 
         }
 
@@ -189,21 +192,32 @@ class CategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('categoryphoto'))
-            {
-                Storage::disk('public')->makeDirectory('categoryphoto');
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('categoryphoto'))
+            // {
+            //     Storage::disk('public')->makeDirectory('categoryphoto');
+            // }
+
+            // //delete old image
+            // if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
+            // {
+            //     Storage::disk('public')->delete('categoryphoto/'.$category->image);
+            // }
+
+            // //resize image
+            // $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
+            // Storage::disk('public')->put('categoryphoto/'.$imagename,$categoryimg);
+
+            $categoryphotoPath = public_path('uploads/categoryphoto');
+
+            $categoryphoto_path = public_path('uploads/categoryphoto/'.$category->image);  // Value is not URL but directory file path
+            if (file_exists($categoryphoto_path)) {
+
+                @unlink($categoryphoto_path);
+
             }
 
-            //delete old image
-            if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
-            {
-                Storage::disk('public')->delete('categoryphoto/'.$category->image);
-            }
-
-            //resize image
-            $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
-            Storage::disk('public')->put('categoryphoto/'.$imagename,$categoryimg);
+            $image->move($categoryphotoPath,$imagename);
 
         }
         else
@@ -256,11 +270,18 @@ class CategoryController extends Controller
     public function destroy(category $category)
     {
         Gate::authorize('app.blog.categories.destroy');
-        //delete old image
-        if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
-        {
-            Storage::disk('public')->delete('categoryphoto/'.$category->image);
-        }
+        // //delete old image
+        // if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
+        // {
+        //     Storage::disk('public')->delete('categoryphoto/'.$category->image);
+        // }
+
+        $categoryphoto_path = public_path('uploads/categoryphoto/'.$category->image);  // Value is not URL but directory file path
+            if (file_exists($categoryphoto_path)) {
+
+                @unlink($categoryphoto_path);
+
+            }
 
         if($category->childrenRecursive->count()>0)
         {

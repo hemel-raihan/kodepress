@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\general_content;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -39,7 +40,8 @@ class ContentPostController extends Controller
         Gate::authorize('app.content.posts.create');
         $categories = Contentcategory::where('parent_id', '=', 0)->get();
         $subcat = Contentcategory::all();
-        return view('backend.admin.general_content.post.form',compact('categories','subcat'));
+        $sidebars = Sidebar::all();
+        return view('backend.admin.general_content.post.form',compact('categories','subcat','sidebars'));
     }
 
     /**
@@ -69,15 +71,18 @@ class ContentPostController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('contentpostphoto/'))
-            {
-                Storage::disk('public')->makeDirectory('contentpostphoto/');
-            }
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('contentpostphoto/'))
+            // {
+            //     Storage::disk('public')->makeDirectory('contentpostphoto/');
+            // }
 
-            //resize image
-            $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
+            // //resize image
+            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
+            // Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
+
+            $postphotoPath = public_path('uploads/contentpostphoto');
+            $image->move($postphotoPath,$imagename);
 
         }
 
@@ -85,7 +90,7 @@ class ContentPostController extends Controller
          //get form Gallary image
          $gallaryimage = $request->file('gallaryimage');
          $images=array();
-         $destination = public_path('/Contentgallary_image');
+         $destination = public_path('uploads/Contentgallary_image');
 
          if(isset($gallaryimage))
          {
@@ -105,7 +110,7 @@ class ContentPostController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-            $destinationPath = public_path('/contentfiles');
+            $destinationPath = public_path('uploads/contentfiles');
 
             // //check image folder existance
             // if(!Storage::disk('public')->exists('postfile'))
@@ -248,7 +253,8 @@ class ContentPostController extends Controller
         Gate::authorize('app.content.posts.edit');
         $categories = Contentcategory::where('parent_id', '=', 0)->get();
         $subcat = Contentcategory::all();
-        return view('backend.admin.general_content.post.form',compact('contentpost','categories','subcat'));
+        $editsidebars = Sidebar::all();
+        return view('backend.admin.general_content.post.form',compact('contentpost','categories','subcat','editsidebars'));
     }
 
     /**
@@ -277,21 +283,32 @@ class ContentPostController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('contentpostphoto'))
-            {
-                Storage::disk('public')->makeDirectory('contentpostphoto');
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('contentpostphoto'))
+            // {
+            //     Storage::disk('public')->makeDirectory('contentpostphoto');
+            // }
+
+            //  //delete old image
+            //  if(Storage::disk('public')->exists('contentpostphoto/'.$contentpost->image))
+            //  {
+            //      Storage::disk('public')->delete('contentpostphoto/'.$contentpost->image);
+            //  }
+
+            // //resize image
+            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
+            // Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
+
+            $postphotoPath = public_path('uploads/contentpostphoto');
+
+            $postphoto_path = public_path('uploads/contentpostphoto/'.$contentpost->image);  // Value is not URL but directory file path
+            if (file_exists($postphoto_path)) {
+
+                @unlink($postphoto_path);
+
             }
 
-             //delete old image
-             if(Storage::disk('public')->exists('contentpostphoto/'.$contentpost->image))
-             {
-                 Storage::disk('public')->delete('contentpostphoto/'.$contentpost->image);
-             }
-
-            //resize image
-            $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
+            $image->move($postphotoPath,$imagename);
 
         }
         else
@@ -302,15 +319,15 @@ class ContentPostController extends Controller
         //get form Gallary image
         $gallaryimage = $request->file('gallaryimage');
         $images=array();
-        $destination = public_path('/contentgallary_image');
-        $updateimages = explode(",", $contentpost->gallaryimage);
+        $destination = public_path('uploads/contentgallary_image');
+        $updateimages = explode("|", $contentpost->gallaryimage);
 
         if(isset($gallaryimage))
         {
 
             foreach($updateimages as $updateimage){
 
-                $gallary_path = public_path().'contentgallary_image/'.$updateimage;
+                $gallary_path = public_path('uploads/contentgallary_image/'.$updateimage);
 
                 if (file_exists($gallary_path)) {
 
@@ -340,10 +357,10 @@ class ContentPostController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-            $destinationPath = public_path('/contentfiles');
+            $destinationPath = public_path('uploads/contentfiles');
 
 
-            $file_path = public_path('files/'.$contentpost->files);  // Value is not URL but directory file path
+            $file_path = public_path('uploads/contentfiles/'.$contentpost->files);  // Value is not URL but directory file path
             if (file_exists($file_path)) {
 
                 @unlink($file_path);
@@ -431,9 +448,37 @@ class ContentPostController extends Controller
     {
         Gate::authorize('app.content.posts.destroy');
         //delete old image
-        if(Storage::disk('public')->exists('contentpostphoto/'.$contentpost->image))
-        {
-            Storage::disk('public')->delete('contentpostphoto/'.$contentpost->image);
+        // if(Storage::disk('public')->exists('contentpostphoto/'.$contentpost->image))
+        // {
+        //     Storage::disk('public')->delete('contentpostphoto/'.$contentpost->image);
+        // }
+
+        $postphoto_path = public_path('uploads/contentpostphoto/'.$contentpost->image);  // Value is not URL but directory file path
+        if (file_exists($postphoto_path)) {
+
+            @unlink($postphoto_path);
+
+        }
+
+    $gallaryimages = explode("|", $contentpost->gallaryimage);
+
+    foreach($gallaryimages as $gimage){
+
+        $gallaryimage_path = public_path('uploads/Contentgallary_image/'.$gimage);
+
+        if (file_exists($gallaryimage_path)) {
+
+            @unlink($gallaryimage_path);
+
+        }
+
+    }
+
+    $postfile_path = public_path('uploads/contentfiles/'.$contentpost->image);  // Value is not URL but directory file path
+        if (file_exists($postfile_path)) {
+
+            @unlink($postfile_path);
+
         }
 
         $contentpost->contentcategories()->detach();

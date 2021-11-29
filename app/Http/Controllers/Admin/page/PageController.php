@@ -6,6 +6,7 @@ use Carbon\Carbon;
 use App\Models\Admin\Page;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -36,7 +37,8 @@ class PageController extends Controller
     public function create()
     {
         Gate::authorize('app.pages.create');
-        return view('backend.admin.page.form');
+        $sidebars = Sidebar::all();
+        return view('backend.admin.page.form',compact('sidebars'));
     }
 
     /**
@@ -65,15 +67,18 @@ class PageController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            if(!Storage::disk('public')->exists('pagephoto/'))
-            {
-                Storage::disk('public')->makeDirectory('pagephoto/');
-            }
+            // //check image folder existance
+            // if(!Storage::disk('public')->exists('pagephoto/'))
+            // {
+            //     Storage::disk('public')->makeDirectory('pagephoto/');
+            // }
 
-            //resize image
-            $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
+            // //resize image
+            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
+            // Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
+
+            $pagePath = public_path('uploads/pagephoto');
+            $image->move($pagePath,$imagename);
 
         }
 
@@ -81,7 +86,7 @@ class PageController extends Controller
          //get form Gallary image
          $gallaryimage = $request->file('gallaryimage');
          $images=array();
-         $destination = public_path('/pagegallary_image');
+         $destination = public_path('uploads/pagegallary_image');
 
          if(isset($gallaryimage))
          {
@@ -216,7 +221,8 @@ class PageController extends Controller
     public function edit(Page $page)
     {
         Gate::authorize('app.pages.edit');
-        return view('backend.admin.page.form',compact('page'));
+        $editsidebars = Sidebar::all();
+        return view('backend.admin.page.form',compact('page','editsidebars'));
     }
 
     /**
@@ -245,20 +251,31 @@ class PageController extends Controller
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             //check image folder existance
-            if(!Storage::disk('public')->exists('pagephoto'))
-            {
-                Storage::disk('public')->makeDirectory('pagephoto');
+            // if(!Storage::disk('public')->exists('pagephoto'))
+            // {
+            //     Storage::disk('public')->makeDirectory('pagephoto');
+            // }
+
+            //  //delete old image
+            //  if(Storage::disk('public')->exists('pagephoto/'.$page->image))
+            //  {
+            //      Storage::disk('public')->delete('pagephoto/'.$page->image);
+            //  }
+
+            // //resize image
+            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
+            // Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
+
+            $pagePath = public_path('uploads/pagephoto');
+
+            $pagephoto_path = public_path('uploads/pagephoto/'.$page->image);  // Value is not URL but directory file path
+            if (file_exists($pagephoto_path)) {
+
+                @unlink($pagephoto_path);
+
             }
 
-             //delete old image
-             if(Storage::disk('public')->exists('pagephoto/'.$page->image))
-             {
-                 Storage::disk('public')->delete('pagephoto/'.$page->image);
-             }
-
-            //resize image
-            $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
+            $image->move($pagePath,$imagename);
 
         }
         else
@@ -269,15 +286,15 @@ class PageController extends Controller
         //get form Gallary image
         $gallaryimage = $request->file('gallaryimage');
         $images=array();
-        $destination = public_path('/pagegallary_image');
-        $updateimages = explode(",", $page->gallaryimage);
+        $destination = public_path('uploads/pagegallary_image');
+        $updateimages = explode("|", $page->gallaryimage);
 
         if(isset($gallaryimage))
         {
 
             foreach($updateimages as $updateimage){
 
-                $gallary_path = public_path().'pagegallary_image/'.$updateimage;
+                $gallary_path = public_path('uploads/pagegallary_image/'.$updateimage);
 
                 if (file_exists($gallary_path)) {
 
@@ -394,10 +411,31 @@ class PageController extends Controller
     {
         Gate::authorize('app.pages.destroy');
         //delete old image
-        if(Storage::disk('public')->exists('pagephoto/'.$page->image))
-        {
-            Storage::disk('public')->delete('pagephoto/'.$page->image);
+        // if(Storage::disk('public')->exists('pagephoto/'.$page->image))
+        // {
+        //     Storage::disk('public')->delete('pagephoto/'.$page->image);
+        // }
+
+        $pagephoto_path = public_path('uploads/pagephoto/'.$page->image);  // Value is not URL but directory file path
+        if (file_exists($pagephoto_path)) {
+
+            @unlink($pagephoto_path);
+
         }
+
+    $gallaryimages = explode("|", $page->gallaryimage);
+
+    foreach($gallaryimages as $gimage){
+
+        $gallaryimage_path = public_path('uploads/pagegallary_image/'.$gimage);
+
+        if (file_exists($gallaryimage_path)) {
+
+            @unlink($gallaryimage_path);
+
+        }
+
+    }
 
         $page->delete();
         notify()->success('Page Deleted Successfully','Delete');
