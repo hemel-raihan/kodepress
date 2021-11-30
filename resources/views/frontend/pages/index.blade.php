@@ -70,7 +70,7 @@
     <body class="dshe-portal-gov-bd">
         <!-- ====== start jump to selections ======   -->
         <a class="skip-link" href="/accessibility.html" target="_blank">Accessibility Help</a>
-        <a class="skip-link" href="#jmenu">Jump to Menu</a>
+        <a class="skip-link" href="#jmenu">Jump  Menu</a>
         <a class="skip-link" href="#contents">Jump to Content</a>
         <a class="skip-link" href="#search">Jump to Search</a>
         <a class="skip-link" href="#btnLang">Jump to Language</a>
