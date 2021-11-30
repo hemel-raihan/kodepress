@@ -1,65 +1,28 @@
-<div id="top-bar">
-    <div class="container clearfix">
-
-        <div class="row justify-content-between">
-            <div class="col-12 col-md-auto">
-
-                <!-- Top Links
-                ============================================= -->
-                <div class="top-links on-click">
-                    <ul class="top-links-container">
-                        <li class="top-links-item"><a href="index.html">Home</a>
-                            <ul class="top-links-sub-menu">
-                                <li class="top-links-item"><a href="about.html">About</a></li>
-                                <li class="top-links-item"><a href="faqs.html">FAQs</a></li>
-                                <li class="top-links-item"><a href="contact.html">Contact</a></li>
-                                <li class="top-links-item"><a href="sitemap.html">Sitemap</a></li>
-                            </ul>
-                        </li>
-                        <li class="top-links-item"><a href="faqs.html">FAQs</a></li>
-                        <li class="top-links-item"><a href="contact.html">Contact</a></li>
-                        <li class="top-links-item"><a href="login-register.html">Login</a>
-                            <div class="top-links-section">
-                                <form id="top-login" autocomplete="off">
-                                    <div class="form-group">
-                                        <label>Username</label>
-                                        <input type="email" class="form-control" placeholder="Email address">
-                                    </div>
-                                    <div class="form-group">
-                                        <label>Password</label>
-                                        <input type="password" class="form-control" placeholder="Password" required="">
-                                    </div>
-                                    <div class="form-group form-check">
-                                        <input class="form-check-input" type="checkbox" value="" id="top-login-checkbox">
-                                        <label class="form-check-label" for="top-login-checkbox">Remember Me</label>
-                                    </div>
-                                    <button class="btn btn-danger w-100" type="submit">Sign in</button>
-                                </form>
-                            </div>
-                        </li>
-                    </ul>
-                </div><!-- .top-links end -->
-
+<div class="sixteen columns" style="background-color: #683091; box-shadow: 0 1px 5px #999999; height: 40px; ">
+    <div style="display: inline-block; float: left; width: 960px; border-bottom: 4px solid #8bc643;">
+        <div class="slide-panel-btns" style="width: 165px; float: left;">
+            <div class="slide-panel-button" style="display: block;">
+                <!-- <i class="flaticon-menu10" style="float: left"></i> -->
+                <a style="color: white; height: 100%; font-size:11px; margin-top: 7px;" href="http://www.bangladesh.gov.bd/" target="_blank">বাংলাদেশ জাতীয় তথ্য বাতায়ন</a>
             </div>
-
-            <div class="col-12 col-md-auto">
-
-                <!-- Top Social
-                ============================================= -->
-                <ul id="top-social">
-                    <li><a href="#" class="si-facebook"><span class="ts-icon"><i class="icon-facebook"></i></span><span class="ts-text">Facebook</span></a></li>
-                    <li><a href="#" class="si-twitter"><span class="ts-icon"><i class="icon-twitter"></i></span><span class="ts-text">Twitter</span></a></li>
-                    <li class="d-none d-sm-flex"><a href="#" class="si-dribbble"><span class="ts-icon"><i class="icon-dribbble"></i></span><span class="ts-text">Dribbble</span></a></li>
-                    <li><a href="#" class="si-github"><span class="ts-icon"><i class="icon-github-circled"></i></span><span class="ts-text">Github</span></a></li>
-                    <li class="d-none d-sm-flex"><a href="#" class="si-pinterest"><span class="ts-icon"><i class="icon-pinterest"></i></span><span class="ts-text">Pinterest</span></a></li>
-                    <li><a href="#" class="si-instagram"><span class="ts-icon"><i class="icon-instagram2"></i></span><span class="ts-text">Instagram</span></a></li>
-                    <li><a href="tel:+1.11.85412542" class="si-call"><span class="ts-icon"><i class="icon-call"></i></span><span class="ts-text">+1.11.85412542</span></a></li>
-                    <li><a href="mailto:info@canvas.com" class="si-email3"><span class="ts-icon"><i class="icon-email3"></i></span><span class="ts-text">info@canvas.com</span></a></li>
-                </ul><!-- #top-social end -->
-
-            </div>
-
         </div>
+        <div id="div-lang" style="float: left; width: 795px; height: 32px;">
+            <div id="newNavigation"></div>
+            <div id="div-lang-sel" style="float: right;">
+                <div id="search_any" style="float: left;">
+                    <form action="/site/search" style="margin-top: 5px; padding: 0; float: left;">
+                        <input style="width: 90px; border-radius: 4px; height: 18px;" id="search" name="key" value="" />
+                        <button class="search-btn" type="submit" style="margin: 0; padding: 1px 10px;">Search</button>
+                    </form>
+                </div>
 
+                <div style="float: left; margin-left: 5px;">
+                    <form id="lang_form" action="/" method="post">
+                        <input type="hidden" name="lang" id="lang" value="en" />
+                        <button type="submit" style="padding: 2px; margin-top: 5px;">English</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

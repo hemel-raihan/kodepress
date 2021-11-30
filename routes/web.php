@@ -119,12 +119,10 @@ use App\Http\Livewire\Tooltipandpopover;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-});
-Route::get('/testpage', function () {
-    return view('frontend_theme.default.front_layout.index');
-});
+// Route::get('/', function () {
+//     return view('homepage');
+// });
+
 // Route::get('index', Index::class);
 // Route::get('about', About::class);
 // Route::get('accordion', Accordion::class);
@@ -232,9 +230,11 @@ Auth::routes();
 Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::get('/', function () {
-    return view('frontend.pages.index');
-});
+// Route::get('/', function () {
+//     return view('frontend_theme.default.homepage');
+// });
+
+Route::get('/', 'HomepageController@index')->name('home');
 
 
 //for admin authentication
