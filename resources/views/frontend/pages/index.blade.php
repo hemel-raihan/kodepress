@@ -1198,44 +1198,44 @@
   <h5 class="bk-org title eservice-title">কেন্দ্রীয় ই-সেবা
   </h5>
         <ul>
-        
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
-              
-        
+
+
         <li class="item_"></li>
                 </ul>
           <a href="" class="btn" style="display:block;text-align:center;">সকল</a>

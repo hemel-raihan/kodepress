@@ -232,6 +232,10 @@ Auth::routes();
 Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+Route::get('/', function () {
+    return view('frontend.pages.index');
+});
+
 
 //for admin authentication
 Route::get('adminlogin', 'Adminlogin\LoginController@showloginform')->name('admin.login');
@@ -289,7 +293,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');
-Route::get('{slug}', 'PageController@category')->name('category.page');
+//Route::get('{slug}', 'PageController@category')->name('category.page');
 
 
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
