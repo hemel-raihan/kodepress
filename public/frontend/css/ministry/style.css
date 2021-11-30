@@ -444,6 +444,11 @@ p {
     float: right;
 }
 
+.home-icon{
+    background-image: url("../../images/home_dark.png");
+    background-repeat: no-repeat;
+}
+
 .notice-board-bg {
     background: url("/themes/responsive_npf/images/welcome_grad.png") repeat-x scroll left top transparent;
     background-image: url("../../images/bg_notice_board.png");
@@ -511,6 +516,7 @@ td {
 #contents .block {
     overflow: hidden;
 }
+
 
 @media screen and (max-width: 767px) and (min-width: 480px) {
     #logo img {

@@ -138,7 +138,7 @@
                     <div>
                         <div id="logo">
                             <a title="Home" href="/">
-                                <img alt="Home" src="/themes/responsive_npf/img/logo/logo.png" />
+                                <img alt="Home" src="{{ asset('frontend/images/logo.png') }}" />
                             </a>
                         </div>
 
@@ -185,7 +185,7 @@
                     <div role="navigation" id="dawgdrops">
                         <ul class="meganizr mzr-slide mzr-responsive">
                             <!-- Build The Menu -->
-                            <li class="col0"><a title="Home" href="/" style="background-image: url(/themes/responsive_npf/img/home_dark.png); margin-top: 5px;"></a></li>
+                            <li class="col0"><a class="home-icon" title="Home" href="/" style=" margin-top: 5px;"></a></li>
                             <li class="col1 mzr-drop">
                                 <a href="#" class="submenu">আমাদের সম্পর্কিত</a>
                                 <div class="mzr-content drop-two-columns">
