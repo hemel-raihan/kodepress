@@ -409,11 +409,11 @@
                     <div class="row mainwrapper">
                         <div class="pm">
                             <!-- <iframe frameborder="0" height="380" src="https://www.youtube.com/embed/bxWRglJFQNc" width="100%"></iframe> -->
-                            <!-- <a href="https://www.youtube.com/watch?v=bxWRglJFQNc" target="_blank">
+                            {{-- <a href="https://www.youtube.com/watch?v=bxWRglJFQNc" target="_blank">
 		<img src="/National-Portal-Card-PM.jpeg">
-	</a> -->
+	</a>  --}}
                             <a href="https://www.youtube.com/watch?v=v1R-CB3e-pw" target="_blank">
-                                <img src="/National-Portal-Card-PM.jpeg" />
+                                <img src="{{ asset('frontend/images/National-Portal-Card-PM.jpeg') }}" />
                             </a>
                         </div>
                         <div class="scroll">
