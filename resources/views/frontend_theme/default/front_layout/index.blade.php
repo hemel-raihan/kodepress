@@ -148,8 +148,13 @@
 
            {{-- .............BODY CONTENT.......... --}}
 
-           @yield('bodycontent')
-           
+           <div id="contents" class="sixteen columns">
+
+              @yield('bodycontent')
+              @include('frontend_theme.default.front_layout.vertical.sidebar')
+
+           </div>
+
             {{-- .............END BODY CONTENT.......... --}}
 
         </div>
