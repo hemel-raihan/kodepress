@@ -123,7 +123,7 @@ Route::get('/', function () {
     return view('homepage');
 });
 Route::get('/testpage', function () {
-    return view('frontend.pages.index');
+    return view('frontend_theme.default.front_layout.index');
 });
 // Route::get('index', Index::class);
 // Route::get('about', About::class);
