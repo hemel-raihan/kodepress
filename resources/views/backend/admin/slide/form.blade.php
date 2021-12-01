@@ -93,7 +93,42 @@
 						<input type="text" name="title" value="{{$slide->title ?? old('title')}}" class="form-control" id="exampleInputTitle" placeholder="Slide Title">
 					</div>
 
+					
+
+					@isset($slide)
+
 					<div class="form-group">
+						<div style="display: inline-block">
+							<input type="radio" name="link" id="test2">
+							<label for="css">Slide</label>
+						</div>
+						<div style="display: inline-block">
+							<input type="radio" name="link" {{ !empty($slide->type) ? 'checked':'' }} id="test1">
+							<label for="html">Banner</label>
+						</div>
+					</div>
+
+					@else
+
+					<div class="form-group">
+						<div style="display: inline-block">
+							<input type="radio" name="link"  id="test2">
+							<label for="css">Slide</label>
+						</div>
+						<div style="display: inline-block">
+							<input type="radio" name="link" id="test1">
+							<label for="html">Banner</label>
+						</div>
+					</div>
+						
+					@endisset
+
+					<div class="form-group d-none banner-type">
+						<label for="exampleInputUrl">Youtube Link</label>
+						<input type="text" name="url" value="{{$slide->url ?? old('url')}}" class="form-control" id="exampleInputUrl" placeholder="Slide Youtube Link">
+					</div>
+
+					<div class="form-group" id="text-content">
 						<label for="exampleInputContent">Content</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
 							<textarea name="content" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$slide->content ?? old('content')!!}</textarea>
@@ -148,6 +183,15 @@
 						</select>
 					</div>
 
+					<div class="form-group d-none banner-type" id="banner-type">
+						<label class="form-label">Select Banner Type</label>
+						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Banner Type">
+								<option disabled selected>Select Banner Type</option>
+								<option value="home-banner" @isset($slide) {{ ($slide->type == 'home-banner')? 'selected':'' }} @endisset>Home Banner</option>
+								<option value="single-banner" @isset($slide) {{ ($slide->type == 'single-banner')? 'selected':'' }} @endisset>Single Banner</option>
+						</select>
+					</div>
+
 					@isset($slide)
 					<div class="form-group">
 						<div class="form-label">Status</div>
@@ -189,6 +233,24 @@
 	    });
 	}
 </script>
+
+{{-- select banner --}}
+<script>
+	$(document).ready(function() {
+		$("input[id$='test1']").click(function() {
+			$("#text-content").addClass('d-none');
+			$(".banner-type").removeClass('d-none');
+		});
+	
+		$("input[id$='test2']").click(function() {
+			$("#text-content").removeClass('d-none');
+			$(".banner-type").addClass('d-none');
+		});
+	});
+
+
+
+	</script>
 
 		<!-- CHARTJS JS -->
 		<script src="{{ asset('assets/plugins/chart/Chart.bundle.js')}}"></script>

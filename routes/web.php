@@ -82,6 +82,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('sliders', 'Slide\SliderController');
     //Slide
     Route::resource('slides', 'Slide\SlideController');
+    //Banner Type
+    //Route::resource('bannertypes', 'Banner\BannerTypeController');
+    Route::resource('banners', 'Banner\BannerTypeController');
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');

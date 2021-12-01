@@ -78,6 +78,8 @@ class SlideController extends Controller
         $slide = Slide::create([
             'slider_id'=>$request->slider_id,
             'title' => $request->title,
+            'type' => $request->type,
+            'url' => $request->url,
             'content' => $request->content,
             'slideimage' => implode("|",$images),
             'status' => $status
@@ -166,6 +168,8 @@ class SlideController extends Controller
         $slide->update([
             'slider_id'=>$request->slider_id,
             'title' => $request->title,
+            'type' => $request->type,
+            'url' => $request->url,
             'content' => $request->content,
             'slideimage' => implode("|",$images),
             'status' => $status
