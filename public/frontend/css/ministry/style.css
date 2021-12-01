@@ -326,7 +326,7 @@
 .mainwrapper .box .caption li {
     margin: 2px 0 0 20px;
     font-size: 1.2em;
-    list-style-image: url("/themes/responsive_npf/images/bullet_arrow.png");
+    list-style-image: url("../../images/bullet_arrow.png");
 }
 .mainwrapper .box .caption li a {
     font-size: 0.9em;

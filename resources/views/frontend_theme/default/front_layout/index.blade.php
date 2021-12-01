@@ -60,7 +60,7 @@
         <script src="{{ asset('frontend/js/utils.js') }}" type="text/javascript"></script>
         <script type="text/javascript" src="{{ asset('frontend/js/yoxview-init.js') }}"></script>
 
-        
+
 
         @yield('frontscripts')
 
@@ -128,7 +128,14 @@
 
             {{-- ...........MENU BAR..... --}}
 
-            @include('frontend_theme.default.front_layout.vertical.menubar')
+            @php
+                $menus = \App\Models\Frontmenu\Frontmenu::where([['type','=','main-menu'],['status','=',true]])->get();
+                foreach($menus as $menu)
+                {
+                    $menuitems = $menu->menuItems()->get();
+                }
+            @endphp
+            @include('frontend_theme.default.front_layout.vertical.menubar',['menuitems'=>$menuitems])
 
             {{-- ...........END MENU BAR..... --}}
 

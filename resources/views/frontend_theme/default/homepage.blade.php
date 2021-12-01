@@ -328,18 +328,28 @@
                 }
             </style>
             <script></script>
+
+
             <div class="row">
-                <div id="box-1" class="six columns service-box box">
-                    <h4>সাধারণ প্রশাসন শাখা</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/cbfb99d6_1000_4054_9363_e0f3d2d88975/OpenPlanRedBalloon1.jpg" alt="" width="110" height="" />
+                @foreach ($categories as $key => $category)
+                @if($category->parent_id == 0)
+                <div id = "{{ ($key%2 == 0) ? 'box-1' : 'box-2' }}" style="margin-bottom: 20px;" class="six columns service-box box">
+                    <h4>{{$category->name}}</h4>
+                    <img src="{{asset('uploads/categoryphoto/'.$category->image)}}" alt="" width="110" height="" />
                     <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/view/office_order/অফিস-আদেশ">অফিস আদেশ</a></li>
-                        <li><a href="/site/view/office_order/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
-                        <li><a href="/site/view/office_order/অন্যান্য">অন্যান্য</a></li>
-                        <li><a href="http://www.dshe.gov.bd/">বদলির আবেদন</a></li>
+                        @if($category->childrenRecursive->count()>0)
+                        @foreach($category->childrenRecursive as $cat)
+                        <li><a href="/site/view/office_order/অফিস-আদেশ">{{$cat->name}}</a></li>
+                        @endforeach
+                        @endif
                     </ul>
                 </div>
-                <div id="box-2" class="six columns service-box box">
+                @endif
+                @endforeach
+
+                {{-- @foreach ($categories as $key => $category)
+                @if ($key % 2 != 0)
+                <div  class="six columns service-box box">
                     <h4>অর্থ ও ক্রয়</h4>
                     <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/f8deef29_16bf_4346_a5c4_2306e2222329/budget.png" alt="" width="110" height="" />
                     <ul class="caption fade-caption" style="margin: 0;">
@@ -349,182 +359,10 @@
                         <li><a href="/site/page/3e1fe7c3-b7d1-40a8-ab21-640479498b5c/বার্ষিক-ক্রয়-পরিকল্পনা">বার্ষিক ক্রয় পরিকল্পনা</a></li>
                     </ul>
                 </div>
-            </div>
-            <div class="row">
-                <div id="box-3" class="six columns service-box box">
-                    <h4>এমপিও</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/b826d833_b526_4f93_9816_35169192a45a/MPO.jpg" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/notices/676c1111-88db-447a-a398-504d36ada6dc/এমপিও-নোটিশ">এমপিও নোটিশ</a></li>
-                        <li><a href="/site/page/1a45a3d6-5323-465a-9cf7-4f30ad0f14b8/এমপিও-নীতিমালা">এমপিও নীতিমালা</a></li>
-                        <li><a href="https://dshe.portal.gov.bd/site/page/8c09e774-ac65-47df-862e-27a78b0c112d">এমপিও শীট / ভাউচার</a></li>
-                        <li><a href="http://emis.gov.bd">এমপিও নোটিশ</a></li>
-                    </ul>
-                </div>
-                <div id="box-5" class="six columns service-box box">
-                    <h4>মাধ্যমিক</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/26bc7445_6d72_423d_a212_e351060b978a/secondary.jpg" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/মাধ্যমিক">অফিস আদেশ</a></li>
-                        <li><a href="/site/view/moedu_office_order/মাধ্যমিক/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
-                        <li><a href="/site/view/moedu_office_order/মাধ্যমিক/বিবিধ">বিবিধ</a></li>
-                        <li><a href="">উপবৃত্তি</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div id="box-6" class="six columns service-box box">
-                    <h4>সরকারি কলেজ শাখা</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/d3fb43bb_2ecc_4ebd_85bb_7b7c3edcc2b9/images 444.jpg" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/কলেজ">অফিস আদেশ</a></li>
-                        <li><a href="/site/view/moedu_office_order/কলেজ/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
-                        <li><a href="http://www.dshe.gov.bd">পদোন্নতি/ সিলেকশন গ্রেড</a></li>
-                        <li><a href="http://www.dshe.gov.bd">অন্যান্য</a></li>
-                    </ul>
-                </div>
-                <div id="box-6" class="six columns service-box box">
-                    <h4>বেসরকারি কলেজ শাখা</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/1f9848c5_3cee_457c_b03b_5d145e51f91f/ICT-lab-3.jpg" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="http://www.dshe.gov.bd/secondary/153b51e1e8a680abb83bdd4d8d6c09cc.pdf">জনবল কাঠামো</a></li>
-                        <li><a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/কলেজ">নোটিশ/ অফিস আদেশ</a></li>
-                        <li><a href="/site/view/moedu_office_order/কলেজ/তালিকাভুক্ত-শিক্ষক">তালিকাভুক্ত শিক্ষক</a></li>
-                        <li><a href="">বিবিধ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div id="box-7" class="six columns service-box box">
-                    <h4>পরিকল্পনা ও উন্নয়ন</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/7c2a5285_a5f0_409b_a5a8_d4c9bcb10221/meeting.png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/view/moedu_office_order/%E0%A6%AA%E0%A6%B0%E0%A6%BF%E0%A6%95%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A6%A8%E0%A6%BE/অফিস-আদেশ">অফিস আদেশ</a></li>
-                        <li><a href="/site/view/notices/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
-                        <li><a href="/site/files/dae7dad1-ebcb-4db3-87db-60650919f985/-জেনারেশন-ব্রেকথ্রু"> জেনারেশন ব্রেকথ্রু</a></li>
-                        <li><a href="">অন্যান্য</a></li>
-                    </ul>
-                </div>
-                <div id="box-7" class="six columns service-box box">
-                    <h4>প্রশিক্ষণ</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/3e27c58a_b4fd_42ee_9d73_81e6d20b343b/service-box-2.jpg" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="http://www.dshe.gov.bd/site/view/training">আদেশ</a></li>
-                        <li><a href="http://www.dshe.gov.bd/site/view/training">বিজ্ঞপ্তি</a></li>
-                        <li><a href="http://www.dshe.gov.bd/site/view/training">অন্যান্য</a></li>
-                        <li><a href="http://www.dshe.gov.bd/site/view/training">চলমান প্রশিক্ষণ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div id="box-8" class="six columns service-box box">
-                    <h4>টেন্ডার ও কোটেশান</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/a7f02797_ea5a_416f_bbdb_90b9de4beb0f/BID.jpg" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/view/tenders/টেন্ডার">টেন্ডার</a></li>
-                        <li><a href="/site/view/tenders/-কোটেশান"> কোটেশান</a></li>
-                        <li><a href="/site/view/tenders/ই-টেন্ডারিং">ই টেন্ডারিং</a></li>
-                        <li><a href="http://www.dshe.gov.bd">টেন্ডার সম্পর্কিত নীতিমালা</a></li>
-                    </ul>
-                </div>
-                <div id="box-9" class="six columns service-box box">
-                    <h4>মনিটরিং এন্ড ইভালুয়েশান</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/e8db2a14_aafe_4749_be08_14c086c40d3d/Physical edu..jpg" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="http://www.dshe.gov.bd/site/view/moedu_office_order/পরিবীক্ষণ ও মূল্যায়ন">অফিস আদেশ</a></li>
-                        <li><a href="http://www.dshe.gov.bd/">বিজ্ঞপ্তি</a></li>
-                        <li><a href="https://tinyurl.com/dshe-school-reopen">কোভিড-১৯ সংক্রান্ত মনিটরিং চেকলিস্ট তথ্য প্রেরণের লিংক</a></li>
-                        <li><a href=""></a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div id="box-10" class="six columns service-box box">
-                    <h4>সাধারন বিজ্ঞপ্তি</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/e8ad2b6b_c394_4e66_9906_4609cd20777a/04.png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">আদেশ</a></li>
-                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">বিজ্ঞপ্তি</a></li>
-                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">অন্যান্য</a></li>
-                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">নিয়োগ/ফলাফল</a></li>
-                    </ul>
-                </div>
-                <div id="box-11" class="six columns service-box box">
-                    <h4>জাতীয় শুদ্ধাচার কৌশল</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/51551a87_84e3_45aa_aebe_9dd8393d4128/nis_logo3.png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/page/65a0e9ec-6f4c-4efb-ba18-ff5891473168/শুদ্ধাচার-কৌশল-কর্ম-পরিকল্পনা--আদেশ---বিজ্ঞপ্তি">শুদ্ধাচার কৌশল কর্ম পরিকল্পনা/ আদেশ / বিজ্ঞপ্তি</a></li>
-                        <li><a href="/site/page/670a6408-c10b-4ed5-9600-5993b92705e6/শুদ্ধাচার-কৌশল-সংক্রান্ত-প্রতিবেদন---কার্যবিবরণী">শুদ্ধাচার কৌশল সংক্রান্ত প্রতিবেদন / কার্যবিবরণী</a></li>
-                        <li><a href="/site/page/acebfd6a-944d-4361-b3f7-ac6b3c553d4d/শুদ্ধাচার-কৌশল-সংক্রান্ত-ফোকাল-কর্মকর্তা-">শুদ্ধাচার কৌশল সংক্রান্ত ফোকাল কর্মকর্তা </a></li>
-                        <li><a href="/site/notices/5417158d-45a4-4eea-9cad-17b7f75971f3/শুদ্ধাচার-পুরস্কার-২০২০-২১">শুদ্ধাচার পুরস্কার ২০২০-২১</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div id="box-12" class="six columns service-box box">
-                    <h4>উদ্ভাবনী কার্যক্রম</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/3482d1df_239b_4892_a281_3820f35859cd/INNOVATION (1).png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/page/036fda09-c716-44dd-9657-ab941e8921d0/বার্ষিক-উদ্ভাবন-কর্মপরিকল্পনা--কার্যবিবরণী---অফিস-আদেশ---প্রজ্ঞাপন">বার্ষিক উদ্ভাবন কর্মপরিকল্পনা/ কার্যবিবরণী / অফিস আদেশ / প্রজ্ঞাপন</a></li>
-                        <li><a href="/site/page/136eb083-d3f9-43f6-af3a-64394f04163a/ইনোভেশন-টিম">ইনোভেশন টিম</a></li>
-                        <li><a href="/site/files/182394ce-d102-4e01-9428-4eaf3cb87c75/ইনোভেশন-আইডিয়া">ইনোভেশন আইডিয়া</a></li>
-                        <li><a href="/site/view/sps_data/সেবা-সহজিকরণ---উদ্ভাবন">সেবা সহজিকরণ / উদ্ভাবন</a></li>
-                    </ul>
-                </div>
-                <div id="box-13" class="six columns service-box box">
-                    <h4>সেবা প্রদান প্রতিশ্রুতি (সিটিজেন্‌স চার্টার)</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/014423dd_5158_4957_8c33_715b42219f5c/Service.png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/office_citizen_charter/3276fd6b-f5be-447e-abe0-1bb485ed6675/সিটিজেন-চার্টার-">সিটিজেন চার্টার </a></li>
-                        <li><a href="/site/page/b2ff501a-6fc2-4e8b-afba-79f5e9dc243e/বিভিন্ন-কমিটি--দায়িত্বপ্রাপ্ত-কর্মকর্তা/বিভিন্ন-কমিটি--দায়িত্বপ্রাপ্ত-কর্মকর্তা">বিভিন্ন কমিটি/ দায়িত্বপ্রাপ্ত কর্মকর্তা</a></li>
-                        <li><a href="/site/view/annual_reports/বার্ষিক-প্রতিবেদন">বার্ষিক প্রতিবেদন</a></li>
-                        <li><a href="/site/files/f75357ed-178c-457b-b60b-ed2f5c98f60d/সিটিজেন্‌স-চার্টার-প্রণয়ন-সংক্রান্ত-নির্দেশিকা,-২০১৭">সিটিজেন্‌স চার্টার প্রণয়ন সংক্রান্ত নির্দেশিকা, ২০১৭</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div id="box-14" class="six columns service-box box">
-                    <h4>তথ্য অধিকার</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/5b556262_ec0e_4c1c_b0ef_1d16539d58d2/04.png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="http://dshe.portal.gov.bd/site/page/21365154-0eda-4277-be90-34998bd4f9c7">তথ্য প্রদানকারী কর্মকর্তাবৃন্দ</a></li>
-                        <li><a href="http://dshe.portal.gov.bd/site/page/b68fc292-322f-4e81-aee0-f8ff77a30666">আবেদন ও আপিল ফরম</a></li>
-                        <li><a href="http://dshe.portal.gov.bd/site/page/4e299f61-f97c-4a50-bcf7-8813be3a13bf">আইন ও বিধি</a></li>
-                        <li><a href="/site/view/annual_reports/বার্ষিক-প্রতিবেদন">বার্ষিক প্রতিবেদন</a></li>
-                    </ul>
-                </div>
-                <div id="box-15" class="six columns service-box box">
-                    <h4>বার্ষিক কর্মসম্পাদন চুক্তি</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/21b7f150_e39a_4285_80ce_e46a9f504fde/apa_cab.png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/page/2b49f7f0-b527-4f55-b100-45e8eb59ebb6/নোটিশ--অফিস-আদেশ">নোটিশ/ অফিস আদেশ</a></li>
-                        <li><a href="/site/page/043d81a3-a9d9-4a72-97d2-e3af5ff14c48/প্রজ্ঞাপন--নীতিমালা--পরিপত্র--কাঠামো">প্রজ্ঞাপন/ নীতিমালা/ পরিপত্র/ কাঠামো</a></li>
-                        <li><a href="https://dshe.portal.gov.bd/site/page/1551d551-7b9f-4672-8622-cd6909df3ad9">অধিদপ্তরের চুক্তিসমূহ/ অগ্রগতি/ কমিটি/ এপিএএমএস লিংক</a></li>
-                        <li><a href="https://dshe.portal.gov.bd/site/page/cd86a230-8dea-472f-998b-6e5109b1c9c8">আঞ্চলিক কার্যালয়ের চুক্তিসমূহ</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="row">
-                <div id="box-17" class="six columns service-box box">
-                    <h4>অভিযোগ প্রতিকার ব্যবস্থাপনা</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/c423de27_25f4_41ee_920f_fa307f3da571/complain (1).png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="/site/page/a55eaed5-7bf1-4e8f-9537-d8b71bf3c014/অনিক-ও-আপিল-কর্মকর্তাগণ">অনিক ও আপিল কর্মকর্তাগণ</a></li>
-                        <li><a href="http://www.grs.gov.bd/">অভিযোগ দাখিল (অনলাইনে আবেদন)</a></li>
-                        <li><a href="/site/page/31140543-8de5-49d2-910f-1549260540eb/মাসিক-ত্রৈমাসিক-বার্ষিক-পরিবীক্ষণ-মূল্যায়ন-প্রতিবেদন">মাসিক/ত্রৈমাসিক/বার্ষিক পরিবীক্ষণ/মূল্যায়ন প্রতিবেদন</a></li>
-                        <li><a href="/site/page/be3d9612-e4a8-48b9-a3c1-b557883d86ee/আইন-বিধি-নীতিমালা-পরিপত্র-">আইন/বিধি/নীতিমালা/পরিপত্র/</a></li>
-                    </ul>
-                </div>
-                <div id="box-19" class="six columns service-box box">
-                    <h4>ই-লার্নিং রিসোর্স এবং বিভিন্ন প্ল্যাটফর্ম</h4>
-                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/292b3f25_e602_4035_84b8_e8b829c1fcf0/eLearning1 (1).png" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        <li><a href="http://203.112.195.166:6081/">আরইএলএম</a></li>
-                        <li><a href="/site/page/367da444-aed3-4714-a4e2-008527782d47/ই-লার্নিং-রিসোর্সের-বিভিন্ন-প্ল্যাটফর্ম">ই-লার্নিং রিসোর্সের বিভিন্ন প্ল্যাটফর্ম</a></li>
-                        <li><a href=""></a></li>
-                        <li><a href=""></a></li>
-                    </ul>
-                </div>
+                @endif
+                @endforeach --}}
+
+
             </div>
             <style></style>
             <script></script>

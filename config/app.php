@@ -168,7 +168,7 @@ return [
         /*
          * Package Service Providers...
          */
-        ZanySoft\LaravelPDF\PdfServiceProvider::class,
+        //ZanySoft\LaravelPDF\PdfServiceProvider::class,
         /*
          * Application Service Providers...
          */
@@ -233,7 +233,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
 
-        'PDF' => ZanySoft\LaravelPDF\Facades\PDF::class,
+        //'PDF' => ZanySoft\LaravelPDF\Facades\PDF::class,
 
     ],
 

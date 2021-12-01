@@ -18,14 +18,15 @@ Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logou
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //single page test
-Route::get('/single', function () {
-    return view('frontend_theme.default.front_layout.test');
-});
+// Route::get('/single', function () {
+//     return view('frontend_theme.default.front_layout.test');
+// });
 // Route::get('/', function () {
 //     return view('frontend_theme.default.test');
 // });
 
-Route::get('/', 'HomepageController@index');
+Route::get('/', 'HomepageController@index')->name('home');
+Route::get('/single', 'HomepageController@single')->name('single');
 
 
 //for admin authentication

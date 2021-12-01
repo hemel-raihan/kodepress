@@ -5,9 +5,9 @@
                 $slides = \App\Models\Admin\Slide\Slide::all();
             @endphp
         @foreach ($slides as $slide)
-@php
-    $slideimg = explode("|", $slide->slideimage);
-@endphp
+            @php
+                $slideimg = explode("|", $slide->slideimage);
+            @endphp
             @foreach ($slideimg as $key => $images)
             <li>
                 <img src="{{asset('uploads/slide_image/'.$images)}}" alt="" width="960" height="220" />
