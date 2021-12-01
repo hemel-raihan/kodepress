@@ -115,18 +115,28 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Blog Post</h3>
+					<h3 class="card-title">Create Menu</h3>
 				</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$frontmenu->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
+						<label for="exampleInputname">Menu Title</label>
+						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$frontmenu->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Menu Name">
                         @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
                         </span>
                         @enderror
 					</div>
+
+                    <div class="form-group">
+                        <label for="type">Type</label>
+                        <select class="form-control form-select select2" name="type" id="type">
+                            <option value="" >Select Menu Type</option>
+                            <option value="main-menu" @isset($menuItem) {{$frontmenu->type == 'main-menu' ? 'selected' : ''}} @endisset >Main Menu</option>
+                            <option value="top-menu" @isset($menuItem) {{$frontmenu->type == 'top-menu' ? 'selected' : ''}} @endisset >Top Menu</option>
+                            <option value="footer-menu" @isset($menuItem) {{$frontmenu->type == 'footer-menu' ? 'selected' : ''}} @endisset >Footer Menu</option>
+                        </select>
+                    </div>
 
 				</div>
 

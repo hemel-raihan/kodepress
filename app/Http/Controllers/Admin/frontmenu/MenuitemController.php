@@ -67,7 +67,7 @@ class MenuitemController extends Controller
     {
         $menu = Frontmenu::findOrFail($id);
         $menuItemOrder = json_decode($request->get('order'));
-        $this->orderMenu($menuItemOrder,null);
+        $this->orderMenu($menuItemOrder,0);
     }
 
     private function orderMenu(array $menuItems, $parentId)

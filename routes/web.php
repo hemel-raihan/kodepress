@@ -21,8 +21,11 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/single', function () {
     return view('frontend_theme.default.front_layout.test');
 });
+// Route::get('/', function () {
+//     return view('frontend_theme.default.test');
+// });
 
-Route::get('/', 'HomepageController@index')->name('home');
+Route::get('/', 'HomepageController@index');
 
 
 //for admin authentication
