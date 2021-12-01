@@ -129,6 +129,7 @@
                         <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
                         <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
                         <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
+                        <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
 					</select>
                     @else
                     <label class="form-label" for="type">Select Widget Type</label>
@@ -139,6 +140,7 @@
                         <option value="Menu Widget">Menu Widget</option>
                         <option value="Text Widget">Text Widget</option>
                         <option value="Gallary Widget">Gallary Widget</option>
+                        <option value="Image Widget">Image Widget</option>
 					</select>
                     @endisset
 				</div>
@@ -148,9 +150,11 @@
                     <input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Widget Title">
                 </div>
 
+                <div id="no_of_post">
                 <div class="form-group">
                     <label for="exampleInputname">No of Posts</label>
                     <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="no_of_post" id="" placeholder="How many post you want to show">
+                </div>
                 </div>
 
                 </div>
@@ -187,6 +191,12 @@
 					</div>
 				</div>
 
+                <div id="image_widget">
+					<div class="card-body">
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($widget) ? asset('uploads/sidebarphoto/'.$widget->image) : '' }}" name="image">
+					</div>
+				</div>
+
 				<div id="popular_post">
 					<div class="card-body">
 					</div>
@@ -220,51 +230,6 @@
 				</div>
 			</div>
 		</div>
-
-		{{-- Right Side --}}
-		{{-- <div class="col-lg-3 col-xl-3 col-md-12 col-sm-12" style="float: left">
-
-			<div class="card">
-				<div class="card-header">
-					<h3 class="card-title">Create Page</h3>
-				</div>
-
-                    <div id="category" class="card-body">
-
-                        <div  class="transfer-double-list-content">
-                            <div class="transfer-double-list-main">
-
-                                <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
-
-                                @foreach($categories as $key => $category)
-
-                                    <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
-                                        <div class="checkbox-group">
-                                            <input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
-                                        </div>
-                                        @if($category->childrenRecursive->count()>0)
-
-
-                                          @include('backend.admin.sidebar.widget.child_category', ['sub_category' => $category])
-
-
-                                        @endif
-
-
-                                    </li>
-                                @endforeach
-
-                                </ul>
-                            </div>
-                        </div>
-
-
-                    </div>
-
-
-			</div>
-		</div> --}}
-
 	</div>
     </form>
 	<!-- ROW-1 CLOSED -->
@@ -283,6 +248,7 @@
             $('#recent_post').addClass('d-none');
 			$('#popular_post').addClass('d-none');
             $('#text_widget').addClass('d-none');
+            $('#image_widget').addClass('d-none');
 		}
 		else if($('select[name="type"]').val() === 'Recent Post')
 		{
@@ -291,6 +257,7 @@
             $('#category').addClass('d-none');
 			$('#popular_post').addClass('d-none');
             $('#text_widget').addClass('d-none');
+            $('#image_widget').addClass('d-none');
 		}
 		else if($('select[name="type"]').val() === 'Popular Post')
 		{
@@ -299,6 +266,7 @@
             $('#category').addClass('d-none');
 			$('#popular_post').removeClass('d-none');
             $('#text_widget').addClass('d-none');
+            $('#image_widget').addClass('d-none');
 		}
         else if($('select[name="type"]').val() === 'Text Widget')
 		{
@@ -307,6 +275,17 @@
             $('#category').addClass('d-none');
 			$('#popular_post').addClass('d-none');
             $('#text_widget').removeClass('d-none');
+            $('#image_widget').addClass('d-none');
+		}
+        else if($('select[name="type"]').val() === 'Image Widget')
+		{
+			$('#recent_post').addClass('d-none');
+			$('#blog_category').addClass('d-none');
+            $('#category').addClass('d-none');
+			$('#popular_post').addClass('d-none');
+            $('#text_widget').removeClass('d-none');
+            $('#no_of_post').addClass('d-none');
+            $('#image_widget').removeClass('d-none');
 		}
 	}
 	setWidget();

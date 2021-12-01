@@ -76,7 +76,7 @@
                                         @endforeach
                                         </td>
                                         <td><a href="#">{{$post->files}}</a></td>
-                                        <td>{{$category->created_at->diffForHumans()}}</td>
+                                        <td>{{$post->created_at->diffForHumans()}}</td>
 										<td>
                                             @if($post->is_approved == true)
                                             <a class="btn btn-info">Approved</a>

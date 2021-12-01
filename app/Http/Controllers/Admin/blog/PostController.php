@@ -53,14 +53,18 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Gate::authorize('app.blog.posts.create');
-        $this->validate($request,[
-            'title' => 'required',
-            //'image' => 'required',
-            //'gallaryimage' => 'required',
-            'categories' => 'required',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
-        ]);
+        if(!$request->youtube_link)
+        {
+            $this->validate($request,[
+                'title' => 'required',
+                //'image' => 'required',
+                //'gallaryimage' => 'required',
+                'categories' => 'required',
+                'leftsidebar_id' => 'required',
+                'rightsidebar_id' => 'required',
+            ]);
+        }
+
 
         //get form image
         $image = $request->file('image');
@@ -102,6 +106,10 @@ class PostController extends Controller
              }
 
          }
+         else
+         {
+            $images[] = null;
+         }
 
         //get form file
         $file = $request->file('files');
@@ -123,6 +131,10 @@ class PostController extends Controller
             // $postfile = Image::make($file)->save($filename);
             // Storage::disk('public')->put('categoryphoto/'.$filename,$postfile);
 
+        }
+        else
+        {
+            $filename = null;
         }
 
         if(!$request->status)
@@ -146,10 +158,18 @@ class PostController extends Controller
         if(!$request->youtube_link)
         {
             $youtube = null;
+            $title = $request->title;
+            $body = $request->body;
+            $leftbar_id = $request->leftsidebar_id;
+            $rightbar_id = $request->rightsidebar_id;
         }
         else
         {
             $youtube = $request->youtube_link;
+            $title = null;
+            $body = null;
+            $leftbar_id = null;
+            $rightbar_id = null;
         }
 
         if(!$request->image)
@@ -161,17 +181,19 @@ class PostController extends Controller
             $featureimg = $imagename;
         }
 
+
+
         $post = Post::create([
-            'title' => $request->title,
+            'title' => $title,
             'slug' => $slug,
             'admin_id' => Auth::id(),
             'image' => $featureimg,
             'youtube_link' => $youtube,
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
-            'body' => $request->body,
-            'leftsidebar_id' => $request->leftsidebar_id,
-            'rightsidebar_id' => $request->rightsidebar_id,
+            'body' => $body,
+            'leftsidebar_id' => $leftbar_id,
+            'rightsidebar_id' => $rightbar_id,
             'status' => $status,
             'is_approved' => $is_approved,
 

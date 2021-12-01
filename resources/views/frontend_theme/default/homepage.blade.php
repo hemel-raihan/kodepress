@@ -329,18 +329,20 @@
 
             <div class="row">
                 @foreach ($categories as $key => $category)
-                @if($category->parent_id == 0)
-                <div id = "{{ ($key%2 == 0) ? 'box-1' : 'box-2' }}" style="margin-bottom: 20px;" class="six columns service-box box">
-                    <h4>{{$category->name}}</h4>
-                    <img src="{{asset('uploads/categoryphoto/'.$category->image)}}" alt="" width="110" height="" />
-                    <ul class="caption fade-caption" style="margin: 0;">
-                        @if($category->childrenRecursive->count()>0)
-                        @foreach($category->childrenRecursive as $cat)
-                        <li><a href="/site/view/office_order/অফিস-আদেশ">{{$cat->name}}</a></li>
-                        @endforeach
-                        @endif
-                    </ul>
-                </div>
+                @if($category->status == true)
+                    @if($category->parent_id == 0)
+                    <div id = "{{ ($key%2 == 0) ? 'box-1' : 'box-2' }}" style="margin-bottom: 20px;" class="six columns service-box box">
+                        <h4>{{$category->name}}</h4>
+                        <img src="{{asset('uploads/categoryphoto/'.$category->image)}}" alt="" width="110" height="" />
+                        <ul class="caption fade-caption" style="margin: 0;">
+                            @if($category->childrenRecursive->count()>0)
+                            @foreach($category->childrenRecursive as $cat)
+                            <li><a href="/site/view/office_order/অফিস-আদেশ">{{$cat->name}}</a></li>
+                            @endforeach
+                            @endif
+                        </ul>
+                    </div>
+                    @endif
                 @endif
                 @endforeach
 
@@ -367,14 +369,16 @@
                 <h5 class="bk-org title">
                     ভিডিও
                 </h5>
+                @foreach ($youtubecategories as $youtubecat)
 
-                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/HbYVxljUjrQ" width="700"></iframe></p>
+                @foreach ($youtubecat->posts as $youtubepost)
 
-                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/ZjXeFhv_CxE" width="700"></iframe></p>
+                <p>&nbsp;<iframe frameborder="1" height="350" src="{{$youtubepost->youtube_link}}" width="700"></iframe></p>
 
-                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/B4J5n-lNk3g" width="700"></iframe></p>
+                @endforeach
 
-                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/sUpz4zFEx6o" width="700"></iframe></p>
+                @endforeach
+
                 <p></p>
             </div>
             <style>

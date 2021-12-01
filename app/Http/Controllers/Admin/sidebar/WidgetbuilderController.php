@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin\sidebar;
 
+use Carbon\Carbon;
+use Illuminate\Support\Str;
 use App\Models\Admin\Widget;
 use Illuminate\Http\Request;
 use App\Models\Admin\Sidebar;
@@ -32,11 +34,29 @@ class WidgetbuilderController extends Controller
     {
         $sidebar = Sidebar::findOrFail($id);
 
+        //get form image
+        $image = $request->file('image');
+        $slug = Str::slug($request->title);
+
+        if(isset($image))
+        {
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+            $sidebarphotoPath = public_path('uploads/sidebarphoto');
+            $image->move($sidebarphotoPath,$imagename);
+
+        }
+        else
+        {
+            $imagename = null;
+        }
         $sidebar->widgets()->create([
             'title' => $request->title,
             'category_id' => $request->category_id,
             'no_of_post' => $request->no_of_post,
             'type' => $request->type,
+            'image' => $imagename,
             'body' => $request->body,
 
         ]);
@@ -77,11 +97,38 @@ class WidgetbuilderController extends Controller
         //Gate::authorize('app.menus.edit');
         $sidebar = Sidebar::findOrFail($id);
 
+        //get form image
+        $image = $request->file('image');
+        $slug = Str::slug($request->name);
+
+        if(isset($image))
+        {
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+
+            $sidebarphotoPath = public_path('uploads/sidebarphoto');
+
+            $sidebarphoto_path = public_path('uploads/sidebarphoto/'.$sidebar->widgets()->findOrFail($widgetId)->image);  // Value is not URL but directory file path
+            if (file_exists($sidebarphoto_path)) {
+
+                @unlink($sidebarphoto_path);
+
+            }
+
+            $image->move($sidebarphotoPath,$imagename);
+
+        }
+        else
+        {
+            $imagename = $sidebar->widgets()->findOrFail($widgetId)->image;
+        }
+
         $sidebar->widgets()->findOrFail($widgetId)->update([
             'title' => $request->title,
             'category_id' => $request->category_id,
             'no_of_post' => $request->no_of_post,
             'type' => $request->type,
+            'image' => $imagename,
             'body' => $request->body,
         ]);
 
@@ -91,6 +138,15 @@ class WidgetbuilderController extends Controller
 
     public function destroy($id,$widgetId)
     {
+        $sidebar = Sidebar::findOrFail($id);
+
+        $sidebarphoto_path = public_path('uploads/sidebarphoto/'.$sidebar->widgets()->findOrFail($widgetId)->image);  // Value is not URL but directory file path
+        if (file_exists($sidebarphoto_path)) {
+
+            @unlink($sidebarphoto_path);
+
+        }
+
         Sidebar::findOrFail($id)
                  ->widgets()
                  ->findOrFail($widgetId)

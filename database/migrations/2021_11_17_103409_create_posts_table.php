@@ -16,17 +16,17 @@ class CreatePostsTable extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->foreignId('admin_id')->constrained('admins')->onDelete('cascade');
-            $table->string('title');
-            $table->string('slug')->unique();
+            $table->string('title')->nullable();
+            $table->string('slug')->unique()->nullable();
             $table->string('image')->default('default.png')->nullable();
             $table->string('youtube_link')->nullable();
-            $table->string('gallaryimage');
-            $table->text('body');
+            $table->string('gallaryimage')->nullable();
+            $table->text('body')->nullable();
             $table->integer('view_count')->default(0);
             $table->boolean('status')->default(false);
             $table->boolean('is_approved')->default(false);
-            $table->integer('rightsidebar_id');
-            $table->integer('leftsidebar_id');
+            $table->integer('rightsidebar_id')->nullable();
+            $table->integer('leftsidebar_id')->nullable();
             $table->string('files');
             $table->timestamps();
         });
