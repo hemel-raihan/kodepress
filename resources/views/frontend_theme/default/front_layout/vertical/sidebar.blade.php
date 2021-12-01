@@ -1,5 +1,5 @@
 <div class="four columns right-side-bar" id="right-content">
-    <div class="column block">
+    {{-- <div class="column block">
         <h5 class="bk-org title">
             জাতীয় সংগীত
         </h5>
@@ -26,150 +26,127 @@
             </a>
         </h4>
         <p></p>
-    </div>
+    </div> --}}
     <style>
         #right-content .block {
             display: block !important;
         }
     </style>
     <script></script>
-    <div class="column block">
-        <h5 class="bk-org title">
-            অনলাইনে এম.পি.ও. ভুক্তির আবেদন - ২০২১
-        </h5>
 
-        <ul>
-            <li>
-                <a
-                    href="http://dshe.portal.gov.bd/uploader/server/../../sites/default/files/files/dshe.portal.gov.bd/npfblock//nirdesika.pdf"
-                    style="
-                        padding: 0px;
-                        margin: 0px;
-                        font-family: kalpurushregular;
-                        border: 0px;
-                        font-variant-numeric: inherit;
-                        font-variant-east-asian: inherit;
-                        font-stretch: inherit;
-                        font-size: 12px;
-                        line-height: inherit;
-                        vertical-align: baseline;
-                        color: rgb(0, 0, 0);
-                        text-decoration-line: none;
-                        outline: 0px;
-                    "
-                    title="১.&nbsp;অনলাইন আবেদন ফরম পূরণ নির্দেশিকা"
-                >
-                    অনলাইন আবেদন ফরম পূরণ নির্দেশিকা
-                </a>
-            </li>
-            <li>
-                <a
-                    href="http://202.72.235.210/mpo-shed/mpo_login"
-                    style="
-                        padding: 0px;
-                        margin: 0px;
-                        font-family: kalpurushregular;
-                        border: 0px;
-                        font-variant-numeric: inherit;
-                        font-variant-east-asian: inherit;
-                        font-stretch: inherit;
-                        font-size: 12px;
-                        line-height: inherit;
-                        vertical-align: baseline;
-                        color: rgb(102, 102, 102);
-                        text-decoration-line: none;
-                        outline: 0px;
-                    "
-                    title="২.অনলাইন এম.পি.ও আবেদন"
-                >
-                    অনলাইন এম.পি.ও আবেদন
-                </a>
-                <a href="http://202.72.235.210/mpo-shed"><span style="color: rgb(68, 68, 68); font-family: kalpurushregular; font-size: 12px;">&nbsp;ফরম</span></a>
-            </li>
-            <li>
-                <span style="color: rgb(68, 68, 68); font-family: kalpurushregular; font-size: 12px;">&nbsp;</span>
-                <a
-                    href="http://dshe.portal.gov.bd/uploader/server/../../sites/default/files/files/dshe.portal.gov.bd/npfblock//declaration.pdf"
-                    style="
-                        padding: 0px;
-                        margin: 0px;
-                        font-family: kalpurushregular;
-                        border: 0px;
-                        font-variant-numeric: inherit;
-                        font-variant-east-asian: inherit;
-                        font-stretch: inherit;
-                        font-size: 12px;
-                        line-height: inherit;
-                        vertical-align: baseline;
-                        color: rgb(102, 102, 102);
-                        text-decoration-line: none;
-                        outline: 0px;
-                    "
-                    title="প্রতিষ্ঠান প্রধানের ঘোষণাপত্র"
-                >
-                    প্রতিষ্ঠান প্রধানের ঘোষণাপত্র
-                </a>
-            </li>
-            <li>
-                <a
-                    href="http://dshe.portal.gov.bd/uploader/server/../../sites/default/files/files/dshe.portal.gov.bd/npfblock//299.pdf"
-                    style="
-                        padding: 0px;
-                        margin: 0px;
-                        font-family: kalpurushregular;
-                        border: 0px;
-                        font-variant-numeric: inherit;
-                        font-variant-east-asian: inherit;
-                        font-stretch: inherit;
-                        font-size: 12px;
-                        line-height: inherit;
-                        vertical-align: baseline;
-                        color: rgb(0, 0, 0);
-                        text-decoration-line: none;
-                        outline: 0px;
-                    "
-                    title="গণবিজ্ঞপ্তি-২০২১"
-                >
-                    গণবিজ্ঞপ্তি-২০২১
-                </a>
-            </li>
-            <li>
-                <a
-                    href="http://dshe.portal.gov.bd/uploader/server/../../sites/default/files/files/dshe.portal.gov.bd/npfblock//MPO-Policy2021.pdf"
-                    style="
-                        padding: 0px;
-                        margin: 0px;
-                        font-family: kalpurushregular;
-                        border: 0px;
-                        font-variant-numeric: inherit;
-                        font-variant-east-asian: inherit;
-                        font-stretch: inherit;
-                        font-size: 12px;
-                        line-height: inherit;
-                        vertical-align: baseline;
-                        color: rgb(102, 102, 102);
-                        text-decoration-line: none;
-                        outline: 0px;
-                    "
-                    title=".&nbsp;এম.পি.ও নীতিমালা-২০২১"
-                >
-                    এম.পি.ও নীতিমালা-২০২১
-                </a>
-            </li>
-        </ul>
+@foreach ($widgets as $widget)
+
+<div class="column block">
+    <h5 class="bk-org title">
+        {{$widget->title}}
+    </h5>
+
+    @if ($widget->type == 'Text Widget')
+    {!!$widget->body!!}
+    @endif
+
+
+
+@if ($widget->type == 'Blog Category')
+<ul>
+    @foreach ($widget->category->posts as $post)
+    <li>
+        <a
+            href="http://dshe.portal.gov.bd/uploader/server/../../sites/default/files/files/dshe.portal.gov.bd/npfblock//nirdesika.pdf"
+            style="
+                padding: 0px;
+                margin: 0px;
+                font-family: kalpurushregular;
+                border: 0px;
+                font-variant-numeric: inherit;
+                font-variant-east-asian: inherit;
+                font-stretch: inherit;
+                font-size: 12px;
+                line-height: inherit;
+                vertical-align: baseline;
+                color: rgb(0, 0, 0);
+                text-decoration-line: none;
+                outline: 0px;
+            "
+            title="১.&nbsp;{{$post->title}}"
+        >
+            {{$post->title}}
+        </a>
+    </li>
+    @endforeach
+</ul>
+@endif
+
+
+@if ($widget->type == 'Recent Post')
+<ul>
+    @php
+    //$latestposts = $widget->category->posts()->orderBy('created_at', 'desc')->take(2)->get();
+    $post_no =$widget->no_of_post;
+    $latestposts = \App\Models\blog\Post::orderBy('created_at', 'desc')->take($post_no)->get();
+    @endphp
+    @foreach ($latestposts as $recentpost)
+    <li>
+        <a
+            href="http://dshe.portal.gov.bd/uploader/server/../../sites/default/files/files/dshe.portal.gov.bd/npfblock//nirdesika.pdf"
+            style="
+                padding: 0px;
+                margin: 0px;
+                font-family: kalpurushregular;
+                border: 0px;
+                font-variant-numeric: inherit;
+                font-variant-east-asian: inherit;
+                font-stretch: inherit;
+                font-size: 12px;
+                line-height: inherit;
+                vertical-align: baseline;
+                color: rgb(0, 0, 0);
+                text-decoration-line: none;
+                outline: 0px;
+            "
+            title="১.&nbsp;{{$recentpost->title}}"
+        >
+            {{$recentpost->title}}
+        </a>
+    </li>
+    @endforeach
+</ul>
+@endif
+
+
+@if ($widget->image)
+
+<p><img alt="" src="{{asset('uploads/sidebarphoto/'.$widget->image)}}" style="height: 214px; width: 220px;" /></p>
+
+        {!!$widget->body!!}
+
+        <h4>
+            <a href="http://dshe.portal.gov.bd/site/page/cecb3807-55c3-4a1b-b73e-2c247aec0c03">
+                <u><span style="color: #008000;">বিস্তারিত</span></u>
+            </a>
+        </h4>
         <p></p>
-    </div>
+
+@endif
+
+
+    <p></p>
+</div>
+
+@endforeach
+
+
     <style>
         #right-content .block {
             display: block !important;
         }
     </style>
     <script></script>
-    <a href="//bangladesh.gov.bd/site/view/all_eservices_in_bangladesh/">
+    {{-- <a href="//bangladesh.gov.bd/site/view/all_eservices_in_bangladesh/">
         <div class="column block central-eservices">
             <h5 class="bk-org title eservice-title">কেন্দ্রীয় ই-সেবা</h5>
         </div>
-    </a>
+    </a> --}}
 
             <!-- <div class="column block central-eservices">
         <h5 class="bk-org title eservice-title">কেন্দ্রীয় ই-সেবা
@@ -240,7 +217,7 @@
             display: none;
         }
     </style>
-    <script></script>
+    {{-- <script></script>
     <div class="column block">
         <h5 class="bk-org title">গুরুত্বপূর্ণ লিংক</h5>
         <ul>
@@ -277,7 +254,7 @@
         </ul>
 
         <a href="/site/view/internal_eservices" class="btn" style="display: block; text-align: center;">সকল</a>
-    </div>
+    </div> --}}
     <style>
         .block h5.internal-eservice {
             background-image: url("/sites/default/files/files/pmo.portal.gov.bd/page/761f04a2_c625_480e_96cc_b9a0c006d5c3/internal_eservice2.png");
@@ -305,7 +282,7 @@
         }
     </style>
     <script></script>
-    <div class="column block">
+    {{-- <div class="column block">
         <h5 class="bk-org title">
             ভিডিও
         </h5>
@@ -445,7 +422,7 @@
     <script></script>
     <div class="column block">
         <h5 class="bk-org title">সামাজিক যোগাযোগ</h5>
-    </div>
+    </div> --}}
 
     <div class="clearfix"></div>
     <style>
@@ -475,4 +452,4 @@
                                     <span>
         </h5>
     </div> -->
-</div> 
+</div>

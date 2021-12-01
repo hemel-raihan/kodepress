@@ -163,7 +163,14 @@
 
               @yield('bodycontent')
 
-              @include('frontend_theme.default.front_layout.vertical.sidebar')
+              @php
+                $sidebars = \App\Models\Admin\Sidebar::where([['type','=','Right Side Bar'],['status','=',true]])->get();
+                foreach($sidebars as $sidebar)
+                {
+                    $widgets = $sidebar->widgets()->get();
+                }
+            @endphp
+              @include('frontend_theme.default.front_layout.vertical.sidebar',['widgets'=>$widgets])
 
            </div>
 

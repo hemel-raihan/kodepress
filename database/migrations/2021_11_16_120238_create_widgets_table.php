@@ -22,6 +22,8 @@ class CreateWidgetsTable extends Migration
             $table->text('body')->nullable();
             $table->boolean('status')->nullable();
             $table->string('type')->nullable();
+            $table->string('image')->nullable();
+            $table->string('gallary_image')->nullable();
             $table->integer('order')->nullable();
             $table->timestamps();
         });

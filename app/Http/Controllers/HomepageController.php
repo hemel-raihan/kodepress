@@ -13,7 +13,8 @@ class HomepageController extends Controller
     public function index()
     {
         $categories = category::all();
-        return view('frontend_theme.default.homepage',compact('categories'));
+        $youtubecategories = category::where('slug','=','youtube-video')->get();
+        return view('frontend_theme.default.homepage',compact('categories','youtubecategories'));
     }
 
     public function single()
