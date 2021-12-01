@@ -1,3 +1,76 @@
+@extends('frontend_theme.default.front_layout.index')
+
+@section('frontscripts')
+<script type="text/javascript" src="{{ asset('frontend/js/jquery.media.js') }}"></script>
+
+{{-- preview pdf --}}
+<script>
+    $(function () {
+        // doc viewer
+        $("a.viewer").media({ width: 720, height: 600 });
+        // Slideshow 4
+        $("#front-image-slider").responsiveSlides({
+            auto: true,
+            pager: false,
+            nav: true,
+            speed: 2000,
+            maxwidth: 960,
+            namespace: "callbacks",
+        });
+        $("#right-content a").click(function () {
+            var url = $(this).attr("href");
+            if (isExternal(url) && url != "javascript:;") {
+                openInNewTab(url);
+                return false;
+            }
+        });
+    });
+    function openInNewTab(url) {
+        var win = window.open(url, "_blank");
+        win.focus();
+    }
+    function isExternal(url) {
+        var match = url.match(/^([^:\/?#]+:)?(?:\/\/([^\/?#]*))?([^?#]+)?(\?[^#]*)?(#.*)?/);
+        if (typeof match[1] === "string" && match[1].length > 0 && match[1].toLowerCase() !== location.protocol) return true;
+        if (
+            typeof match[2] === "string" &&
+            match[2].length > 0 &&
+            match[2].replace(
+                new RegExp(
+                    ":(" +
+                        {
+                            "http:": 80,
+                            "https:": 443,
+                        }[location.protocol] +
+                        ")?$"
+                ),
+                ""
+            ) !== location.host
+        )
+            return true;
+        return false;
+    }
+</script>
+
+{{-- print --}}
+<script type="text/javascript">
+    function print_content() {
+        var html_content = $("#printable_area").html();
+
+        newwindow = window.open();
+        newdocument = newwindow.document;
+        newdocument.write(html_content);
+        newdocument.close();
+
+        newwindow.print();
+
+        return false;
+    }
+</script>
+@endsection
+
+@section('bodycontent')
+
 <div class="accessibilityDesign" id="accessibilityDesign" title="লিখার রঙ ও সাইজ পরিবর্তন করুন">
     <div class="textSize">
         <span>Text size</span>
@@ -46,7 +119,7 @@
     }
 </script>
 <div class="twelve columns" id="left-content">
-    <div id="print_btn_div"><img src="/themes/responsive_npf/images/print_btn.png" style="cursor: pointer;" onclick="print_content();" width="24" title="প্রিন্ট" /></div>
+    <div id="print_btn_div"><img src="{{ asset('frontend/images/print_btn.png') }}" style="cursor: pointer;" onclick="print_content();" width="24" title="প্রিন্ট" /></div>
     <div class="updateText" style="float: right; font-style: italic; font-size: 0.8em; color: #666;">সর্ব-শেষ হাল-নাগাদ: &#x09E9;&#x09E6; নভেম্বর &#x09E8;&#x09E6;&#x09E8;&#x09E7;</div>
     <hr id="print_div_hr" />
     <div id="printable_area">
@@ -54,7 +127,7 @@
         <h3>মাউশি অধিদপ্তরাধীন সকল সরকারি শিক্ষা প্রতিষ্ঠানে কর্মরত সহকারী গ্রন্থাগারিক কাম ক্যাটালগার ও সহকারী গ্রন্থাগারিকগণের খসড়া জ্যেষ্ঠতার তালিকা।</h3>
 
         <a href="//dshe.portal.gov.bd/sites/default/files/files/dshe.portal.gov.bd/notices/66822a52_70c3_4562_ad29_60837748d6b3/001-converted (1)_compressed (1).pdf">
-            <img src="/themes/responsive_npf/img/file-icons/16px/pdf.png" alt="001-converted (1)_compressed (1).pdf" class="file-icon" /> 001-converted (1)_compressed (1).pdf
+            <img src="{{ asset('frontend/images/pdf.png') }}" alt="001-converted (1)_compressed (1).pdf" class="file-icon" /> 001-converted (1)_compressed (1).pdf
         </a>
         <div><a class="viewer" href="//dshe.portal.gov.bd//sites/default/files/files/dshe.portal.gov.bd/notices/66822a52_70c3_4562_ad29_60837748d6b3/001-converted (1)_compressed (1).pdf"></a></div>
         <style></style>
@@ -82,3 +155,7 @@
         </a>
     </div>
 </div>
+
+
+@endsection
+

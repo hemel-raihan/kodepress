@@ -1,1178 +1,632 @@
-@extends('front_layout.app')
+@extends('frontend_theme.default.front_layout.index')
 
 @section('styles')
 
 
+@endsection
+
+@section('bodycontent')
+
+
+    <div class="twelve columns" id="left-content">
+        <div class="row mainwrapper">
+            <div class="pm">
+                <!-- <iframe frameborder="0" height="380" src="https://www.youtube.com/embed/bxWRglJFQNc" width="100%"></iframe> -->
+                {{-- <a href="https://www.youtube.com/watch?v=bxWRglJFQNc" target="_blank">
+                <img src="/National-Portal-Card-PM.jpeg">
+            </a>  --}}
+                <a href="https://www.youtube.com/watch?v=v1R-CB3e-pw" target="_blank">
+                    <img src="{{ asset('frontend/images/National-Portal-Card-PM.jpeg') }}" />
+                </a>
+            </div>
+            <div class="scroll">
+                <h3>
+                    <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
+                        নো মাস্ক নো সার্ভিস। করোনাভাইরাসের বিস্তার রোধে এখনই ডাউনলোড করুন Corona Tracer BD অ্যাপ। ডাউনলোড করতে ক্লিক করুন
+                        <a href="https://bit.ly/coronatracerbd" target="_blank" style="color: blue;">https://bit.ly/coronatracerbd</a>। নিজে সুরক্ষিত থাকুন অন্যকেও নিরাপদ রাখুন। দেশের প্রথম ক্রাউডফান্ডিং প্ল্যাটফর্ম 'একদেশ'- এর
+                        মাধ্যমে আর্থিক অনুদান পৌঁছে দিন নির্বাচিত সরকারি-বেসরকারি প্রতিষ্ঠানসমূহে। ভিজিট করুন <a href="//ekdesh.ekpay.gov.bd" target="_blank" style="color: blue;">ekdesh.ekpay.gov.bd</a> অথবা
+                        <a href="//play.google.com/store/apps/details?id=com.synesis.donationapp" target="_blank" style="color: blue;">“Ek Desh”</a> অ্যাপ ডাউনলোড করুন। করোনার লক্ষণ দেখা দিলে গোপন না করে ডাক্তারের পরামর্শের জন্য
+                        ফ্রি কল করুন ৩৩৩ ও ১৬২৬৩ নম্বরে। করোনাভাইরাস প্রতিরোধে নিয়ম মেনে মাস্ক ব্যবহার করুন। আতঙ্কিত না হয়ে বরং সচেতন থাকুন। ভিজিট করুন
+                        <a href="//corona.gov.bd" target="_blank" style="color: blue;">corona.gov.bd</a>
+                    </marquee>
+                </h3>
+            </div>
+            <style>
+                .pm > a > img {
+                    width: 100%;
+                    height: 380px;
+                }
+                .scroll {
+                    background: #e6e7e8;
+                    padding: 5px 0px 0px 0px;
+                }
+
+                .scroll > h3 {
+                    font-weight: bold;
+                    font-size: 22px;
+                    line-height: 22px;
+                }
+
+                marquee {
+                    padding: 5px;
+                }
+
+                @media (max-width: 480px) {
+                    iframe {
+                        height: 215px !important;
+                    }
+                    .scroll {
+                        margin: 0px 0px 40px 0px;
+                    }
+                    .pm > a > img {
+                        width: 100%;
+                        height: 215px;
+                    }
+                }
+            </style>
+            <script></script>
+            <div class="row" id="notice-board">
+                <div class="notice-board-bg">
+                    <h2>নোটিশ বোর্ড</h2>
+                    <div id="notice-board-ticker">
+                        <ul>
+                            <li>
+                                <a href="/site/notices/3fc51534-4a20-48db-b707-7c381454e25f/NAAND-প্রকল্পের-অটিজম-ও-এনডিডি-বিষয়ক-মাস্টার-ট্রেইনার-প্রশিক্ষক-কোর্সে-অংশগ্রহণকারী-ব">
+                                    NAAND প্রকল্পের অটিজম ও এনডিডি বিষয়ক মাস্টার ট্রেইনার প্রশিক্ষক কোর্সে অংশগ্রহণকারী ব...
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/site/notices/6e1483f6-2ea7-4e6b-a9ae-baaa98456ecd/বাংলাদেশ-সরকারি-কর্মকমিশন-কর্তৃক-অনুষ্ঠেয়-৪১-তম-বিসিএস-পরীক্ষা-২০১৯-এর-মাধ্যমে-বিভিন্">
+                                    বাংলাদেশ সরকারি কর্মকমিশন কর্তৃক অনুষ্ঠেয় ৪১ তম বিসিএস পরীক্ষা-২০১৯ এর মাধ্যমে বিভিন্...
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/site/notices/bc78cee9-b271-4cd7-ba8d-e5c4f9b953b3/সিনিয়র-শিক্ষক-পদ-হতে-উপজেলা-মাধ্যমিক-শিক্ষা-অফিসার-পদে-বদলী-ভিত্তিক-পদায়ন-সংক্রান্ত।">
+                                    সিনিয়র শিক্ষক পদ হতে উপজেলা মাধ্যমিক শিক্ষা অফিসার পদে বদলী ভিত্তিক পদায়ন সংক্রান্ত।
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/site/notices/77eac496-da5f-4c7b-b898-b55dff983667/সরকারি-মাধ্যমিক-বিদ্যালয়ে-শিক্ষার্থী-ভর্তির-নীতিমালা-সংশোধিত--২০২০-এর-অনুচ্ছেদ-১৭-স">
+                                    সরকারি মাধ্যমিক বিদ্যালয়ে শিক্ষার্থী ভর্তির নীতিমালা (সংশোধিত- ২০২০) এর অনুচ্ছেদ-১৭ স...
+                                </a>
+                            </li>
+                            <li>
+                                <a href="/site/notices/c9143678-ea20-4de8-84e1-d8dd05e2703c/এসডিজি-সূচকের-জন্য-মন্ত্রণালয়-ও-অধীনস্ত-কার্যালয়সমূহে-কর্মরত-সকল-কর্মকর্তা-কর্মচারীর-">
+                                    এসডিজি সূচকের জন্য মন্ত্রণালয় ও অধীনস্ত কার্যালয়সমূহে কর্মরত সকল কর্মকর্তা-কর্মচারীর ...
+                                </a>
+                            </li>
+                        </ul>
+                        <a class="btn right" href="/site/view/notices">সকল</a>
+                    </div>
+                </div>
+            </div>
+            <style>
+                #notice-board-ticker ul li {
+                    list-style: none;
+                }
+            </style>
+            <script></script>
+            <div style="background-color: #efefef; border: 1px solid #cccccc; margin-bottom: 20px; padding: 10px;" class="row" id="news">
+                <h5 style="float: left; margin: -3px 5px 0 0; font-weight: bold; font-size: 0.9em;">খবর:</h5>
+                <div id="news-ticker" style="overflow: hidden; position: relative; height: 0px;">
+                    <ul style="font-size: 0.9em; position: absolute; margin: 0px; padding: 0px; width: 95%;">
+                        <li class="lineheight">
+                            <a href="/site/news/e350e6c8-d4b0-41f9-9e9e-10150787a619/অভিযোগ-প্রতিকার-ব্যবস্থার-লিঙ্কa-hrefhttp--wwwgrsgovbd--লিঙ্ক-a">অভিযোগ প্রতিকার ব্যবস্থার লিঙ্ক<a href="http://www.grs.gov.bd/"> লিঙ্ক</a></a>
+                            <i>(&#x09E8;&#x09E6;&#x09E8;&#x09E7;-&#x09E7;&#x09E6;-&#x09E9;&#x09E7;)</i>
+                        </li>
+                        <li class="lineheight">
+                            <a href="/site/news/7d0651c2-fc66-4a00-b65f-d95213923969/a-hrefhttps--youtube-HbYVxljUjrQশিক্ষা-প্রতিষ্ঠান-খোলার-পর-স্বাস্থ্যবিধি-অনুসরণে-বিশেষ-বার্তা--a">
+                                <a href="https://youtu.be/HbYVxljUjrQ">শিক্ষা প্রতিষ্ঠান খোলার পর স্বাস্থ্যবিধি অনুসরণে বিশেষ বার্তা </a>
+                            </a>
+                            <i>(&#x09E8;&#x09E6;&#x09E8;&#x09E7;-&#x09E6;&#x09EF;-&#x09E7;&#x09E6;)</i>
+                        </li>
+                        <li class="lineheight">
+                            <a href="/site/news/ec5e8dc2-7105-4931-be6b-60e03fd867ac/a-hrefhttps--tinyurlcom-dshe-school-reopenশিক্ষা-প্রতিষ্ঠান-প্রধানগণের-দৈনিক-ভিত্তিতে-গুগল-ডকস্-এর-মাধ্যমে-তথ্য-প্রেরণ-a">
+                                <a href="https://tinyurl.com/dshe-school-reopen">শিক্ষা প্রতিষ্ঠান প্রধানগণের দৈনিক ভিত্তিতে গুগল ডকস্ এর মাধ্যমে তথ্য প্রেরণ</a>
+                            </a>
+                            <i>(&#x09E8;&#x09E6;&#x09E8;&#x09E7;-&#x09E6;&#x09EF;-&#x09E6;&#x09EF;)</i>
+                        </li>
+                    </ul>
+                    <div style="float: right;">
+                        <a class="btn" href="/site/view/news">সকল</a>
+                    </div>
+                </div>
+            </div>
+            <style>
+                .lineheight {
+                    line-height: 22px;
+                }
+            </style>
+            <script></script>
+            <div class="column block">
+                <h5 class="bk-org title">
+                    জরুরি হটলাইনসমূহ / সিটিজেন চার্টার / লিঙ্কস
+                </h5>
+
+                <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
+
+                <p>
+                    &nbsp;
+                    <span style="font-size: 20px;">
+                        <a href="https://dshe.portal.gov.bd/sites/default/files/files/dshe.portal.gov.bd/office_citizen_charter/ae417ade_656a_4a86_87e2_3bec17da8b97/DSHE%20Citizen's%20Charter-27.09.2021.pdf">
+                            <span style="color: rgb(128, 0, 128);"><span style="background-color: #afeeee;">&nbsp; &nbsp;</span></span>
+                            <span style="background-color: rgb(175, 238, 238);"><span style="color: #800080;">সিটিজেন চার্টার&nbsp;</span></span>
+                        </a>
+                        <span style="color: #800080;"><span style="background-color: #ffffe0;">&nbsp;&nbsp;&nbsp; &nbsp;</span></span>
+                        <a href="http://emis.gov.bd">
+                            <span style="color: #b22222;"> <span style="background-color: #e6e6fa;">বদলির আবেদন</span></span>
+                        </a>
+                        &nbsp;<span style="color: #800080;"><span style="background-color: #ffffe0;">&nbsp; &nbsp; &nbsp;&nbsp;</span></span>
+                        <span style="color: #b22222;"><span style="background-color: #afeeee;">&nbsp; </span></span>
+                        <a href="https://dshe.portal.gov.bd/site/page/8c09e774-ac65-47df-862e-27a78b0c112d">
+                            <span style="color: #b22222;"><span style="background-color: #afeeee;">এমপিও শীট/ ভাউচার</span></span>
+                        </a>
+                        <span style="color: #b22222;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+                        <strong>
+                            <a href="https://dshe.portal.gov.bd/site/page/99553b76-0268-467c-824f-28d1c16c55e1">
+                                <span style="color: #b22222;"><span style="background-color: #ffd700;"> নিয়োগ সংক্রান্ত</span></span>
+                            </a>
+                        </strong>
+                    </span>
+                </p>
+
+                <p>&nbsp; &nbsp; &nbsp;&nbsp;</p>
+
+                <p>
+                    &nbsp;
+                    <a href="https://dshe.portal.gov.bd/site/page/5ac79d4b-c552-47e6-ae01-824b12021eb9">
+                        <span style="font-size: 20px;"><span style="background-color: #faebd7;">EMIS সফটওয়্যার সংক্রান্ত</span></span>
+                    </a>
+                </p>
+
+                <p>&nbsp;</p>
+                <p></p>
+            </div>
+            <style>
+                #right-content .block {
+                    display: block !important;
+                }
+            </style>
+            <script></script>
+            <div class="column block">
+                <h5 class="bk-org title">
+                    আদেশ/প্রজ্ঞাপন/নীতিমালা/পরিপত্র/আইন/বিধিমালা
+                </h5>
+
+                <table border="" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+                            <td colspan="3" style="width: 351px;">
+                                <p>
+                                    <span style="color: #008080;">
+                                        <span style="font-size: 14px;"><strong>আদেশ</strong><strong>/</strong><strong>প্রজ্ঞাপন</strong></span>
+                                    </span>
+                                </p>
+                            </td>
+                            <td rowspan="4" style="width: 15px;">&nbsp;</td>
+                            <td colspan="3" style="width: 344px;">
+                                <p>
+                                    <span style="color: #008080;">
+                                        <span style="font-size: 14px;"><strong>নীতিমালা</strong><strong>/</strong><strong>পরিপত্র/আইন/বিধি</strong></span>
+                                    </span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 134px;">
+                                <p>
+                                    <span style="font-size: 14px;">
+                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">সাধারণ প্রশাসন</a>
+                                    </span>
+                                </p>
+                            </td>
+                            <td style="width: 106px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/মাধ্যমিক">মাধ্যমিক</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 114px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/কলেজ">কলেজ</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 140px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95">মাধ্যমিক</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 96px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%95%E0%A6%B2%E0%A7%87%E0%A6%9C">কলেজ</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 108px;">
+                                <p>
+                                    <span style="font-size: 14px;">► <a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%AF">বিবিধ</a></span>
+                                </p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 134px;">
+                                <p>
+                                    <span style="font-size: 14px;">► <a href="http://www.dshe.gov.bd/site/view/training">প্রশিক্ষণ</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 106px;">
+                                <p>
+                                    <span style="font-size: 14px;">► <a href="/site/view/moedu_office_order/পরিবীক্ষণ ও মূল্যায়ন">মনিটরিং এন্ড ইভালুয়েশান</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 114px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://www.dshe.gov.bd/">পরিকল্পনা ও উন্নয়ন</a>&nbsp;</span>
+                                </p>
+                            </td>
+                            <td style="width: 140px;">
+                                <p>
+                                    <span style="font-size: 14px;">► <a href="https://dshe.portal.gov.bd/site/view/policies">চাকুরী সংক্রান্ত</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 96px;">
+                                <p>&nbsp;</p>
+                            </td>
+                            <td style="width: 108px;">
+                                <p>&nbsp;</p>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td style="width: 134px;">
+                                <span style="background-color: rgb(255, 255, 255); color: rgb(51, 51, 51); font-family: sans-serif, arial, verdana, trebuchet ms; font-size: 14px;">
+                                    ► <a href="/site/view/moedu_office_order/অর্থ ও ক্রয়">অর্থ ও ক্রয়</a>
+                                </span>
+                            </td>
+                            <td style="width: 106px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://www.dshe.gov.bd/site/view/notification_circular">সাধারণ বিজ্ঞপ্তি</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 114px;">
+                                <div>
+                                    <span style="font-family: sans-serif, arial, verdana, trebuchet ms; font-size: 14px;">►</span>
+                                    <a href="https://dshe.gov.bd/site/page/465bd161-1aaa-4959-a04d-7ccceb6ac0bc" style="font-family: sans-serif, arial, verdana, 'trebuchet ms'; font-size: 14px;">
+                                        <strong><span style="color: rgb(204, 51, 153);">বৃত্তি সংক্রান্ত</span></strong>
+                                    </a>
+                                </div>
+                            </td>
+                            <td style="width: 140px;">
+                                <p>&nbsp;</p>
+                            </td>
+                            <td style="width: 96px;">&nbsp;</td>
+                            <td style="width: 108px;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                            <td style="width: 134px;">
+                                <span style="font-family: sans-serif, arial, verdana, trebuchet ms; font-size: 14px;">
+                                    ► <a href="https://dshe.portal.gov.bd/site/page/8c09e774-ac65-47df-862e-27a78b0c112d" target="_blank">এমপিও</a>
+                                </span>
+                            </td>
+                            <td style="width: 106px;">&nbsp;</td>
+                            <td style="width: 114px;">&nbsp;</td>
+                            <td style="width: 15px;">&nbsp;</td>
+                            <td style="width: 140px;">&nbsp;</td>
+                            <td style="width: 96px;">&nbsp;</td>
+                            <td style="width: 108px;">&nbsp;</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <p>&nbsp;</p>
+
+                <p>&nbsp;</p>
+
+                <p>&nbsp;</p>
+                <p></p>
+            </div>
+            <style>
+                #right-content .block {
+                    display: block !important;
+                }
+            </style>
+            <script></script>
+            <div class="row">
+                <div id="box-1" class="six columns service-box box">
+                    <h4>সাধারণ প্রশাসন শাখা</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/cbfb99d6_1000_4054_9363_e0f3d2d88975/OpenPlanRedBalloon1.jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/view/office_order/অফিস-আদেশ">অফিস আদেশ</a></li>
+                        <li><a href="/site/view/office_order/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
+                        <li><a href="/site/view/office_order/অন্যান্য">অন্যান্য</a></li>
+                        <li><a href="http://www.dshe.gov.bd/">বদলির আবেদন</a></li>
+                    </ul>
+                </div>
+                <div id="box-2" class="six columns service-box box">
+                    <h4>অর্থ ও ক্রয়</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/f8deef29_16bf_4346_a5c4_2306e2222329/budget.png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/view/moedu_office_order/অর্থ ও ক্রয়/আদেশ">আদেশ</a></li>
+                        <li><a href="/site/view/tenders/টেন্ডার-ও-কোটেশান">টেন্ডার ও কোটেশান</a></li>
+                        <li><a href="/site/page/a7e48543-65b5-4235-9ddb-f5a0156700cc/বাজেট">বাজেট</a></li>
+                        <li><a href="/site/page/3e1fe7c3-b7d1-40a8-ab21-640479498b5c/বার্ষিক-ক্রয়-পরিকল্পনা">বার্ষিক ক্রয় পরিকল্পনা</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-3" class="six columns service-box box">
+                    <h4>এমপিও</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/b826d833_b526_4f93_9816_35169192a45a/MPO.jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/notices/676c1111-88db-447a-a398-504d36ada6dc/এমপিও-নোটিশ">এমপিও নোটিশ</a></li>
+                        <li><a href="/site/page/1a45a3d6-5323-465a-9cf7-4f30ad0f14b8/এমপিও-নীতিমালা">এমপিও নীতিমালা</a></li>
+                        <li><a href="https://dshe.portal.gov.bd/site/page/8c09e774-ac65-47df-862e-27a78b0c112d">এমপিও শীট / ভাউচার</a></li>
+                        <li><a href="http://emis.gov.bd">এমপিও নোটিশ</a></li>
+                    </ul>
+                </div>
+                <div id="box-5" class="six columns service-box box">
+                    <h4>মাধ্যমিক</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/26bc7445_6d72_423d_a212_e351060b978a/secondary.jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/মাধ্যমিক">অফিস আদেশ</a></li>
+                        <li><a href="/site/view/moedu_office_order/মাধ্যমিক/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
+                        <li><a href="/site/view/moedu_office_order/মাধ্যমিক/বিবিধ">বিবিধ</a></li>
+                        <li><a href="">উপবৃত্তি</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-6" class="six columns service-box box">
+                    <h4>সরকারি কলেজ শাখা</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/d3fb43bb_2ecc_4ebd_85bb_7b7c3edcc2b9/images 444.jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/কলেজ">অফিস আদেশ</a></li>
+                        <li><a href="/site/view/moedu_office_order/কলেজ/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
+                        <li><a href="http://www.dshe.gov.bd">পদোন্নতি/ সিলেকশন গ্রেড</a></li>
+                        <li><a href="http://www.dshe.gov.bd">অন্যান্য</a></li>
+                    </ul>
+                </div>
+                <div id="box-6" class="six columns service-box box">
+                    <h4>বেসরকারি কলেজ শাখা</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/1f9848c5_3cee_457c_b03b_5d145e51f91f/ICT-lab-3.jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="http://www.dshe.gov.bd/secondary/153b51e1e8a680abb83bdd4d8d6c09cc.pdf">জনবল কাঠামো</a></li>
+                        <li><a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/কলেজ">নোটিশ/ অফিস আদেশ</a></li>
+                        <li><a href="/site/view/moedu_office_order/কলেজ/তালিকাভুক্ত-শিক্ষক">তালিকাভুক্ত শিক্ষক</a></li>
+                        <li><a href="">বিবিধ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-7" class="six columns service-box box">
+                    <h4>পরিকল্পনা ও উন্নয়ন</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/7c2a5285_a5f0_409b_a5a8_d4c9bcb10221/meeting.png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/view/moedu_office_order/%E0%A6%AA%E0%A6%B0%E0%A6%BF%E0%A6%95%E0%A6%B2%E0%A7%8D%E0%A6%AA%E0%A6%A8%E0%A6%BE/অফিস-আদেশ">অফিস আদেশ</a></li>
+                        <li><a href="/site/view/notices/বিজ্ঞপ্তি">বিজ্ঞপ্তি</a></li>
+                        <li><a href="/site/files/dae7dad1-ebcb-4db3-87db-60650919f985/-জেনারেশন-ব্রেকথ্রু"> জেনারেশন ব্রেকথ্রু</a></li>
+                        <li><a href="">অন্যান্য</a></li>
+                    </ul>
+                </div>
+                <div id="box-7" class="six columns service-box box">
+                    <h4>প্রশিক্ষণ</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/3e27c58a_b4fd_42ee_9d73_81e6d20b343b/service-box-2.jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="http://www.dshe.gov.bd/site/view/training">আদেশ</a></li>
+                        <li><a href="http://www.dshe.gov.bd/site/view/training">বিজ্ঞপ্তি</a></li>
+                        <li><a href="http://www.dshe.gov.bd/site/view/training">অন্যান্য</a></li>
+                        <li><a href="http://www.dshe.gov.bd/site/view/training">চলমান প্রশিক্ষণ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-8" class="six columns service-box box">
+                    <h4>টেন্ডার ও কোটেশান</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/a7f02797_ea5a_416f_bbdb_90b9de4beb0f/BID.jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/view/tenders/টেন্ডার">টেন্ডার</a></li>
+                        <li><a href="/site/view/tenders/-কোটেশান"> কোটেশান</a></li>
+                        <li><a href="/site/view/tenders/ই-টেন্ডারিং">ই টেন্ডারিং</a></li>
+                        <li><a href="http://www.dshe.gov.bd">টেন্ডার সম্পর্কিত নীতিমালা</a></li>
+                    </ul>
+                </div>
+                <div id="box-9" class="six columns service-box box">
+                    <h4>মনিটরিং এন্ড ইভালুয়েশান</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/e8db2a14_aafe_4749_be08_14c086c40d3d/Physical edu..jpg" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="http://www.dshe.gov.bd/site/view/moedu_office_order/পরিবীক্ষণ ও মূল্যায়ন">অফিস আদেশ</a></li>
+                        <li><a href="http://www.dshe.gov.bd/">বিজ্ঞপ্তি</a></li>
+                        <li><a href="https://tinyurl.com/dshe-school-reopen">কোভিড-১৯ সংক্রান্ত মনিটরিং চেকলিস্ট তথ্য প্রেরণের লিংক</a></li>
+                        <li><a href=""></a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-10" class="six columns service-box box">
+                    <h4>সাধারন বিজ্ঞপ্তি</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/e8ad2b6b_c394_4e66_9906_4609cd20777a/04.png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">আদেশ</a></li>
+                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">বিজ্ঞপ্তি</a></li>
+                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">অন্যান্য</a></li>
+                        <li><a href="http://www.dshe.gov.bd/site/view/notification_circular">নিয়োগ/ফলাফল</a></li>
+                    </ul>
+                </div>
+                <div id="box-11" class="six columns service-box box">
+                    <h4>জাতীয় শুদ্ধাচার কৌশল</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/51551a87_84e3_45aa_aebe_9dd8393d4128/nis_logo3.png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/page/65a0e9ec-6f4c-4efb-ba18-ff5891473168/শুদ্ধাচার-কৌশল-কর্ম-পরিকল্পনা--আদেশ---বিজ্ঞপ্তি">শুদ্ধাচার কৌশল কর্ম পরিকল্পনা/ আদেশ / বিজ্ঞপ্তি</a></li>
+                        <li><a href="/site/page/670a6408-c10b-4ed5-9600-5993b92705e6/শুদ্ধাচার-কৌশল-সংক্রান্ত-প্রতিবেদন---কার্যবিবরণী">শুদ্ধাচার কৌশল সংক্রান্ত প্রতিবেদন / কার্যবিবরণী</a></li>
+                        <li><a href="/site/page/acebfd6a-944d-4361-b3f7-ac6b3c553d4d/শুদ্ধাচার-কৌশল-সংক্রান্ত-ফোকাল-কর্মকর্তা-">শুদ্ধাচার কৌশল সংক্রান্ত ফোকাল কর্মকর্তা </a></li>
+                        <li><a href="/site/notices/5417158d-45a4-4eea-9cad-17b7f75971f3/শুদ্ধাচার-পুরস্কার-২০২০-২১">শুদ্ধাচার পুরস্কার ২০২০-২১</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-12" class="six columns service-box box">
+                    <h4>উদ্ভাবনী কার্যক্রম</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/3482d1df_239b_4892_a281_3820f35859cd/INNOVATION (1).png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/page/036fda09-c716-44dd-9657-ab941e8921d0/বার্ষিক-উদ্ভাবন-কর্মপরিকল্পনা--কার্যবিবরণী---অফিস-আদেশ---প্রজ্ঞাপন">বার্ষিক উদ্ভাবন কর্মপরিকল্পনা/ কার্যবিবরণী / অফিস আদেশ / প্রজ্ঞাপন</a></li>
+                        <li><a href="/site/page/136eb083-d3f9-43f6-af3a-64394f04163a/ইনোভেশন-টিম">ইনোভেশন টিম</a></li>
+                        <li><a href="/site/files/182394ce-d102-4e01-9428-4eaf3cb87c75/ইনোভেশন-আইডিয়া">ইনোভেশন আইডিয়া</a></li>
+                        <li><a href="/site/view/sps_data/সেবা-সহজিকরণ---উদ্ভাবন">সেবা সহজিকরণ / উদ্ভাবন</a></li>
+                    </ul>
+                </div>
+                <div id="box-13" class="six columns service-box box">
+                    <h4>সেবা প্রদান প্রতিশ্রুতি (সিটিজেন্‌স চার্টার)</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/014423dd_5158_4957_8c33_715b42219f5c/Service.png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/office_citizen_charter/3276fd6b-f5be-447e-abe0-1bb485ed6675/সিটিজেন-চার্টার-">সিটিজেন চার্টার </a></li>
+                        <li><a href="/site/page/b2ff501a-6fc2-4e8b-afba-79f5e9dc243e/বিভিন্ন-কমিটি--দায়িত্বপ্রাপ্ত-কর্মকর্তা/বিভিন্ন-কমিটি--দায়িত্বপ্রাপ্ত-কর্মকর্তা">বিভিন্ন কমিটি/ দায়িত্বপ্রাপ্ত কর্মকর্তা</a></li>
+                        <li><a href="/site/view/annual_reports/বার্ষিক-প্রতিবেদন">বার্ষিক প্রতিবেদন</a></li>
+                        <li><a href="/site/files/f75357ed-178c-457b-b60b-ed2f5c98f60d/সিটিজেন্‌স-চার্টার-প্রণয়ন-সংক্রান্ত-নির্দেশিকা,-২০১৭">সিটিজেন্‌স চার্টার প্রণয়ন সংক্রান্ত নির্দেশিকা, ২০১৭</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-14" class="six columns service-box box">
+                    <h4>তথ্য অধিকার</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/5b556262_ec0e_4c1c_b0ef_1d16539d58d2/04.png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="http://dshe.portal.gov.bd/site/page/21365154-0eda-4277-be90-34998bd4f9c7">তথ্য প্রদানকারী কর্মকর্তাবৃন্দ</a></li>
+                        <li><a href="http://dshe.portal.gov.bd/site/page/b68fc292-322f-4e81-aee0-f8ff77a30666">আবেদন ও আপিল ফরম</a></li>
+                        <li><a href="http://dshe.portal.gov.bd/site/page/4e299f61-f97c-4a50-bcf7-8813be3a13bf">আইন ও বিধি</a></li>
+                        <li><a href="/site/view/annual_reports/বার্ষিক-প্রতিবেদন">বার্ষিক প্রতিবেদন</a></li>
+                    </ul>
+                </div>
+                <div id="box-15" class="six columns service-box box">
+                    <h4>বার্ষিক কর্মসম্পাদন চুক্তি</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/21b7f150_e39a_4285_80ce_e46a9f504fde/apa_cab.png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/page/2b49f7f0-b527-4f55-b100-45e8eb59ebb6/নোটিশ--অফিস-আদেশ">নোটিশ/ অফিস আদেশ</a></li>
+                        <li><a href="/site/page/043d81a3-a9d9-4a72-97d2-e3af5ff14c48/প্রজ্ঞাপন--নীতিমালা--পরিপত্র--কাঠামো">প্রজ্ঞাপন/ নীতিমালা/ পরিপত্র/ কাঠামো</a></li>
+                        <li><a href="https://dshe.portal.gov.bd/site/page/1551d551-7b9f-4672-8622-cd6909df3ad9">অধিদপ্তরের চুক্তিসমূহ/ অগ্রগতি/ কমিটি/ এপিএএমএস লিংক</a></li>
+                        <li><a href="https://dshe.portal.gov.bd/site/page/cd86a230-8dea-472f-998b-6e5109b1c9c8">আঞ্চলিক কার্যালয়ের চুক্তিসমূহ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="box-17" class="six columns service-box box">
+                    <h4>অভিযোগ প্রতিকার ব্যবস্থাপনা</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/c423de27_25f4_41ee_920f_fa307f3da571/complain (1).png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="/site/page/a55eaed5-7bf1-4e8f-9537-d8b71bf3c014/অনিক-ও-আপিল-কর্মকর্তাগণ">অনিক ও আপিল কর্মকর্তাগণ</a></li>
+                        <li><a href="http://www.grs.gov.bd/">অভিযোগ দাখিল (অনলাইনে আবেদন)</a></li>
+                        <li><a href="/site/page/31140543-8de5-49d2-910f-1549260540eb/মাসিক-ত্রৈমাসিক-বার্ষিক-পরিবীক্ষণ-মূল্যায়ন-প্রতিবেদন">মাসিক/ত্রৈমাসিক/বার্ষিক পরিবীক্ষণ/মূল্যায়ন প্রতিবেদন</a></li>
+                        <li><a href="/site/page/be3d9612-e4a8-48b9-a3c1-b557883d86ee/আইন-বিধি-নীতিমালা-পরিপত্র-">আইন/বিধি/নীতিমালা/পরিপত্র/</a></li>
+                    </ul>
+                </div>
+                <div id="box-19" class="six columns service-box box">
+                    <h4>ই-লার্নিং রিসোর্স এবং বিভিন্ন প্ল্যাটফর্ম</h4>
+                    <img src="//www.dshe.gov.bd/sites/default/files/files/dshe.portal.gov.bd/front_service_box/292b3f25_e602_4035_84b8_e8b829c1fcf0/eLearning1 (1).png" alt="" width="110" height="" />
+                    <ul class="caption fade-caption" style="margin: 0;">
+                        <li><a href="http://203.112.195.166:6081/">আরইএলএম</a></li>
+                        <li><a href="/site/page/367da444-aed3-4714-a4e2-008527782d47/ই-লার্নিং-রিসোর্সের-বিভিন্ন-প্ল্যাটফর্ম">ই-লার্নিং রিসোর্সের বিভিন্ন প্ল্যাটফর্ম</a></li>
+                        <li><a href=""></a></li>
+                        <li><a href=""></a></li>
+                    </ul>
+                </div>
+            </div>
+            <style></style>
+            <script></script>
+            <div class="column block">
+                <h5 class="bk-org title">
+                    ভিডিও
+                </h5>
+
+                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/HbYVxljUjrQ" width="700"></iframe></p>
+
+                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/ZjXeFhv_CxE" width="700"></iframe></p>
+
+                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/B4J5n-lNk3g" width="700"></iframe></p>
+
+                <p>&nbsp;<iframe frameborder="1" height="350" src="https://www.youtube.com/embed/sUpz4zFEx6o" width="700"></iframe></p>
+                <p></p>
+            </div>
+            <style>
+                #right-content .block {
+                    display: block !important;
+                }
+            </style>
+            <script></script>
+            <div class="column block">
+                <h5 class="bk-org title">
+                    মানচিত্রে মাধ্যমিক ও উচ্চশিক্ষা অধিদপ্তর
+                </h5>
+
+                <p>
+                    <iframe
+                        frameborder="0"
+                        height="250"
+                        scrolling="no"
+                        src="https://www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d2171.7991510558095!2d90.40504193397172!3d23.72896345313343!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755b8f0690ab8ab%3A0x5de52dec34292abe!2sDirectorate+of+Secondary+And+Higher+Education!5e0!3m2!1sen!2sbd!4v1516099615505"
+                        style="border: 0;"
+                        width="800"
+                    ></iframe>
+                </p>
+                <p></p>
+            </div>
+            <style>
+                #right-content .block {
+                    display: block !important;
+                }
+            </style>
+            <script></script>
+            <div class="column block">
+                <h5 class="bk-org title">
+                    আশ্রয়ণের অধিকার শেখ হাসিনার উপহার
+                </h5>
+
+                <table border="0" cellpadding="1" cellspacing="1" style="width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="width: 33%;"><iframe frameborder="0" src="https://www.youtube.com/embed/l7G3TPz6P24" width="100%"></iframe></td>
+                            <td style="width: 33%;"><iframe frameborder="0" src="https://www.youtube.com/embed/z6llDxY5JFs" width="100%"></iframe></td>
+                            <td style="width: 33%;"><iframe frameborder="0" src="https://www.youtube.com/embed/MvTLqrU9ZbQ" width="100%"></iframe></td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p></p>
+            </div>
+            <style>
+                #right-content .block {
+                    display: block !important;
+                }
+            </style>
+            <script></script>
+            <div class="column block">
+                <h5 class="bk-org title">
+                    অন্যান্য ভিডিও
+                </h5>
+
+                <table border="1" cellpadding="1" cellspacing="1" style="height: 220px; width: 100%;">
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">
+                                <p><iframe frameborder="0" height="200" src="https://www.youtube.com/embed/zBAKSZqTkRg" width="340"></iframe></p>
+
+                                <p><strong>ফল আর্মিওয়ার্ম পর্যবেক্ষণ ও সনাক্তকরণ</strong></p>
+                            </td>
+                            <td style="text-align: center;">
+                                <p><iframe frameborder="0" height="200" src="https://www.youtube.com/embed/GT9ShGE_qjg" width="340"></iframe></p>
+
+                                <p><strong>বন্যার সময় কি করণীয়</strong></p>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <p></p>
+            </div>
+            <style>
+                #right-content .block {
+                    display: block !important;
+                }
+            </style>
+            <script></script>
+        </div>
+    </div>
 
 @endsection
 
-@section('content')
-
-<section id="content">
-    <div class="content-wrap">
-
-        <div class="section header-stick bottommargin-lg py-3">
-            <div class="container">
-                <div class="row align-items-center">
-                    <div class="col-lg-auto">
-                        <div class="d-flex">
-                            <span class="badge bg-danger text-uppercase col-auto">Breaking News</span>
-                        </div>
-                    </div>
-
-                    <div class="col-lg mt-2 mt-lg-0">
-                        <div class="fslider" data-speed="800" data-pause="6000" data-arrows="false" data-pagi="false" style="min-height: 0;">
-                            <div class="flexslider">
-                                <div class="slider-wrap">
-                                    <div class="slide"><a href="#"><strong>Russia hits back, says US acts like a 'bad surgeon'..</strong></a></div>
-                                    <div class="slide"><a href="#"><strong>'Sulking' Narayan Rane needs consolation: Uddhav reacts to Cong leader's attack..</strong></a></div>
-                                    <div class="slide"><a href="#"><strong>Rane needs consolation. I pray to God that he gets mental peace in a political party..</strong></a></div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="container clearfix">
-
-            <div class="row gutter-40 col-mb-80">
-                <div class="postcontent col-lg-9">
-
-                    <div class="row col-mb-50 mb-0">
-                        <div class="col-md-7">
-                            <div class="fslider flex-thumb-grid grid-6" data-speed="400" data-arrows="true" data-thumbs="true" data-easing="easeOutQuad">
-                                <div class="flexslider">
-                                    <div class="slider-wrap">
-                                        <div class="slide" data-thumb="images/magazine/thumb/1.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/1.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask desc-sm dark desc-sm align-items-end justify-content-start p-4">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span>Illustrations</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/2.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/2.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask desc-sm dark desc-sm align-items-end justify-content-start p-4">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Russia hits back, says US acts like a 'bad surgeon'</h3>
-                                                            <span><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star-half-full me-1"></i><i class="icon-star-empty"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/3.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/3.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask desc-sm dark desc-sm align-items-end justify-content-start p-4">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span>Technology</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/4.jpg">
-                                            <iframe src="https://player.vimeo.com/video/99895335" width="500" height="281" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/5.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/5.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask desc-sm dark desc-sm align-items-end justify-content-start p-4">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star3 me-1"></i><i class="icon-star-half-full me-1"></i><i class="icon-star-empty"></i></span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="slide" data-thumb="images/magazine/thumb/6.jpg">
-                                            <a href="#">
-                                                <img src="images/magazine/6.jpg" alt="Image">
-                                                <div class="bg-overlay">
-                                                    <div class="bg-overlay-content text-overlay-mask desc-sm dark desc-sm align-items-end justify-content-start p-4">
-                                                        <div class="portfolio-desc py-0">
-                                                            <h3>Locked Steel Gate</h3>
-                                                            <span>Entertainment</span>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-md-5">
-
-                            <div class="posts-sm row col-mb-30">
-                                <div class="entry col-12">
-                                    <div class="entry-title">
-                                        <h4><a href="#">UK government weighs Tesla's Model S for its ??5 million electric vehicle fleet</a></h4>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-12">
-                                    <div class="entry-title">
-                                        <h4><a href="#">MIT's new robot glove can give you extra fingers</a></h4>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-12">
-                                    <div class="entry-title">
-                                        <h4><a href="#">You can now listen to headphones through your hoodie</a></h4>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-12">
-                                    <div class="entry-title">
-                                        <h4><a href="#">How would you change Kobo's Aura HD e-reader?</a></h4>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-12">
-                                    <div class="entry-title">
-                                        <h4><a href="#">A Baseball Team Blew Up A Bunch Of Justin Bieber And Miley Cyrus Merch</a></h4>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="row col-mb-50 mb-0">
-                        <div class="col-12">
-
-                            <div class="fancy-title title-border">
-                                <h3>Technology</h3>
-                            </div>
-
-                            <div class="row posts-md col-mb-30">
-                                <div class="entry col-sm-6 col-md-4">
-                                    <div class="grid-inner">
-                                        <div class="entry-image">
-                                            <a href="#"><img src="images/magazine/thumb/11.jpg" alt="Image"></a>
-                                        </div>
-                                        <div class="entry-title title-xs nott">
-                                            <h3><a href="blog-single.html">Toyotas next minivan will let you shout at your kids without turning around</a></h3>
-                                        </div>
-                                        <div class="entry-meta">
-                                            <ul>
-                                                <li><i class="icon-calendar3"></i> 10th Nov 2021</li>
-                                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 15</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p class="mb-0">Neque nesciunt molestias soluta esse debitis. Magni impedit quae consectetur consequuntur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-sm-6 col-md-4">
-                                    <div class="grid-inner">
-                                        <div class="entry-image">
-                                            <a href="#"><img src="images/magazine/thumb/14.jpg" alt="Image"></a>
-                                        </div>
-                                        <div class="entry-title title-xs nott">
-                                            <h3><a href="blog-single.html">UK government weighs Tesla's Model S for its ??5 million electric vehicle fleet</a></h3>
-                                        </div>
-                                        <div class="entry-meta">
-                                            <ul>
-                                                <li><i class="icon-calendar3"></i> 13th Nov 2021</li>
-                                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 25</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p class="mb-0">Eaque iusto quod assumenda beatae, nesciunt aliquid. Vel, eos eligendi?</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-sm-6 col-md-4">
-                                    <div class="grid-inner">
-                                        <div class="entry-image">
-                                            <a href="#"><img src="images/magazine/thumb/15.jpg" alt="Image"></a>
-                                        </div>
-                                        <div class="entry-title title-xs nott">
-                                            <h3><a href="blog-single.html">Combat malaria positive social change civil society. Fundraise inspire.</a></h3>
-                                        </div>
-                                        <div class="entry-meta">
-                                            <ul>
-                                                <li><i class="icon-calendar3"></i> 19th Dec 2021</li>
-                                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 19</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p class="mb-0">Combat malaria positive social change civil society fundraise inspire.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="col-12">
-                            <img src="images/magazine/ad.jpg" alt="Ad" class="aligncenter my-0">
-                        </div>
-
-                        <div class="col-12">
-
-                            <div class="fancy-title title-border">
-                                <h3>Entertainment</h3>
-                            </div>
-
-                            <div class="row posts-md col-mb-30">
-                                <div class="entry col-sm-6 col-md-4">
-                                    <div class="grid-inner">
-                                        <div class="entry-image">
-                                            <a href="#"><img src="images/magazine/thumb/13.jpg" alt="Image"></a>
-                                        </div>
-                                        <div class="entry-title title-xs nott">
-                                            <h3><a href="blog-single.html">MIT's new robot glove can give you extra fingers</a></h3>
-                                        </div>
-                                        <div class="entry-meta">
-                                            <ul>
-                                                <li><i class="icon-calendar3"></i> 22nd Jan 2013</li>
-                                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 14</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p class="mb-0">Magni impedit quae consectetur consequuntur adipisci veritatis modi a, officia cum.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-sm-6 col-md-4">
-                                    <div class="grid-inner">
-                                        <div class="entry-image">
-                                            <a href="#"><img src="images/magazine/thumb/3.jpg" alt="Image"></a>
-                                        </div>
-                                        <div class="entry-title title-xs nott">
-                                            <h3><a href="blog-single.html">Beyonce Dropped A '50 Shades Of Grey', Teaser On Instagram Last Night</a></h3>
-                                        </div>
-                                        <div class="entry-meta">
-                                            <ul>
-                                                <li><i class="icon-calendar3"></i> 19th Apr 2021</li>
-                                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 55</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p class="mb-0">Neque nesciunt molestias soluta esse debitis. Magni impedit quae consectetur consequuntur.</p>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="entry col-sm-6 col-md-4">
-                                    <div class="grid-inner">
-                                        <div class="entry-image">
-                                            <a href="#"><img src="images/magazine/thumb/4.jpg" alt="Image"></a>
-                                        </div>
-                                        <div class="entry-title title-xs nott">
-                                            <h3><a href="blog-single.html">A Baseball Team Blew Up A Bunch Of Justin Bieber And Miley Cyrus Merch</a></h3>
-                                        </div>
-                                        <div class="entry-meta">
-                                            <ul>
-                                                <li><i class="icon-calendar3"></i> 26th Apr 2021</li>
-                                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 41</a></li>
-                                            </ul>
-                                        </div>
-                                        <div class="entry-content">
-                                            <p class="mb-0">Eaque iusto quod assumenda beatae, nesciunt aliquid. Vel, eos eligendi emo perferendis dolorem voluptatem.</p>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
-                    <div class="w-100"></div>
-
-                    <div class="tabs mt-4" id="tab-news">
-
-                        <ul class="tab-nav clearfix">
-                            <li><a href="#tabs-news-1"><i class="icon-facetime-video mx-1"></i><span class="d-none d-md-inline-block ms-1"> Video News</span></a></li>
-                            <li><a href="#tabs-news-2"><i class="icon-film mx-1"></i><span class="d-none d-md-inline-block ms-1"> Movie Reviews</span></a></li>
-                            <li><a href="#tabs-news-3"><i class="icon-music2 mx-1"></i><span class="d-none d-md-inline-block ms-1"> Music</span></a></li>
-                            <li><a href="#tabs-news-4"><i class="icon-bar-chart mx-1"></i><span class="d-none d-md-inline-block ms-1"> Opinion Polls</span></a></li>
-                        </ul>
-
-                        <div class="tab-container">
-
-                            <div class="tab-content" id="tabs-news-1">
-
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="posts-md">
-                                            <div class="entry">
-                                                <div class="entry-image">
-                                                    <iframe src="//player.vimeo.com/video/97243508" width="500" height="281" allow="autoplay; fullscreen" allowfullscreen></iframe>
-                                                </div>
-                                                <div class="entry-title title-sm">
-                                                    <h3><a href="blog-single.html">Foreign advisors killed in Kabul blast</a></h3>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-calendar3"></i> 10th Feb 2021</li>
-                                                        <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13</a></li>
-                                                        <li><i class="icon-eye-open"></i> 6422 Views</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="entry-content">
-                                                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Sed fringilla, massa eget luctus malesuada, metus eros molestie lectus. Dolores pariatur rem assumenda labore eligendi explicabo dolor.</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-5">
-
-                                        <div class="posts-sm row col-mb-30">
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">UK government weighs Tesla's Model S for its ??5 million electric vehicle fleet</a></h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">MIT's new robot glove can give you extra fingers</a></h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Black boxes handed to Malaysia</a></h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">MH17 forensic team face challenge</a></h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Spain lifts file-sharing site blocks</a></h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Body of fugitive South Korea ferry businessman found, police say</a></h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">How would you change Kobo's Aura HD e-reader?</a></h4>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">A Baseball Team Blew Up A Bunch Of Justin Bieber And Miley Cyrus Merch</a></h4>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="tab-content" id="tabs-news-2">
-
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="posts-md">
-                                            <div class="entry">
-                                                <div class="entry-image">
-                                                    <a href="#"><img src="images/magazine/17.jpg" alt="Image"></a>
-                                                </div>
-                                                <div class="entry-title title-sm">
-                                                    <h3><a href="blog-single.html">Review: Dallas Buyers Club</a></h3>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-calendar3"></i> 10th Feb 2021</li>
-                                                        <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13</a></li>
-                                                        <li class="color"><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-half-full"></i></li>
-                                                        <li><i class="icon-heart3 text-danger"></i> 95%</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="entry-content">
-                                                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Cupiditate quia nesciunt repellat animi amet magnam officiis!</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-5">
-
-                                        <div class="posts-sm row col-mb-30">
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row align-items-center g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img src="images/magazine/small/movie/3.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">The Purge: Anarchy</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta no-separator">
-                                                            <ul>
-                                                                <li class="text-dark"><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-half-full"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
-                                                                <li><i class="icon-heart3 text-warning"></i> 54%</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row align-items-center g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img src="images/magazine/small/movie/4.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Planes: Fire And Rescue</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta no-separator">
-                                                            <ul>
-                                                                <li class="text-dark"><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
-                                                                <li><i class="icon-heart3 text-warning"></i> 45%</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row align-items-center g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img src="images/magazine/small/movie/5.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Sex Tape</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta no-separator">
-                                                            <ul>
-                                                                <li class="text-dark"><i class="icon-star3"></i><i class="icon-star-half-full"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
-                                                                <li><i class="icon-heart3 text-default"></i> 20%</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row align-items-center g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img src="images/magazine/small/movie/6.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Transformers: Age of Extinction</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta no-separator">
-                                                            <ul>
-                                                                <li class="text-dark"><i class="icon-star3"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
-                                                                <li><i class="icon-heart3 text-default"></i> 17%</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row align-items-center g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img src="images/magazine/small/movie/7.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">How to Train Your Dragon 2</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta no-separator">
-                                                            <ul>
-                                                                <li class="text-dark"><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-empty"></i></li>
-                                                                <li><i class="icon-heart3 text-danger"></i> 90%</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row align-items-center g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img src="images/magazine/small/movie/8.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Earth to Echo</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta no-separator">
-                                                            <ul>
-                                                                <li class="text-dark"><i class="icon-star3"></i><i class="icon-star3"></i><i class="icon-star-half-full"></i><i class="icon-star-empty"></i><i class="icon-star-empty"></i></li>
-                                                                <li><i class="icon-heart3 text-warning"></i> 48%</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="tab-content" id="tabs-news-3">
-
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="posts-md">
-                                            <div class="entry">
-                                                <div class="entry-image">
-                                                    <iframe src="https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/278002889&amp;auto_play=false&amp;hide_related=false&amp;show_comments=true&amp;show_user=true&amp;show_reposts=false&amp;visual=true"></iframe>
-                                                </div>
-                                                <div class="entry-title title-sm">
-                                                    <h3><a href="blog-single.html">Afrojack vs Thirty Seconds To Mars - Do Or Die (Club Remix)</a></h3>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-calendar3"></i> 10th Feb 2021</li>
-                                                        <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13</a></li>
-                                                        <li class="color"><i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star3"></i> <i class="icon-star-empty"></i></li>
-                                                        <li><i class="icon-heart3 text-danger"></i> 85%</li>
-                                                    </ul>
-                                                </div>
-                                                <div class="entry-content">
-                                                    <p>Morbi tincidunt, dui sit amet facilisis feugiat, odio metus gravida ante, ut pharetra massa metus id nunc. Duis scelerisque molestie turpis. Cupiditate quia nesciunt repellat animi amet magnam officiis!</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-5">
-
-                                        <div class="posts-sm row col-mb-30">
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Thomas Jack Presents: Tropical House Vol.5</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-heart3 text-danger"></i> 92%</li>
-                                                        <li>Thomas Jack</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Major Lazer's Walshy Fire Presents: Jesse Royal - Royally Speaking</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-heart3 text-warning"></i> 54%</li>
-                                                        <li>Major Lazer</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">The Weeknd - King Of The Fall</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-heart3 text-success"></i> 78%</li>
-                                                        <li>The Weeknd-XO</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">No Flex Zone Remix Feat. Nicki Minaj</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-heart3 text-warning"></i> 45%</li>
-                                                        <li>Nicki Minaj</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Mike Mago &amp; Dragonette - Outlines</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-heart3 text-primary"></i> 65%</li>
-                                                        <li>Mike Mago</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="tab-content" id="tabs-news-4">
-
-                                <div class="row">
-                                    <div class="col-md-7">
-                                        <div class="posts-md">
-                                            <div class="entry">
-                                                <div class="entry-image">
-                                                    <a href="#"><img src="images/magazine/18.jpg" alt="Image"></a>
-                                                </div>
-                                                <div class="entry-title title-sm">
-                                                    <h3><a href="blog-single.html">America Should Stay Out of Foreign Troubles?</a></h3>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-calendar3"></i> 5th July, 2021</li>
-                                                        <li><i class="icon-thumbs-up text-success"></i> 69.3%</li>
-                                                        <li><i class="icon-thumbs-down text-danger"></i> 31.7%</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-md-5">
-
-                                        <div class="posts-sm row col-mb-30">
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Who do you think is responsible for shooting down Malaysia Airlines flight MH17?</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><span class="text-success">Ukraine:</span> 77%</li>
-                                                        <li><span class="text-danger">Rebels:</span> 23%</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Maradona says Messi didn't deserve Golden Ball?</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-thumbs-up text-success"></i> 54%</li>
-                                                        <li><i class="icon-thumbs-down text-danger"></i> 46%</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Palestinian president says Israel is carrying out a genocide in Gaza?</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-thumbs-up text-success"></i> 80%</li>
-                                                        <li><i class="icon-thumbs-down text-danger"></i> 20%</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="entry-title">
-                                                    <h4><a href="#">Can Brazil progress in the World Cup without Neymar?</a></h4>
-                                                </div>
-                                                <div class="entry-meta">
-                                                    <ul>
-                                                        <li><i class="icon-thumbs-up text-success"></i> 55%</li>
-                                                        <li><i class="icon-thumbs-down text-danger"></i> 45%</li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-                                </div>
-
-                            </div>
-
-                        </div>
-                    </div>
-                </div>
-
-                <div class="sidebar col-lg-3">
-                    <div class="sidebar-widgets-wrap">
-
-                        <div class="widget clearfix">
-                            <div class="row gutter-20 col-mb-30">
-                                <div class="col-4">
-                                    <a href="#" class="social-icon si-dark si-colored si-facebook mb-0" style="margin-right: 10px;">
-                                        <i class="icon-facebook"></i>
-                                        <i class="icon-facebook"></i>
-                                    </a>
-                                    <div class="counter counter-inherit d-inline-block text-smaller"><span class="d-block fw-bold" data-from="1000" data-to="58742" data-refresh-interval="100" data-speed="3000" data-comma="true"></span><small>Likes</small></div>
-                                </div>
-
-                                <div class="col-4">
-                                    <a href="#" class="social-icon si-dark si-colored si-twitter mb-0" style="margin-right: 10px;">
-                                        <i class="icon-twitter"></i>
-                                        <i class="icon-twitter"></i>
-                                    </a>
-                                    <div class="counter counter-inherit d-inline-block text-smaller"><span class="d-block fw-bold" data-from="500" data-to="9654" data-refresh-interval="50" data-speed="2500" data-comma="true"></span><small>Followers</small></div>
-                                </div>
-
-                                <div class="col-4">
-                                    <a href="#" class="social-icon si-dark si-colored si-rss mb-0" style="margin-right: 10px;">
-                                        <i class="icon-rss"></i>
-                                        <i class="icon-rss"></i>
-                                    </a>
-                                    <div class="counter counter-inherit d-inline-block text-smaller"><span class="d-block fw-bold" data-from="200" data-to="15475" data-refresh-interval="150" data-speed="3500" data-comma="true"></span><small>Readers</small></div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="widget clearfix">
-
-                            <img class="aligncenter" src="images/magazine/ad.png" alt="Image">
-
-                        </div>
-
-                        <div class="widget widget_links clearfix">
-
-                            <h4>Categories</h4>
-
-                            <div class="row col-mb-50">
-                                <div class="col-ms-6">
-                                    <ul>
-                                        <li><a href="#">World</a></li>
-                                        <li><a href="#">Technology</a></li>
-                                        <li><a href="#">Entertainment</a></li>
-                                        <li><a href="#">Sports</a></li>
-                                        <li><a href="#">Media</a></li>
-                                        <li><a href="#">Politics</a></li>
-                                        <li><a href="#">Business</a></li>
-                                    </ul>
-                                </div>
-                                <div class="col-ms-6">
-                                    <ul>
-                                        <li><a href="#">Lifestyle</a></li>
-                                        <li><a href="#">Travel</a></li>
-                                        <li><a href="#">Cricket</a></li>
-                                        <li><a href="#">Football</a></li>
-                                        <li><a href="#">Education</a></li>
-                                        <li><a href="#">Photography</a></li>
-                                        <li><a href="#">Nature</a></li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="widget clearfix">
-
-                            <h4>Twitter Feed Scroller</h4>
-                            <div class="fslider customjs testimonial twitter-scroll twitter-feed" data-username="envato" data-count="3" data-animation="slide" data-arrows="false">
-                                <i class="i-plain i-small color icon-twitter mb-0" style="margin-right: 15px;"></i>
-                                <div class="flexslider" style="width: auto;">
-                                    <div class="slider-wrap">
-                                        <div class="slide"></div>
-                                    </div>
-                                </div>
-                            </div>
-
-                        </div>
-
-                        <div class="widget clearfix">
-
-                            <h4>Flickr Photostream</h4>
-                            <div id="flickr-widget" class="flickr-feed masonry-thumbs grid-container grid-5" data-id="613394@N22" data-count="15" data-type="group" data-lightbox="gallery"></div>
-
-                        </div>
-
-                        <div class="widget clearfix">
-
-                            <div class="tabs mb-0 clearfix" id="sidebar-tabs">
-
-                                <ul class="tab-nav clearfix">
-                                    <li><a href="#tabs-1">Popular</a></li>
-                                    <li><a href="#tabs-2">Recent</a></li>
-                                    <li><a href="#tabs-3"><i class="icon-comments-alt me-0"></i></a></li>
-                                </ul>
-
-                                <div class="tab-container">
-
-                                    <div class="tab-content clearfix" id="tabs-1">
-                                        <div class="posts-sm row col-mb-30" id="popular-post-list-sidebar">
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta">
-                                                            <ul>
-                                                                <li><i class="icon-comments-alt"></i> 35 Comments</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta">
-                                                            <ul>
-                                                                <li><i class="icon-comments-alt"></i> 24 Comments</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta">
-                                                            <ul>
-                                                                <li><i class="icon-comments-alt"></i> 19 Comments</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-content clearfix" id="tabs-2">
-                                        <div class="posts-sm row col-mb-30" id="recent-post-list-sidebar">
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/magazine/small/1.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Lorem ipsum dolor sit amet, consectetur</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta">
-                                                            <ul>
-                                                                <li>10th July 2021</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/magazine/small/2.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Elit Assumenda vel amet dolorum quasi</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta">
-                                                            <ul>
-                                                                <li>10th July 2021</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/magazine/small/3.jpg" alt="Image"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <div class="entry-title">
-                                                            <h4><a href="#">Debitis nihil placeat, illum est nisi</a></h4>
-                                                        </div>
-                                                        <div class="entry-meta">
-                                                            <ul>
-                                                                <li>10th July 2021</li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="tab-content clearfix" id="tabs-3">
-                                        <div class="posts-sm row col-mb-30" id="recent-comments-list-sidebar">
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/icons/avatar.jpg" alt="User Avatar"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <strong>John Doe:</strong> Veritatis recusandae sunt repellat distinctio...
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/icons/avatar.jpg" alt="User Avatar"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <strong>Mary Jane:</strong> Possimus libero, earum officia architecto maiores....
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div class="entry col-12">
-                                                <div class="grid-inner row g-0">
-                                                    <div class="col-auto">
-                                                        <div class="entry-image">
-                                                            <a href="#"><img class="rounded-circle" src="images/icons/avatar.jpg" alt="User Avatar"></a>
-                                                        </div>
-                                                    </div>
-                                                    <div class="col ps-3">
-                                                        <strong>Site Admin:</strong> Deleniti magni labore laboriosam odio...
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                            </div>
-
-                        </div>
-
-                        <div class="widget clearfix">
-
-                            <img class="aligncenter" src="images/magazine/ad.png" alt="Image">
-
-                        </div>
-
-                        <div class="widget clearfix">
-                            <iframe src="//www.facebook.com/plugins/likebox.php?href=https%3A%2F%2Fwww.facebook.com%2FEnvato&amp;width=240&amp;height=240&amp;colorscheme=light&amp;show_faces=true&amp;header=true&amp;stream=false&amp;show_border=true&amp;appId=499481203443583" style="border:none; overflow:hidden; width:240px; height:240px;"></iframe>
-                        </div>
-
-                    </div>
-
-                </div>
-            </div>
-
-            <div class="fancy-title title-border topmargin">
-                <h3>Other News</h3>
-            </div>
-
-            <div id="oc-images" class="owl-carousel image-carousel carousel-widget posts-md" data-margin="30" data-nav="false" data-items-xs="1" data-items-sm="2" data-items-md="3" data-items-xl="4">
-
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/1.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">A Baseball Team Blew Up A Bunch Of Justin Bieber And Miley Cyrus Merch</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 13th Jun 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 53</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/2.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">UK government weighs Tesla's Model S for its ??5 million electric vehicle fleet</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 24th Feb 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 17</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/3.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">MIT's new robot glove can give you extra fingers</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 30th Dec 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/4.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">Yen dips on modest reduction in risk aversion, markets still wary</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 15th Jan 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 54</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/5.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">Beyonce Dropped A '50 Shades Of Grey', Teaser On Instagram Last Night</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 27th Jul 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 61</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/6.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">Want To Know The New 'Star Wars' Plot? Then This Is The Post For You</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 10th Feb 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 34</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/7.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">Toyotas next minivan will let you shout at your kids without turning around</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 21st Oct 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 11</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="oc-item">
-                    <div class="entry">
-                        <div class="entry-image">
-                            <a href="#"><img src="images/magazine/thumb/8.jpg" alt="Image"></a>
-                        </div>
-                        <div class="entry-title title-xs nott">
-                            <h4><a href="blog-single.html">You can now listen to headphones through your hoodie</a></h4>
-                        </div>
-                        <div class="entry-meta">
-                            <ul>
-                                <li><i class="icon-calendar3"></i> 20th Nov 2021</li>
-                                <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 07</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
-
-            <img src="images/magazine/ad.jpg" alt="Ad" class="aligncenter topmargin-lg mb-0">
-
-        </div>
-    </div>
-</section>
-
-@endsection('content')
-
 @section('scripts')
-
-
 
 @endsection
