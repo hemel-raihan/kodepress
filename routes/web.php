@@ -231,10 +231,10 @@ Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logou
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Route::get('/', function () {
-//     return view('frontend_theme.default.homepage');
+//     return view('frontend_theme.default.test');
 // });
 
-Route::get('/', 'HomepageController@index')->name('home');
+Route::get('/', 'HomepageController@index');
 
 
 //for admin authentication

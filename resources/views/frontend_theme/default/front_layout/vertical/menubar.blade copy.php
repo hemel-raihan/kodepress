@@ -5,28 +5,33 @@
             <ul class="meganizr mzr-slide mzr-responsive">
                 <!-- Build The Menu -->
                 <li class="col0"><a title="Home" href="/" style="background-image: url(/themes/responsive_npf/img/home_dark.png); margin-top: 5px;"></a></li>
-                @foreach ($menuitems as $menuitem)
-
-                    @if($menuitem->childs->isEmpty())
-                    <li class="col1 mzr-drop">
-                        <a href="{{$menuitem->slug}}" class="submenu">{{$menuitem->title}}</a>
-                    </li>
-                    @else
-                    <li class="col1 mzr-drop">
-                        <a href="{{$menuitem->slug}}" class="submenu">{{$menuitem->title}}</a>
-                            {{-- <div class="one-col"> --}}
-                                <ul class="mzr-links">
-                                    @foreach ($menuitem->childs as $item)
-                                    <li><a href="{{$item->slug}}">{{$item->title}}</a></li>
-                                    @endforeach
-                                </ul>
-                            {{-- </div> --}}
-                    </li>
-                    @endif
-
-                @endforeach
-
-                {{-- <li class="col2 mzr-drop">
+                <li class="col1 mzr-drop">
+                    <a href="#" class="submenu">আমাদের সম্পর্কিত</a>
+                    <div class="mzr-content drop-two-columns">
+                        <div class="one-col">
+                            <h6>মাধ্যমিক ও উচ্চ শিক্ষা অধিদপ্তর</h6>
+                            <ul class="mzr-links">
+                                <li><a href="/site/page/a2ccd7fe-05cd-49ef-9de5-7ef091cabf03/মাউশির-অবস্থান">মাউশির অবস্থান</a></li>
+                                <li><a href="/site/page/d0cf6f8c-a098-496b-8176-7562adbeda94/লক্ষ্য-ও-উদ্দেশ্য">লক্ষ্য ও উদ্দেশ্য</a></li>
+                                <li><a href="/site/page/b248fb28-7b6d-48b2-8695-fcc837e12125/ইতিহাস">ইতিহাস</a></li>
+                                <li><a href="/site/office_citizen_charter/3276fd6b-f5be-447e-abe0-1bb485ed6675/সিটিজেন-চার্টার">সিটিজেন চার্টার</a></li>
+                                <li><a href="/site/organogram/fb3953c2-0d00-49a1-ae82-9b1b20720f8d/অর্গানোগ্রাম">অর্গানোগ্রাম</a></li>
+                                <li><a href="http://dshe.gov.bd/site/view/officer_list_category/কর্মকর্তাদের-তালিকা">কর্মকর্তাদের তালিকা</a></li>
+                            </ul>
+                        </div>
+                        <div class="one-col">
+                            <h6>অধীনস্ত অফিসসমূহ</h6>
+                            <ul class="mzr-links">
+                                <li><a href="http://dshe.portal.gov.bd/site/page/11f93084-684b-48b6-a12e-f8621b47a042/আঞ্চলিক-অফিস">আঞ্চলিক অফিস</a></li>
+                                <li><a href="http://dshe.portal.gov.bd/site/page/da63af3c-b637-436b-a6a8-0dd29e237350/জেলা-শিক্ষা-অফিস">জেলা শিক্ষা অফিস</a></li>
+                                <li><a href="/site/page/851ec0b6-b075-4684-a600-637172416351/উপজেলা-মাধ্যমিক-শিক্ষা-অফিস">উপজেলা মাধ্যমিক শিক্ষা অফিস</a></li>
+                                <li><a href="/site/page/19a2d0c5-6eac-4fa5-b95b-48e6eadebbc8/সরকারি-টিচার-ট্রেনিং-কলেজ">সরকারি টিচার ট্রেনিং কলেজ</a></li>
+                                <li><a href="/site/page/48526cfc-6bd4-44d9-b44d-c98163c67188/উচ্চ-মাধ্যমিক-শিক্ষক-প্রশিক্ষণ-ইন্সটিটিউট">উচ্চ মাধ্যমিক শিক্ষক প্রশিক্ষণ ইন্সটিটিউট</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </li>
+                <li class="col2 mzr-drop">
                     <a href="#" class="submenu">উইং সমূহ</a>
                     <div class="mzr-content drop-four-columns">
                         <div class="one-col">
@@ -197,7 +202,7 @@
                             </ul>
                         </div>
                     </div>
-                </li> --}}
+                </li>
             </ul>
         </div>
     </div>

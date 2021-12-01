@@ -54,6 +54,7 @@
 								<thead>
 									<tr>
 										<th class="border-bottom-0">Title</th>
+                                        <th class="border-bottom-0">Menu Type</th>
 										<th class="border-bottom-0">Status</th>
 										<th class="border-bottom-0">Action</th>
 
@@ -63,6 +64,7 @@
                                 @foreach($menus as $menu)
 									<tr>
 										<td>{{Str::limit($menu->title,'10')}}</td>
+                                        <td>{{$menu->type}}</td>
 										<td>
                                             @if($menu->status == true)
                                             <a href="{{route('admin.frontmenu.status',$menu->id)}}" class="btn btn-info">Active</a>

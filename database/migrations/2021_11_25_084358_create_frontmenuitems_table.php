@@ -18,7 +18,7 @@ class CreateFrontmenuitemsTable extends Migration
             $table->foreignId('frontmenu_id');
             //$table->enum('type',['item','divider'])->default('item');
             $table->string('type')->nullable();
-            $table->integer('parent_id')->nullable();
+            $table->integer('parent_id')->nullable()->default(0);
             $table->integer('order')->nullable();
             $table->string('title')->nullable();
             $table->string('divider_title')->nullable();

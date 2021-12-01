@@ -16,6 +16,7 @@ class CreateFrontmenusTable extends Migration
         Schema::create('frontmenus', function (Blueprint $table) {
             $table->id();
             $table->string('title')->unique();
+            $table->string('type');
             $table->boolean('status')->default(false);
             $table->timestamps();
         });

@@ -48,19 +48,20 @@ class MenuController extends Controller
             'title' => 'required',
         ]);
 
-        if(!$request->status)
-        {
-            $status = 0;
-        }
-        else
-        {
-            $status = 1;
-        }
+        // if(!$request->status)
+        // {
+        //     $status = 0;
+        // }
+        // else
+        // {
+        //     $status = 1;
+        // }
 
 
         $menu = Frontmenu::create([
             'title' => Str::slug($request->title),
-            'status' => $status,
+            'type' => $request->type,
+            'status' => 0,
         ]);
 
 
@@ -72,21 +73,23 @@ class MenuController extends Controller
     {
         Gate::authorize('app.front.menus.status');
         $menu = Frontmenu::find($id);
-        if($menu->status == true)
-        {
-            $menu->status = false;
-            $menu->save();
 
-            notify()->success('Successfully Deactiveated Menu');
-        }
-        elseif($menu->status == false)
-        {
-            $menu->status = true;
-            $menu->save();
+        $mainmenu = Frontmenu::where('type','=','main-menu')->get();
+            foreach($mainmenu as $mmenu)
+            {
+                if($mmenu->id != $id)
+                {
+                    $mmenu->status = false;
+                    $mmenu->save();
 
-            notify()->success('Successfully Activeated Menu');
-        }
-
+                }
+                else
+                {
+                    $mmenu->status = true;
+                    $mmenu->save();
+                }
+            }
+            
         return redirect()->back();
     }
 
@@ -125,21 +128,23 @@ class MenuController extends Controller
         Gate::authorize('app.front.menus.edit');
         $this->validate($request,[
             'title' => 'required',
+            'type' => 'required',
         ]);
 
 
-        if(!$request->status)
-        {
-            $status = 0;
-        }
-        else
-        {
-            $status = 1;
-        }
+        // if(!$request->status)
+        // {
+        //     $status = 0;
+        // }
+        // else
+        // {
+        //     $status = 1;
+        // }
 
         $frontmenu->update([
             'title' => Str::slug($request->title),
-            'status' => $status,
+            'type' => $request->type,
+            'status' => 0,
         ]);
 
 
