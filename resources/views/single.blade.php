@@ -85,7 +85,7 @@
                 <thead>
                     <tr>
                         <th width="5%">ইস্যু নং</th>
-                        <th width="15%">শাখার নাম</th>
+                        <th width="15%">শাখার Name</th>
                         <th width="50%">বিষয়</th>
                         <th width="20%">প্রকাশের তারিখ</th>
                         <th width="10%">ডকুমেন্ট</th>
