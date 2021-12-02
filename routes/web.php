@@ -27,6 +27,7 @@ Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index
 
 Route::get('/', 'HomepageController@index')->name('home');
 Route::get('/single', 'HomepageController@single')->name('single');
+Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
 
 
 //for admin authentication
@@ -82,6 +83,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('sliders', 'Slide\SliderController');
     //Slide
     Route::resource('slides', 'Slide\SlideController');
+    Route::get('slide/{id}/status','Slide\SlideController@status')->name('slide.status');
     //Banner Type
     //Route::resource('bannertypes', 'Banner\BannerTypeController');
     Route::resource('banners', 'Banner\BannerTypeController');

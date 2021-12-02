@@ -179,6 +179,24 @@ class SlideController extends Controller
         return redirect()->route('admin.slides.index');
     }
 
+    public function status($id){
+        $slide = Slide::find($id);
+        if($slide->status == 1){
+            $slide->status = 0;
+            $slide->save();
+
+            notify()->success("Slide Status Successfully updated","Updated");
+            return redirect()->route('admin.slides.index');
+        }
+        else{
+            $slide->status = 1;
+            $slide->save();
+
+            notify()->success("Slide Status Successfully updated","Updated");
+            return redirect()->route('admin.slides.index');
+        }
+    }
+
     /**
      * Remove the specified resource from storage.
      *

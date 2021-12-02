@@ -15,9 +15,9 @@ class HomepageController extends Controller
     {
         $categories = category::all();
 
-        $banner_img  = \App\Models\Admin\Slide\Slide::where('type','home-banner')->orderBy('id','desc')->first();
         $randomvideos = Video::where('type','=','Random Video')->get();
         $othersvideos = Video::where('type','=','Others Video')->get();
+        $banner_img  = \App\Models\Admin\Slide\Slide::where([['type','home-banner'],['status',true]])->orderBy('id','desc')->first();
 
         return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos','banner_img'));
     }
@@ -25,5 +25,10 @@ class HomepageController extends Controller
     public function single()
     {
         return view('frontend_theme.default.front_layout.test');
+    }
+
+    public function singlepage()
+    {
+        return view('single');
     }
 }
