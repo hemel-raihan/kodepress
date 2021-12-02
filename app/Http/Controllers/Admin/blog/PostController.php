@@ -462,7 +462,7 @@ class PostController extends Controller
 
         }
 
-        $postfile_path = public_path('uploads/files/'.$post->image);  // Value is not URL but directory file path
+        $postfile_path = public_path('uploads/files/'.$post->files);  // Value is not URL but directory file path
             if (file_exists($postfile_path)) {
 
                 @unlink($postfile_path);

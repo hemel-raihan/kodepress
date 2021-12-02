@@ -84,9 +84,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     //Slide
     Route::resource('slides', 'Slide\SlideController');
     Route::get('slide/{id}/status','Slide\SlideController@status')->name('slide.status');
-    //Banner Type
-    //Route::resource('bannertypes', 'Banner\BannerTypeController');
-    Route::resource('banners', 'Banner\BannerTypeController');
+    //Notice Board
+    Route::resource('notices', 'Notice\NoticeController');
+    Route::get('notice/{id}/status','Notice\NoticeController@status')->name('notice.status');
+
     Route::resource('videos', 'Video\VideoController');
     Route::get('video/{id}/status', 'Video\VideoController@status_approval')->name('video.status');
 

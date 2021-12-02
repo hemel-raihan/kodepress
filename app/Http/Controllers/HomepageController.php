@@ -17,8 +17,7 @@ class HomepageController extends Controller
 
         $randomvideos = Video::where('type','=','Random Video')->get();
         $othersvideos = Video::where('type','=','Others Video')->get();
-        $banner_img  = \App\Models\Admin\Slide\Slide::where([['type','home-banner'],['status',true]])->orderBy('id','desc')->first();
-
+        $banner_img  = \App\Models\Admin\Slide\Slide::where('type','home-banner')->where('status',true)->orderBy('id','desc')->first();
         return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos','banner_img'));
     }
 

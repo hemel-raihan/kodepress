@@ -10,7 +10,6 @@
 
     <div class="twelve columns" id="left-content">
         <div class="row mainwrapper">
-
             <div class="pm">
                 <a href="https://www.youtube.com/watch?v=v1R-CB3e-pw" target="_blank">
                     <img src="{{ asset('uploads/slide_image/'.$banner_img->slideimage) }}" />
