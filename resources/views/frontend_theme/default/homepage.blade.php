@@ -11,11 +11,13 @@
     <div class="twelve columns" id="left-content">
         <div class="row mainwrapper">
 
+@if($banner_img)
             <div class="pm">
-                <a href="https://www.youtube.com/watch?v=v1R-CB3e-pw" target="_blank">
+                <a href="{{$banner_img->url}}" target="_blank">
                     <img src="{{ asset('uploads/slide_image/'.$banner_img->slideimage) }}" />
                 </a>
             </div>
+            @endif
             <div class="scroll">
                 <h3>
                     <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
@@ -190,34 +192,40 @@
                     আদেশ/প্রজ্ঞাপন/নীতিমালা/পরিপত্র/আইন/বিধিমালা
                 </h5>
 
+                @foreach ($proggaponcategories as $proggaponcategory)
                 <table border="" cellpadding="0" cellspacing="0">
                     <tbody>
                         <tr>
+
                             <td colspan="3" style="width: 351px;">
                                 <p>
                                     <span style="color: #008080;">
-                                        <span style="font-size: 14px;"><strong>আদেশ</strong><strong>/</strong><strong>প্রজ্ঞাপন</strong></span>
+                                        <span style="font-size: 14px;"><strong>{{$proggaponcategory->name}}</strong></span>
                                     </span>
                                 </p>
                             </td>
-                            <td rowspan="4" style="width: 15px;">&nbsp;</td>
+                            {{-- <td rowspan="4" style="width: 15px;">&nbsp;</td>
                             <td colspan="3" style="width: 344px;">
                                 <p>
                                     <span style="color: #008080;">
                                         <span style="font-size: 14px;"><strong>নীতিমালা</strong><strong>/</strong><strong>পরিপত্র/আইন/বিধি</strong></span>
                                     </span>
                                 </p>
-                            </td>
+                            </td> --}}
                         </tr>
+                        @if($proggaponcategory->childrenRecursive->count()>0)
+                            @foreach($proggaponcategory->childrenRecursive as $cat)
                         <tr>
-                            <td style="width: 134px;">
+
+                            <td colspan="3" style="width: 134px;">
                                 <p>
                                     <span style="font-size: 14px;">
-                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">সাধারণ প্রশাসন</a>
+                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">{{$cat->name}}</a>
                                     </span>
                                 </p>
                             </td>
-                            <td style="width: 106px;">
+
+                            {{-- <td style="width: 106px;">
                                 <p>
                                     <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/মাধ্যমিক">মাধ্যমিক</a></span>
                                 </p>
@@ -241,9 +249,79 @@
                                 <p>
                                     <span style="font-size: 14px;">► <a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%AF">বিবিধ</a></span>
                                 </p>
+                            </td> --}}
+                        </tr>
+                        @endforeach
+                        @endif
+
+                    </tbody>
+                </table>
+            </br>
+                @endforeach
+
+
+
+                {{-- <table border="" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+
+                            <td colspan="3" style="width: 351px;">
+                                <p>
+                                    <span style="color: #008080;">
+                                        <span style="font-size: 14px;"><strong>{{$proggaponcategories->name}}</strong></span>
+                                    </span>
+                                </p>
+                            </td>
+                            <td rowspan="4" style="width: 15px;">&nbsp;</td>
+                            <td colspan="3" style="width: 344px;">
+                                <p>
+                                    <span style="color: #008080;">
+                                        <span style="font-size: 14px;"><strong>নীতিমালা</strong><strong>/</strong><strong>পরিপত্র/আইন/বিধি</strong></span>
+                                    </span>
+                                </p>
                             </td>
                         </tr>
+                        @if($proggaponcategories->childrenRecursive->count()>0)
+                            @foreach($proggaponcategories->childrenRecursive as $cat)
                         <tr>
+
+                            <td colspan="3" style="width: 134px;">
+                                <p>
+                                    <span style="font-size: 14px;">
+                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">{{$cat->name}}</a>
+                                    </span>
+                                </p>
+                            </td>
+
+                            {{-- <td style="width: 106px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/মাধ্যমিক">মাধ্যমিক</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 114px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/কলেজ">কলেজ</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 140px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95">মাধ্যমিক</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 96px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%95%E0%A6%B2%E0%A7%87%E0%A6%9C">কলেজ</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 108px;">
+                                <p>
+                                    <span style="font-size: 14px;">► <a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%AF">বিবিধ</a></span>
+                                </p>
+                            </td> --}}
+                        {{-- </tr> --}}
+                        {{-- @endforeach
+                        @endif --}}
+                        {{-- <tr>
                             <td style="width: 134px;">
                                 <p>
                                     <span style="font-size: 14px;">► <a href="http://www.dshe.gov.bd/site/view/training">প্রশিক্ষণ</a></span>
@@ -310,7 +388,9 @@
                             <td style="width: 108px;">&nbsp;</td>
                         </tr>
                     </tbody>
-                </table>
+                </table>  --}}
+
+
 
                 <p>&nbsp;</p>
 

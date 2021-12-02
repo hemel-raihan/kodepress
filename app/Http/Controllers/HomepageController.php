@@ -8,6 +8,7 @@ use App\Models\blog\category;
 use App\Models\Admin\Slide\Slide;
 use App\Models\Frontmenu\Frontmenu;
 use App\Models\Frontmenu\Frontmenuitem;
+use App\Models\general_content\Contentcategory;
 
 class HomepageController extends Controller
 {
@@ -19,7 +20,10 @@ class HomepageController extends Controller
         $othersvideos = Video::where('type','=','Others Video')->get();
         $banner_img  = \App\Models\Admin\Slide\Slide::where([['type','home-banner'],['status',true]])->orderBy('id','desc')->first();
 
-        return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos','banner_img'));
+        // $proggaponcategories = Contentcategory::where('name','=','proggapon')->first();
+        $proggaponcategories = Contentcategory::whereIn('name', ['proggapon', 'Niti-Mala'])->get();
+
+        return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos','banner_img','proggaponcategories'));
     }
 
     public function single()
