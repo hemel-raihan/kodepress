@@ -53,8 +53,6 @@ class PostController extends Controller
     public function store(Request $request)
     {
         Gate::authorize('app.blog.posts.create');
-        if(!$request->youtube_link)
-        {
             $this->validate($request,[
                 'title' => 'required',
                 //'image' => 'required',
@@ -63,7 +61,6 @@ class PostController extends Controller
                 'leftsidebar_id' => 'required',
                 'rightsidebar_id' => 'required',
             ]);
-        }
 
 
         //get form image
@@ -158,18 +155,10 @@ class PostController extends Controller
         if(!$request->youtube_link)
         {
             $youtube = null;
-            $title = $request->title;
-            $body = $request->body;
-            $leftbar_id = $request->leftsidebar_id;
-            $rightbar_id = $request->rightsidebar_id;
         }
         else
         {
             $youtube = $request->youtube_link;
-            $title = null;
-            $body = null;
-            $leftbar_id = null;
-            $rightbar_id = null;
         }
 
         if(!$request->image)
@@ -184,16 +173,16 @@ class PostController extends Controller
 
 
         $post = Post::create([
-            'title' => $title,
+            'title' => $request->title,
             'slug' => $slug,
             'admin_id' => Auth::id(),
             'image' => $featureimg,
             'youtube_link' => $youtube,
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
-            'body' => $body,
-            'leftsidebar_id' => $leftbar_id,
-            'rightsidebar_id' => $rightbar_id,
+            'body' => $request->body,
+            'leftsidebar_id' => $request->leftsidebar_id,
+            'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
             'is_approved' => $is_approved,
 

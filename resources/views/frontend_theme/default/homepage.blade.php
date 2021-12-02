@@ -369,14 +369,10 @@
                 <h5 class="bk-org title">
                     ভিডিও
                 </h5>
-                @foreach ($youtubecategories as $youtubecat)
-
-                @foreach ($youtubecat->posts as $youtubepost)
-
-                <p>&nbsp;<iframe frameborder="1" height="350" src="{{$youtubepost->youtube_link}}" width="700"></iframe></p>
-
-                @endforeach
-
+                @foreach ($randomvideos as $randomvideo)
+                @if($randomvideo->status == true)
+                <p>&nbsp;<iframe frameborder="1" height="350" src="{{$randomvideo->url}}" width="720"></iframe></p>
+                @endif
                 @endforeach
 
                 <p></p>
@@ -387,7 +383,7 @@
                 }
             </style>
             <script></script>
-            <div class="column block">
+            {{-- <div class="column block">
                 <h5 class="bk-org title">
                     মানচিত্রে মাধ্যমিক ও উচ্চশিক্ষা অধিদপ্তর
                 </h5>
@@ -403,14 +399,14 @@
                     ></iframe>
                 </p>
                 <p></p>
-            </div>
+            </div> --}}
             <style>
                 #right-content .block {
                     display: block !important;
                 }
             </style>
             <script></script>
-            <div class="column block">
+            {{-- <div class="column block">
                 <h5 class="bk-org title">
                     আশ্রয়ণের অধিকার শেখ হাসিনার উপহার
                 </h5>
@@ -425,7 +421,7 @@
                     </tbody>
                 </table>
                 <p></p>
-            </div>
+            </div> --}}
             <style>
                 #right-content .block {
                     display: block !important;
@@ -440,16 +436,20 @@
                 <table border="1" cellpadding="1" cellspacing="1" style="height: 220px; width: 100%;">
                     <tbody>
                         <tr>
+                            @foreach ($othersvideos as $othersvideo)
+                            @if($othersvideo->status == true)
                             <td style="text-align: center;">
-                                <p><iframe frameborder="0" height="200" src="https://www.youtube.com/embed/zBAKSZqTkRg" width="340"></iframe></p>
+                                <p><iframe frameborder="0" height="200" src="{{$othersvideo->url}}" width="340"></iframe></p>
 
-                                <p><strong>ফল আর্মিওয়ার্ম পর্যবেক্ষণ ও সনাক্তকরণ</strong></p>
+                                <p><strong>{{$othersvideo->title}}</strong></p>
                             </td>
-                            <td style="text-align: center;">
+                            @endif
+                            @endforeach
+                            {{-- <td style="text-align: center;">
                                 <p><iframe frameborder="0" height="200" src="https://www.youtube.com/embed/GT9ShGE_qjg" width="340"></iframe></p>
 
                                 <p><strong>বন্যার সময় কি করণীয়</strong></p>
-                            </td>
+                            </td> --}}
                         </tr>
                     </tbody>
                 </table>

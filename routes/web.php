@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //single page test
 // Route::get('/single', function () {
@@ -85,12 +85,17 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     //Banner Type
     //Route::resource('bannertypes', 'Banner\BannerTypeController');
     Route::resource('banners', 'Banner\BannerTypeController');
+    Route::resource('videos', 'Video\VideoController');
+    Route::get('video/{id}/status', 'Video\VideoController@status_approval')->name('video.status');
+
 });
 
-Route::get('{slug}', 'PageController@index')->name('page');
-//Route::get('{slug}', 'PageController@category')->name('category.page');
+
 
 
 Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middleware'=>['auth:admin']], function(){
     Route::get('dashboard', 'DashboardController@author')->name('dashboard');
 });
+
+Route::get('{slug}', 'PageController@index')->name('page');
+Route::get('{slug}', 'PageController@category')->name('category.page');

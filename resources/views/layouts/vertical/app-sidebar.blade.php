@@ -83,6 +83,14 @@
 							</ul>
 						</li>
 
+                        <li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-video"></i><span class="side-menu__label">Video</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{ route('admin.videos.create') }}" class="slide-item"> Create Video</a></li>
+								<li><a href="{{ route('admin.videos.index') }}" class="slide-item"> All Videos</a></li>
+							</ul>
+						</li>
+
 						<!-- <li><h3>Elements</h3></li>
 						<li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-database"></i><span class="side-menu__label">Components</span><i class="angle fa fa-angle-right"></i></a>

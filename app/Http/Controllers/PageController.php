@@ -17,7 +17,8 @@ class PageController extends Controller
     public function category($slug)
     {
         $page = Category::findBySlug($slug);
-        return $page;
+        $categoryposts = $page->posts()->get();
+        return $categoryposts;
     }
 
 }
