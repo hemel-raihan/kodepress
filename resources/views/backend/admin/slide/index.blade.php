@@ -59,11 +59,11 @@
 										<td>{{ $key++ }}</td>
 										<td>{{ $slide->title }}</td>
 										<td>
-											@if ($slide->status == 1)
-												Active
-											@else
-												Inactive
-											@endif
+											@if($slide->status == 1)
+                                            <a href="{{route('admin.slide.status',$slide->id)}}" class="btn btn-info">Active</a>
+                                            @else
+                                            <a href="{{route('admin.slide.status',$slide->id)}}" class="btn btn-primary">InActive</a>
+                                            @endif
 										</td>
 										<td>
 											<a class="btn btn-sm btn-primary" href="{{ route('admin.slides.edit',$slide->id) }}"><i class="fa fa-edit"></i> Edit</a>

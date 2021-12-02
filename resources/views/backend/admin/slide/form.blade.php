@@ -128,7 +128,7 @@
 						<input type="text" name="url" value="{{$slide->url ?? old('url')}}" class="form-control" id="exampleInputUrl" placeholder="Slide Youtube Link">
 					</div>
 
-					<div class="form-group" id="text-content">
+					<div class="form-group text-content" >
 						<label for="exampleInputContent">Content</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
 							<textarea name="content" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$slide->content ?? old('content')!!}</textarea>
@@ -183,6 +183,17 @@
 						</select>
 					</div>
 
+					{{-- Slide Type --}}
+					<div class="form-group text-content">
+						<label class="form-label">Select Slide Type</label>
+						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Slide Type">
+								<option disabled selected>Select Slide Type</option>
+								<option value="main-Slide" @isset($slide) {{ ($slide->type == 'main-Slide')? 'selected':'' }} @endisset>Main Slide</option>
+								<option value="default-slide" @isset($slide) {{ ($slide->type == 'default-slide')? 'selected':'' }} @endisset>Default Slide</option>
+						</select>
+					</div>
+
+					{{-- Banner Type --}}
 					<div class="form-group d-none banner-type" id="banner-type">
 						<label class="form-label">Select Banner Type</label>
 						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Banner Type">
@@ -238,12 +249,12 @@
 <script>
 	$(document).ready(function() {
 		$("input[id$='test1']").click(function() {
-			$("#text-content").addClass('d-none');
+			$(".text-content").addClass('d-none');
 			$(".banner-type").removeClass('d-none');
 		});
 	
 		$("input[id$='test2']").click(function() {
-			$("#text-content").removeClass('d-none');
+			$(".text-content").removeClass('d-none');
 			$(".banner-type").addClass('d-none');
 		});
 	});

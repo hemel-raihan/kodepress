@@ -2,7 +2,7 @@
     <div class="callbacks_container" style="box-shadow: 0 1px 5px #999999;">
         <ul class="rslides" id="front-image-slider">
             @php
-                $slides = \App\Models\Admin\Slide\Slide::all();
+                $slides = \App\Models\Admin\Slide\Slide::where([['type','main-slide'],['status',true]])->get();
             @endphp
         @foreach ($slides as $slide)
             @php
@@ -42,14 +42,15 @@
                 </a>
             </div>
 
-            <div class="clearfix" id="site-name-wrapper">
+            {{-- <div class="clearfix" id="site-name-wrapper">
                 <span id="site-name">
                     @foreach ($slides as $slide)
                     <a title="Home" href="/"> {{$slide->title}} </a>
                     @endforeach
                 </span>
                 <span id="slogan"> </span>
-            </div>
+            </div> --}}
+            
             <!-- /site-name-wrapper -->
         </div>
         <!-- /header-site-info-inner -->
