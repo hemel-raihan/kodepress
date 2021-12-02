@@ -129,13 +129,13 @@
             {{-- ...........MENU BAR..... --}}
 
             @php
-                $menus = \App\Models\Frontmenu\Frontmenu::where([['type','=','main-menu'],['status','=',true]])->get();
-                foreach($menus as $menu)
-                {
-                    $menuitems = $menu->menuItems()->get();
-                }
-            @endphp
-            @include('frontend_theme.default.front_layout.vertical.menubar',['menuitems'=>$menuitems])
+            $menus = \App\Models\Frontmenu\Frontmenu::where([['type','=','main-menu'],['status','=',true]])->get();
+            foreach($menus as $menu)
+            {
+                $menuitems = $menu->menuItems()->get();
+            }
+        @endphp
+        @include('frontend_theme.default.front_layout.vertical.menubar',['menuitems'=>$menuitems])
 
             {{-- ...........END MENU BAR..... --}}
 

@@ -20,8 +20,8 @@ class CreateContentcategoriesTable extends Migration
             $table->integer('parent_id')->unsigned()->default(0);
             $table->string('image')->default('default.png');
             $table->string('desc')->nullable();
-            $table->integer('leftsidebar_id');
-            $table->integer('rightsidebar_id');
+            $table->integer('leftsidebar_id')->nullable();
+            $table->integer('rightsidebar_id')->nullable();
             $table->boolean('status')->default(true);
             $table->timestamps();
         });

@@ -11,7 +11,7 @@
     <div class="twelve columns" id="left-content">
         <div class="row mainwrapper">
             <div class="pm">
-                <a href="https://www.youtube.com/watch?v=v1R-CB3e-pw" target="_blank">
+                <a href="{{$banner_img->url}}" target="_blank">
                     <img src="{{ asset('uploads/slide_image/'.$banner_img->slideimage) }}" />
                 </a>
             </div>
@@ -66,31 +66,13 @@
                     <h2>নোটিশ বোর্ড</h2>
                     <div id="notice-board-ticker">
                         <ul>
+                            @foreach ($notices as $notice)
                             <li>
-                                <a href="/site/notices/3fc51534-4a20-48db-b707-7c381454e25f/NAAND-প্রকল্পের-অটিজম-ও-এনডিডি-বিষয়ক-মাস্টার-ট্রেইনার-প্রশিক্ষক-কোর্সে-অংশগ্রহণকারী-ব">
-                                    NAAND প্রকল্পের অটিজম ও এনডিডি বিষয়ক মাস্টার ট্রেইনার প্রশিক্ষক কোর্সে অংশগ্রহণকারী ব...
+                                <a href="#">
+                                    {{ $notice->title }}
                                 </a>
                             </li>
-                            <li>
-                                <a href="/site/notices/6e1483f6-2ea7-4e6b-a9ae-baaa98456ecd/বাংলাদেশ-সরকারি-কর্মকমিশন-কর্তৃক-অনুষ্ঠেয়-৪১-তম-বিসিএস-পরীক্ষা-২০১৯-এর-মাধ্যমে-বিভিন্">
-                                    বাংলাদেশ সরকারি কর্মকমিশন কর্তৃক অনুষ্ঠেয় ৪১ তম বিসিএস পরীক্ষা-২০১৯ এর মাধ্যমে বিভিন্...
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/site/notices/bc78cee9-b271-4cd7-ba8d-e5c4f9b953b3/সিনিয়র-শিক্ষক-পদ-হতে-উপজেলা-মাধ্যমিক-শিক্ষা-অফিসার-পদে-বদলী-ভিত্তিক-পদায়ন-সংক্রান্ত।">
-                                    সিনিয়র শিক্ষক পদ হতে উপজেলা মাধ্যমিক শিক্ষা অফিসার পদে বদলী ভিত্তিক পদায়ন সংক্রান্ত।
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/site/notices/77eac496-da5f-4c7b-b898-b55dff983667/সরকারি-মাধ্যমিক-বিদ্যালয়ে-শিক্ষার্থী-ভর্তির-নীতিমালা-সংশোধিত--২০২০-এর-অনুচ্ছেদ-১৭-স">
-                                    সরকারি মাধ্যমিক বিদ্যালয়ে শিক্ষার্থী ভর্তির নীতিমালা (সংশোধিত- ২০২০) এর অনুচ্ছেদ-১৭ স...
-                                </a>
-                            </li>
-                            <li>
-                                <a href="/site/notices/c9143678-ea20-4de8-84e1-d8dd05e2703c/এসডিজি-সূচকের-জন্য-মন্ত্রণালয়-ও-অধীনস্ত-কার্যালয়সমূহে-কর্মরত-সকল-কর্মকর্তা-কর্মচারীর-">
-                                    এসডিজি সূচকের জন্য মন্ত্রণালয় ও অধীনস্ত কার্যালয়সমূহে কর্মরত সকল কর্মকর্তা-কর্মচারীর ...
-                                </a>
-                            </li>
+                            @endforeach
                         </ul>
                         <a class="btn right" href="/site/view/notices">সকল</a>
                     </div>
@@ -189,34 +171,40 @@
                     আদেশ/প্রজ্ঞাপন/নীতিমালা/পরিপত্র/আইন/বিধিমালা
                 </h5>
 
+                @foreach ($proggaponcategories as $proggaponcategory)
                 <table border="" cellpadding="0" cellspacing="0">
                     <tbody>
                         <tr>
+
                             <td colspan="3" style="width: 351px;">
                                 <p>
                                     <span style="color: #008080;">
-                                        <span style="font-size: 14px;"><strong>আদেশ</strong><strong>/</strong><strong>প্রজ্ঞাপন</strong></span>
+                                        <span style="font-size: 14px;"><strong>{{$proggaponcategory->name}}</strong></span>
                                     </span>
                                 </p>
                             </td>
-                            <td rowspan="4" style="width: 15px;">&nbsp;</td>
+                            {{-- <td rowspan="4" style="width: 15px;">&nbsp;</td>
                             <td colspan="3" style="width: 344px;">
                                 <p>
                                     <span style="color: #008080;">
                                         <span style="font-size: 14px;"><strong>নীতিমালা</strong><strong>/</strong><strong>পরিপত্র/আইন/বিধি</strong></span>
                                     </span>
                                 </p>
-                            </td>
+                            </td> --}}
                         </tr>
+                        @if($proggaponcategory->childrenRecursive->count()>0)
+                            @foreach($proggaponcategory->childrenRecursive as $cat)
                         <tr>
-                            <td style="width: 134px;">
+
+                            <td colspan="3" style="width: 134px;">
                                 <p>
                                     <span style="font-size: 14px;">
-                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">সাধারণ প্রশাসন</a>
+                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">{{$cat->name}}</a>
                                     </span>
                                 </p>
                             </td>
-                            <td style="width: 106px;">
+
+                            {{-- <td style="width: 106px;">
                                 <p>
                                     <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/মাধ্যমিক">মাধ্যমিক</a></span>
                                 </p>
@@ -240,9 +228,79 @@
                                 <p>
                                     <span style="font-size: 14px;">► <a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%AF">বিবিধ</a></span>
                                 </p>
+                            </td> --}}
+                        </tr>
+                        @endforeach
+                        @endif
+
+                    </tbody>
+                </table>
+            </br>
+                @endforeach
+
+
+
+                {{-- <table border="" cellpadding="0" cellspacing="0">
+                    <tbody>
+                        <tr>
+
+                            <td colspan="3" style="width: 351px;">
+                                <p>
+                                    <span style="color: #008080;">
+                                        <span style="font-size: 14px;"><strong>{{$proggaponcategories->name}}</strong></span>
+                                    </span>
+                                </p>
+                            </td>
+                            <td rowspan="4" style="width: 15px;">&nbsp;</td>
+                            <td colspan="3" style="width: 344px;">
+                                <p>
+                                    <span style="color: #008080;">
+                                        <span style="font-size: 14px;"><strong>নীতিমালা</strong><strong>/</strong><strong>পরিপত্র/আইন/বিধি</strong></span>
+                                    </span>
+                                </p>
                             </td>
                         </tr>
+                        @if($proggaponcategories->childrenRecursive->count()>0)
+                            @foreach($proggaponcategories->childrenRecursive as $cat)
                         <tr>
+
+                            <td colspan="3" style="width: 134px;">
+                                <p>
+                                    <span style="font-size: 14px;">
+                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">{{$cat->name}}</a>
+                                    </span>
+                                </p>
+                            </td>
+
+                            {{-- <td style="width: 106px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/মাধ্যমিক">মাধ্যমিক</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 114px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="https://dshe.portal.gov.bd/site/view/moedu_office_order/কলেজ">কলেজ</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 140px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%AE%E0%A6%BE%E0%A6%A7%E0%A7%8D%E0%A6%AF%E0%A6%AE%E0%A6%BF%E0%A6%95">মাধ্যমিক</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 96px;">
+                                <p>
+                                    <span style="font-size: 14px;">►&nbsp;<a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%95%E0%A6%B2%E0%A7%87%E0%A6%9C">কলেজ</a></span>
+                                </p>
+                            </td>
+                            <td style="width: 108px;">
+                                <p>
+                                    <span style="font-size: 14px;">► <a href="http://shed.portal.gov.bd/site/view/moedu_policy/%E0%A6%85%E0%A6%A8%E0%A7%8D%E0%A6%AF%E0%A6%BE%E0%A6%A8%E0%A7%8D%E0%A6%AF">বিবিধ</a></span>
+                                </p>
+                            </td> --}}
+                        {{-- </tr> --}}
+                        {{-- @endforeach
+                        @endif --}}
+                        {{-- <tr>
                             <td style="width: 134px;">
                                 <p>
                                     <span style="font-size: 14px;">► <a href="http://www.dshe.gov.bd/site/view/training">প্রশিক্ষণ</a></span>
@@ -309,7 +367,9 @@
                             <td style="width: 108px;">&nbsp;</td>
                         </tr>
                     </tbody>
-                </table>
+                </table>  --}}
+
+
 
                 <p>&nbsp;</p>
 

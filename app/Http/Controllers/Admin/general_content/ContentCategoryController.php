@@ -52,7 +52,7 @@ class ContentCategoryController extends Controller
     {
         Gate::authorize('app.content.categories.create');
         $this->validate($request,[
-            'name' => 'required|unique:categories',
+            'name' => 'required|unique:contentcategories',
             'image' => 'required|mimes:png,jpg,jpeg,bmp',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',

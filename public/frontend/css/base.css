@@ -520,11 +520,13 @@ legend span {
 }
 
 #notice-board-ticker li {
-    background: url("/themes/responsive_npf/images/bullet_tick.png") no-repeat center left;
+    background: url("../../frontend/images/bullet_arrow.png") no-repeat center left;
+    
 }
 #notice-board ul a {
     margin-left: 20px;
     border-bottom: 1px dotted #666;
+    text-align: left;
 }
 #notice-board ul a:hover {
     text-decoration: none !important;
