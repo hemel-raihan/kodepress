@@ -24,7 +24,7 @@
 							</div>
 
 							<div class="ms-auto pageheader-btn">
-                            @if($auth->hasPermission('app.blog.pages.create'))
+                            @if($auth->hasPermission('app.pages.create'))
 								<a href="{{route('admin.pages.create')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										<i class="fe fe-plus"></i>
@@ -95,7 +95,7 @@
                                         @if($auth->hasPermission('app.pages.destroy'))
 
                                         <button class="btn btn-danger waves effect" type="button"
-                                            onclick="deletepage$page({{ $page->id}})" >
+                                            onclick="deletepage$page({{$page->id}})" >
                                             <i class="fa fa-trash"></i>
                                             </button>
                                             <form id="deleteform-{{$page->id}}" action="{{route('admin.pages.destroy',$page->id)}}" method="page" style="display: none;">

@@ -3,13 +3,14 @@
 namespace App\Http\Controllers\Admin\frontmenu;
 
 use App\Models\Admin\Page;
-use App\Models\blog\Category;
 use Illuminate\Http\Request;
+use App\Models\blog\Category;
 use App\Models\Frontmenu\Frontmenu;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use App\Models\Frontmenu\Frontmenuitem;
+use App\Models\general_content\Contentcategory;
 
 class MenuitemController extends Controller
 {
@@ -19,8 +20,9 @@ class MenuitemController extends Controller
             $menu = Frontmenu::findOrFail($id);
             $auth = Auth::guard('admin')->user();
             $pages = Page::all();
-            $categories = Category::all();
-            return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories'));
+            $categories = Category::where('parent_id', '=', 0)->get();
+            $contentcategories = Contentcategory::where('parent_id', '=', 0)->get();
+            return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories','contentcategories'));
         }
 
         public function create($id)
@@ -50,8 +52,11 @@ class MenuitemController extends Controller
         $menu = Frontmenu::findOrFail($id);
 
         foreach($request->input('title') as $key => $value) {
+            $title = $request->input('title')[$key];
+
+
         $menu->menuItems()->create([
-            'title' => $request->input('title')[$key],
+            'title' => ucwords(str_replace('-', ' ', $title)),
             'slug' => $request->input('title')[$key],
             //'type' => $request->type,
             //'divider_title' => $request->divider_title,
