@@ -14,13 +14,13 @@
                 {{-- @elseif($menuitem->childs->count()==4)
                 <li class="col1 mzr-drop">
                     <a href="{{$menuitem->slug}}" class="submenu">{{$menuitem->title}}</a>
-                        {{-- <div class="one-col"> --}}
+                        <div class="one-col">
                             <ul class="mzr-links">
                                 @foreach ($menuitem->childs as $item)
                                 <li><a href="{{route('page',$item->slug)}}">{{$item->title}}</a></li>
                                 @endforeach
                             </ul>
-                        {{-- </div> --}}
+                         </div>
                 </li> --}}
 
                 @else
