@@ -21,6 +21,11 @@ class NoticeController extends Controller
         return view('backend.admin.notice.index',compact('notices'));
     }
 
+    public function noticeList(){
+        $notices = Notice::all();
+        return view('frontend_theme.default.front_layout.all-notice',compact('notices'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *
@@ -86,9 +91,9 @@ class NoticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Notice $notice)
     {
-        //
+        return view('frontend_theme.default.front_layout.single-notice',compact('notice'));
     }
 
     /**

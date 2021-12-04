@@ -65,10 +65,18 @@
 						</li>
 
 						<li class="slide">
-							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Front Menu</span><i class="angle fa fa-angle-right"></i></a>
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Notice</span><i class="angle fa fa-angle-right"></i></a>
 							<ul class="slide-menu">
 								<li><a href="{{route('admin.notices.create')}}" class="slide-item">Create New Notice </a></li>
 								<li><a href="{{route('admin.notices.index')}}" class="slide-item">All Notice</a></li>
+							</ul>
+						</li>
+
+						<li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-file-text"></i><span class="side-menu__label">Hot Links</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{route('admin.links.create')}}" class="slide-item">Create Hot Link </a></li>
+								<li><a href="{{route('admin.links.index')}}" class="slide-item">All Links</a></li>
 							</ul>
 						</li>
 

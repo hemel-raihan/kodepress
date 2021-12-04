@@ -29,7 +29,7 @@
 
         <p>
             কারিগরি সহায়তায়:
-            <img style="vertical-align: baseline;" src="{{ asset('frontend/images/np-logo-set.png') }}" alt="" />
+            <img style="vertical-align: baseline;" src="{{ asset('frontend/images/logo-use-1.png') }}" alt="" />
         </p>
     </div>
     <!-- /footer -->
