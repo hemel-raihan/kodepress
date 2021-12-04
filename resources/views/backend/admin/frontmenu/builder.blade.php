@@ -125,11 +125,11 @@
                                     <div class="expand" style="margin-left: 10%; margin-right: 10%; margin-top:10px;">
 
                                         <p style="background: #f3f8fb;">
-                                            <a class="btn" data-bs-toggle="collapse" style="" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                            <a class="btn" data-bs-toggle="collapse" style="" href="#collapseExample1" role="button" aria-expanded="false" aria-controls="collapseExample">
                                               Pages
                                             </a>
                                           </p>
-                                          <div class="collapse" id="collapseExample">
+                                          <div class="collapse" id="collapseExample1">
                                             <div class="card card-body">
                                                 <div class="transfer-double-list-content">
                                                     <div class="transfer-double-list-main">
@@ -150,11 +150,11 @@
                                           </div>
 
                                           <p style="background: #f3f8fb;">
-                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExamplee" role="button" aria-expanded="false" aria-controls="collapseExample">
-                                              Categories
+                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExample2" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Blog Categories
                                             </a>
                                           </p>
-                                          <div class="collapse" id="collapseExamplee">
+                                          <div class="collapse" id="collapseExample2">
                                             <div class="card card-body">
                                                 <div class="transfer-double-list-content">
                                                     <div class="transfer-double-list-main">
@@ -164,6 +164,13 @@
                                                                 <div class="checkbox-group">
                                                                     <input type="checkbox" value="{{$category->slug}}" name="categorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492752" /><label for="group_{{$key}}_1636878492752" class="group-name-163687849275">{{$category->name}}</label>
                                                                 </div>
+                                                                @if($category->childrenRecursive->count()>0)
+
+
+                                                                @include('backend.admin.frontmenu.child_categories', ['sub_category' => $category])
+
+
+                                                                @endif
                                                             </li>
                                                             @endforeach
                                                         </ul>
@@ -171,6 +178,39 @@
                                                 </div>
 
                                                 <button id="add_category" class="btn btn-primary">Add to Menu</button>
+                                            </div>
+                                          </div>
+
+
+                                          <p style="background: #f3f8fb;">
+                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExample3" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Content Categories
+                                            </a>
+                                          </p>
+                                          <div class="collapse" id="collapseExample3">
+                                            <div class="card card-body">
+                                                <div class="transfer-double-list-content">
+                                                    <div class="transfer-double-list-main">
+                                                        <ul class="transfer-double-group-list-ul transfer-double-group-list-ul-1636878492751">
+                                                            @foreach($contentcategories as $key => $category)
+                                                            <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
+                                                                <div class="checkbox-group">
+                                                                    <input type="checkbox" value="{{$category->slug}}" name="contentcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492753" /><label for="group_{{$key}}_1636878492753" class="group-name-163687849275">{{$category->name}}</label>
+                                                                </div>
+                                                                @if($category->childrenRecursive->count()>0)
+
+
+                                                                @include('backend.admin.frontmenu.child_contentcategories', ['sub_category' => $category])
+
+
+                                                                @endif
+                                                            </li>
+                                                            @endforeach
+                                                        </ul>
+                                                    </div>
+                                                </div>
+
+                                                <button id="add_contentcategory" class="btn btn-primary">Add to Menu</button>
                                             </div>
                                           </div>
 
@@ -217,42 +257,11 @@
                                                             @endif
                                                         </div>
 
-                                                        @if(!$item->childs->isEmpty())
-                                                        <ol class="dd-list">
-                                                            @foreach($item->childs as $childItem)
-                                                            <li class="dd-item" data-id="{{$childItem->id}}">
-
-                                                                <div class="pull-right item_actions">
-                                                                    @if($auth->hasPermission('app.front.menuitems.edit'))
-                                                               <a href="{{route('admin.menuitem.edit',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" class="btn btn-success">
-                                                                <i class="fa fa-edit"></i>
-                                                                </a>
-                                                                @endif
-
-                                                               {{-- @if($auth->hasPermission('app.front.menuitems.destroy')) --}}
-                                                               <a class="btn btn-danger waves effect" href="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" >
-                                                                   <i class="fa fa-trash"></i>
-                                                            </a>
-                                                                   {{-- <form id="deleteform-{{$childItem->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" method="POST" style="display: none;">
-                                                                   @csrf
-                                                                   @method('DELETE')
-                                                                   </form> --}}
-
-                                                                   {{-- @endif --}}
-                                                                </div>
-
-                                                                <div class="dd-handle">
-                                                                    @if($childItem->type == 'divider')
-                                                                    <strong> Divider: {{$childItem->divider_title }}</strong>
-                                                                    @else
-                                                                    <span> {{$childItem->title }}</span>
-                                                                    <small class="url">{{$childItem->url}}</small>
-                                                                    @endif
-                                                                </div>
-                                                            </li>
-                                                            @endforeach
-                                                        </ol>
+                                                        {{-- @if(!$item->childs->isEmpty()) --}}
+                                                        @if($item->childs->count()>0)
+                                                        @include('backend.admin.frontmenu.child', ['itemm' => $item])
                                                         @endif
+                                                        {{-- @endif --}}
 
                                                     </li>
 
@@ -280,7 +289,7 @@
 @section('dragscripts')
 
 <script type="text/javascript">
-    $('.dd').nestable();
+    $('.dd').nestable({maxDepth: 3});
     $('.dd').on('change',function(e)
     {
         $.post("{{route('admin.menuitem.order',$menu->id)}}",{
@@ -323,10 +332,26 @@ for (var i=0, n=categoryboxes.length;i<n;i++)
 {
     if (categoryboxes[i].checked)
     {
-
         $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
                                                                 <i class="fa fa-trash"></i>
                                                             </a></div><div class="dd-handle"><span>`+categoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+categoryboxes[i].value+`"></div></li>`);
+
+    }
+}
+});
+
+
+$('#add_contentcategory').click(function(){
+
+var contentcategoryboxes = document.getElementsByName('contentcategorybox[]');
+for (var i=0, n=contentcategoryboxes.length;i<n;i++)
+{
+    if (contentcategoryboxes[i].checked)
+    {
+
+        $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
+                                                                <i class="fa fa-trash"></i>
+                                                            </a></div><div class="dd-handle"><span>`+contentcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+contentcategoryboxes[i].value+`"></div></li>`);
 
     }
 }

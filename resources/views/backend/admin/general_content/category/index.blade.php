@@ -53,6 +53,7 @@
 							<table id="file-datatable" class="table table-bordered text-nowrap key-buttons border-bottom  w-100">
 								<thead>
 									<tr>
+                                        <th class="border-bottom-0">No</th>
 										<th class="border-bottom-0">Name</th>
 										<th class="border-bottom-0">Category</th>
 										<th class="border-bottom-0">Status</th>
@@ -61,8 +62,9 @@
 									</tr>
 								</thead>
 								<tbody>
-                                @foreach($categories as $category)
+                                @foreach($categories as $key => $category)
 									<tr>
+                                        <td>{{$key + 1}}</td>
 										<td>{{$category->name}}</td>
 										<td>
                                             @if($category->parent_id == 0)

@@ -35,4 +35,9 @@ class Contentcategory extends Model
     {
         return $this->belongsToMany(Sidebar::class);
     }
+
+    public static function findBySlug($slug)
+    {
+        return self::where('slug',$slug)->where('status',true)->firstOrFail();
+    }
 }

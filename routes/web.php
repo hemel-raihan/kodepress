@@ -1,4 +1,7 @@
 <?php
+
+namespace App\Http\Controllers;
+
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -110,4 +113,5 @@ Route::group(['as'=>'author.','prefix'=>'author', 'namespace'=>'Admin', 'middlew
 });
 
 Route::get('{slug}', 'PageController@index')->name('page');
-Route::get('{slug}', 'PageController@category')->name('category.page');
+// Route::get('{categoryslug}', 'PageController@category')->name('category.page');
+//Route::get('{contentcategoryslug}', 'PageController@contentcategory')->name('contentcategory');
