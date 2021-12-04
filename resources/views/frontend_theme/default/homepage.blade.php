@@ -68,13 +68,13 @@
                         <ul>
                             @foreach ($notices as $notice)
                             <li>
-                                <a href="#">
-                                    {{ $notice->title }}
+                                <a href="{{ route('admin.notices.show',$notice->id) }}">
+                                    {{ \Illuminate\Support\Str::limit($notice->title, 70, $end='...') }}
                                 </a>
                             </li>
                             @endforeach
                         </ul>
-                        <a class="btn right" href="/site/view/notices">সকল</a>
+                        <a class="btn right" href="{{ route('notice.all') }}">সকল</a>
                     </div>
                 </div>
             </div>

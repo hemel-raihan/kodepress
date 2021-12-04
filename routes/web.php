@@ -21,8 +21,8 @@ Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logou
 Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //single page test
-// Route::get('/single', function () {
-//     return view('frontend_theme.default.front_layout.test');
+// Route::get('/all', function () {
+//     return view('frontend_theme.default.front_layout.all-notice');
 // });
 // Route::get('/', function () {
 //     return view('frontend_theme.default.test');
@@ -31,6 +31,10 @@ Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index
 Route::get('/', 'HomepageController@index')->name('home');
 Route::get('/single', 'HomepageController@single')->name('single');
 Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
+
+Route::get('notices/all','Admin\Notice\NoticeController@noticeList')->name('notice.all');
+
+Route::get('links/{show}','Admin\Link\LinkController@details')->name('link.details');
 
 
 //for admin authentication
@@ -90,6 +94,11 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     //Notice Board
     Route::resource('notices', 'Notice\NoticeController');
     Route::get('notice/{id}/status','Notice\NoticeController@status')->name('notice.status');
+
+    //Hot news/ links
+    Route::resource('links', 'Link\LinkController');
+    Route::get('link/{id}/status','Link\LinkController@status')->name('link.status');
+
 
     Route::resource('videos', 'Video\VideoController');
     Route::get('video/{id}/status', 'Video\VideoController@status_approval')->name('video.status');
