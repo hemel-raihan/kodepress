@@ -4,7 +4,7 @@
         <div role="navigation" id="dawgdrops">
             <ul class="meganizr mzr-slide mzr-responsive">
                 <!-- Build The Menu -->
-                <li class="col0"><a title="Home" href="/" class="home-icon" style="margin-top: 5px;"></a></li>
+                <li class="col0"><a title="Home" href="{{route('home')}}" class="home-icon" style="margin-top: 5px;"></a></li>
                 @foreach ($menuitems as $menuitem)
                 @if($menuitem->childs->isEmpty())
                 <li class="col1 mzr-drop">

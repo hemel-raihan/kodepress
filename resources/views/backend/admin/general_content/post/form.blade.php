@@ -321,10 +321,10 @@
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Left Sidebar</option>
-                            <option value="0" {{($post->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
+                            <option value="0" {{($contentpost->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
                             @foreach ($editsidebars as $editsidebar)
                             @if($editsidebar->type == 'Left Side Bar')
-                            <option value="{{$editsidebar->id}}" {{($post->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
+                            <option value="{{$editsidebar->id}}" {{($contentpost->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
                             @endif
                             @endforeach
 						</select>
@@ -335,10 +335,10 @@
 						<label class="form-label">Right Sidebar</label>
 						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
 							<option label="Select Country">Select Right Sidebar</option>
-                            <option value="0" {{($category->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
+                            <option value="0" {{($contentpost->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
                             @foreach ($editsidebars as $editsidebar)
                             @if($editsidebar->type == 'Right Side Bar')
-							<option value="{{$editsidebar->id}}" {{($category->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
+							<option value="{{$editsidebar->id}}" {{($contentpost->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
                             @endif
                             @endforeach
 						</select>

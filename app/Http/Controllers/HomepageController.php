@@ -2,13 +2,15 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\Notice\Notice;
+use App\Models\Admin\Page;
 use App\Models\Admin\Video;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
 use App\Models\Admin\Slide\Slide;
+use App\Models\Admin\Notice\Notice;
 use App\Models\Frontmenu\Frontmenu;
 use App\Models\Frontmenu\Frontmenuitem;
+use App\Models\general_content\Contentpost;
 use App\Models\general_content\Contentcategory;
 
 class HomepageController extends Controller
@@ -26,6 +28,12 @@ class HomepageController extends Controller
         $proggaponcategories = Contentcategory::whereIn('name', ['proggapon', 'Niti-Mala'])->get();
 
         return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos','banner_img','proggaponcategories','notices'));
+    }
+
+    public function contentdetails($id)
+    {
+        $post = Contentpost::find($id);
+        return view('frontend_theme.default.contentpost_details',compact('post'));
     }
 
     public function single()
