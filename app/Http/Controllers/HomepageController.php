@@ -10,6 +10,7 @@ use App\Models\Admin\Slide\Slide;
 use App\Models\Admin\Notice\Notice;
 use App\Models\Frontmenu\Frontmenu;
 use App\Models\Frontmenu\Frontmenuitem;
+use App\Models\general_content\Contentpost;
 use App\Models\general_content\Contentcategory;
 
 class HomepageController extends Controller
@@ -30,6 +31,12 @@ class HomepageController extends Controller
 
         return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos',
             'banner_img','proggaponcategories','notices','links'));
+    }
+
+    public function contentdetails($id)
+    {
+        $post = Contentpost::find($id);
+        return view('frontend_theme.default.contentpost_details',compact('post'));
     }
 
     public function single()

@@ -29,6 +29,8 @@ Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index
 // });
 
 Route::get('/', 'HomepageController@index')->name('home');
+Route::get('/content/details/{id}', 'HomepageController@contentdetails')->name('content.details');
+
 Route::get('/single', 'HomepageController@single')->name('single');
 Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
 
