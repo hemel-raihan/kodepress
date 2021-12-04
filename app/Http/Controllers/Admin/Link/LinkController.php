@@ -74,12 +74,12 @@ class LinkController extends Controller
      */
     public function show(Link $link)
     {
-        //return view('frontend_theme.default.front_layout.single-link',compact('link'));
-    }
-    public function details(Link $link)
-    {
         return view('frontend_theme.default.front_layout.single-link',compact('link'));
     }
+    // public function details(Link $link)
+    // {
+    //     return view('frontend_theme.default.front_layout.single-link',compact('link'));
+    // }
 
     /**
      * Show the form for editing the specified resource.
