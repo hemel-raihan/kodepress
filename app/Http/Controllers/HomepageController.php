@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Admin\Page;
 use App\Models\Admin\Video;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
+use App\Models\Admin\Link\Link;
 use App\Models\Admin\Slide\Slide;
 use App\Models\Admin\Notice\Notice;
 use App\Models\Frontmenu\Frontmenu;
@@ -23,11 +23,14 @@ class HomepageController extends Controller
         $othersvideos = Video::where('type','=','Others Video')->get();
         $banner_img  = Slide::where([['type','home-banner'],['status',true]])->orderBy('id','desc')->first();
         $notices = Notice::all();
+        $links = Link::where('status',1)->orderBy('id','desc')->limit(5)->get();
+        //dd($links);
 
         // $proggaponcategories = Contentcategory::where('name','=','proggapon')->first();
         $proggaponcategories = Contentcategory::whereIn('name', ['proggapon', 'Niti-Mala'])->get();
 
-        return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos','banner_img','proggaponcategories','notices'));
+        return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos',
+            'banner_img','proggaponcategories','notices','links'));
     }
 
     public function contentdetails($id)

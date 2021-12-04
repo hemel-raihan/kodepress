@@ -36,7 +36,7 @@ Route::get('/single-page', 'HomepageController@singlepage')->name('single.page')
 
 Route::get('notices/all','Admin\Notice\NoticeController@noticeList')->name('notice.all');
 
-Route::get('links/{show}','Admin\Link\LinkController@details')->name('link.details');
+//Route::get('links/{details}','Admin\Link\LinkController@details')->name('link.details');
 
 
 //for admin authentication

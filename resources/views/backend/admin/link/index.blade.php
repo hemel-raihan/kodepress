@@ -57,7 +57,7 @@
 									@foreach ($links as $key=>$link)
 									<tr>
 										<td>{{ $key+1 }}</td>
-										<td>{{ $link->title }}</td>
+										<td>{{ $link->name }}</td>
 										<td>
 											@if($link->status == 1)
                                             <a href="{{route('admin.link.status',$link->id)}}" class="btn btn-info">Active</a>

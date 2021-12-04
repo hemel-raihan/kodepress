@@ -124,41 +124,21 @@
                 <p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</p>
 
                 <p>
+                    @foreach ($links as $link)
                     &nbsp;
                     <span style="font-size: 20px;">
-                        <a href="https://dshe.portal.gov.bd/sites/default/files/files/dshe.portal.gov.bd/office_citizen_charter/ae417ade_656a_4a86_87e2_3bec17da8b97/DSHE%20Citizen's%20Charter-27.09.2021.pdf">
+                        <a href="{{ route('admin.links.show',$link->id) }}">
                             <span style="color: rgb(128, 0, 128);"><span style="background-color: #afeeee;">&nbsp; &nbsp;</span></span>
-                            <span style="background-color: rgb(175, 238, 238);"><span style="color: #800080;">সিটিজেন চার্টার&nbsp;</span></span>
+                            <span style="background-color: {{ $link->bgcolor }};"><span style="color: {{ $link->color }};">{{ $link->name }}&nbsp;</span></span>
                         </a>
-                        <span style="color: #800080;"><span style="background-color: #ffffe0;">&nbsp;&nbsp;&nbsp; &nbsp;</span></span>
-                        <a href="http://emis.gov.bd">
-                            <span style="color: #b22222;"> <span style="background-color: #e6e6fa;">বদলির আবেদন</span></span>
-                        </a>
-                        &nbsp;<span style="color: #800080;"><span style="background-color: #ffffe0;">&nbsp; &nbsp; &nbsp;&nbsp;</span></span>
-                        <span style="color: #b22222;"><span style="background-color: #afeeee;">&nbsp; </span></span>
-                        <a href="https://dshe.portal.gov.bd/site/page/8c09e774-ac65-47df-862e-27a78b0c112d">
-                            <span style="color: #b22222;"><span style="background-color: #afeeee;">এমপিও শীট/ ভাউচার</span></span>
-                        </a>
-                        <span style="color: #b22222;">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
-                        <strong>
-                            <a href="https://dshe.portal.gov.bd/site/page/99553b76-0268-467c-824f-28d1c16c55e1">
-                                <span style="color: #b22222;"><span style="background-color: #ffd700;"> নিয়োগ সংক্রান্ত</span></span>
-                            </a>
-                        </strong>
+                     
                     </span>
+                    @endforeach
+ 
                 </p>
 
                 <p>&nbsp; &nbsp; &nbsp;&nbsp;</p>
 
-                <p>
-                    &nbsp;
-                    <a href="https://dshe.portal.gov.bd/site/page/5ac79d4b-c552-47e6-ae01-824b12021eb9">
-                        <span style="font-size: 20px;"><span style="background-color: #faebd7;">EMIS সফটওয়্যার সংক্রান্ত</span></span>
-                    </a>
-                </p>
-
-                <p>&nbsp;</p>
-                <p></p>
             </div>
             <style>
                 #right-content .block {
