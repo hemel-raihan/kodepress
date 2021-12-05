@@ -127,7 +127,8 @@
         <h3>{{ $post->title }}</h3>
 
         <a href="{{ asset('uploads/contentfiles/'.$post->files) }}">
-            <img src="{{ asset('frontend/images/pdf.png') }}" alt="001-converted (1)_compressed (1).pdf" class="file-icon" />{{ $post->files }}
+            <img src="{{ asset('frontend/images/pdf.png') }}" alt="001-converted (1)_compressed (1).pdf" class="file-icon" />
+            {{-- {{ $post->files }} --}}
         </a>
         <div><a class="viewer" href="{{ asset('uploads/contentfiles/'.$post->files) }}"></a></div>
         <style></style>

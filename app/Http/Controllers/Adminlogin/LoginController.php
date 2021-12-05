@@ -37,7 +37,7 @@ class LoginController extends Controller
 
     public function showLoginForm()
     {
-        return view('adminlogin.login');
+        return view('adminlogin.dash');
     }
 
 

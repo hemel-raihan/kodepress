@@ -41,7 +41,7 @@ Route::get('notices/all','Admin\Notice\NoticeController@noticeList')->name('noti
 
 //for admin authentication
 Route::get('adminlogin', 'Adminlogin\LoginController@showloginform')->name('admin.login');
-Route::post('adminlogin', 'AdminLogin\LoginController@login');
+Route::post('adminlogin', 'AdminLogin\LoginController@login')->name('admin.loginform');
 Route::post('admin-password/email', 'Adminlogin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 Route::get('admin-password/reset', 'Adminlogin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::post('admin-password/reset', 'Adminlogin\ResetPasswordController@reset')->name('admin.password.reset');

@@ -11,7 +11,11 @@
                     <a href="{{route('page',$menuitem->slug)}}" class="submenu">{{$menuitem->title}}</a>
                 </li>
 
-                {{-- @elseif($menuitem->childs->count()==4)
+
+
+
+                {{-- @foreach ($menuitem->childs as $men)
+                @if($men->childs->isEmpty())
                 <li class="col1 mzr-drop">
                     <a href="{{$menuitem->slug}}" class="submenu">{{$menuitem->title}}</a>
                         <div class="one-col">
@@ -21,24 +25,38 @@
                                 @endforeach
                             </ul>
                          </div>
-                </li> --}}
+                </li>
+                @endif
+                @endforeach --}}
+
 
                 @else
 
+                {{-- {{foreach($menuitem->childs as $item){($item->childs->isEmpty()) ? 'one' : 'four')} }} --}}
 
                 <li class="col1 mzr-drop">
-                    <a href="{{route('page',$menuitem->slug)}}" class="submenu">{{$menuitem->title}}</a>
+                    <a href="#" class="submenu">{{$menuitem->title}}</a>
                     <div class="mzr-content drop-{{($menuitem->childs->count()==2) ? 'two' : (($menuitem->childs->count()==3) ? 'three' : 'four') }}-columns">
                         @foreach ($menuitem->childs as $item)
+                        {{-- @if($item->childs->isEmpty())
+                        <div class="one-col">
+                            <ul class="mzr-links">
+                                <li><a href="{{route('page',$item->slug)}}">{{$item->title}}</a></li>
+                            </ul>
+                         </div>
+                        @else --}}
                         <div class="one-col">
                             <a href="{{route('page',$item->slug)}}"> <h6>{{$item->title}}</h6></a>
                             @if($item->childs->count()>0)
                             @include('frontend_theme.default.front_layout.vertical.child', ['sub_category' => $item])
                             @endif
                         </div>
+                        {{-- @endif --}}
                         @endforeach
                     </div>
                 </li>
+
+
 
                 @endif
                 @endforeach
