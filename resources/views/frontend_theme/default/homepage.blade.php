@@ -28,8 +28,8 @@
 
                     <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
                         @foreach ($posts as $post)
-                        <a href="{{route('posts.details',$post->id)}}"  style="color: blue;" >{{$post->title}} </a>=>
-                        
+                        <a href="{{route('posts.details',$post->id)}}"  style="color: blue;" >{{$post->title}} </a>||
+
                         @endforeach
                     </marquee>
 
@@ -76,7 +76,7 @@
                         <ul>
                             @foreach ($notices as $notice)
                             <li>
-                                <a href="{{ route('admin.notices.show',$notice->id) }}">
+                                <a href="{{ route('notice.details',$notice->id) }}">
                                     {{ \Illuminate\Support\Str::limit($notice->title, 70, $end='...') }}
                                 </a>
                             </li>
@@ -135,7 +135,7 @@
                     @foreach ($links as $link)
                     &nbsp;
                     <span style="font-size: 20px;">
-                        <a href="{{ route('admin.links.show',$link->id) }}">
+                        <a href="{{ route('hotlinks.details',$link->id) }}">
                             <span style="color: rgb(128, 0, 128);"><span style="background-color: #afeeee;">&nbsp; &nbsp;</span></span>
                             <span style="background-color: {{ $link->bgcolor }};"><span style="color: {{ $link->color }};">{{ $link->name }}&nbsp;</span></span>
                         </a>

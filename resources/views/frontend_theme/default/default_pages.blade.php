@@ -120,7 +120,7 @@
 </script>
 <div class="twelve columns" id="left-content">
     <div id="print_btn_div"><img src="{{ asset('frontend/images/print_btn.png') }}" style="cursor: pointer;" onclick="print_content();" width="24" title="প্রিন্ট" /></div>
-    <div class="updateText" style="float: right; font-style: italic; font-size: 0.8em; color: #666;">সর্ব-শেষ হাল-নাগাদ: &#x09E9;&#x09E6; নভেম্বর &#x09E8;&#x09E6;&#x09E8;&#x09E7;</div>
+    <div class="updateText" style="float: right; font-style: italic; font-size: 0.8em; color: #666;">সর্ব-শেষ হাল-নাগাদ: {{ $page->created_at->format('Y-m-d') }}</div>
     <hr id="print_div_hr" />
     <div id="printable_area">
         <h3>{{$page->title}}</h3>

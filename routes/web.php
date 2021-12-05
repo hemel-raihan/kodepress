@@ -37,6 +37,10 @@ Route::get('/post/details/{id}', 'HomepageController@postdetails')->name('posts.
 Route::get('/general/posts/{id}', 'HomepageController@generalposts')->name('general.posts');
 Route::get('/general/details/{id}', 'HomepageController@generaldetails')->name('general.details');
 
+Route::get('/notice/details/{id}', 'HomepageController@noticedetails')->name('notice.details');
+
+Route::get('/hotlinks/details/{id}', 'HomepageController@hhotlinksdetails')->name('hotlinks.details');
+
 Route::get('/single', 'HomepageController@single')->name('single');
 Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
 

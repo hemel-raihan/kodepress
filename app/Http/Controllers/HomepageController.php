@@ -67,13 +67,25 @@ class HomepageController extends Controller
         return view('frontend_theme.default.blogpost_details',compact('post'));
     }
 
-    public function single()
+    public function noticedetails($id)
     {
-        return view('frontend_theme.default.front_layout.test');
+        $notice = Notice::find($id);
+        return view('frontend_theme.default.front_layout.single-notice',compact('notice'));
     }
 
-    public function singlepage()
+    public function hhotlinksdetails($id)
     {
-        return view('single');
+        $link = Link::find($id);
+        return view('frontend_theme.default.front_layout.single-link',compact('link'));
     }
+
+    // public function single()
+    // {
+    //     return view('frontend_theme.default.front_layout.test');
+    // }
+
+    // public function singlepage()
+    // {
+    //     return view('single');
+    // }
 }

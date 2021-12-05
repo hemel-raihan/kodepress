@@ -408,7 +408,7 @@
 
         <!-- ============ start accessibility megamenu ============ -->
 
-        <script>
+        {{-- <script>
             $(document).ready(function ($) {
                 $("#dawgdrops").accessibleMegaMenu({
                     /* prefix for generated unique id attributes, which are required
@@ -437,7 +437,7 @@
                     openClass: "open hover-content",
                 });
             });
-        </script>
+        </script> --}}
 
         <script>
             $(document).ready(function () {

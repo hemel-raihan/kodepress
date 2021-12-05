@@ -91,10 +91,7 @@ class NoticeController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Notice $notice)
-    {
-        return view('frontend_theme.default.front_layout.single-notice',compact('notice'));
-    }
+    
 
     /**
      * Show the form for editing the specified resource.
@@ -124,16 +121,16 @@ class NoticeController extends Controller
                     $currentDate = Carbon::now()->toDateString();
                     $filename = $currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
                     $destinationPath = public_path('uploads/files');
-        
-        
+
+
                     $file_path = public_path('uploads/files/'.$notice->files);  // Value is not URL but directory file path
                     if (file_exists($file_path)) {
-        
+
                         @unlink($file_path);
-        
+
                     }
                     $file->move($destinationPath,$filename);
-        
+
                 }
                 else
                 {
