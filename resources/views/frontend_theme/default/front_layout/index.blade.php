@@ -49,7 +49,7 @@
             //jq160 = jQuery.noConflict( true );
         </script>
 
-        <link rel="stylesheet" href="{{ asset('frontend/js/responsiveslides.css')}}" />
+        <link rel="stylesheet" href="{{ asset('frontend/css/responsiveslides.css')}}" />
 
         <link rel="stylesheet" href="{{ asset('frontend/css/ministry/responsive.css')}}" />
         <link rel="stylesheet" href="{{ asset('frontend/css/ministry/accessibility.css')}}" />
@@ -324,7 +324,7 @@
                 g.async = true;
                 g.defer = true;
                 g.src = u + "piwik.js";
-                s.parentNode.insertBefore(g, s);
+                // s.parentNode.insertBefore(g, s);
             })();
         </script>
         <!-- End Matomo Code -->
