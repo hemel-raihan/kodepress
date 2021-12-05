@@ -17,14 +17,22 @@
             </div>
             <div class="scroll">
                 <h3>
-                    <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
+                    {{-- <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
                         নো মাস্ক নো সার্ভিস। করোনাভাইরাসের বিস্তার রোধে এখনই ডাউনলোড করুন Corona Tracer BD অ্যাপ। ডাউনলোড করতে ক্লিক করুন
                         <a href="https://bit.ly/coronatracerbd" target="_blank" style="color: blue;">https://bit.ly/coronatracerbd</a>। নিজে সুরক্ষিত থাকুন অন্যকেও নিরাপদ রাখুন। দেশের প্রথম ক্রাউডফান্ডিং প্ল্যাটফর্ম 'একদেশ'- এর
                         মাধ্যমে আর্থিক অনুদান পৌঁছে দিন নির্বাচিত সরকারি-বেসরকারি প্রতিষ্ঠানসমূহে। ভিজিট করুন <a href="//ekdesh.ekpay.gov.bd" target="_blank" style="color: blue;">ekdesh.ekpay.gov.bd</a> অথবা
                         <a href="//play.google.com/store/apps/details?id=com.synesis.donationapp" target="_blank" style="color: blue;">“Ek Desh”</a> অ্যাপ ডাউনলোড করুন। করোনার লক্ষণ দেখা দিলে গোপন না করে ডাক্তারের পরামর্শের জন্য
                         ফ্রি কল করুন ৩৩৩ ও ১৬২৬৩ নম্বরে। করোনাভাইরাস প্রতিরোধে নিয়ম মেনে মাস্ক ব্যবহার করুন। আতঙ্কিত না হয়ে বরং সচেতন থাকুন। ভিজিট করুন
                         <a href="//corona.gov.bd" target="_blank" style="color: blue;">corona.gov.bd</a>
+                    </marquee> --}}
+
+                    <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
+                        @foreach ($posts as $post)
+                        <a href="{{route('posts.details',$post->id)}}"  style="color: blue;" >{{$post->title}} </a>=>
+                        
+                        @endforeach
                     </marquee>
+
                 </h3>
             </div>
             <style>
@@ -131,10 +139,10 @@
                             <span style="color: rgb(128, 0, 128);"><span style="background-color: #afeeee;">&nbsp; &nbsp;</span></span>
                             <span style="background-color: {{ $link->bgcolor }};"><span style="color: {{ $link->color }};">{{ $link->name }}&nbsp;</span></span>
                         </a>
-                     
+
                     </span>
                     @endforeach
- 
+
                 </p>
 
                 <p>&nbsp; &nbsp; &nbsp;&nbsp;</p>
@@ -179,7 +187,7 @@
                             <td colspan="3" style="width: 134px;">
                                 <p>
                                     <span style="font-size: 14px;">
-                                        ►&nbsp;<a href="http://www.dshe.gov.bd/site/view/office_order/%E0%A6%85%E0%A6%AB%E0%A6%BF%E0%A6%B8-%E0%A6%86%E0%A6%A6%E0%A7%87%E0%A6%B6">{{$cat->name}}</a>
+                                        ►&nbsp;<a href="{{route('general.posts',$cat->id)}}">{{$cat->name}}</a>
                                     </span>
                                 </p>
                             </td>
@@ -376,7 +384,7 @@
                         <ul class="caption fade-caption" style="margin: 0;">
                             @if($category->childrenRecursive->count()>0)
                             @foreach($category->childrenRecursive as $cat)
-                            <li><a href="/site/view/office_order/অফিস-আদেশ">{{$cat->name}}</a></li>
+                            <li><a href="{{route('blog.posts',$cat->id)}}">{{$cat->name}}</a></li>
                             @endforeach
                             @endif
                         </ul>

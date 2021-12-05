@@ -60,6 +60,7 @@
                                         <th class="border-bottom-0">Published Date</th>
                                         <th class="border-bottom-0">Is Approved</th>
 										<th class="border-bottom-0">Status</th>
+                                        <th class="border-bottom-0">Scrollable</th>
                                         <th class="border-bottom-0">View</th>
 										<th class="border-bottom-0">Action</th>
 
@@ -89,6 +90,13 @@
                                             <a href="{{route('admin.blog.post.status',$post->id)}}" class="btn btn-green">Active</a>
                                             @else
                                             <a href="{{route('admin.blog.post.status',$post->id)}}" class="btn btn-red">InActive</a>
+                                            @endif
+                                        </td>
+                                        <td>
+                                            @if($post->scrollable == true)
+                                            <a href="{{route('admin.blog.post.scroll',$post->id)}}" class="btn btn-green">Active</a>
+                                            @else
+                                            <a href="{{route('admin.blog.post.scroll',$post->id)}}" class="btn btn-red">InActive</a>
                                             @endif
                                         </td>
                                         <td>{{$post->view_count}}</td>

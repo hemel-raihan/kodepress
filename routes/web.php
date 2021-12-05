@@ -31,6 +31,12 @@ Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index
 Route::get('/', 'HomepageController@index')->name('home');
 Route::get('/content/details/{id}', 'HomepageController@contentdetails')->name('content.details');
 
+Route::get('/blog/posts/{id}', 'HomepageController@blogposts')->name('blog.posts');
+Route::get('/post/details/{id}', 'HomepageController@postdetails')->name('posts.details');
+
+Route::get('/general/posts/{id}', 'HomepageController@generalposts')->name('general.posts');
+Route::get('/general/details/{id}', 'HomepageController@generaldetails')->name('general.details');
+
 Route::get('/single', 'HomepageController@single')->name('single');
 Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
 
@@ -58,6 +64,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('blog/category/{id}/approve', 'blog\CategoryController@approval')->name('blog.category.approve');
     Route::resource('blog/posts','blog\PostController');
     Route::get('blog/post/{id}/status', 'blog\PostController@status_approval')->name('blog.post.status');
+    Route::get('blog/post/{id}/scroll', 'blog\PostController@scroll_approval')->name('blog.post.scroll');
     Route::resource('general/contentcategories','general_content\ContentCategoryController');
     Route::get('general/contentcategory/{id}/approve', 'general_content\ContentCategoryController@approval')->name('general.contentcategory.approve');
     Route::resource('general/contentposts','general_content\ContentPostController');

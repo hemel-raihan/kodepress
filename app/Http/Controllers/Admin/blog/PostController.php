@@ -218,6 +218,28 @@ class PostController extends Controller
         return redirect()->back();
     }
 
+    public function scroll_approval($id)
+    {
+        Gate::authorize('app.blog.posts.status');
+        $post = Post::find($id);
+        if($post->scrollable == true)
+        {
+            $post->scrollable = false;
+            $post->save();
+
+            notify()->success('Successfully Deactiveated');
+        }
+        elseif($post->scrollable == false)
+        {
+            $post->scrollable = true;
+            $post->save();
+
+            notify()->success('Successfully Activeated');
+        }
+
+        return redirect()->back();
+    }
+
     /**
      * Display the specified resource.
      *

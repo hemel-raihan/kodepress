@@ -24,6 +24,7 @@ class CreatePostsTable extends Migration
             $table->text('body')->nullable();
             $table->integer('view_count')->default(0);
             $table->boolean('status')->default(false);
+            $table->boolean('scrollable')->default(false);
             $table->boolean('is_approved')->default(false);
             $table->integer('rightsidebar_id')->nullable();
             $table->integer('leftsidebar_id')->nullable();
