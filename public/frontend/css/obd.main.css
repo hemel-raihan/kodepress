@@ -1,8 +1,8 @@
 /* header("Access-Control-Allow-Origin: *"); */
 @font-face {
     font-family: 'kalpurushregular';
-    src: url('../fonts/kalpurush.eot');
-    src: url('../fonts/kalpurush.woff') format('woff'), url('../fonts/kalpurush.ttf') format('truetype'), url('../fonts/kalpurush.svg') format('svg');
+    /* src: url('../fonts/kalpurush.eot');
+    src: url('../fonts/kalpurush.woff') format('woff'), url('../fonts/kalpurush.ttf') format('truetype'), url('../fonts/kalpurush.svg') format('svg'); */
     font-weight: normal;
     font-style: normal;
 }

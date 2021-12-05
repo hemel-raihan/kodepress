@@ -204,7 +204,7 @@
     }
 
     .show-menu {
-        background-image: url("/themes/responsive_npf/images/menu-icon.png") !important;
+        background-image: url("../../../frontend/images/menu-icon.png") !important;
         background-repeat: no-repeat !important;
         margin-top: 10px;
         padding-left: 54px;

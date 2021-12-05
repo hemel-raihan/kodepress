@@ -3,11 +3,11 @@ var cssLink = top.document.createElement("link");
 cssLink.setAttribute("rel", "Stylesheet");
 cssLink.setAttribute("type", "text/css");
 cssLink.setAttribute("href", yoxviewPath + "yoxview.css");
-top.document.getElementsByTagName("head")[0].appendChild(cssLink);
+//top.document.getElementsByTagName("head")[0].appendChild(cssLink);
 
-function LoadScript(url) {
-    document.write("<scr" + 'ipt type="text/javascript" src="' + url + '"></scr' + "ipt>");
-}
+// function LoadScript(url) {
+//     document.write("<scr" + 'ipt type="text/javascript" src="' + url + '"></scr' + "ipt>");
+// }
 
 var jQueryIsLoaded = typeof jQuery != "undefined";
 
