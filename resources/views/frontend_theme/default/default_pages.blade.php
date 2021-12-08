@@ -1,5 +1,28 @@
 @extends('frontend_theme.default.front_layout.index')
 
+@section('clg', '| '.$slug)
+
+@section('styles')
+<style>
+    * {
+      box-sizing: border-box;
+    }
+
+    .column {
+      float: left;
+      width: 33.33%;
+      padding: 5px;
+    }
+
+    / Clearfix (clear floats) /
+    .row::after {
+      content: "";
+      clear: both;
+      display: table;
+    }
+    </style>
+@endsection
+
 @section('frontscripts')
 <script type="text/javascript" src="{{ asset('frontend/js/jquery.media.js') }}"></script>
 
@@ -130,10 +153,24 @@
 
 
 
-
-
         <div>{!!$page->body!!}</div>
         <img alt="kodepress_building" src="{{ asset('uploads/pagephoto/'.$page->image) }}" style="height:200px; width:370px">
+
+
+        @php
+            $pagegallaryimg = explode("|", $page->gallaryimage);
+        @endphp
+
+
+       <div class="row">
+        @foreach ($pagegallaryimg as $key => $gallaryimages)
+        <div class="column">
+          <img src="{{asset('uploads/pagegallary_image/'.$gallaryimages)}}" alt="Snow" style="width:100%">
+        </div>
+        @endforeach
+      </div>
+
+
         <style></style>
         <script></script>
     </div>

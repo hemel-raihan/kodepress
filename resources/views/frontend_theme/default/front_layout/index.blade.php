@@ -23,12 +23,14 @@
   <script type="text/javascript" src="https://cdn.userway.org/widget.js"></script> -->
         <!-- userway accessibility end -->
 
-        <title>মাধ্যমিক ও উচ্চশিক্ষা অধিদপ্তর</title>
+        <title>{{ config('app.name')}} @yield('clg')</title>
         <!-- Mobile Specific Metas
     ================================================== -->
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta http-equiv="X-Frame-Options" content="deny" />
         <meta name="description" content="" />
+
+        <link rel="icon" type="image/png" href="{{ asset('frontend/images/browser_logo.png') }}">
 
         <!-- =============== tt canonical End =============================== -->
 
@@ -38,6 +40,7 @@
         <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/meganizr.css') }}" />
         <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/flaticon.css') }}" />
         <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/ministry/style.css') }}" />
+
         @yield('styles')
         <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>-->
         <script type="text/javascript" src="{{ asset('frontend/js/jquery-1.11.1.min.js') }}"></script>
@@ -59,6 +62,7 @@
         <script src="{{ asset('frontend/js/domain_selector.js') }}" type="text/javascript"></script>
         <script src="{{ asset('frontend/js/utils.js') }}" type="text/javascript"></script>
         <script type="text/javascript" src="{{ asset('frontend/js/yoxview-init.js') }}"></script>
+
 
 
 
@@ -523,3 +527,4 @@
         event_category: "Frontend",
     });
 </script>
+

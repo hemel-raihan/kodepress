@@ -1,5 +1,8 @@
 @extends('frontend_theme.default.front_layout.index')
 
+
+@section('clg', '| '.$post->title)
+
 @section('frontscripts')
 <script type="text/javascript" src="{{ asset('frontend/js/jquery.media.js') }}"></script>
 

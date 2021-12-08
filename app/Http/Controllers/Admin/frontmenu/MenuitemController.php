@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin\frontmenu;
 
 use App\Models\Admin\Page;
 use Illuminate\Http\Request;
-use App\Models\blog\Category;
+use App\Models\blog\category;
 use App\Models\Frontmenu\Frontmenu;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -20,7 +20,7 @@ class MenuitemController extends Controller
             $menu = Frontmenu::findOrFail($id);
             $auth = Auth::guard('admin')->user();
             $pages = Page::all();
-            $categories = Category::where('parent_id', '=', 0)->get();
+            $categories = category::where('parent_id', '=', 0)->get();
             $contentcategories = Contentcategory::where('parent_id', '=', 0)->get();
             return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories','contentcategories'));
         }

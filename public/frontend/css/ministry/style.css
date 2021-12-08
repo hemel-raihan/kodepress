@@ -363,7 +363,8 @@ p {
     height: auto;
     list-style-type: none;
     margin-bottom: 5px;
-    padding-left: 32px;
+    margin-left: 12px;
+    /* padding-left: 32px; */
     padding-top: 10px;
     padding-bottom: 8px;
     background-position: left;

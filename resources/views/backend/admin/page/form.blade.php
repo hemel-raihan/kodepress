@@ -198,7 +198,7 @@
 					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
-                    @isset($post)
+                    @isset($page)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">

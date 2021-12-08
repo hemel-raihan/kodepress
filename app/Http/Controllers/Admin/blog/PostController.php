@@ -38,8 +38,8 @@ class PostController extends Controller
     public function create()
     {
         Gate::authorize('app.blog.posts.create');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
+        $categories = category::where('parent_id', '=', 0)->get();
+        $subcat = category::all();
         $sidebars = Sidebar::all();
         return view('backend.admin.blog.post.form',compact('categories','subcat','sidebars'));
     }
@@ -261,8 +261,8 @@ class PostController extends Controller
     public function edit(Post $post)
     {
         Gate::authorize('app.blog.posts.edit');
-        $categories = Category::where('parent_id', '=', 0)->get();
-        $subcat = Category::all();
+        $categories = category::where('parent_id', '=', 0)->get();
+        $subcat = category::all();
         $editsidebars = Sidebar::all();
         return view('backend.admin.blog.post.form',compact('post','categories','subcat','editsidebars'));
     }

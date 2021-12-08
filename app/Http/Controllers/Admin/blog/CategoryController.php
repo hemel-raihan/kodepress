@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function index()
     {
         Gate::authorize('app.blog.categories.self');
-        $categories = Category::all();
+        $categories = category::all();
         $auth = Auth::guard('admin')->user();
         return view('backend.admin.blog.category.index',compact('categories','auth'));
     }

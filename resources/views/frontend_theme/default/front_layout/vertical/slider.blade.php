@@ -38,7 +38,7 @@
         <div>
             <div id="logo">
                 <a title="Home" href="/">
-                    <img alt="Home" src="{{asset('frontend/images/bdlogo.png')}}" />
+                    <img alt="Home" src="{{asset('frontend/images/browser_logo.png')}}" />
                 </a>
             </div>
 
@@ -50,7 +50,7 @@
                 </span>
                 <span id="slogan"> </span>
             </div> --}}
-            
+
             <!-- /site-name-wrapper -->
         </div>
         <!-- /header-site-info-inner -->

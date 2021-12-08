@@ -19,7 +19,7 @@ class PageController extends Controller
             if($page->slug == $slug)
             {
                 $page = Page::findBySlug($slug);
-                return view('frontend_theme.default.default_pages',compact('page'));
+                return view('frontend_theme.default.default_pages',compact('page','slug'));
             }
 
         }
@@ -41,9 +41,10 @@ class PageController extends Controller
         {
             if($cat->slug == $slug)
             {
+                $title = Contentcategory::findBySlug($slug);
                 $contentcategory = Contentcategory::findBySlug($slug);
                 $contentcategoryposts = $contentcategory->contentposts()->get();
-                return view('frontend_theme.default.all_contentpost',compact('contentcategoryposts'));
+                return view('frontend_theme.default.all_contentpost',compact('contentcategoryposts','title'));
             }
 
         }

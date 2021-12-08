@@ -11,7 +11,7 @@
 		<meta name="keywords" content="admin, admin dashboard template, bootstrap 5, dashboard, laravel, laravel admin, laravel admin panel, laravel admin template, laravel blade, laravel dashboard, laravel dashboard template, laravel mvc, laravel php, laravel ui template, ui kit">
 
         <!-- TITLE -->
-        <title>Zanex – Laravel Admin & Dashboard Template </title>
+        <title>Admin Dashboard</title>
 
         @include('layouts.vertical.styles')
         @FilemanagerScript

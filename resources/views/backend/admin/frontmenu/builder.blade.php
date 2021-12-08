@@ -288,7 +288,7 @@
 
 @section('dragscripts')
 
-<script type="text/javascript">
+{{-- <script type="text/javascript">
     $('.dd').nestable({maxDepth: 3});
     $('.dd').on('change',function(e)
     {
@@ -303,7 +303,26 @@
         })
     })
 
+</script> --}}
+
+<script type="text/javascript">
+    $('.dd').nestable({maxDepth: 3});
+    $('.dd').on('change',function(e)
+    {
+        $.post("{{route('admin.menuitem.order',$menu->id)}}",{
+            order:JSON.stringify($('.dd').nestable('serialize')),
+            _token: '{{csrf_token()}}'
+        },function(data){
+            iziToast.success({
+                title: 'Success',
+                message: 'Successfully updatd Widget order',
+            });
+        })
+    })
+
 </script>
+
+
 @endsection
 
 @section('scripts')

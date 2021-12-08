@@ -1,5 +1,9 @@
 @extends('frontend_theme.default.front_layout.index')
 
+
+@section('clg', '| '.$category->name)
+
+
 @section('styles')
 <link rel="stylesheet" href="{{ asset('frontend/css/jquery.dataTables.min.css')}}" />
 @endsection
@@ -87,7 +91,7 @@
                         <th width="10%">ক্রমিক</th>
                         <th width="60%">শিরোনাম</th>
                         <th width="20%">প্রকাশের তারিখ</th>
-                        <th width="10%">ডকুমেন্ট</th>
+                        <th width="10%">ডাউনলোড</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -100,10 +104,9 @@
                         <td>{{ $blogcategorypost->created_at->format('Y-m-d') }}</td>
 
                         <td>
-                            ডাউনলোড:
                             <div>
                                 <a href="{{ asset('uploads/contentfiles/'.$blogcategorypost->files) }}" title="Maternity Leave 696.pdf">
-                                    <img src="{{ asset('frontend/images/pdf2.png') }}" alt="Maternity Leave 696.pdf" class="file-icon" />
+                                    <img src="{{ asset('frontend/images/pdf2.png') }}" style="height: 20px; width: auto;" alt="Maternity Leave 696.pdf" class="file-icon" />
                                 </a>
                             </div>
                         </td>

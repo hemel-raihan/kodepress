@@ -45,7 +45,7 @@ class HomepageController extends Controller
     {
         $category = category::find($id);
         $blogcategoryposts = $category->posts()->get();
-        return view('frontend_theme.default.all_blogpost',compact('blogcategoryposts'));
+        return view('frontend_theme.default.all_blogpost',compact('blogcategoryposts','category'));
     }
 
     public function postdetails($id)
@@ -56,9 +56,10 @@ class HomepageController extends Controller
 
     public function generalposts($id)
     {
+        $title = Contentcategory::find($id);
         $category = Contentcategory::find($id);
         $contentcategoryposts = $category->contentposts()->get();
-        return view('frontend_theme.default.all_contentpost',compact('contentcategoryposts'));
+        return view('frontend_theme.default.all_contentpost',compact('contentcategoryposts','title'));
     }
 
     public function generaldetails($id)
