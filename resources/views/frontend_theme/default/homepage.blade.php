@@ -10,11 +10,14 @@
 
     <div class="twelve columns" id="left-content">
         <div class="row mainwrapper">
+            @isset($banner_img)
             <div class="pm">
                 <a href="{{$banner_img->url}}" target="_blank">
                     <img src="{{ asset('uploads/slide_image/'.$banner_img->slideimage) }}" />
                 </a>
             </div>
+            @endisset
+            
             <div class="scroll">
                 <h3>
                     {{-- <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">

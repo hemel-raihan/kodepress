@@ -39,11 +39,15 @@
             @php
                 $logo  = \App\Models\Admin\Slide\Slide::where([['type','logo'],['status',true]])->orderBy('id','desc')->first();
             @endphp
+            @isset($logo)
             <div id="logo">
                 <a title="Home" href="/">
                     <img alt="Home" src="{{asset('uploads/slide_image/'.$logo->slideimage)}}" />
                 </a>
             </div>
+            
+            @endisset
+            
 
             {{-- <div class="clearfix" id="site-name-wrapper">
                 <span id="site-name">
