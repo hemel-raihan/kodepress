@@ -55,8 +55,8 @@ class ContentPostController extends Controller
         Gate::authorize('app.content.posts.create');
         $this->validate($request,[
             'title' => 'required',
-            //'image' => 'required',
-            //'gallaryimage' => 'required',
+            'image' => 'max:1024',
+            'gallaryimage.*' => 'max:1024',
             'categories' => 'required',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
@@ -82,8 +82,13 @@ class ContentPostController extends Controller
             // Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
 
             $postphotoPath = public_path('uploads/contentpostphoto');
-            $image->move($postphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
+        }
+        else
+        {
+            $imagename = null;
         }
 
 
@@ -97,7 +102,10 @@ class ContentPostController extends Controller
              foreach($gallaryimage as $gimage)
              {
                 $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
-                $gimage->move($destination,$gallaryimagename);
+                $gimg                     =       Image::make($gimage->path());
+                $gimg->resize(900, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destination.'/'.$gallaryimagename);
                 $images[]=$gallaryimagename;
              }
 
@@ -270,6 +278,8 @@ class ContentPostController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'categories' => 'required',
+            'image' => 'max:1024',
+            'gallaryimage.*' => 'max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
         ]);
@@ -308,7 +318,8 @@ class ContentPostController extends Controller
 
             }
 
-            $image->move($postphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
         }
         else
@@ -340,7 +351,10 @@ class ContentPostController extends Controller
             {
 
                $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
-               $gimage->move($destination,$gallaryimagename);
+               $gimg                     =       Image::make($gimage->path());
+                $gimg->resize(900, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destination.'/'.$gallaryimagename);
                $images[]=$gallaryimagename;
             }
 

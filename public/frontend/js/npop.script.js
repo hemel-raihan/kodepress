@@ -91,11 +91,11 @@ var poll_icon_svg =
 /**
  * Create element
  */
-var elm = document.createElement("div");
-elm.style.cssText = "position:relative; z-index: 9999";
-elm.setAttribute("id", "onlinePollBlock");
-// elm.innerHTML = '<div id="widget_polling_icon" title="Polling" onclick="loadOpinionPoll(this)">'+ poll_icon_svg +'</div>';
-elm.innerHTML = '<div id="widget_polling_icon" title="Polling" onclick="loadOpinionPoll(this)"><img id="poll_widget_icon" src="' + __service_provider_host + '/poll-icon.png" /></div>';
-document.body.appendChild(elm);
-document.getElementById("widget_polling_icon").style.cssText = "position:fixed;right:0;top:35%;width:45px;height:45px;padding:0;background-color:#fff;border-radius:6px 0 0 6px;cursor:pointer;box-shadow:0 0 5px #000;z-index:9998";
-document.getElementById("poll_widget_icon").style.cssText = "width: 100%; height: 100%; object-fit: contain";
+// var elm = document.createElement("div");
+// elm.style.cssText = "position:relative; z-index: 9999";
+// elm.setAttribute("id", "onlinePollBlock");
+// // elm.innerHTML = '<div id="widget_polling_icon" title="Polling" onclick="loadOpinionPoll(this)">'+ poll_icon_svg +'</div>';
+// elm.innerHTML = '<div id="widget_polling_icon" title="Polling" onclick="loadOpinionPoll(this)"><img id="poll_widget_icon" src="' + __service_provider_host + '/poll-icon.png" /></div>';
+// document.body.appendChild(elm);
+// document.getElementById("widget_polling_icon").style.cssText = "position:fixed;right:0;top:35%;width:45px;height:45px;padding:0;background-color:#fff;border-radius:6px 0 0 6px;cursor:pointer;box-shadow:0 0 5px #000;z-index:9998";
+// document.getElementById("poll_widget_icon").style.cssText = "width: 100%; height: 100%; object-fit: contain";

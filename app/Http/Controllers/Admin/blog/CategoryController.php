@@ -53,7 +53,7 @@ class CategoryController extends Controller
         Gate::authorize('app.blog.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:categories',
-            'image' => 'required|mimes:png,jpg,jpeg,bmp',
+            'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
 
@@ -78,8 +78,10 @@ class CategoryController extends Controller
             // $category = Image::make($image)->resize(500,333)->save($imagename,90);
             // Storage::disk('public')->put('categoryphoto/'.$imagename,$category);
 
+
             $categoryphotoPath = public_path('uploads/categoryphoto');
-            $image->move($categoryphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
         }
 
@@ -177,7 +179,7 @@ class CategoryController extends Controller
         Gate::authorize('app.blog.categories.edit');
         $this->validate($request,[
             'name' => 'required',
-            'image' => 'mimes:png,jpg,jpeg,bmp',
+            'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
 
@@ -217,7 +219,8 @@ class CategoryController extends Controller
 
             }
 
-            $image->move($categoryphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
         }
         else

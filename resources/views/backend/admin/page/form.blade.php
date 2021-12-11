@@ -118,6 +118,17 @@
 					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
 					<div class="form-group">
 						<label for="exampleInputname">Page Title</label>
 						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$page->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
@@ -171,16 +182,12 @@
 					<div class="form-group">
 						<label class="form-label">Gallary Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($page) ? asset('uploads/pagegallary_image/'.$page->gallaryimage) : '' }}" multiple name="gallaryimage[]">
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+                        <input type="file" data-height="100" class="dropify @error('gallaryimage') is-invalid @enderror form-control" data-default-file="{{ isset($page) ? asset('uploads/pagegallary_image/'.$page->gallaryimage) : '' }}" multiple name="gallaryimage[]">
+                        @error('gallaryimage')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
 
 				</div>
@@ -232,7 +239,7 @@
 
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
 							<option label="Select Country">Select Left Sidebar</option>
                             <option value="0" {{($page->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
                             @foreach ($editsidebars as $editsidebar)
@@ -246,7 +253,7 @@
 
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+						<select name="rightsidebar_id" class="form-control  form-select select2" data-bs-placeholder="Select Sidebar">
 							<option label="Select Country">Select Right Sidebar</option>
                             <option value="0" {{($page->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
                             @foreach ($editsidebars as $editsidebar)
@@ -261,8 +268,8 @@
 
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Left Sidebar</option>
+						<select name="leftsidebar_id" class="form-control @error('leftsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Left Sidebar</option>
                             <option value="0">None</option>
                             @foreach ($sidebars as $sidebar)
                             @if($sidebar->type == 'Left Side Bar')
@@ -270,13 +277,18 @@
                             @endif
                             @endforeach
 						</select>
+                        @error('leftsidebar_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
 					</div>
 
 
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Right Sidebar</option>
+						<select name="rightsidebar_id" class="form-control @error('rightsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Right Sidebar</option>
                             <option value="0">None</option>
                             @foreach ($sidebars as $sidebar)
                             @if($sidebar->type == 'Right Side Bar')
@@ -284,22 +296,23 @@
                             @endif
                             @endforeach
 						</select>
+                        @error('rightsidebar_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
 					</div>
 
                     @endisset
 
                     <div class="form-group">
 						<label class="form-label">Feature Image</label>
-						<input type="file" name="image" class="dropify" data-default-file="{{ isset($page) ? asset('uploads/pagephoto/'.$page->image) : ''}}" data-bs-height="180"  />
-                        @if ($errors->any())
-                        <div class="alert alert-danger">
-                            <ul>
-                                @foreach ($errors->all() as $error)
-                                    <li>{{ $error }}</li>
-                                @endforeach
-                            </ul>
-                        </div>
-                    @endif
+						<input type="file" name="image" class="dropify @error('image') is-invalid @enderror" data-default-file="{{ isset($page) ? asset('uploads/pagephoto/'.$page->image) : ''}}" data-bs-height="180"  />
+                        @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
 					</div>
 
                     {{-- <div class="form-group">

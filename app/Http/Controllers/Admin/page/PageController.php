@@ -53,8 +53,8 @@ class PageController extends Controller
         Gate::authorize('app.pages.create');
         $this->validate($request,[
             'title' => 'required',
-            'image' => 'image|max:4000',
-            'gallaryimage' => 'image|max:4000',
+            'image' => 'max:1024',
+            'gallaryimage.*' => 'max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
         ]);
@@ -151,7 +151,6 @@ class PageController extends Controller
             'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
             'is_approved' => $is_approved,
-
         ]);
 
 
@@ -219,6 +218,8 @@ class PageController extends Controller
         Gate::authorize('app.pages.edit');
         $this->validate($request,[
             'title' => 'required',
+            'image' => 'max:1024',
+            'gallaryimage.*' => 'max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
         ]);

@@ -55,8 +55,8 @@ class PostController extends Controller
         Gate::authorize('app.blog.posts.create');
             $this->validate($request,[
                 'title' => 'required',
-                //'image' => 'required',
-                //'gallaryimage' => 'required',
+                'image' => 'max:1024',
+                'gallaryimage.*' => 'max:1024',
                 'categories' => 'required',
                 'leftsidebar_id' => 'required',
                 'rightsidebar_id' => 'required',
@@ -83,8 +83,13 @@ class PostController extends Controller
             // Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
 
             $postphotoPath = public_path('uploads/postphoto');
-            $image->move($postphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
+        }
+        else
+        {
+            $imagename = null;
         }
 
 
@@ -98,7 +103,10 @@ class PostController extends Controller
              foreach($gallaryimage as $gimage)
              {
                 $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
-                $gimage->move($destination,$gallaryimagename);
+                $gimg                     =       Image::make($gimage->path());
+                $gimg->resize(900, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destination.'/'.$gallaryimagename);
                 $images[]=$gallaryimagename;
              }
 
@@ -280,6 +288,8 @@ class PostController extends Controller
         $this->validate($request,[
             'title' => 'required',
             'categories' => 'required',
+            'image' => 'max:1024',
+            'gallaryimage.*' => 'max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
         ]);
@@ -318,7 +328,8 @@ class PostController extends Controller
 
             }
 
-            $image->move($postphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
         }
         else
@@ -350,7 +361,10 @@ class PostController extends Controller
             {
 
                $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
-               $gimage->move($destination,$gallaryimagename);
+               $gimg                     =       Image::make($gimage->path());
+                $gimg->resize(900, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destination.'/'.$gallaryimagename);
                $images[]=$gallaryimagename;
             }
 

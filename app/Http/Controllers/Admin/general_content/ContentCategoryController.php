@@ -53,9 +53,9 @@ class ContentCategoryController extends Controller
         Gate::authorize('app.content.categories.create');
         $this->validate($request,[
             'name' => 'required|unique:contentcategories',
-            // 'image' => 'required|mimes:png,jpg,jpeg,bmp',
-            // 'leftsidebar_id' => 'required',
-            // 'rightsidebar_id' => 'required',
+            'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
+            'leftsidebar_id' => 'required',
+            'rightsidebar_id' => 'required',
 
         ]);
 
@@ -79,7 +79,8 @@ class ContentCategoryController extends Controller
             // Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$category);
 
             $categoryphotoPath = public_path('uploads/contentcategoryphoto');
-            $image->move($categoryphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
         }
         else
@@ -181,7 +182,7 @@ class ContentCategoryController extends Controller
         Gate::authorize('app.content.categories.edit');
         $this->validate($request,[
             'name' => 'required',
-            'image' => 'mimes:png,jpg,jpeg,bmp',
+            'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
 
@@ -221,7 +222,8 @@ class ContentCategoryController extends Controller
 
             }
 
-            $image->move($categoryphotoPath,$imagename);
+            $img                     =       Image::make($image->path());
+            $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
         }
         else

@@ -95,9 +95,9 @@ var comment_icon_svg =
 /**
  * Create element
  */
-var elm = document.createElement("div");
-elm.style.cssText = "position:relative; z-index: 9999";
-elm.setAttribute("id", "onlineCommentBlock");
-elm.innerHTML = '<div id="widget_comment_icon" title="Comment" onclick="loadCommentSection(this)">' + comment_icon_svg + "</div>";
-document.body.appendChild(elm);
-document.getElementById("widget_comment_icon").style.cssText = "position:fixed;right:0;top:45%;width:45px;height:45px;padding:0;background-color:#fff;border-radius:6px 0 0 6px;cursor:pointer;box-shadow:0 0 5px #000;z-index:9998";
+// var elm = document.createElement("div");
+// elm.style.cssText = "position:relative; z-index: 9999";
+// elm.setAttribute("id", "onlineCommentBlock");
+// elm.innerHTML = '<div id="widget_comment_icon" title="Comment" onclick="loadCommentSection(this)">' + comment_icon_svg + "</div>";
+// document.body.appendChild(elm);
+// document.getElementById("widget_comment_icon").style.cssText = "position:fixed;right:0;top:45%;width:45px;height:45px;padding:0;background-color:#fff;border-radius:6px 0 0 6px;cursor:pointer;box-shadow:0 0 5px #000;z-index:9998";

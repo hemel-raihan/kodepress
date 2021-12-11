@@ -118,6 +118,18 @@
 					<h3 class="card-title">Create Blog Category</h3>
 				</div>
 				<div class="card-body">
+
+                    @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
+
 					<div class="form-group">
 						<label for="exampleInputname">Category Name</label>
 						<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$category->name ?? old('name')}}" name="name" id="exampleInputname" placeholder="Category Name">
@@ -149,7 +161,7 @@
                         @enderror
 					</div>
 
-                    
+
 
 				</div>
 				<div class="card-footer text-end">
@@ -288,7 +300,7 @@
 
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
 							<option label="Select Country">Select Left Sidebar</option>
                             <option value="0" {{($category->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
                             @foreach ($editsidebars as $editsidebar)
@@ -302,7 +314,7 @@
 
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
+						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
 							<option label="Select Country">Select Right Sidebar</option>
                             <option value="0" {{($category->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
                             @foreach ($editsidebars as $editsidebar)
@@ -317,8 +329,8 @@
 
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
-						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Left Sidebar</option>
+						<select name="leftsidebar_id" class="form-control @error('leftsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Left Sidebar</option>
                             <option value="0">None</option>
                             @foreach ($sidebars as $sidebar)
                             @if($sidebar->type == 'Left Side Bar')
@@ -326,13 +338,18 @@
                             @endif
                             @endforeach
 						</select>
+                        @error('leftsidebar_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
 					</div>
 
 
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
-						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Right Sidebar</option>
+						<select name="rightsidebar_id" class="form-control @error('rightsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Right Sidebar</option>
                             <option value="0">None</option>
                             @foreach ($sidebars as $sidebar)
                             @if($sidebar->type == 'Right Side Bar')
@@ -340,6 +357,11 @@
                             @endif
                             @endforeach
 						</select>
+                        @error('rightsidebar_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
 					</div>
 
                     @endisset
