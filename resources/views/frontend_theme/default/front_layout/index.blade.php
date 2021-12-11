@@ -173,8 +173,10 @@
                 {
                     $widgets = $sidebar->widgets()->get();
                 }
-            @endphp
+              @endphp
+              @if (!Request::is('widget/details*'))
               @include('frontend_theme.default.front_layout.vertical.sidebar',['widgets'=>$widgets])
+              @endif
 
            </div>
 

@@ -1,6 +1,8 @@
 @extends('frontend_theme.default.front_layout.index')
 
+
 @section('clg', '| '.$slug)
+
 
 @section('styles')
 <style>
@@ -151,16 +153,26 @@
 
 
 
+        @if (!$page->image == null)
+        <p style="text-align:center;"><img alt="kodepress_building" src="{{ asset('uploads/pagephoto/'.$page->image) }}" style="height:200px; width:370px"></p>
+        @endif
+
+        </br>
 
 
         <div>{!!$page->body!!}</div>
-        <img alt="kodepress_building" src="{{ asset('uploads/pagephoto/'.$page->image) }}" style="height:200px; width:370px">
 
 
+
+
+
+
+
+
+       @if (!$page->gallaryimage == null)
         @php
             $pagegallaryimg = explode("|", $page->gallaryimage);
         @endphp
-
 
        <div class="row">
         @foreach ($pagegallaryimg as $key => $gallaryimages)
@@ -169,7 +181,7 @@
         </div>
         @endforeach
       </div>
-
+      @endif
 
         <style></style>
         <script></script>

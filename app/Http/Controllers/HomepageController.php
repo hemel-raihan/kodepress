@@ -29,7 +29,7 @@ class HomepageController extends Controller
         //dd($links);
 
         // $proggaponcategories = Contentcategory::where('name','=','proggapon')->first();
-        $proggaponcategories = Contentcategory::whereIn('name', ['proggapon', 'Niti-Mala'])->get();
+        $proggaponcategories = Contentcategory::whereIn('name', ['আদেশ/প্রজ্ঞাপন', 'নীতিমালা/পরিপত্র/আইন/বিধি'])->get();
 
         return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos',
             'banner_img','proggaponcategories','notices','links','posts'));

@@ -136,6 +136,12 @@ class WidgetbuilderController extends Controller
         return redirect()->route('admin.widget.builder',$id);
     }
 
+    public function widgetdetails($id)
+    {
+        $widget = Widget::find($id);
+        return view('frontend_theme.default.widget_detailspage',compact('widget'));
+    }
+
     public function destroy($id,$widgetId)
     {
         $sidebar = Sidebar::findOrFail($id);

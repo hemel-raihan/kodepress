@@ -41,6 +41,8 @@ Route::get('/notice/details/{id}', 'HomepageController@noticedetails')->name('no
 
 Route::get('/hotlinks/details/{id}', 'HomepageController@hhotlinksdetails')->name('hotlinks.details');
 
+Route::get('/widget/details/{id}', 'Admin\sidebar\WidgetbuilderController@widgetdetails')->name('widget.details');
+
 Route::get('/single', 'HomepageController@single')->name('single');
 Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
 

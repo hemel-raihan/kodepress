@@ -92,7 +92,7 @@
                 }
             </style>
             <script></script>
-            <div style="background-color: #efefef; border: 1px solid #cccccc; margin-bottom: 20px; padding: 10px;" class="row" id="news">
+            {{-- <div style="background-color: #efefef; border: 1px solid #cccccc; margin-bottom: 20px; padding: 10px;" class="row" id="news">
                 <h5 style="float: left; margin: -3px 5px 0 0; font-weight: bold; font-size: 0.9em;">খবর:</h5>
                 <div id="news-ticker" style="overflow: hidden; position: relative; height: 0px;">
                     <ul style="font-size: 0.9em; position: absolute; margin: 0px; padding: 0px; width: 95%;">
@@ -117,7 +117,7 @@
                         <a class="btn" href="/site/view/news">সকল</a>
                     </div>
                 </div>
-            </div>
+            </div> --}}
             <style>
                 .lineheight {
                     line-height: 22px;

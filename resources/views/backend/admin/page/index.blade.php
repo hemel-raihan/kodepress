@@ -94,14 +94,14 @@
 
                                         @if($auth->hasPermission('app.pages.destroy'))
 
-                                        <button class="btn btn-danger waves effect" type="button"
-                                            onclick="deletepage$page({{$page->id}})" >
-                                            <i class="fa fa-trash"></i>
+                                            <button class="btn btn-danger waves effect" type="button" onclick="deletepost$page({{ $page->id}})" >
+												<i class="fa fa-trash"></i>
                                             </button>
-                                            <form id="deleteform-{{$page->id}}" action="{{route('admin.pages.destroy',$page->id)}}" method="page" style="display: none;">
-                                            @csrf
-                                            @method('DELETE')
+                                            <form id="deleteform-{{$page->id}}" action="{{route('admin.pages.destroy',$page->id)}}" method="POST" style="display: none;">
+												@csrf
+												@method('DELETE')
                                             </form>
+
                                         @endif
                                             </td>
 
@@ -122,7 +122,7 @@
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 <script type="text/javascript">
-    function deletepage$page(id)
+    function deletepost$page(id)
 
     {
         Swal.fire({
@@ -133,14 +133,14 @@
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',
   confirmButtonText: 'Yes, delete it!'
-}).then((result) => {
-  if (result.isConfirmed) {
-   event.preventDefault();
-   document.getElementById('deleteform-'+id).submit();
-  }
-})
-    }
-    </script>
+	}).then((result) => {
+	if (result.isConfirmed) {
+	event.preventDefault();
+	document.getElementById('deleteform-'+id).submit();
+	}
+	})
+}
+</script>
 
 @section('scripts')
 

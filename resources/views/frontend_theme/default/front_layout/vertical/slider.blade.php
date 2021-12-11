@@ -36,9 +36,12 @@
 
     <div class="header-site-info" id="header-site-info">
         <div>
+            @php
+                $logo  = \App\Models\Admin\Slide\Slide::where([['type','logo'],['status',true]])->orderBy('id','desc')->first();
+            @endphp
             <div id="logo">
                 <a title="Home" href="/">
-                    <img alt="Home" src="{{asset('frontend/images/browser_logo.png')}}" />
+                    <img alt="Home" src="{{asset('uploads/slide_image/'.$logo->slideimage)}}" />
                 </a>
             </div>
 

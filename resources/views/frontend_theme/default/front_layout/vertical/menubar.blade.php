@@ -35,6 +35,8 @@
                 <li class="col1 mzr-drop">
                     <a href="#" style="font-family: Sans-serif;" class="submenu">{{$menuitem->title}}</a>
                     @foreach ($menuitem->childs as $itemm)
+
+                    @endforeach
                     @if ($itemm->childs->isEmpty())
                     <div class="mzr-content drop-one-columns">
                          @foreach ($menuitem->childs as $item)
@@ -57,7 +59,7 @@
                         @endforeach
                     </div>
                     @endif
-                    @endforeach
+
                 </li>
 
 

@@ -19,8 +19,8 @@ class CreatePagesTable extends Migration
             $table->string('title');
             $table->string('slug')->unique();
             $table->string('image')->default('default.png')->nullable();
-            $table->string('gallaryimage');
-            $table->text('body');
+            $table->text('gallaryimage');
+            $table->text('body')->nullable();
             $table->boolean('status')->default(false);
             $table->boolean('is_approved')->default(false);
             $table->integer('rightsidebar_id');

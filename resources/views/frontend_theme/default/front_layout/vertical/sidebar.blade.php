@@ -114,14 +114,14 @@
 @endif
 
 
-@if ($widget->image)
+@if ($widget->type == 'Image Widget')
 
 <p><img alt="" src="{{asset('uploads/sidebarphoto/'.$widget->image)}}" style="height: 214px; width: 220px;" /></p>
 
-        {!!$widget->body!!}
+        {{-- {!!$widget->body!!} --}}
 
         <h4>
-            <a href="http://dshe.portal.gov.bd/site/page/cecb3807-55c3-4a1b-b73e-2c247aec0c03">
+            <a href="{{route('widget.details',$widget->id)}}">
                 <u><span style="color: #008000;">বিস্তারিত</span></u>
             </a>
         </h4>

@@ -171,7 +171,16 @@
 					<div class="form-group">
 						<label class="form-label">Gallary Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($page) ? asset('pagegallary_image/'.$page->gallaryimage) : '' }}" multiple name="gallaryimage[]">
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($page) ? asset('uploads/pagegallary_image/'.$page->gallaryimage) : '' }}" multiple name="gallaryimage[]">
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 					</div>
 
 				</div>
@@ -281,8 +290,16 @@
 
                     <div class="form-group">
 						<label class="form-label">Feature Image</label>
-						<input type="file" name="image" class="dropify" data-default-file="{{ isset($page) ? asset($page->image) : ''}}" data-bs-height="180"  />
-
+						<input type="file" name="image" class="dropify" data-default-file="{{ isset($page) ? asset('uploads/pagephoto/'.$page->image) : ''}}" data-bs-height="180"  />
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
 					</div>
 
                     {{-- <div class="form-group">

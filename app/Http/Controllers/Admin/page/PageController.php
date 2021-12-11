@@ -10,7 +10,8 @@ use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-use Intervention\Image\Facades\Image;
+//use Intervention\Image\Facades\Image;
+use Intervention\Image\ImageManagerStatic as Image;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -52,8 +53,8 @@ class PageController extends Controller
         Gate::authorize('app.pages.create');
         $this->validate($request,[
             'title' => 'required',
-            //'image' => 'required',
-            //'gallaryimage' => 'required',
+            'image' => 'image|max:4000',
+            'gallaryimage' => 'image|max:4000',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
         ]);
@@ -61,6 +62,8 @@ class PageController extends Controller
         //get form image
         $image = $request->file('image');
         $slug = Str::slug($request->title);
+
+
 
         if(isset($image))
         {
@@ -77,9 +80,23 @@ class PageController extends Controller
             // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
             // Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
 
-            $pagePath = public_path('uploads/pagephoto');
-            $image->move($pagePath,$imagename);
+            // $pagePath = public_path('uploads/pagephoto/'.$imagename);
+            // $image->move($pagePath,$imagename);
+            //Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
+            //Storage::put("public/pagephoto/{$imagename}",$postimg);
 
+            $pagePath = public_path('uploads/pagephoto');
+            $img                     =       Image::make($image->path());
+
+            // $img->resize(900, 600, function ($constraint) {
+            //     $constraint->aspectRatio();
+            // })->save($pagePath.'/'.$imagename);
+            $img->resize(900, 600)->save($pagePath.'/'.$imagename);
+
+        }
+        else
+        {
+            $imagename = 'default.png';
         }
 
 
@@ -93,33 +110,17 @@ class PageController extends Controller
              foreach($gallaryimage as $gimage)
              {
                 $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
-                $gimage->move($destination,$gallaryimagename);
+                //$gimg = Image::make($gimage)->resize(900,600)->save($gallaryimagename,90);
+                $gimg                     =       Image::make($gimage->path());
+                $gimg->resize(900, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destination.'/'.$gallaryimagename);
+                //$gimage->move($destination,$gallaryimagename);
+                //Storage::disk('public')->put('pagegallary_image/'.$gallaryimagename,$gimg);
                 $images[]=$gallaryimagename;
              }
 
          }
-
-        //get form file
-        // $file = $request->file('files');
-
-        // if(isset($file))
-        // {
-        //     $currentDate = Carbon::now()->toDateString();
-        //     $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-        //     $destinationPath = public_path('/files');
-
-        //     // //check image folder existance
-        //     // if(!Storage::disk('public')->exists('postfile'))
-        //     // {
-        //     //     Storage::disk('public')->makeDirectory('postfile');
-        //     // }
-        //     $file->move($destinationPath,$filename);
-
-        //     // //resize image
-        //     // $postfile = Image::make($file)->save($filename);
-        //     // Storage::disk('public')->put('categoryphoto/'.$filename,$postfile);
-
-        // }
 
         if(!$request->status)
         {
@@ -138,24 +139,6 @@ class PageController extends Controller
         {
             $is_approved = true;
         }
-
-        // if(!$request->youtube_link)
-        // {
-        //     $youtube = null;
-        // }
-        // else
-        // {
-        //     $youtube = $request->youtube_link;
-        // }
-
-        // if(!$request->image)
-        // {
-        //     $featureimg = null;
-        // }
-        // else
-        // {
-        //     $featureimg = $imagename;
-        // }
 
         $page = Page::create([
             'title' => $request->title,
@@ -251,20 +234,20 @@ class PageController extends Controller
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             //check image folder existance
-            // if(!Storage::disk('public')->exists('pagephoto'))
+            // if(!Storage::disk('public')->exists('categoryphoto'))
             // {
-            //     Storage::disk('public')->makeDirectory('pagephoto');
+            //     Storage::disk('public')->makeDirectory('categoryphoto');
             // }
 
-            //  //delete old image
-            //  if(Storage::disk('public')->exists('pagephoto/'.$page->image))
-            //  {
-            //      Storage::disk('public')->delete('pagephoto/'.$page->image);
-            //  }
+            // //delete old image
+            // if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
+            // {
+            //     Storage::disk('public')->delete('categoryphoto/'.$category->image);
+            // }
 
-            // //resize image
-            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            // Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
+            //resize image
+            // $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
+            // Storage::disk('public')->put('categoryphoto/'.$imagename,$categoryimg);
 
             $pagePath = public_path('uploads/pagephoto');
 
@@ -275,7 +258,13 @@ class PageController extends Controller
 
             }
 
-            $image->move($pagePath,$imagename);
+            $img                     =       Image::make($image->path());
+
+            $img->resize(900, 600, function ($constraint) {
+                $constraint->aspectRatio();
+            })->save($pagePath.'/'.$imagename);
+
+            // $image->move($pagePath,$imagename);
 
         }
         else
@@ -307,7 +296,11 @@ class PageController extends Controller
             {
 
                $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
-               $gimage->move($destination,$gallaryimagename);
+               //$gimage->move($destination,$gallaryimagename);
+               $gimg                     =       Image::make($gimage->path());
+                $gimg->resize(900, 600, function ($constraint) {
+                    $constraint->aspectRatio();
+                })->save($destination.'/'.$gallaryimagename);
                $images[]=$gallaryimagename;
             }
 
@@ -316,34 +309,6 @@ class PageController extends Controller
         {
             $images[]=$page->gallaryimage;
         }
-
-        //get form file
-        // $file = $request->file('files');
-
-        // if(isset($file))
-        // {
-        //     $currentDate = Carbon::now()->toDateString();
-        //     $filename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$file->getClientOriginalExtension();
-        //     $destinationPath = public_path('/files');
-
-
-        //     $file_path = public_path('files/'.$post->files);  // Value is not URL but directory file path
-        //     if (file_exists($file_path)) {
-
-        //         @unlink($file_path);
-
-        //     }
-        //     $file->move($destinationPath,$filename);
-
-        //     // //resize image
-        //     // $postfile = Image::make($file)->save($filename);
-        //     // Storage::disk('public')->put('categoryphoto/'.$filename,$postfile);
-
-        // }
-        // else
-        // {
-        //     $filename = $page->files;
-        // }
 
         if(!$request->status)
         {
@@ -362,24 +327,6 @@ class PageController extends Controller
         {
             $is_approved = true;
         }
-
-        // if(!$request->youtube_link)
-        // {
-        //     $youtube = null;
-        // }
-        // else
-        // {
-        //     $youtube = $request->youtube_link;
-        // }
-
-        // if(!$request->image)
-        // {
-        //     $featureimg = null;
-        // }
-        // else
-        // {
-        //     $featureimg = $imagename;
-        // }
 
         $page->update([
             'title' => $request->title,
@@ -410,13 +357,8 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         Gate::authorize('app.pages.destroy');
-        //delete old image
-        // if(Storage::disk('public')->exists('pagephoto/'.$page->image))
-        // {
-        //     Storage::disk('public')->delete('pagephoto/'.$page->image);
-        // }
 
-        $pagephoto_path = public_path('uploads/pagephoto/'.$page->image);  // Value is not URL but directory file path
+        $pagephoto_path = public_path('uploads/pagephoto/'.$page->image);
         if (file_exists($pagephoto_path)) {
 
             @unlink($pagephoto_path);
