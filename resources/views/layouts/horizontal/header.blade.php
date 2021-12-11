@@ -38,7 +38,7 @@
 										<i class="fe fe-minimize fullscreen-button"></i>
 									</a>
 								</div><!-- FULL-SCREEN -->
-								<div class="dropdown d-none d-md-flex notifications">
+								{{-- <div class="dropdown d-none d-md-flex notifications">
 									<a class="nav-link icon" data-bs-toggle="dropdown"><i class="fe fe-bell"></i><span class=" pulse"></span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow ">
@@ -164,8 +164,8 @@
 											</div>
 										</div>
 										<div class="dropdown-divider m-0"></div>
-										<a class="dropdown-item" href="{{ url('profile') }}">
-	<i class="dropdown-icon fe fe-user"></i> Profile
+										<a class="dropdown-item" href="{{ url('profile') }}"><i class="dropdown-icon fe fe-user"></i> 
+											Profile
 										</a>
 										<a class="dropdown-item" href="{{ url('email') }}">
 											<i class="dropdown-icon fe fe-mail"></i> Inbox
@@ -181,7 +181,7 @@
 											<i class="dropdown-icon fe fe-alert-circle"></i> Sign out
 										</a>
 									</div>
-								</div>
+								</div> --}}
 								<div class="dropdown d-none d-md-flex header-settings">
 									<a href="#" class="nav-link icon " data-bs-toggle="sidebar-right" data-target=".sidebar-right">
 										<i class="fe fe-menu"></i>

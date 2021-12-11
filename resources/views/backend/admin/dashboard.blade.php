@@ -16,10 +16,10 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">Dashboard 01</h1>
+								<h1 class="page-title">Dashboard</h1>
 								<ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Home</a></li>
-									<li class="breadcrumb-item active" aria-current="page">Dashboard 01</li>
+									<li class="breadcrumb-item active" aria-current="page">Dashboard</li>
 								</ol>
 							</div>
 							<div class="ms-auto pageheader-btn">
@@ -46,12 +46,16 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col">
-														<h6 class="">Total Sales</h6>
-														<h3 class="mb-2 number-font">34,516</h3>
-														<p class="text-muted mb-0">
+														<h6 class="">Total Post</h6>
+														@php
+															$all_post = \App\Models\blog\Post::all();
+															$post_count = count($all_post);
+														@endphp
+														<h3 class="mb-2 number-font">{{ $post_count }}</h3>
+														{{-- <p class="text-muted mb-0">
 															<span class="text-primary"><i class="fa fa-chevron-circle-up text-primary me-1"></i> 3%</span>
 															last month
-														</p>
+														</p> --}}
 													</div>
 													<div class="col col-auto">
 														<div class="counter-icon bg-primary-gradient box-shadow-primary brround ms-auto">
@@ -67,12 +71,16 @@
 											<div class="card-body">
 												<div class="row">
 													<div class="col">
-														<h6 class="">Total Leads</h6>
-														<h3 class="mb-2 number-font">56,992</h3>
-														<p class="text-muted mb-0">
+														<h6 class="">General Post</h6>
+														@php
+															$general_post = \App\Models\general_content\Contentpost::all();
+															$general_post_count = count($general_post);
+														@endphp
+														<h3 class="mb-2 number-font">{{ $general_post_count }}</h3>
+														{{-- <p class="text-muted mb-0">
 															<span class="text-secondary"><i class="fa fa-chevron-circle-up text-secondary me-1"></i> 3%</span>
 															last month
-														</p>
+														</p> --}}
 													</div>
 													<div class="col col-auto">
 														<div class="counter-icon bg-danger-gradient box-shadow-danger brround  ms-auto">
@@ -83,7 +91,7 @@
 											</div>
 										</div>
 									</div>
-									<div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
+									{{-- <div class="col-lg-6 col-md-12 col-sm-12 col-xl-3">
 										<div class="card overflow-hidden">
 											<div class="card-body">
 												<div class="row">
@@ -124,11 +132,11 @@
 												</div>
 											</div>
 										</div>
-									</div>
+									</div> --}}
 								</div>
 							</div>
 						</div>
-						<div class="row">
+						{{-- <div class="row">
 							<div class="col-sm-12 col-md-12 col-lg-12 col-xl-9">
 								<div class="card">
 									<div class="card-header">
@@ -165,11 +173,11 @@
 									</div>
 								</div>
 							</div><!-- COL END -->
-						</div>
+						</div> --}}
 						<!-- ROW-1 END -->
 
 						<!-- ROW-3 -->
-						<div class="row">
+						{{-- <div class="row">
 							<div class="col-xl-4 col-md-12">
 								<div class="card overflow-hidden">
 									<div class="card-header">
@@ -333,11 +341,12 @@
 									</div>
 								</div>
 							</div>
-						</div><!-- COL END -->
+						</div> --}}
+						<!-- COL END -->
 						<!-- ROW-3 END -->
 
 						<!-- ROW-5 -->
-						<div class="row">
+						{{-- <div class="row">
 							<div class="col-12 col-sm-12">
 								<div class="card ">
 									<div class="card-header">
@@ -515,7 +524,8 @@
 									</div>
 								</div>
 							</div><!-- COL END -->
-						</div><!-- ROW-5 END -->
+						</div> --}}
+						<!-- ROW-5 END -->
 
 @endsection('content')
 

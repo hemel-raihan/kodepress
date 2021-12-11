@@ -94,9 +94,8 @@ class PageController extends Controller
             $img->resize(900, 600)->save($pagePath.'/'.$imagename);
 
         }
-        else
-        {
-            $imagename = 'default.png';
+        else{
+            $imagename = null;
         }
 
 

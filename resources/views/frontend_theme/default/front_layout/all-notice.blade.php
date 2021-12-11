@@ -95,7 +95,7 @@
                     <tr>
                         <td>{{ $key+1 }}</td>
                         <td>
-                            <a href="{{ route('admin.notices.show',$notice->id) }}">{{ \Illuminate\Support\Str::limit($notice->title, 80, $end='...') }}</a>
+                            <a href="{{ route('notice.details',$notice->id) }}">{{ \Illuminate\Support\Str::limit($notice->title, 80, $end='...') }}</a>
                         </td>
                         <td>{{ $notice->created_at->format('Y-m-d') }}</td>
 

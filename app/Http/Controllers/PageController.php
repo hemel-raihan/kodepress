@@ -24,19 +24,6 @@ class PageController extends Controller
 
         }
 
-        // if(Page::findBySlug($slug))
-
-        // {
-        //     $page = Page::findBySlug($slug);
-        //     return $page;
-        // }
-        // elseif(Category::findBySlug($slug))
-        // {
-        //     $category = Category::findBySlug($slug);
-        //     $categoryposts = $category->posts()->get();
-        //     return $categoryposts;
-        // }
-
         foreach($category  as $cat)
         {
             if($cat->slug == $slug)
@@ -53,19 +40,6 @@ class PageController extends Controller
 
 
     }
-
-    // public function category($categoryslug)
-    // {
-    //     $category = Category::findBySlug($categoryslug);
-    //     $categoryposts = $category->posts()->get();
-    //     return $categoryposts;
-    // }
-
-    // public function contentcategory($contentcategoryslug)
-    // {
-    //     $contentcategory = Contentcategory::findBySlug($contentcategoryslug);
-    //     $contentcategoryposts = $contentcategory->contentposts()->get();
-    //     return $contentcategoryposts;
 
 
 
