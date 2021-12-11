@@ -38,7 +38,7 @@
 										<i class="fe fe-minimize fullscreen-button"></i>
 									</a>
 								</div><!-- FULL-SCREEN -->
-								<div class="dropdown d-none d-md-flex notifications">
+								{{-- <div class="dropdown d-none d-md-flex notifications">
 									<a class="nav-link icon" data-bs-toggle="dropdown"><i class="fe fe-bell"></i><span class=" pulse"></span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow ">
@@ -149,7 +149,8 @@
 										<div class="dropdown-divider m-0"></div>
 										<a href="#" class="dropdown-item text-center p-3 text-muted">See all Messages</a>
 									</div>
-								</div><!-- MESSAGE-BOX -->
+								</div> --}}
+								<!-- MESSAGE-BOX -->
 								<div class="dropdown d-none d-md-flex profile-1">
 									<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
 										<span>
@@ -164,8 +165,8 @@
 											</div>
 										</div>
 										<div class="dropdown-divider m-0"></div>
-										<a class="dropdown-item" href="{{ url('profile') }}">
-	<i class="dropdown-icon fe fe-user"></i> Profile
+										<a class="dropdown-item" href="{{ url('profile') }}"><i class="dropdown-icon fe fe-user"></i> 
+											Profile
 										</a>
 										<a class="dropdown-item" href="{{ url('email') }}">
 											<i class="dropdown-icon fe fe-mail"></i> Inbox
@@ -263,7 +264,7 @@
 									<a href="#" class="dropdown-item text-center p-3 text-muted">View all Notification</a>
 								</div>
 							</div><!-- NOTIFICATIONS -->
-							<div class="dropdown d-md-flex message">
+							{{-- <div class="dropdown d-md-flex message">
 								<a class="nav-link icon text-center" data-bs-toggle="dropdown">
 									<i class="fe fe-message-square"></i><span class=" pulse-danger"></span>
 								</a>
@@ -329,7 +330,8 @@
 									<div class="dropdown-divider m-0"></div>
 									<a href="#" class="dropdown-item text-center p-3 text-muted">See all Messages</a>
 								</div>
-							</div><!-- MESSAGE-BOX -->
+							</div> --}}
+							<!-- MESSAGE-BOX -->
 							<div class="dropdown d-md-flex profile-1">
 								<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
 									<span>

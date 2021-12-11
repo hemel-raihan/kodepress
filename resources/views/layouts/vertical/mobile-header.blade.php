@@ -4,14 +4,14 @@
 						<div class="d-flex">
 							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
 							<a class="header-brand1 d-flex d-md-none" href="{{ url('index') }}">
-								<img src="{{ asset('assets/images/brand/logo.png') }}" class="header-brand-img desktop-logo" alt="logo">
-								<img src="{{ asset('assets/images/brand/logo-1.png') }}" class="header-brand-img toggle-logo" alt="logo">
-								<img src="{{ asset('assets/images/brand/logo-2.png') }}" class="header-brand-img light-logo" alt="logo">
-								<img src="{{ asset('assets/images/brand/logo-3.png') }}" class="header-brand-img light-logo1" alt="logo">
+								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img desktop-logo" alt="logo">
+								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img toggle-logo" alt="logo">
+								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo" alt="logo">
+								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo1" alt="logo">
 							</a><!-- LOGO -->
-							<div class="main-header-center ms-3 d-none d-md-block">
+							{{-- <div class="main-header-center ms-3 d-none d-md-block">
 								<input class="form-control" placeholder="Search for anything..." type="search"> <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-							</div>
+							</div> --}}
 							<div class="d-flex order-lg-2 ms-auto header-right-icons">
 								<div class="dropdown d-lg-none d-md-block d-none">
 									<a href="#" class="nav-link icon" data-bs-toggle="dropdown">
@@ -25,7 +25,8 @@
 											</div>
 										</div>
 									</div>
-								</div><!-- SEARCH -->
+								</div>
+								<!-- SEARCH -->
 								<button class="navbar-toggler navresponsive-toggler d-md-none ms-auto" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent-4" aria-controls="navbarSupportedContent-4" aria-expanded="false" aria-label="Toggle navigation">
 									<span class="navbar-toggler-icon fe fe-more-vertical text-dark"></span>
 								</button>
@@ -40,7 +41,7 @@
 										<i class="fe fe-minimize fullscreen-button"></i>
 									</a>
 								</div><!-- FULL-SCREEN -->
-								<div class="dropdown d-none d-md-flex notifications">
+								{{-- <div class="dropdown d-none d-md-flex notifications">
 									<a class="nav-link icon" data-bs-toggle="dropdown"><i class="fe fe-bell"></i><span class=" pulse"></span>
 									</a>
 									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow ">
@@ -84,8 +85,9 @@
 										<div class="dropdown-divider m-0"></div>
 										<a href="#" class="dropdown-item text-center p-3 text-muted">View all Notification</a>
 									</div>
-								</div><!-- NOTIFICATIONS -->
-								<div class="dropdown  d-none d-md-flex message">
+								</div> --}}
+								<!-- NOTIFICATIONS -->
+								{{-- <div class="dropdown  d-none d-md-flex message">
 									<a class="nav-link icon text-center" data-bs-toggle="dropdown">
 										<i class="fe fe-message-square"></i><span class=" pulse-danger"></span>
 									</a>
@@ -151,14 +153,15 @@
 										<div class="dropdown-divider m-0"></div>
 										<a href="#" class="dropdown-item text-center p-3 text-muted">See all Messages</a>
 									</div>
-								</div><!-- MESSAGE-BOX -->
+								</div> --}}
+								<!-- MESSAGE-BOX -->
 								<div class="dropdown d-none d-md-flex profile-1">
-									<a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
+									{{-- <a href="#" data-bs-toggle="dropdown" class="nav-link pe-2 leading-none d-flex">
 										<span>
 											<img src="{{ asset('assets/images/users/8.jpg') }}" alt="profile-user" class="avatar  profile-user brround cover-image">
 										</span>
-									</a>
-									<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
+									</a> --}}
+									{{-- <div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
 										<div class="drop-heading">
 											<div class="text-center">
 												<h5 class="text-dark mb-0">Elizabeth Dyer</h5>
@@ -182,7 +185,7 @@
 										<a class="dropdown-item" href="{{ url('login') }}">
 											<i class="dropdown-icon fe fe-alert-circle"></i> Sign out
 										</a>
-									</div>
+									</div> --}}
 								</div>
 								<div class="dropdown d-none d-md-flex header-settings">
 									<a href="javascript:void(0)" class="nav-link icon " data-bs-toggle="sidebar-right" data-target=".sidebar-right">
@@ -220,7 +223,7 @@
 									<i class="fe fe-minimize fullscreen-button"></i>
 								</a>
 							</div><!-- FULL-SCREEN -->
-							<div class="dropdown  d-md-flex notifications">
+							{{-- <div class="dropdown  d-md-flex notifications">
 								<a class="nav-link icon" data-bs-toggle="dropdown"><i class="fe fe-bell"></i><span class=" pulse"></span>
 								</a>
 								<div class="dropdown-menu dropdown-menu-end dropdown-menu-arrow">
@@ -264,7 +267,8 @@
 									<div class="dropdown-divider m-0"></div>
 									<a href="#" class="dropdown-item text-center p-3 text-muted">View all Notification</a>
 								</div>
-							</div><!-- NOTIFICATIONS -->
+							</div> --}}
+							<!-- NOTIFICATIONS -->
 							<div class="dropdown d-md-flex message">
 								<a class="nav-link icon text-center" data-bs-toggle="dropdown">
 									<i class="fe fe-message-square"></i><span class=" pulse-danger"></span>

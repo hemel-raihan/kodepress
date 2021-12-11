@@ -81,6 +81,9 @@ class PageController extends Controller
             $image->move($pagePath,$imagename);
 
         }
+        else{
+            $imagename = null;
+        }
 
 
          //get form Gallary image
@@ -98,6 +101,7 @@ class PageController extends Controller
              }
 
          }
+
 
         //get form file
         // $file = $request->file('files');
