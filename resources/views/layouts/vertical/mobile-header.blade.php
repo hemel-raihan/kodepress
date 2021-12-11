@@ -10,7 +10,15 @@
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo" alt="logo">
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo1" alt="logo">
 							</a><!-- LOGO -->
+							{{-- <div class="main-header-center ms-3 d-none d-md-block">
+								<input class="form-control" placeholder="Search for anything..." type="search"> <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
+							</div> --}}
 
+							<div class="dropdown d-md-flex">
+								<a class="nav-link icon full-screen-link mt-2 nav-link-bg" href="{{ route('home') }}">
+									<i class="fe fe-globe"></i>
+								</a>
+							</div>
 							<div class="d-flex order-lg-2 ms-auto header-right-icons">
 								<div class="dropdown d-lg-none d-md-block d-none">
 									<a href="#" class="nav-link icon" data-bs-toggle="dropdown">
