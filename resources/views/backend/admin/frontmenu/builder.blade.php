@@ -106,6 +106,16 @@
 						</div>
 						<!-- PAGE-HEADER END -->
 
+                        @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                         <div class="row">
                             <div class="col-12">
                                 <div class="main-card mb-3 card">
@@ -137,7 +147,7 @@
                                                             @foreach($pages as $key => $page)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$page->slug}}" name="pagebox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$page->title}}</label>
+                                                                    <input type="checkbox" value="{{$page->title}}" name="pagebox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$page->title}}</label>
                                                                 </div>
                                                             </li>
                                                             @endforeach
@@ -162,7 +172,7 @@
                                                             @foreach($categories as $key => $category)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$category->slug}}" name="categorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492752" /><label for="group_{{$key}}_1636878492752" class="group-name-163687849275">{{$category->name}}</label>
+                                                                    <input type="checkbox" value="{{$category->name}}" name="categorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492752" /><label for="group_{{$key}}_1636878492752" class="group-name-163687849275">{{$category->name}}</label>
                                                                 </div>
                                                                 @if($category->childrenRecursive->count()>0)
 
@@ -195,7 +205,7 @@
                                                             @foreach($contentcategories as $key => $category)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$category->slug}}" name="contentcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492753" /><label for="group_{{$key}}_1636878492753" class="group-name-163687849275">{{$category->name}}</label>
+                                                                    <input type="checkbox" value="{{$category->name}}" name="contentcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492753" /><label for="group_{{$key}}_1636878492753" class="group-name-163687849275">{{$category->name}}</label>
                                                                 </div>
                                                                 @if($category->childrenRecursive->count()>0)
 
@@ -218,8 +228,29 @@
                                 </div>
                             </div>
 
+                            <div class="col-3">
+                                <form method="post" action="{{isset($menuitemm) ? route('admin.menuitem.update',['id'=>$menu->id,'menuId'=>$menuitemm->id]) : ''}}">
+                                    @csrf
+                                    @isset($menuitemm)
+                                    @method('PUT')
 
-							<div class="col-9">
+                                    @endisset
+                                <div class="main-card mb-3 card">
+                                    <h5 class="card-title">
+                                        Edit Menu
+                                    </h5>
+                                    <div class="form-group">
+                                        <label for="exampleInputname">Menu Title</label>
+                                        <input type="text" class="form-control" value="{{$menuitemm->title ?? old('title')}}" name="title" id="menutitle" placeholder="Menu Name">
+                                    </div>
+                                    <button type="submit" class="btn btn-success mt-1">Edit</button>
+                                </div>
+                                </form>
+
+
+                            </div>
+
+							<div class="col-6">
 
 								<div class="main-card mb-3 card">
 									<div class="card-body menu-builder">
@@ -236,6 +267,9 @@
                                                             <a href="{{route('admin.menuitem.edit',['id'=>$menu->id,'menuId'=>$item->id])}}" class="btn btn-success">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
+                                                            {{-- <a onclick="Foo({{ $item->id}})" href="#" class="btn btn-success">
+                                                                <i class="fa fa-edit"></i>
+                                                            </a> --}}
                                                             {{-- @if($auth->hasPermission('app.front.menuitems.destroy')) --}}
 
                                                             <a class="btn btn-danger waves effect" href="{{route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id])}}">
@@ -252,7 +286,7 @@
                                                             @if($item->type == 'divider')
                                                             <strong> Divider: {{$item->divider_title }}</strong>
                                                             @else
-                                                            <span> {{$item->title }}</span>
+                                                            <span id="span_title-{{$item->id}}"> {{$item->title }}</span>
                                                             <small class="url">{{$item->url}}</small>
                                                             @endif
                                                         </div>
@@ -326,6 +360,15 @@
 @endsection
 
 @section('scripts')
+
+{{-- <script>
+    function Foo(id) {
+        var span_Text = document.getElementById("span_title-"+id).innerText;
+        document.getElementById("menutitle").value = span_Text;
+        //document.getElementById('test1').innerHTML = id;
+        test(id);
+    }
+</script> --}}
 
 
 <script>

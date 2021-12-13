@@ -12,6 +12,7 @@ use App\Models\Admin\Notice\Notice;
 use App\Models\Frontmenu\Frontmenu;
 use App\Models\Frontmenu\Frontmenuitem;
 use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\Session;
 use App\Models\general_content\Contentpost;
 use App\Models\general_content\Contentcategory;
 
@@ -56,6 +57,13 @@ class HomepageController extends Controller
     public function postdetails($id)
     {
         $post = Post::find($id);
+        $post_key = 'post_' . $post->id;
+        if(!Session::has($post_key))
+        {
+            $post->increment('view_count');
+            Session::put($post_key,1);
+        }
+        
         Artisan::call('cache:clear');
         return view('frontend_theme.default.blogpost_details',compact('post'));
     }

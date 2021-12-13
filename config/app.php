@@ -168,6 +168,9 @@ return [
         /*
          * Package Service Providers...
          */
+
+         Spatie\Analytics\AnalyticsServiceProvider::class,
+
         //ZanySoft\LaravelPDF\PdfServiceProvider::class,
         /*
          * Application Service Providers...
@@ -233,6 +236,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         //'PDF' => ZanySoft\LaravelPDF\Facades\PDF::class,
+        'Analytics' => Spatie\Analytics\AnalyticsFacade::class,
 
     ],
 

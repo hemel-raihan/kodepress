@@ -100,7 +100,8 @@
 
             {{-- ...........SLIDE BAR..... --}}
 
-            @include('frontend_theme.default.front_layout.vertical.slider')
+           @include('frontend_theme.default.front_layout.vertical.slider')
+
 
             {{-- ...........END SLIDE BAR..... --}}
 
@@ -174,7 +175,7 @@
                     $widgets = $sidebar->widgets()->get();
                 }
               @endphp
-              @if (!Request::is('widget/details*'))
+              @if (!Request::is('widget/details*') && !Request::is('all-teachers-info'))
               @include('frontend_theme.default.front_layout.vertical.sidebar',['widgets'=>$widgets])
               @endif
 

@@ -330,7 +330,7 @@ class PageController extends Controller
 
         $page->update([
             'title' => $request->title,
-            'slug' => $request->slug,
+            'slug' => $slug,
             'admin_id' => Auth::id(),
             'image' => $imagename,
             'gallaryimage'=>  implode("|",$images),

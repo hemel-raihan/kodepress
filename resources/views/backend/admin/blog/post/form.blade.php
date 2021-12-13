@@ -156,7 +156,11 @@
 							</div> -->
                             {{-- <textarea style="height: 200px;" class="form-control" id="" name="body">{{$post->body ?? old('body')}}</textarea> --}}
 
-                            <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$post->body ?? old('body')!!}</textarea>
+                            {{-- <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$post->body ?? old('body')!!}</textarea> --}}
+                            <div id="toolbar-container"></div>
+                            <div id="editor" style="height: 300px">
+                                <p>This is some sample content.</p>
+                            </div>
 
 						</div>
 					</div>
@@ -412,13 +416,29 @@
 @section('scripts')
 
 
-    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
 <script>
 	window.onload = function () {
 		CKEDITOR.replace('ckeditor', {
 	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
 	    });
 	}
+</script> --}}
+
+{{-- <script src="{{asset('ckeditor/ckeditor.js')}}"></script> --}}
+
+<script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/decoupled-document/ckeditor.js"></script>
+<script>
+    DecoupledEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+            const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
 </script>
 
 <script>

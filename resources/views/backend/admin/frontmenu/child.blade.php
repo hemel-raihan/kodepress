@@ -2,24 +2,16 @@
     @foreach($itemm->childs as $childItem)
 <li class="dd-item" data-id="{{$childItem->id}}">
 
-    <div class="pull-right item_actions">
-        @if($auth->hasPermission('app.front.menuitems.edit'))
-   <a href="{{route('admin.menuitem.edit',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" class="btn btn-success">
-    <i class="fa fa-edit"></i>
-    </a>
-    @endif
+<div class="pull-right item_actions">
 
-   {{-- @if($auth->hasPermission('app.front.menuitems.destroy')) --}}
+    <a href="{{route('admin.menuitem.edit',['id'=>$menu->id,'menuId'=>$childItem->id])}}" class="btn btn-success">
+        <i class="fa fa-edit"></i>
+    </a>
+
    <a class="btn btn-danger waves effect" href="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" >
        <i class="fa fa-trash"></i>
-</a>
-       {{-- <form id="deleteform-{{$childItem->id}}" action="{{route('admin.menuitem.destroy',['id'=>$menu->id, 'menuId'=>$childItem->id])}}" method="POST" style="display: none;">
-       @csrf
-       @method('DELETE')
-       </form> --}}
-
-       {{-- @endif --}}
-    </div>
+    </a>
+</div>
 
     <div class="dd-handle">
         @if($childItem->type == 'divider')

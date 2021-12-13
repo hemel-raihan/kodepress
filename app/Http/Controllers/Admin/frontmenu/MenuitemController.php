@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin\frontmenu;
 
 use App\Models\Admin\Page;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
 use App\Models\Frontmenu\Frontmenu;
@@ -42,26 +43,37 @@ class MenuitemController extends Controller
         //     ]);
         //     }
 
-        // $this->validate($request,[
-        //     'type' => 'required|string',
-        //     'divider_title' => 'nullable|string',
-        //     'title' => 'nullable|string',
-        //     'url' => 'nullable|string',
-        //     'target' => 'nullable|string',
-        // ]);
+        $this->validate($request,[
+            'title' => 'required'
+        ],
+        [
+            'title.required' => 'Menu Order already changed. check in Home-page Please!',
+        ]);
+
+
         $menu = Frontmenu::findOrFail($id);
+
+        // foreach($request->input('title') as $key => $value) {
+        //     $title = $request->input('title')[$key];
+
+
+        // $menu->menuItems()->create([
+        //     'title' => ucwords(str_replace('-', ' ', $title)),
+        //     'slug' => $request->input('title')[$key],
+        //     //'type' => $request->type,
+        //     //'divider_title' => $request->divider_title,
+        //     //'target' => $request->target,
+        // ]);
 
         foreach($request->input('title') as $key => $value) {
             $title = $request->input('title')[$key];
 
 
         $menu->menuItems()->create([
-            'title' => ucwords(str_replace('-', ' ', $title)),
-            'slug' => $request->input('title')[$key],
-            //'type' => $request->type,
-            //'divider_title' => $request->divider_title,
-            //'target' => $request->target,
+            'title' => $title,
+            'slug' => Str::slug($title),
         ]);
+
     }
 
         notify()->success('Menu Item Added','Added');
@@ -93,40 +105,35 @@ class MenuitemController extends Controller
         }
     }
 
-    // public function edit($id,$widgetId)
-    // {
-    //     $auth = Auth::user();
-    //     $sidebar = Sidebar::findOrFail($id);
-    //     $widget = $sidebar->widgets()->findOrFail($widgetId);
-    //     $editcategories = category::all();
-    //     return view('backend.admin.sidebar.widget.form',compact('sidebar','auth','widget','editcategories'));
-    // }
+    public function edit($id,$menuId)
+    {
 
-    // public function update(Request $request,$id,$widgetId)
-    // {
-    //     //Gate::authorize('app.menus.edit');
-    //     $sidebar = Sidebar::findOrFail($id);
+        $menu = Frontmenu::findOrFail($id);
+        $auth = Auth::guard('admin')->user();
+        //$menuitemm = $menu->menuItems()->first($menuId);
+        $menuitemm = Frontmenuitem::find($menuId);
+        $pages = Page::all();
+        $categories = category::where('parent_id', '=', 0)->get();
+        $contentcategories = Contentcategory::where('parent_id', '=', 0)->get();
+        return view('backend.admin.frontmenu.builder',compact('menu','auth','menuitemm','pages','categories','contentcategories'));
+    }
 
-    //     $sidebar->widgets()->findOrFail($widgetId)->update([
-    //         'title' => $request->title,
-    //         'category_id' => $request->category_id,
-    //         'no_of_post' => $request->no_of_post,
-    //         'type' => $request->type,
-    //         'body' => $request->body,
-    //     ]);
-
-    //     notify()->success('Widget Item Updated','Update');
-    //     return redirect()->route('admin.widget.builder',$id);
-    // }
+    public function update(Request $request,$id,$menuId)
+    {
+        $frontmenu = Frontmenuitem::findOrFail($menuId);
+        $frontmenu->update([
+            'title' => $request->title,
+        ]);
+        notify()->success('Menu Updated Successfully');
+        return back();
+    }
 
     public function destroy($id,$menuId)
     {
-        Frontmenu::findOrFail($id)
-                 ->menuItems()
-                 ->findOrFail($menuId)
+        Frontmenuitem::findOrFail($menuId)
                  ->delete();
 
-        notify()->success('Widget Delete Successfully');
+        notify()->success('Menu Delete Successfully');
         return back();
     }
 }

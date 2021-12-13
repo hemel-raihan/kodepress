@@ -21,13 +21,13 @@ class CreateContentpostsTable extends Migration
             $table->string('image')->default('default.png')->nullable();
             $table->string('youtube_link')->nullable();
             $table->string('gallaryimage');
-            $table->text('body');
+            $table->text('body')->nullable();
             $table->integer('view_count')->default(0);
             $table->boolean('status')->default(false);
             $table->boolean('is_approved')->default(false);
             $table->integer('rightsidebar_id');
             $table->integer('leftsidebar_id');
-            $table->string('files');
+            $table->string('files')->nullable();
             $table->timestamps();
         });
     }

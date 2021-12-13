@@ -7,6 +7,116 @@
 
 @section('styles')
 <link rel="stylesheet" href="{{ asset('frontend/css/jquery.dataTables.min.css')}}" />
+
+<style>
+/* *,
+*::before,
+*::after {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+} */
+
+/* body {
+  font-family: "Quicksand", sans-serif;
+  display: grid;
+  place-items: center;
+  height: 100vh;
+  background: #7f7fd5;
+  background: linear-gradient(to right, #91eae4, #86a8e7, #7f7fd5);
+} */
+
+.containerrr {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  max-width: 1200px;
+  margin-block: 2rem;
+  gap: 2rem;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+  object-fit: cover;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  width: clamp(20rem, calc(20rem + 2vw), 22rem);
+  overflow: hidden;
+  box-shadow: 0 .1rem 1rem rgba(0, 0, 0, 0.1);
+  border-radius: 1em;
+  background: #ECE9E6;
+background: linear-gradient(to right, #FFFFFF, #ECE9E6);
+
+}
+
+
+
+.card__body {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
+}
+
+
+.tag {
+  align-self: flex-start;
+  padding: .25em .75em;
+  border-radius: 1em;
+  font-size: .75rem;
+}
+
+.tag + .tag {
+  margin-left: .5em;
+}
+
+.tag-blue {
+  background: #56CCF2;
+background: linear-gradient(to bottom, #2F80ED, #56CCF2);
+  color: #fafafa;
+}
+
+.tag-brown {
+  background: #D1913C;
+background: linear-gradient(to bottom, #FFD194, #D1913C);
+  color: #fafafa;
+}
+
+.tag-red {
+  background: #cb2d3e;
+background: linear-gradient(to bottom, #ef473a, #cb2d3e);
+  color: #fafafa;
+}
+
+.card__body h4 {
+  font-size: 1.5rem;
+  text-transform: capitalize;
+}
+
+.card__footer {
+  display: flex;
+  padding: 1rem;
+  margin-top: auto;
+}
+
+.user {
+  display: flex;
+  gap: .5rem;
+}
+
+.user__image {
+  border-radius: 50%;
+}
+
+.user__info > small {
+  color: #666;
+}
+</style>
+
 @endsection
 
 
@@ -81,12 +191,49 @@
         $("#left-content h6").css({ "background-color": "#" + BgColor, color: "#" + FontColor });
     }
 </script>
-<div class="twelve columns" id="left-content">
+<div class="{{Request::is('all-teachers-info') ? 'sixteen' : 'twelve'}} columns" id="left-content">
     <div id="div-view-pagination-moedu_office_order">
         <div style="float: right;" id="print_btn_div"><img src="{{ asset('frontend/images/print_btn.png') }}" style="cursor: pointer;" onclick="print_content();" width="24" title="প্রিন্ট" /></div>
         <div id="printable_area">
 
-            <h3>Notice</h3>
+
+            @if (Request::is('all-teachers-info'))
+                    <!--<div class="row">-->
+                    <!--    @foreach ($contentcategoryposts as $key => $contentcategorypost)-->
+                    <!--    <div class="column" style="margin-left:30px">-->
+                    <!--    <img src="{{asset('uploads/contentpostphoto/'.$contentcategorypost->image)}}" alt="Snow" style="width:300px; height:200px; ">-->
+                    <!--    <a href="{{route('content.details',$contentcategorypost->id)}}"><h4 style="text-align: center; color:red">{{$contentcategorypost->title}}</h4></a>-->
+                    <!--    </div>-->
+                    <!--    @endforeach-->
+                    <!--</div>-->
+
+                     <div class="containerrr">
+                        @foreach ($contentcategoryposts as $key => $contentcategorypost)
+                        <div class="card">
+                          <div class="card__header">
+                            <img src="{{asset('uploads/contentpostphoto/'.$contentcategorypost->image)}}" alt="card__image" class="card__image" width="600">
+                          </div>
+                          <div class="card__body">
+                            <a href="{{route('content.details',$contentcategorypost->id)}}"> <h4>{{$contentcategorypost->title}}</h4></a>
+                            <span class="tag tag-blue">Designation</span>
+                            {{-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p> --}}
+                          </div>
+                          {{-- <div class="card__footer">
+                            <div class="user">
+                              <img src="https://i.pravatar.cc/40?img=1" alt="user__image" class="user__image">
+                              <div class="user__info">
+                                <h5>Jane Doe</h5>
+                                <small>2h ago</small>
+                              </div>
+                            </div>
+                          </div> --}}
+                        </div>
+                        @endforeach
+                      </div>
+
+
+            @else
+
             <hr />
             <table class="bordered" id="example">
                 <thead>
@@ -118,9 +265,9 @@
                 </tbody>
             </table>
             <br />
-            <p>
-                আ্কাইভ <a class="archive" href="#"><u>ক্লিক করুন</u> </a>
-            </p>
+
+            @endif
+
             <style>
                 #example_length {
                     display: none;

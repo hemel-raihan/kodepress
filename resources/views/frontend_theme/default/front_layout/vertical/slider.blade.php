@@ -1,3 +1,4 @@
+
 <div class="sixteen columns">
     <div class="callbacks_container" style="box-shadow: 0 1px 5px #999999;">
         <ul class="rslides" id="front-image-slider">
@@ -37,17 +38,16 @@
     <div class="header-site-info" id="header-site-info">
         <div>
             @php
-                $logo  = \App\Models\Admin\Slide\Slide::where([['type','logo'],['status',true]])->orderBy('id','desc')->first();
+                $logo  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
             @endphp
             @isset($logo)
             <div id="logo">
                 <a title="Home" href="/">
-                    <img alt="Home" src="{{asset('uploads/slide_image/'.$logo->slideimage)}}" />
+                    <img alt="Home" src="{{asset('uploads/settings/'.$logo->logo)}}" />
                 </a>
             </div>
-            
             @endisset
-            
+
 
             {{-- <div class="clearfix" id="site-name-wrapper">
                 <span id="site-name">

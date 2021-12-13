@@ -18,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Auth::routes();
 Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
-Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 //single page test
 // Route::get('/all', function () {
@@ -117,6 +117,8 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('videos', 'Video\VideoController');
     Route::get('video/{id}/status', 'Video\VideoController@status_approval')->name('video.status');
 
+    Route::get('settings','SettingController@index')->name('settings');
+    Route::put('settings/update/{setting}', 'SettingController@update')->name('settings.update');
 });
 
 

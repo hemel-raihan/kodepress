@@ -57,6 +57,7 @@ class PostController extends Controller
                 'title' => 'required',
                 'image' => 'max:1024',
                 'gallaryimage.*' => 'max:1024',
+                'files' => 'mimes:pdf,doc,docx',
                 'categories' => 'required',
                 'leftsidebar_id' => 'required',
                 'rightsidebar_id' => 'required',
@@ -420,30 +421,30 @@ class PostController extends Controller
             $is_approved = true;
         }
 
-        if(!$request->youtube_link)
-        {
-            $youtube = null;
-        }
-        else
-        {
-            $youtube = $request->youtube_link;
-        }
+        // if(!$request->youtube_link)
+        // {
+        //     $youtube = null;
+        // }
+        // else
+        // {
+        //     $youtube = $request->youtube_link;
+        // }
 
-        if(!$request->image)
-        {
-            $featureimg = null;
-        }
-        else
-        {
-            $featureimg = $imagename;
-        }
+        // if(!$request->image)
+        // {
+        //     $featureimg = null;
+        // }
+        // else
+        // {
+        //     $featureimg = $imagename;
+        // }
 
         $post->update([
             'title' => $request->title,
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
-            'image' => $featureimg,
-            'youtube_link' => $youtube,
+            'image' => $imagename,
+            'youtube_link' => $request->youtube_link,
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'body' => $request->body,

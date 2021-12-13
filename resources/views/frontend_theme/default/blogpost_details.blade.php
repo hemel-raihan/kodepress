@@ -3,6 +3,75 @@
 
 @section('clg', '| '.$post->title)
 
+@section('styles')
+<style>
+    * {
+       box-sizing: border-box;
+    }
+    h1 {
+       text-align: center;
+    }
+    .ImgThumbnail {
+       border-radius: 5px;
+       cursor: pointer;
+       transition: 0.3s;
+       height: 250px;
+       width: 350px;
+    }
+    .ImgThumbnail:nth-of-type(1) {
+       margin-left: 20%;
+    }
+    .modal {
+       display: none;
+       position: fixed;
+       z-index: 1;
+       padding-top: 100px;
+       left: 0;
+       top: 0;
+       width: 100%;
+       height: 100%;
+       overflow: auto;
+       background-color: rgb(0, 0, 0);
+       background-color: rgba(0, 0, 0, 0.9);
+    }
+    .modalImage {
+       margin: auto;
+       display: block;
+       width: 50%;
+       height: 60%;
+       max-width: 700px;
+    }
+    #caption {
+       margin: auto;
+       display: block;
+       width: 80%;
+       max-width: 700px;
+       text-align: center;
+       color: #ccc;
+       padding: 10px 0;
+       height: 150px;
+    }
+    .close {
+       position: absolute;
+       top: 15px;
+       right: 35px;
+       color: #f1f1f1;
+       font-size: 40px;
+       font-weight: bold;
+       transition: 0.3s;
+    }
+    .close:hover,
+    .close:focus {
+       color: rgb(255, 0, 0);
+       cursor: pointer;
+    }
+    @media only screen and (max-width: 700px) {
+       .modalImage {
+          width: 100%;
+       }
+    }
+    </style>
+@endsection
 
 @section('frontscripts')
 <script type="text/javascript" src="{{ asset('frontend/js/jquery.media.js') }}"></script>
@@ -130,11 +199,34 @@
         {{-- <u>নোটিশ</u> --}}
         <h3>{{ $post->title }}</h3>
 
+        @isset($post->files)
         <a href="{{ asset('uploads/files/'.$post->files) }}">
             <img src="{{ asset('frontend/images/pdf.png') }}" alt="001-converted (1)_compressed (1).pdf" class="file-icon" />
             {{-- {{ $post->files }} --}}
         </a>
         <div><a class="viewer" href="{{ asset('uploads/files/'.$post->files) }}"></a></div>
+        @endisset()
+
+        @isset($post->body)
+        <div>{!!$post->body!!}</div>
+        @endisset
+
+        @isset($post->gallaryimage)
+            @if (!$post->gallaryimage == null)
+                @php
+                    $postgallaryimg = explode("|", $post->gallaryimage);
+                @endphp
+
+                @foreach ($postgallaryimg as $key => $gallaryimages)
+                <img class="ImgThumbnail" src="{{asset('uploads/gallary_image/'.$gallaryimages)}}"/>
+                @endforeach
+                <div class="modal">
+                    <span class="close">×</span>
+                    <img  class="modalImage" id="img01" />
+                </div>
+            @endif
+        @endisset
+
         <style></style>
         <script></script>
     </div>
@@ -160,6 +252,23 @@
     </div>
 </div>
 
+
+<script>
+    var modalEle = document.querySelector(".modal");
+    //var test = document.querySelector(".test");
+    var modalImage = document.querySelector(".modalImage");
+    Array.from(document.querySelectorAll(".ImgThumbnail")).forEach(item => {
+       item.addEventListener("click", event => {
+          modalEle.style.display = "block";
+        //   test.style.display = "block";
+        $('#test').addClass('d-none');
+          modalImage.src = event.target.src;
+       });
+    });
+    document.querySelector(".close").addEventListener("click", () => {
+       modalEle.style.display = "none";
+    });
+</script>
 
 @endsection
 
