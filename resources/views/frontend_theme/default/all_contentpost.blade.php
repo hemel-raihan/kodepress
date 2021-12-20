@@ -197,41 +197,30 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
         <div id="printable_area">
 
 
-            @if (Request::is('all-teachers-info'))
-                    <!--<div class="row">-->
-                    <!--    @foreach ($contentcategoryposts as $key => $contentcategorypost)-->
-                    <!--    <div class="column" style="margin-left:30px">-->
-                    <!--    <img src="{{asset('uploads/contentpostphoto/'.$contentcategorypost->image)}}" alt="Snow" style="width:300px; height:200px; ">-->
-                    <!--    <a href="{{route('content.details',$contentcategorypost->id)}}"><h4 style="text-align: center; color:red">{{$contentcategorypost->title}}</h4></a>-->
-                    <!--    </div>-->
-                    <!--    @endforeach-->
-                    <!--</div>-->
-
-                     <div class="containerrr">
-                        @foreach ($contentcategoryposts as $key => $contentcategorypost)
-                        <div class="card">
-                          <div class="card__header">
-                            <img src="{{asset('uploads/contentpostphoto/'.$contentcategorypost->image)}}" alt="card__image" class="card__image" width="600">
-                          </div>
-                          <div class="card__body">
-                            <a href="{{route('content.details',$contentcategorypost->id)}}"> <h4>{{$contentcategorypost->title}}</h4></a>
-                            <span class="tag tag-blue">Designation</span>
-                            {{-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p> --}}
-                          </div>
-                          {{-- <div class="card__footer">
-                            <div class="user">
-                              <img src="https://i.pravatar.cc/40?img=1" alt="user__image" class="user__image">
-                              <div class="user__info">
-                                <h5>Jane Doe</h5>
-                                <small>2h ago</small>
-                              </div>
-                            </div>
-                          </div> --}}
-                        </div>
-                        @endforeach
+            @isset($teamcategoryposts)
+            <div class="containerrr">
+                @foreach ($teamcategoryposts as $key => $teamcategorypost)
+                <div class="card">
+                  <div class="card__header">
+                    <img src="{{asset('uploads/teamphoto/'.$teamcategorypost->image)}}" alt="card__image" class="card__image" width="600">
+                  </div>
+                  <div class="card__body">
+                    <a href="{{route('team.details',$teamcategorypost->id)}}"> <h4>{{$teamcategorypost->name}}</h4></a>
+                    <span class="tag tag-blue">{{$teamcategorypost->designation}}</span>
+                    {{-- <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sequi perferendis molestiae non nemo doloribus. Doloremque, nihil! At ea atque quidem!</p> --}}
+                  </div>
+                  {{-- <div class="card__footer">
+                    <div class="user">
+                      <img src="https://i.pravatar.cc/40?img=1" alt="user__image" class="user__image">
+                      <div class="user__info">
+                        <h5>Jane Doe</h5>
+                        <small>2h ago</small>
                       </div>
-
-
+                    </div>
+                  </div> --}}
+                </div>
+                @endforeach
+              </div>
             @else
 
             <hr />
@@ -266,7 +255,13 @@ background: linear-gradient(to bottom, #ef473a, #cb2d3e);
             </table>
             <br />
 
-            @endif
+            @endisset()
+
+
+
+
+
+
 
             <style>
                 #example_length {

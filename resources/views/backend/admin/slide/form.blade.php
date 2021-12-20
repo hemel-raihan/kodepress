@@ -21,7 +21,7 @@
 		<!-- INTERNAL Jquerytransfer css-->
 		<link rel="stylesheet" href="{{ asset('assets/plugins/jQuerytransfer/jquery.transfer.css') }}">
 		<link rel="stylesheet" href="{{ asset('assets/plugins/jQuerytransfer/icon_font/icon_font.css') }}">
-
+		
 
 		<!-- MULTI SELECT CSS -->
 		<link rel="stylesheet" href="{{ asset('assets/plugins/multipleselect/multiple-select.css') }}">
@@ -87,13 +87,13 @@
 					@isset($slide)
 					@method('PUT')
 					@endisset
-				<div class="card-body">
+				<div class="card-body">			
 					<div class="form-group">
 						<label for="exampleInputPhoto">Title</label>
 						<input type="text" name="title" value="{{$slide->title ?? old('title')}}" class="form-control" id="exampleInputTitle" placeholder="Slide Title">
 					</div>
 
-
+					
 
 					@isset($slide)
 
@@ -120,7 +120,7 @@
 							<label for="html">Banner</label>
 						</div>
 					</div>
-
+						
 					@endisset
 
 					<div class="form-group d-none banner-type">
@@ -136,7 +136,7 @@
 					</div>
 
 					@isset($slide)
-
+					
 						@php
 						$image = explode("|",$slide->slideimage);
 						@endphp
@@ -149,7 +149,7 @@
 					</div>
 
 				</div>
-
+			
 				{{-- <img src="{{ asset('slide_image/'.$image[0]) }}" alt="" srcset=""> --}}
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
@@ -170,9 +170,9 @@
 		<div class="col-lg-3 col-xl-3 col-md-12 col-sm-12" style="float: left">
 
 			<div class="card">
-
+				
 				<div class="card-body">
-
+				
 					<div class="form-group">
 						<label class="form-label">Select Slider</label>
 						<select name="slider_id" class="form-control form-select select2" data-bs-placeholder="Select Country">
@@ -190,7 +190,6 @@
 								<option disabled selected>Select Slide Type</option>
 								<option value="main-Slide" @isset($slide) {{ ($slide->type == 'main-Slide')? 'selected':'' }} @endisset>Main Slide</option>
 								<option value="default-slide" @isset($slide) {{ ($slide->type == 'default-slide')? 'selected':'' }} @endisset>Default Slide</option>
-                                <option value="logo" @isset($slide) {{ ($slide->type == 'logo')? 'selected':'' }} @endisset>Logo</option>
 						</select>
 					</div>
 
@@ -226,13 +225,13 @@
                     @endisset
 
 				</div>
-
+				
 			</div>
 		</div>
-
+		
 	</div>
 	<!-- ROW-1 CLOSED -->
-
+			
 
 @endsection('content')
 
@@ -253,7 +252,7 @@
 			$(".text-content").addClass('d-none');
 			$(".banner-type").removeClass('d-none');
 		});
-
+	
 		$("input[id$='test2']").click(function() {
 			$(".text-content").removeClass('d-none');
 			$(".banner-type").addClass('d-none');

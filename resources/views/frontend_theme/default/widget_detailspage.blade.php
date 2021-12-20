@@ -150,7 +150,7 @@
 
 
 
-       <p style="text-align:center;"><img alt="kodepress_building" src="{{ asset('uploads/sidebarphoto/'.$widget->image) }}" style="height:200px; width:370px;"></p>
+       <p style="text-align:center;"><img alt="kodepress_building" src="{{ asset('uploads/sidebarphoto/'.$widget->image) }}" style="height:200px; width:370px;"></p> 
 
 </br>
 

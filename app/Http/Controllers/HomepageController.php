@@ -6,13 +6,13 @@ use App\Models\blog\Post;
 use App\Models\Admin\Video;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
+use App\Models\Teams\Teampost;
 use App\Models\Admin\Link\Link;
 use App\Models\Admin\Slide\Slide;
 use App\Models\Admin\Notice\Notice;
 use App\Models\Frontmenu\Frontmenu;
 use App\Models\Frontmenu\Frontmenuitem;
 use Illuminate\Support\Facades\Artisan;
-use Illuminate\Support\Facades\Session;
 use App\Models\general_content\Contentpost;
 use App\Models\general_content\Contentcategory;
 
@@ -28,12 +28,9 @@ class HomepageController extends Controller
         $notices = Notice::all();
         $links = Link::where('status',1)->orderBy('id','desc')->limit(5)->get();
         $posts = Post::where('scrollable',1)->orderBy('id','desc')->limit(5)->get();
-        //dd($links);
-
-        // $proggaponcategories = Contentcategory::where('name','=','proggapon')->first();
-        $proggaponcategories = Contentcategory::whereIn('name', ['আদেশ/প্রজ্ঞাপন', 'নীতিমালা/পরিপত্র/আইন/বিধি'])->get();
 
         Artisan::call('cache:clear');
+        $proggaponcategories = Contentcategory::whereIn('name', ['আদেশ/প্রজ্ঞাপন', 'নীতিমালা/পরিপত্র/আইন/বিধি'])->get();
 
         return view('frontend_theme.default.homepage',compact('categories','randomvideos','othersvideos',
             'banner_img','proggaponcategories','notices','links','posts'));
@@ -44,6 +41,13 @@ class HomepageController extends Controller
         $post = Contentpost::find($id);
         Artisan::call('cache:clear');
         return view('frontend_theme.default.contentpost_details',compact('post'));
+    }
+
+    public function teamdetails($id)
+    {
+        $teampost = Teampost::find($id);
+        Artisan::call('cache:clear');
+        return view('frontend_theme.default.contentpost_details',compact('teampost'));
     }
 
     public function blogposts($id)
@@ -57,13 +61,6 @@ class HomepageController extends Controller
     public function postdetails($id)
     {
         $post = Post::find($id);
-        $post_key = 'post_' . $post->id;
-        if(!Session::has($post_key))
-        {
-            $post->increment('view_count');
-            Session::put($post_key,1);
-        }
-        
         Artisan::call('cache:clear');
         return view('frontend_theme.default.blogpost_details',compact('post'));
     }
@@ -97,5 +94,6 @@ class HomepageController extends Controller
         Artisan::call('cache:clear');
         return view('frontend_theme.default.front_layout.single-link',compact('link'));
     }
+
 
 }

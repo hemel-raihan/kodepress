@@ -3,19 +3,14 @@
 					<div class="container-fluid">
 						<div class="d-flex">
 							<a aria-label="Hide Sidebar" class="app-sidebar__toggle" data-bs-toggle="sidebar" href="#"></a><!-- sidebar-toggle-->
-
 							<a class="header-brand1 d-flex d-md-none" href="{{ url('index') }}">
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img desktop-logo" alt="logo">
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img toggle-logo" alt="logo">
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo" alt="logo">
 								<img src="{{ asset('frontend/images/browser_logo.png') }}" class="header-brand-img light-logo1" alt="logo">
 							</a><!-- LOGO -->
-							{{-- <div class="main-header-center ms-3 d-none d-md-block">
-								<input class="form-control" placeholder="Search for anything..." type="search"> <button class="btn"><i class="fa fa-search" aria-hidden="true"></i></button>
-							</div> --}}
-
 							<div class="dropdown d-md-flex">
-								<a class="nav-link icon full-screen-link mt-2 nav-link-bg" href="{{ route('home') }}">
+								<a class="nav-link icon full-screen-link mt-2 nav-link-bg" target="_blank" href="{{ route('home') }}">
 									<i class="fe fe-globe"></i>
 								</a>
 							</div>

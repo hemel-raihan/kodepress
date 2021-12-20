@@ -25,7 +25,7 @@
 					<div class="container-login100">
 						<div class="wrap-login100 p-0">
 							<div class="card-body">
-								<form method="POST" class="login100-form validate-form" action="{{ route('admin.loginform') }}">
+								<form method="POST" class="login100-form validate-form" action="{{ route('admin.login') }}">
                                     @csrf
 									<span class="login100-form-title">
 										Login

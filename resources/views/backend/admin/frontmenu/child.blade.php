@@ -4,7 +4,11 @@
 
 <div class="pull-right item_actions">
 
-    <a href="{{route('admin.menuitem.edit',['id'=>$menu->id,'menuId'=>$childItem->id])}}" class="btn btn-success">
+    {{-- <a href="{{route('admin.menuitem.edit',['id'=>$menu->id,'menuId'=>$childItem->id])}}" class="btn btn-success">
+        <i class="fa fa-edit"></i>
+    </a> --}}
+
+    <a onclick="Foo_child({{ $childItem->id}})" href="#" class="btn btn-success">
         <i class="fa fa-edit"></i>
     </a>
 
@@ -17,7 +21,8 @@
         @if($childItem->type == 'divider')
         <strong> Divider: {{$childItem->divider_title }}</strong>
         @else
-        <span> {{$childItem->title }}</span>
+
+        <span  id="titlee-{{$childItem->id}}" > {{$childItem->title }}</span>
         <small class="url">{{$childItem->url}}</small>
         @endif
     </div>

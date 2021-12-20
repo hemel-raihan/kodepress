@@ -40,14 +40,15 @@
         <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/meganizr.css') }}" />
         <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/flaticon.css') }}" />
         <link type="text/css" rel="stylesheet" media="all" href="{{ asset('frontend/css/ministry/style.css') }}" />
-
         @yield('styles')
         <!--<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.6.0/jquery.min.js"></script>-->
         <script type="text/javascript" src="{{ asset('frontend/js/jquery-1.11.1.min.js') }}"></script>
 
         <!-- include the jquery-accessibleMegaMenu plugin script -->
         <script src="{{ asset('frontend/js/jquery-accessibleMegaMenu.js') }}"></script>
-
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,400;0,500;1,300;1,900&display=swap" rel="stylesheet">
         <script>
             //jq160 = jQuery.noConflict( true );
         </script>
@@ -65,7 +66,6 @@
 
 
 
-
         @yield('frontscripts')
 
         <!-- custom accessibility start -->
@@ -75,6 +75,16 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.9.0/js/all.min.js"></script>
         <!-- custom accessibility end -->
     </head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CHQGVGYRNP"></script>
+    <script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'G-CHQGVGYRNP');
+    </script>
 
     <body class="dshe-portal-gov-bd">
         <!-- ====== start jump to selections ======   -->
@@ -100,8 +110,7 @@
 
             {{-- ...........SLIDE BAR..... --}}
 
-           @include('frontend_theme.default.front_layout.vertical.slider')
-
+            @include('frontend_theme.default.front_layout.vertical.slider')
 
             {{-- ...........END SLIDE BAR..... --}}
 
@@ -139,8 +148,13 @@
             {
                 $menuitems = $menu->menuItems()->get();
             }
-        @endphp
-        @include('frontend_theme.default.front_layout.vertical.menubar',['menuitems'=>$menuitems])
+            @endphp
+            @isset($menuitems)
+            @include('frontend_theme.default.front_layout.vertical.menubar',['menuitems'=>$menuitems])
+            @else
+            @include('frontend_theme.default.front_layout.vertical.menubar')
+            @endisset
+
 
             {{-- ...........END MENU BAR..... --}}
 
@@ -174,11 +188,10 @@
                 {
                     $widgets = $sidebar->widgets()->get();
                 }
-              @endphp
+            @endphp
               @if (!Request::is('widget/details*') && !Request::is('all-teachers-info'))
               @include('frontend_theme.default.front_layout.vertical.sidebar',['widgets'=>$widgets])
               @endif
-
            </div>
 
             {{-- .............END BODY CONTENT.......... --}}
@@ -530,4 +543,3 @@
         event_category: "Frontend",
     });
 </script>
-

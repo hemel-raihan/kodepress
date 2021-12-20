@@ -139,12 +139,12 @@
                         @enderror
 					</div>
 
-                    @isset($page)
-                    <div class="form-group">
-						<label for="exampleInputname">Post Slug</label>
-						<input type="text" class="form-control" value="{{$page->slug ?? old('slug')}}" name="slug" id="postslug" placeholder="Post Slug">
-					</div>
-                    @endisset
+     <!--               @isset($page)-->
+     <!--               <div class="form-group">-->
+					<!--	<label for="exampleInputname">Post Slug</label>-->
+					<!--	<input type="text" class="form-control" value="{{$page->slug ?? old('slug')}}" name="slug" id="postslug" placeholder="Post Slug">-->
+					<!--</div>-->
+     <!--               @endisset-->
 
 
 
@@ -334,7 +334,8 @@
 @section('scripts')
 
 
-    <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+    {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
+    <script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
 <script>
 	window.onload = function () {
 		CKEDITOR.replace('ckeditor', {

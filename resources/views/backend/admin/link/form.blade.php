@@ -79,9 +79,6 @@
 		{{-- Left Side --}}
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
-				<div class="card-header">
-					<h3 class="card-title">Add Slide</h3>
-				</div>
 				<form method="POST" action="{{isset($link) ? route('admin.links.update',$link->id) : route('admin.links.store')}}" enctype="multipart/form-data">
 					@csrf
 					@isset($link)

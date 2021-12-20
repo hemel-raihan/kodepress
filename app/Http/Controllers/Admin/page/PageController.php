@@ -10,8 +10,8 @@ use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-//use Intervention\Image\Facades\Image;
-use Intervention\Image\ImageManagerStatic as Image;
+use Illuminate\Support\Facades\Artisan;
+use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\Storage;
 
 class PageController extends Controller
@@ -27,6 +27,7 @@ class PageController extends Controller
         //$posts = Auth::guard('admin')->user()->posts()->latest()->get();
         $auth = Auth::guard('admin')->user();
         $pages = Page::latest()->get();
+        Artisan::call('cache:clear');
         return view('backend.admin.page.index',compact('pages','auth'));
     }
 
@@ -39,6 +40,7 @@ class PageController extends Controller
     {
         Gate::authorize('app.pages.create');
         $sidebars = Sidebar::all();
+        Artisan::call('cache:clear');
         return view('backend.admin.page.form',compact('sidebars'));
     }
 
@@ -62,44 +64,26 @@ class PageController extends Controller
         //get form image
         $image = $request->file('image');
         $slug = Str::slug($request->title);
-
-
-
+            
         if(isset($image))
         {
-            $currentDate = Carbon::now()->toDateString();
-            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
-
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('pagephoto/'))
-            // {
-            //     Storage::disk('public')->makeDirectory('pagephoto/');
-            // }
-
-            // //resize image
-            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            // Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
-
-            // $pagePath = public_path('uploads/pagephoto/'.$imagename);
-            // $image->move($pagePath,$imagename);
-            //Storage::disk('public')->put('pagephoto/'.$imagename,$postimg);
-            //Storage::put("public/pagephoto/{$imagename}",$postimg);
+           $image = $request->file('image');
+          $currentDate = Carbon::now()->toDateString();
+          $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
             $pagePath = public_path('uploads/pagephoto');
-            $img                     =       Image::make($image->path());
+            Image::make($image)->resize(300, 200)->save($pagePath.'/'.$imagename);
 
-            // $img->resize(900, 600, function ($constraint) {
-            //     $constraint->aspectRatio();
-            // })->save($pagePath.'/'.$imagename);
-            $img->resize(900, 600)->save($pagePath.'/'.$imagename);
+           // $img->resize(900, 600)->save($pagePath.'/'.$imagename);
 
         }
-        else{
+        else
+        {
             $imagename = null;
         }
 
 
-         //get form Gallary image
+          //get form Gallary image
          $gallaryimage = $request->file('gallaryimage');
          $images=array();
          $destination = public_path('uploads/pagegallary_image');
@@ -139,6 +123,7 @@ class PageController extends Controller
             $is_approved = true;
         }
 
+
         $page = Page::create([
             'title' => $request->title,
             'slug' => $slug,
@@ -151,9 +136,10 @@ class PageController extends Controller
             'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
             'is_approved' => $is_approved,
+
         ]);
 
-
+        Artisan::call('cache:clear');
 
         notify()->success("Page Successfully created","Added");
         return redirect()->route('admin.pages.index');
@@ -179,6 +165,7 @@ class PageController extends Controller
             notify()->success('Removed the Activeated Approval');
         }
 
+        Artisan::call('cache:clear');
         return redirect()->back();
     }
 
@@ -203,6 +190,7 @@ class PageController extends Controller
     {
         Gate::authorize('app.pages.edit');
         $editsidebars = Sidebar::all();
+        Artisan::call('cache:clear');
         return view('backend.admin.page.form',compact('page','editsidebars'));
     }
 
@@ -233,21 +221,6 @@ class PageController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            //check image folder existance
-            // if(!Storage::disk('public')->exists('categoryphoto'))
-            // {
-            //     Storage::disk('public')->makeDirectory('categoryphoto');
-            // }
-
-            // //delete old image
-            // if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
-            // {
-            //     Storage::disk('public')->delete('categoryphoto/'.$category->image);
-            // }
-
-            //resize image
-            // $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
-            // Storage::disk('public')->put('categoryphoto/'.$imagename,$categoryimg);
 
             $pagePath = public_path('uploads/pagephoto');
 
@@ -341,7 +314,8 @@ class PageController extends Controller
             'is_approved' => $is_approved,
 
         ]);
-
+        
+        Artisan::call('cache:clear');
 
 
         notify()->success("Page Successfully Updated","Update");
@@ -357,8 +331,13 @@ class PageController extends Controller
     public function destroy(Page $page)
     {
         Gate::authorize('app.pages.destroy');
+        //delete old image
+        // if(Storage::disk('public')->exists('pagephoto/'.$page->image))
+        // {
+        //     Storage::disk('public')->delete('pagephoto/'.$page->image);
+        // }
 
-        $pagephoto_path = public_path('uploads/pagephoto/'.$page->image);
+        $pagephoto_path = public_path('uploads/pagephoto/'.$page->image);  // Value is not URL but directory file path
         if (file_exists($pagephoto_path)) {
 
             @unlink($pagephoto_path);
@@ -378,6 +357,7 @@ class PageController extends Controller
         }
 
     }
+    Artisan::call('cache:clear');
 
         $page->delete();
         notify()->success('Page Deleted Successfully','Delete');

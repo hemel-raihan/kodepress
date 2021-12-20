@@ -6,6 +6,7 @@ use App\Models\Admin\Page;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
+use App\Models\Teams\Teamcategory;
 use App\Models\Frontmenu\Frontmenu;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -23,7 +24,8 @@ class MenuitemController extends Controller
             $pages = Page::all();
             $categories = category::where('parent_id', '=', 0)->get();
             $contentcategories = Contentcategory::where('parent_id', '=', 0)->get();
-            return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories','contentcategories'));
+            $teamcategories = Teamcategory::where('parent_id', '=', 0)->get();
+            return view('backend.admin.frontmenu.builder',compact('menu','auth','pages','categories','contentcategories','teamcategories'));
         }
 
         public function create($id)
@@ -115,10 +117,11 @@ class MenuitemController extends Controller
         $pages = Page::all();
         $categories = category::where('parent_id', '=', 0)->get();
         $contentcategories = Contentcategory::where('parent_id', '=', 0)->get();
-        return view('backend.admin.frontmenu.builder',compact('menu','auth','menuitemm','pages','categories','contentcategories'));
+        $teamcategories = Teamcategory::where('parent_id', '=', 0)->get();
+        return view('backend.admin.frontmenu.builder',compact('menu','auth','menuitemm','pages','categories','contentcategories','teamcategories'));
     }
 
-    public function update(Request $request,$id,$menuId)
+    public function update(Request $request,$menuId)
     {
         $frontmenu = Frontmenuitem::findOrFail($menuId);
         $frontmenu->update([

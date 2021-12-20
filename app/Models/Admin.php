@@ -6,6 +6,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use App\Models\blog\Post;
+use App\Models\Product\Product;
+use App\Models\Service\Service;
+use App\Models\Portfolio\Portfolio;
 use App\Models\Admin\Page;
 use App\Models\general_content\Contentpost;
 use Illuminate\Notifications\Notifiable;
@@ -58,6 +61,21 @@ class Admin extends Authenticatable
     public function posts()
     {
         return $this->hasMany(Post::class);
+    }
+
+    public function products()
+    {
+        return $this->hasMany(Product::class);
+    }
+
+    public function services()
+    {
+        return $this->hasMany(Service::class);
+    }
+
+    public function portfolios()
+    {
+        return $this->hasMany(Portfolio::class);
     }
 
     public function contentposts()

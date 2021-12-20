@@ -54,9 +54,7 @@
 								<thead>
 									<tr>
 										<th class="border-bottom-0">Title</th>
-                                        <th class="border-bottom-0">Author</th>
                                         <th class="border-bottom-0">URL</th>
-                                        <th class="border-bottom-0">Is Approved</th>
 										<th class="border-bottom-0">Status</th>
 										<th class="border-bottom-0">Action</th>
 
@@ -65,16 +63,8 @@
 								<tbody>
                                 @foreach($pages as $page)
 									<tr>
-										<td>{{Str::limit($page->title,'10')}}</td>
-                                        <td>{{$page->admin->name}}</td>
+										<td>{{Str::limit($page->title,'30')}}</td>
                                         <td><a href="{{route('page',$page->slug)}}">{{$page->slug}}</a></td>
-										<td>
-                                            @if($page->is_approved == true)
-                                            <a class="btn btn-info">Approved</a>
-                                            @else
-                                            <a class="btn btn-primary">Pending</a>
-                                            @endif
-                                        </td>
 										<td>
                                             @if($page->status == true)
                                             <a href="{{route('admin.page.status',$page->id)}}" class="btn btn-green">Active</a>
@@ -94,14 +84,13 @@
 
                                         @if($auth->hasPermission('app.pages.destroy'))
 
-                                            <button class="btn btn-danger waves effect" type="button" onclick="deletepost$page({{ $page->id}})" >
+                                         <button class="btn btn-danger waves effect" type="button" onclick="deletepost$page({{ $page->id}})" >
 												<i class="fa fa-trash"></i>
                                             </button>
                                             <form id="deleteform-{{$page->id}}" action="{{route('admin.pages.destroy',$page->id)}}" method="POST" style="display: none;">
 												@csrf
 												@method('DELETE')
                                             </form>
-
                                         @endif
                                             </td>
 
@@ -133,14 +122,14 @@
   confirmButtonColor: '#3085d6',
   cancelButtonColor: '#d33',
   confirmButtonText: 'Yes, delete it!'
-	}).then((result) => {
-	if (result.isConfirmed) {
-	event.preventDefault();
-	document.getElementById('deleteform-'+id).submit();
-	}
-	})
-}
-</script>
+}).then((result) => {
+  if (result.isConfirmed) {
+   event.preventDefault();
+   document.getElementById('deleteform-'+id).submit();
+  }
+})
+    }
+    </script>
 
 @section('scripts')
 

@@ -252,7 +252,7 @@
 		}
 		else if($('select[name="type"]').val() === 'Recent Post')
 		{
-			$('#recent_post').removeClass('d-none');
+			$('#no_of_post').removeClass('d-none');
 			$('#blog_category').addClass('d-none');
             $('#category').addClass('d-none');
 			$('#popular_post').addClass('d-none');
@@ -265,12 +265,14 @@
 			$('#blog_category').addClass('d-none');
             $('#category').addClass('d-none');
 			$('#popular_post').removeClass('d-none');
+			$('#no_of_post').removeClass('d-none');
             $('#text_widget').addClass('d-none');
             $('#image_widget').addClass('d-none');
 		}
         else if($('select[name="type"]').val() === 'Text Widget')
 		{
 			$('#recent_post').addClass('d-none');
+			$('#no_of_post').addClass('d-none');
 			$('#blog_category').addClass('d-none');
             $('#category').addClass('d-none');
 			$('#popular_post').addClass('d-none');

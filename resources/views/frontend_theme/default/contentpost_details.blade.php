@@ -1,8 +1,10 @@
 @extends('frontend_theme.default.front_layout.index')
 
-
+@isset($teampost)
+@section('clg', '| '.$teampost->name)
+@else
 @section('clg', '| '.$post->title)
-
+@endisset
 
 @section('styles')
 <style>
@@ -73,7 +75,6 @@
     }
     </style>
 @endsection
-
 
 @section('frontscripts')
 <script type="text/javascript" src="{{ asset('frontend/js/jquery.media.js') }}"></script>
@@ -197,43 +198,55 @@
     <div id="print_btn_div"><img src="{{ asset('frontend/images/print_btn.png') }}" style="cursor: pointer;" onclick="print_content();" width="24" title="প্রিন্ট" /></div>
     <div class="updateText" style="float: right; font-style: italic; font-size: 0.8em; color: #666;">সর্ব-শেষ হাল-নাগাদ: {{ $post->created_at->format('Y-m-d') }}</div>
     <hr id="print_div_hr" />
+
     <div id="printable_area">
         {{-- <u>নোটিশ</u> --}}
-        <h3>{{ $post->title }}</h3>
 
-        @isset($post->files)
-        <a href="{{ asset('uploads/contentfiles/'.$post->files) }}">
-            <img src="{{ asset('frontend/images/pdf.png') }}" alt="001-converted (1)_compressed (1).pdf" class="file-icon" />
-            {{-- {{ $post->files }} --}}
-        </a>
-        <div><a class="viewer" href="{{ asset('uploads/contentfiles/'.$post->files) }}"></a></div>
+        @isset($teampost)
+
+                <h3>{{ $teampost->name }}</h3>
+                <div>{!!$teampost->body!!}</div>
+
+        @else
+
+                <h3>{{ $post->title }}</h3>
+
+                @isset($post->files)
+                    <a href="{{ asset('uploads/contentfiles/'.$post->files) }}">
+                        <img src="{{ asset('frontend/images/pdf.png') }}" alt="001-converted (1)_compressed (1).pdf" class="file-icon" />
+                        {{-- {{ $post->files }} --}}
+                    </a>
+                    <div><a class="viewer" href="{{ asset('uploads/contentfiles/'.$post->files) }}"></a></div>
+                @endisset
+
+                @isset($post->body)
+                    <div>{!!$post->body!!}</div>
+                @endisset
+
+                @isset($post->gallaryimage)
+                    @if (!$post->gallaryimage == null)
+                        @php
+                            $postgallaryimg = explode("|", $post->gallaryimage);
+                        @endphp
+
+                        @foreach ($postgallaryimg as $key => $gallaryimages)
+                        <img class="ImgThumbnail" src="{{asset('uploads/Contentgallary_image/'.$gallaryimages)}}"/>
+                        @endforeach
+                        <div class="modal">
+                            <span class="close">×</span>
+                            <img  class="modalImage" id="img01" />
+                        </div>
+                    @endif
+                @endisset
+
         @endisset
 
-        @isset($post->body)
-        <div>{!!$post->body!!}</div>
-        @endisset
-
-        @isset($post->gallaryimage)
-            @if (!$post->gallaryimage == null)
-                @php
-                    $postgallaryimg = explode("|", $post->gallaryimage);
-                @endphp
-
-                @foreach ($postgallaryimg as $key => $gallaryimages)
-                <img class="ImgThumbnail" src="{{asset('uploads/Contentgallary_image/'.$gallaryimages)}}"/>
-                @endforeach
-                <div class="modal">
-                    <span class="close">×</span>
-                    <img  class="modalImage" id="img01" />
-                </div>
-            @endif
-        @endisset
 
         <style></style>
         <script></script>
     </div>
 
-    <div id="share-buttons" style="clear: both;">
+    {{-- <div id="share-buttons" style="clear: both;">
         <br />
         <p>
             <b>Share with :</b>
@@ -251,19 +264,15 @@
         >
             <img src="{{ asset('frontend/images/twitter.png') }}" alt="Facebook" />
         </a>
-    </div>
+    </div> --}}
 </div>
-
 
 <script>
     var modalEle = document.querySelector(".modal");
-    //var test = document.querySelector(".test");
     var modalImage = document.querySelector(".modalImage");
     Array.from(document.querySelectorAll(".ImgThumbnail")).forEach(item => {
        item.addEventListener("click", event => {
           modalEle.style.display = "block";
-        //   test.style.display = "block";
-        $('#test').addClass('d-none');
           modalImage.src = event.target.src;
        });
     });

@@ -23,7 +23,7 @@ class CategoryController extends Controller
     public function index()
     {
         Gate::authorize('app.blog.categories.self');
-        $categories = category::all();
+        $categories = category::paginate(2);
         $auth = Auth::guard('admin')->user();
         return view('backend.admin.blog.category.index',compact('categories','auth'));
     }
@@ -68,18 +68,7 @@ class CategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('categoryphoto/'))
-            // {
-            //     Storage::disk('public')->makeDirectory('categoryphoto/');
-            // }
-
-            // //resize image
-            // $category = Image::make($image)->resize(500,333)->save($imagename,90);
-            // Storage::disk('public')->put('categoryphoto/'.$imagename,$category);
-
-
-            $categoryphotoPath = public_path('uploads/categoryphoto');
+             $categoryphotoPath = public_path('uploads/categoryphoto');
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
@@ -103,7 +92,7 @@ class CategoryController extends Controller
             $status = 1;
         }
 
-        $category = Category::create([
+        $category = category::create([
             'name' => $request->name,
             'slug' => $slug,
             'parent_id' => $parent_id,
@@ -133,7 +122,7 @@ class CategoryController extends Controller
     public function approval($id)
     {
         Gate::authorize('app.blog.categories.approve');
-        $category = Category::find($id);
+        $category = category::find($id);
         if($category->status == true)
         {
             $category->status = false;
@@ -193,22 +182,6 @@ class CategoryController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
-
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('categoryphoto'))
-            // {
-            //     Storage::disk('public')->makeDirectory('categoryphoto');
-            // }
-
-            // //delete old image
-            // if(Storage::disk('public')->exists('categoryphoto/'.$category->image))
-            // {
-            //     Storage::disk('public')->delete('categoryphoto/'.$category->image);
-            // }
-
-            // //resize image
-            // $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
-            // Storage::disk('public')->put('categoryphoto/'.$imagename,$categoryimg);
 
             $categoryphotoPath = public_path('uploads/categoryphoto');
 

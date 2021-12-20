@@ -1,4 +1,5 @@
-		<!-- BACK-TO-TOP -->
+		
+        <!-- BACK-TO-TOP -->
 		<a href="#top" id="back-to-top"><i class="fa fa-angle-up"></i></a>
 
 		<!-- JQUERY JS -->
@@ -33,7 +34,7 @@
 		<!-- Perfect SCROLLBAR JS-->
 		<script src="{{ asset('assets/plugins/p-scroll/perfect-scrollbar.js') }}"></script>
 		<script src="{{ asset('assets/plugins/p-scroll/pscroll-1.js') }}"></script>
-		
+
 		@yield('scripts')
 
 		<!-- CUSTOM JS-->

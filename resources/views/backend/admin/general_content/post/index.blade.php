@@ -54,13 +54,9 @@
 								<thead>
 									<tr>
 										<th class="border-bottom-0">Title</th>
-                                        <th class="border-bottom-0">Author</th>
 										<th class="border-bottom-0">Category</th>
-                                        <th class="border-bottom-0">File</th>
-                                        <th class="border-bottom-0">Published Date</th>
-                                        <th class="border-bottom-0">Is Approved</th>
+                                        <th class="border-bottom-0">Published</th>
 										<th class="border-bottom-0">Status</th>
-                                        <th class="border-bottom-0">View</th>
 										<th class="border-bottom-0">Action</th>
 
 									</tr>
@@ -68,22 +64,13 @@
 								<tbody>
                                 @foreach($posts as $post)
 									<tr>
-										<td>{{Str::limit($post->title,'10')}}</td>
-                                        <td>{{$post->admin->name}}</td>
+										<td>{{Str::limit($post->title,'30')}}</td>
                                         <td>
                                         @foreach($post->contentcategories as $category)
                                         {{$category->name}},
                                         @endforeach
                                         </td>
-                                        <td><a href="#">{{$post->files}}</a></td>
                                         <td>{{$category->created_at->diffForHumans()}}</td>
-										<td>
-                                            @if($post->is_approved == true)
-                                            <a class="btn btn-info">Approved</a>
-                                            @else
-                                            <a class="btn btn-primary">Pending</a>
-                                            @endif
-                                        </td>
 										<td>
                                             @if($post->status == true)
                                             <a href="{{route('admin.general.contentpost.status',$post->id)}}" class="btn btn-green">Active</a>
@@ -91,14 +78,8 @@
                                             <a href="{{route('admin.general.contentpost.status',$post->id)}}" class="btn btn-red">InActive</a>
                                             @endif
                                         </td>
-                                        <td>{{$post->view_count}}</td>
 
 										<td>
-                                            @if($auth->hasPermission('app.content.posts.details'))
-                                            <a href="{{route('admin.contentposts.show',$post->id)}}" class="btn btn-secondary">
-                                                <i class="fa fa-eye"></i>
-                                            </a>
-                                            @endif
 
                                             @if($auth->hasPermission('app.content.posts.edit'))
                                             <a href="{{route('admin.contentposts.edit',$post->id)}}" class="btn btn-success">

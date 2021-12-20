@@ -7,7 +7,6 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Admin\Notice\Notice;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Facades\Artisan;
 
 class NoticeController extends Controller
 {
@@ -19,7 +18,6 @@ class NoticeController extends Controller
     public function index()
     {
         $notices = Notice::all();
-        Artisan::call('cache:clear');
         return view('backend.admin.notice.index',compact('notices'));
     }
 

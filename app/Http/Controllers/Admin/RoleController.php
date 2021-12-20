@@ -7,6 +7,7 @@ use App\Models\Role;
 use App\Models\Module;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Artisan;
 
 class RoleController extends Controller
 {
@@ -18,6 +19,7 @@ class RoleController extends Controller
     public function index()
     {
         $roles = Role::all();
+        Artisan::call('cache:clear');
         return view('backend.admin.roles.index',compact('roles'));
     }
 
@@ -29,6 +31,7 @@ class RoleController extends Controller
     public function create()
     {
         $modules = Module::all();
+        Artisan::call('cache:clear');
         return view('backend.admin.roles.form',compact('modules'));
     }
 
@@ -49,6 +52,8 @@ class RoleController extends Controller
             'name' => $request->name,
             'slug' => Str::slug($request->name),
         ])->permissions()->sync($request->input('permissions'),[]);
+        
+        Artisan::call('cache:clear');
         notify()->success("Role Successfulyy Ceated", "Added");
         return redirect()->route('admin.roles.index');
     }
@@ -73,6 +78,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
         $modules = Module::all();
+        Artisan::call('cache:clear');
         return view('backend.admin.roles.form',compact('modules','role'));
     }
 
@@ -90,6 +96,8 @@ class RoleController extends Controller
             'slug' => Str::slug($request->name),
         ]);
         $role->permissions()->sync($request->input('permissions'));
+        
+        Artisan::call('cache:clear');
         notify()->success("Role Successfully Updated","Updated");
         return redirect()->route('admin.roles.index');
     }
@@ -111,6 +119,8 @@ class RoleController extends Controller
         {
             notify()->success("You can't delete this ","Delete");
         }
+        
+        Artisan::call('cache:clear');
         return back();
     }
 }

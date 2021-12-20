@@ -135,7 +135,7 @@ class WidgetbuilderController extends Controller
         notify()->success('Widget Item Updated','Update');
         return redirect()->route('admin.widget.builder',$id);
     }
-
+    
     public function widgetdetails($id)
     {
         $widget = Widget::find($id);

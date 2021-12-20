@@ -115,12 +115,12 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Blog Post</h3>
+					<h3 class="card-title">Create New Sidebar</h3>
 				</div>
 				<div class="card-body">
 					<div class="form-group">
-						<label for="exampleInputname">Post Title</label>
-						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$sidebar->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Post Name">
+						<label for="exampleInputname">Sidebar Title</label>
+						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$sidebar->title ?? old('title')}}" name="title" id="posttitle" onkeyup="myFunction()" placeholder="Sidebar Name">
                         @error('title')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
@@ -129,7 +129,7 @@
 					</div>
 
 				</div>
-				
+
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
                         @isset($sidebar)
@@ -178,8 +178,8 @@
                     @isset($sidebar)
                     <div class="form-group">
 						<label class="form-label">Sidebar Type</label>
-						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Sidebar Type</option>
+						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Sidebar Type</option>
 							<option value="Left Side Bar" {{($sidebar->type == 'Left Side Bar') ? 'selected' : ''}}  >Left Side Bar</option>
 							<option value="Right Side Bar" {{($sidebar->type == 'Right Side Bar') ? 'selected' : ''}}>Right Side Bar</option>
 						</select>
@@ -189,8 +189,8 @@
 
 					<div class="form-group">
 						<label class="form-label">Sidebar Type</label>
-						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Country">
-							<option label="Select Country">Select Sidebar Type</option>
+						<select name="type" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Sidebar Type</option>
 							<option value="Left Side Bar">Left Side Bar</option>
 							<option value="Right Side Bar">Right Side Bar</option>
 						</select>

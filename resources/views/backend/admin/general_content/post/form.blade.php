@@ -115,7 +115,7 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Blog Post</h3>
+					<h3 class="card-title">Create Content Post</h3>
 				</div>
 				<div class="card-body">
 
@@ -331,7 +331,7 @@
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option label="Select Country">Select Left Sidebar</option>
+							<option value="">Select Left Sidebar</option>
                             <option value="0" {{($contentpost->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
                             @foreach ($editsidebars as $editsidebar)
                             @if($editsidebar->type == 'Left Side Bar')
@@ -345,7 +345,7 @@
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
 						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option label="Select Country">Select Right Sidebar</option>
+							<option value="">Select Right Sidebar</option>
                             <option value="0" {{($contentpost->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
                             @foreach ($editsidebars as $editsidebar)
                             @if($editsidebar->type == 'Right Side Bar')
@@ -360,7 +360,7 @@
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option label="Select Country">Select Left Sidebar</option>
+							<option value="">Select Left Sidebar</option>
                             <option value="0">None</option>
                             @foreach ($sidebars as $sidebar)
                             @if($sidebar->type == 'Left Side Bar')
@@ -374,7 +374,7 @@
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
 						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option label="Select Country">Select Right Sidebar</option>
+							<option value="">Select Right Sidebar</option>
                             <option value="0">None</option>
                             @foreach ($sidebars as $sidebar)
                             @if($sidebar->type == 'Right Side Bar')
@@ -419,7 +419,10 @@
     CKEDITOR.replace('my-editor', options);
     </script> --}}
 
-<script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>
+{{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
+
+<script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
+
 <script>
 	window.onload = function () {
 		CKEDITOR.replace('ckeditor', {

@@ -2,9 +2,14 @@
 <div class="footer-wrapper full-width" id="footer-wrapper">
     <div id="footer-menu">
         <ul>
+            @php
+            $contact  = \App\Models\Admin\Setting::where([['id',1]])->orderBy('id','desc')->first();
+            @endphp
+        @isset($contact)
             <li><a href="#">সাইট ম্যাপ</a></li>
-            <li><a href="#">যোগাযোগ</a></li>
-            <li><a href="#">ফেসবুক</a></li>
+            <li><a href="/contact">যোগাযোগ</a></li>
+            <li><a href="{{$contact->facebook_link}}">ফেসবুক</a></li>
+        @endisset
         </ul>
         <div style="float: left; font-size: 0.9em;">
             সাইটটি শেষ হাল-নাগাদ করা হয়েছে: <span style="font-style: italic;">&#x09E8;&#x09E6;&#x09E8;&#x09E7;-&#x09E7;&#x09E7;-&#x09E8;&#x09EF; &#x09E6;&#x09EF;:&#x09E6;&#x09E8;:&#x09E7;&#x09EB;</span>

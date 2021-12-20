@@ -54,7 +54,7 @@ class ContentPostController extends Controller
     {
         Gate::authorize('app.content.posts.create');
         $this->validate($request,[
-            'title' => 'required',
+            'title' => 'required|unique:contentposts',
             'image' => 'max:1024',
             'gallaryimage.*' => 'max:1024',
             'files' => 'mimes:pdf,doc,docx',
@@ -71,16 +71,6 @@ class ContentPostController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
-
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('contentpostphoto/'))
-            // {
-            //     Storage::disk('public')->makeDirectory('contentpostphoto/');
-            // }
-
-            // //resize image
-            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            // Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
 
             $postphotoPath = public_path('uploads/contentpostphoto');
             $img                     =       Image::make($image->path());
@@ -174,29 +164,6 @@ class ContentPostController extends Controller
             $featureimg = $imagename;
         }
 
-
-    //    $content = $request->body;
-    //    $dom = new \DomDocument();
-    //    $dom->loadHtml($content, LIBXML_HTML_NOIMPLIED | LIBXML_HTML_NODEFDTD);
-    //    $bodyimg = $dom->getElementsByTagName('img');
-
-
-    //    foreach($bodyimg as $item => $bimage){
-    //     $data = $bimage->getAttribute('src');
-    //     list($type, $data) = explode(';', $data);
-    //     list(, $data)      = explode(',', $data);
-    //     $imgeData = base64_decode($data);
-    //     //$image_name= "/bodyimgupload/". time().$item.'.png';
-    //     $image_name= $slug.'-'.$currentDate.'-'.uniqid().'.'.$item.'png';
-    //     $path = public_path() . $image_name;
-    //     file_put_contents($path, $imgeData);
-
-    //     // $image->removeAttribute('src');
-    //     // $image->setAttribute('src', $image_name);
-    //  }
-
-    // $content = $dom->saveHTML();
-
         $post = Contentpost::create([
             'title' => $request->title,
             'slug' => $slug,
@@ -285,6 +252,7 @@ class ContentPostController extends Controller
             'categories' => 'required',
             'image' => 'max:1024',
             'gallaryimage.*' => 'max:1024',
+            'files' => 'mimes:pdf,doc,docx',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
         ]);
@@ -298,22 +266,6 @@ class ContentPostController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('contentpostphoto'))
-            // {
-            //     Storage::disk('public')->makeDirectory('contentpostphoto');
-            // }
-
-            //  //delete old image
-            //  if(Storage::disk('public')->exists('contentpostphoto/'.$contentpost->image))
-            //  {
-            //      Storage::disk('public')->delete('contentpostphoto/'.$contentpost->image);
-            //  }
-
-            // //resize image
-            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            // Storage::disk('public')->put('contentpostphoto/'.$imagename,$postimg);
-
             $postphotoPath = public_path('uploads/contentpostphoto');
 
             $postphoto_path = public_path('uploads/contentpostphoto/'.$contentpost->image);  // Value is not URL but directory file path
@@ -323,7 +275,7 @@ class ContentPostController extends Controller
 
             }
 
-            $img                     =       Image::make($image->path());
+             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
         }
@@ -415,30 +367,30 @@ class ContentPostController extends Controller
             $is_approved = true;
         }
 
-        // if(!$request->youtube_link)
-        // {
-        //     $youtube = null;
-        // }
-        // else
-        // {
-        //     $youtube = $request->youtube_link;
-        // }
+        if(!$request->youtube_link)
+        {
+            $youtube = null;
+        }
+        else
+        {
+            $youtube = $request->youtube_link;
+        }
 
-        // if(!$request->image)
-        // {
-        //     $featureimg = null;
-        // }
-        // else
-        // {
-        //     $featureimg = $imagename;
-        // }
+        if(!$request->image)
+        {
+            $featureimg = null;
+        }
+        else
+        {
+            $featureimg = $imagename;
+        }
 
         $contentpost->update([
             'title' => $request->title,
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
-            'image' => $imagename,
-            'youtube_link' => $request->youtube_link,
+            'image' => $featureimg,
+            'youtube_link' => $youtube,
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'body' => $request->body,

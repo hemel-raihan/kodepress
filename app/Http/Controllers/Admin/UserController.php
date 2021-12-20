@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\User;
 use App\Models\Role;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\support\Facades\Gate;
@@ -35,6 +36,7 @@ class UserController extends Controller
         Gate::authorize('app.users.create');
         $roles = Role::all();
         $auth = Auth::user();
+        Artisan::call('cache:clear');
         return view('backend.admin.users.form',compact('roles','auth'));
     }
 
@@ -61,6 +63,7 @@ class UserController extends Controller
             'password' => Hash::make($request->password),
         ]);
 
+        Artisan::call('cache:clear');
         notify()->success("User added succefully");
         return redirect()->route('admin.users.index');
     }
@@ -86,6 +89,7 @@ class UserController extends Controller
     {
         Gate::authorize('app.users.edit');
         $roles = Role::all();
+        Artisan::call('cache:clear');
         return view('backend.admin.users.form',compact('roles','user'));
     }
 
@@ -113,6 +117,7 @@ class UserController extends Controller
             'password' => isset($request->password) ? Hash::make($request->password) : $user->password
         ]);
 
+        Artisan::call('cache:clear');
         notify()->success("user Updated Successfully");
         return redirect()->route('admin.users.index');
     }
@@ -127,6 +132,7 @@ class UserController extends Controller
     {
         //Gate::authorize('app.users.destroy');
         $user->delete();
+        Artisan::call('cache:clear');
         notify()->success("User Delete Succefully");
         return back();
     }

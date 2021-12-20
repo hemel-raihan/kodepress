@@ -301,7 +301,7 @@
                     <div class="form-group">
 						<label class="form-label">Left Sidebar</label>
 						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option label="Select Country">Select Left Sidebar</option>
+							<option value="">Select Left Sidebar</option>
                             <option value="0" {{($category->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
                             @foreach ($editsidebars as $editsidebar)
                             @if($editsidebar->type == 'Left Side Bar')
@@ -315,7 +315,7 @@
 					<div class="form-group">
 						<label class="form-label">Right Sidebar</label>
 						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
-							<option label="Select Country">Select Right Sidebar</option>
+							<option value="">Select Right Sidebar</option>
                             <option value="0" {{($category->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
                             @foreach ($editsidebars as $editsidebar)
                             @if($editsidebar->type == 'Right Side Bar')

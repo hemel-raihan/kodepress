@@ -7,7 +7,7 @@ use App\Models\blog\Post;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Admin\Sidebar;
-use App\Models\blog\Category;
+use App\Models\blog\category;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -54,7 +54,7 @@ class PostController extends Controller
     {
         Gate::authorize('app.blog.posts.create');
             $this->validate($request,[
-                'title' => 'required',
+                'title' => 'required|unique:posts',
                 'image' => 'max:1024',
                 'gallaryimage.*' => 'max:1024',
                 'files' => 'mimes:pdf,doc,docx',
@@ -73,24 +73,10 @@ class PostController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('postphoto/'))
-            // {
-            //     Storage::disk('public')->makeDirectory('postphoto/');
-            // }
-
-            // //resize image
-            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            // Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
-
             $postphotoPath = public_path('uploads/postphoto');
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
-        }
-        else
-        {
-            $imagename = null;
         }
 
 
@@ -104,7 +90,7 @@ class PostController extends Controller
              foreach($gallaryimage as $gimage)
              {
                 $gallaryimagename = $slug.'-'.'-'.uniqid().'.'.$gimage->getClientOriginalExtension();
-                $gimg                     =       Image::make($gimage->path());
+                 $gimg                     =       Image::make($gimage->path());
                 $gimg->resize(900, 600, function ($constraint) {
                     $constraint->aspectRatio();
                 })->save($destination.'/'.$gallaryimagename);
@@ -288,11 +274,12 @@ class PostController extends Controller
         Gate::authorize('app.blog.posts.edit');
         $this->validate($request,[
             'title' => 'required',
-            'categories' => 'required',
-            'image' => 'max:1024',
-            'gallaryimage.*' => 'max:1024',
-            'leftsidebar_id' => 'required',
-            'rightsidebar_id' => 'required',
+                'image' => 'max:1024',
+                'gallaryimage.*' => 'max:1024',
+                'files' => 'mimes:pdf,doc,docx',
+                'categories' => 'required',
+                'leftsidebar_id' => 'required',
+                'rightsidebar_id' => 'required',
         ]);
 
         //get form image
@@ -304,22 +291,6 @@ class PostController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('postphoto'))
-            // {
-            //     Storage::disk('public')->makeDirectory('postphoto');
-            // }
-
-            //  //delete old image
-            //  if(Storage::disk('public')->exists('postphoto/'.$post->image))
-            //  {
-            //      Storage::disk('public')->delete('postphoto/'.$post->image);
-            //  }
-
-            // //resize image
-            // $postimg = Image::make($image)->resize(900,600)->save($imagename,90);
-            // Storage::disk('public')->put('postphoto/'.$imagename,$postimg);
-
             $postphotoPath = public_path('uploads/postphoto');
 
             $postphoto_path = public_path('uploads/postphoto/'.$post->image);  // Value is not URL but directory file path
@@ -329,7 +300,7 @@ class PostController extends Controller
 
             }
 
-            $img                     =       Image::make($image->path());
+           $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
         }
@@ -421,30 +392,30 @@ class PostController extends Controller
             $is_approved = true;
         }
 
-        // if(!$request->youtube_link)
-        // {
-        //     $youtube = null;
-        // }
-        // else
-        // {
-        //     $youtube = $request->youtube_link;
-        // }
+        if(!$request->youtube_link)
+        {
+            $youtube = null;
+        }
+        else
+        {
+            $youtube = $request->youtube_link;
+        }
 
-        // if(!$request->image)
-        // {
-        //     $featureimg = null;
-        // }
-        // else
-        // {
-        //     $featureimg = $imagename;
-        // }
+        if(!$request->image)
+        {
+            $featureimg = null;
+        }
+        else
+        {
+            $featureimg = $imagename;
+        }
 
         $post->update([
             'title' => $request->title,
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
-            'image' => $imagename,
-            'youtube_link' => $request->youtube_link,
+            'image' => $featureimg,
+            'youtube_link' => $youtube,
             'gallaryimage'=>  implode("|",$images),
             'files' => $filename,
             'body' => $request->body,

@@ -62,7 +62,7 @@
 								<tbody>
                                 @foreach($videos as $video)
 									<tr>
-										<td>{{Str::limit($video->title,'10')}}</td>
+										<td>{{Str::limit($video->title,'30')}}</td>
                                         <td style="text-align:center"><iframe frameborder="" height="50" src="{{$video->url}}" width="150"></iframe></td>
                                         <td>{{$video->type}}</td>
 										<td>

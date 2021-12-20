@@ -56,7 +56,7 @@
 	<!-- PAGE-HEADER -->
 	<div class="page-header">
 		<div>
-			<h1 class="page-title">Add Slider</h1>
+			<h1 class="page-title">Add New Notice</h1>
 		</div>
 		{{-- <div class="ms-auto pageheader-btn">
 			<a href="#" class="btn btn-success btn-icon text-white me-2">
@@ -79,9 +79,6 @@
 		{{-- Left Side --}}
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
-				<div class="card-header">
-					<h3 class="card-title">Add Slide</h3>
-				</div>
 				<form method="POST" action="{{isset($notice) ? route('admin.notices.update',$notice->id) : route('admin.notices.store')}}" enctype="multipart/form-data">
 					@csrf
 					@isset($notice)
@@ -89,8 +86,8 @@
 					@endisset
 				<div class="card-body">			
 					<div class="form-group">
-						<label for="exampleInputPhoto">Title</label>
-						<input type="text" name="title" value="{{$notice->title ?? old('title')}}" class="form-control" id="exampleInputTitle" placeholder="Slide Title">
+						<label for="exampleInputPhoto">Notice Title</label>
+						<input type="text" name="title" value="{{$notice->title ?? old('title')}}" class="form-control" id="exampleInputTitle" placeholder="Notice Title">
 					</div>
 					<div class="form-group">
 						<label class="form-label">File</label>

@@ -14,10 +14,7 @@
         <title>Admin Dashboard</title>
 
         @include('layouts.vertical.styles')
-        
-
         @FilemanagerScript
-
 
 	</head>
 

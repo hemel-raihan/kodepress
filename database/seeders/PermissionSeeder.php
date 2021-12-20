@@ -80,6 +80,85 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.users.destroy'
         ]);
 
+
+        $moduleAppProductCategory = Module::updateOrCreate(['name' => 'Product-Category Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductCategory->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.product.categories.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductCategory->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.product.categories.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductCategory->id,
+            'name' => 'Create ProductCategory',
+            'slug' => 'app.product.categories.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductCategory->id,
+            'name' => 'Edit ProductCategory',
+            'slug' => 'app.product.categories.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductCategory->id,
+            'name' => 'Delete ProductCategory',
+            'slug' => 'app.product.categories.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductCategory->id,
+            'name' => 'Approve ProductCategory',
+            'slug' => 'app.product.categories.approve'
+        ]);
+
+
+        $moduleAppProductPost = Module::updateOrCreate(['name' => 'Product-Post Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.product.posts.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.product.posts.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'Create ProductPost',
+            'slug' => 'app.product.posts.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'Edit ProductPost',
+            'slug' => 'app.product.posts.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'Details ProductPost',
+            'slug' => 'app.product.posts.details'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'Delete ProductPost',
+            'slug' => 'app.product.posts.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'Approve ProductPost',
+            'slug' => 'app.product.posts.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppProductPost->id,
+            'name' => 'Approve ProductPost',
+            'slug' => 'app.product.posts.approve'
+        ]);
+
+
         $moduleAppBlogCategory = Module::updateOrCreate(['name' => 'Blog-Category Management']);
 
         Permission::updateOrCreate([
@@ -233,6 +312,84 @@ class PermissionSeeder extends Seeder
             'module_id' => $moduleAppContentPost->id,
             'name' => 'Approve ContentPost',
             'slug' => 'app.content.posts.approve'
+        ]);
+
+
+        $moduleAppTeamCategory = Module::updateOrCreate(['name' => 'Team-Category Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamCategory->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.team.categories.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamCategory->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.team.categories.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamCategory->id,
+            'name' => 'Create TeamCategory',
+            'slug' => 'app.team.categories.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamCategory->id,
+            'name' => 'Edit TeamCategory',
+            'slug' => 'app.team.categories.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamCategory->id,
+            'name' => 'Delete TeamCategory',
+            'slug' => 'app.team.categories.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamCategory->id,
+            'name' => 'Approve TeamCategory',
+            'slug' => 'app.team.categories.approve'
+        ]);
+
+
+        $moduleAppTeamPost = Module::updateOrCreate(['name' => 'Team-Post Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.team.posts.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.team.posts.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'Create TeamPost',
+            'slug' => 'app.team.posts.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'Edit TeamPost',
+            'slug' => 'app.team.posts.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'Details TeamPost',
+            'slug' => 'app.team.posts.details'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'Delete TeamPost',
+            'slug' => 'app.team.posts.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'Approve TeamPost',
+            'slug' => 'app.team.posts.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppTeamPost->id,
+            'name' => 'Approve TeamPost',
+            'slug' => 'app.team.posts.approve'
         ]);
 
 
@@ -425,6 +582,151 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.front.menuitems.widgetbuilder'
         ]);
 
+
+        $moduleAppServiceCategory = Module::updateOrCreate(['name' => 'Service-Category Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServiceCategory->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.service.categories.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServiceCategory->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.service.categories.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServiceCategory->id,
+            'name' => 'Create ServiceCategory',
+            'slug' => 'app.service.categories.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServiceCategory->id,
+            'name' => 'Edit ServiceCategory',
+            'slug' => 'app.service.categories.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServiceCategory->id,
+            'name' => 'Delete ServiceCategory',
+            'slug' => 'app.service.categories.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServiceCategory->id,
+            'name' => 'Approve ServiceCategory',
+            'slug' => 'app.service.categories.approve'
+        ]);
+
+
+        $moduleAppServicePost = Module::updateOrCreate(['name' => 'Service-Post Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServicePost->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.service.posts.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServicePost->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.service.posts.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServicePost->id,
+            'name' => 'Create ServicePost',
+            'slug' => 'app.service.posts.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServicePost->id,
+            'name' => 'Edit ServicePost',
+            'slug' => 'app.service.posts.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServicePost->id,
+            'name' => 'Delete ServicePost',
+            'slug' => 'app.service.posts.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServicePost->id,
+            'name' => 'Approve ServicePost',
+            'slug' => 'app.service.posts.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppServicePost->id,
+            'name' => 'Approve ServicePost',
+            'slug' => 'app.service.posts.approve'
+        ]);
+
+
+        $moduleAppPortfolioCategory = Module::updateOrCreate(['name' => 'Portfolio-Category Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioCategory->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.portfolio.categories.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioCategory->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.portfolio.categories.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioCategory->id,
+            'name' => 'Create PortfolioCategory',
+            'slug' => 'app.portfolio.categories.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioCategory->id,
+            'name' => 'Edit PortfolioCategory',
+            'slug' => 'app.portfolio.categories.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioCategory->id,
+            'name' => 'Delete PortfolioCategory',
+            'slug' => 'app.portfolio.categories.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioCategory->id,
+            'name' => 'Approve PortfolioCategory',
+            'slug' => 'app.portfolio.categories.approve'
+        ]);
+
+
+        $moduleAppPortfolioPost = Module::updateOrCreate(['name' => 'Portfolio-Post Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioPost->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.portfolio.posts.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioPost->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.portfolio.posts.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioPost->id,
+            'name' => 'Create PortfolioPost',
+            'slug' => 'app.portfolio.posts.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioPost->id,
+            'name' => 'Edit PortfolioPost',
+            'slug' => 'app.portfolio.posts.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioPost->id,
+            'name' => 'Delete PortfolioPost',
+            'slug' => 'app.portfolio.posts.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioPost->id,
+            'name' => 'Approve PortfolioPost',
+            'slug' => 'app.portfolio.posts.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPortfolioPost->id,
+            'name' => 'Approve PortfolioPost',
+            'slug' => 'app.portfolio.posts.approve'
+        ]);
 
     }
 }

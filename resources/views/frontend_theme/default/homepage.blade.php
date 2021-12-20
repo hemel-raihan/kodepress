@@ -10,14 +10,13 @@
 
     <div class="twelve columns" id="left-content">
         <div class="row mainwrapper">
-            @isset($banner_img)
+             @isset($banner_img)
             <div class="pm">
                 <a href="{{$banner_img->url}}" target="_blank">
                     <img src="{{ asset('uploads/slide_image/'.$banner_img->slideimage) }}" />
                 </a>
             </div>
             @endisset
-            
             <div class="scroll">
                 <h3>
                     {{-- <marquee direction="left" scrollamount="4" onmouseover="this.stop()" onmouseout="this.start()">
@@ -95,32 +94,7 @@
                 }
             </style>
             <script></script>
-            {{-- <div style="background-color: #efefef; border: 1px solid #cccccc; margin-bottom: 20px; padding: 10px;" class="row" id="news">
-                <h5 style="float: left; margin: -3px 5px 0 0; font-weight: bold; font-size: 0.9em;">খবর:</h5>
-                <div id="news-ticker" style="overflow: hidden; position: relative; height: 0px;">
-                    <ul style="font-size: 0.9em; position: absolute; margin: 0px; padding: 0px; width: 95%;">
-                        <li class="lineheight">
-                            <a href="/site/news/e350e6c8-d4b0-41f9-9e9e-10150787a619/অভিযোগ-প্রতিকার-ব্যবস্থার-লিঙ্কa-hrefhttp--wwwgrsgovbd--লিঙ্ক-a">অভিযোগ প্রতিকার ব্যবস্থার লিঙ্ক<a href="http://www.grs.gov.bd/"> লিঙ্ক</a></a>
-                            <i>(&#x09E8;&#x09E6;&#x09E8;&#x09E7;-&#x09E7;&#x09E6;-&#x09E9;&#x09E7;)</i>
-                        </li>
-                        <li class="lineheight">
-                            <a href="/site/news/7d0651c2-fc66-4a00-b65f-d95213923969/a-hrefhttps--youtube-HbYVxljUjrQশিক্ষা-প্রতিষ্ঠান-খোলার-পর-স্বাস্থ্যবিধি-অনুসরণে-বিশেষ-বার্তা--a">
-                                <a href="https://youtu.be/HbYVxljUjrQ">শিক্ষা প্রতিষ্ঠান খোলার পর স্বাস্থ্যবিধি অনুসরণে বিশেষ বার্তা </a>
-                            </a>
-                            <i>(&#x09E8;&#x09E6;&#x09E8;&#x09E7;-&#x09E6;&#x09EF;-&#x09E7;&#x09E6;)</i>
-                        </li>
-                        <li class="lineheight">
-                            <a href="/site/news/ec5e8dc2-7105-4931-be6b-60e03fd867ac/a-hrefhttps--tinyurlcom-dshe-school-reopenশিক্ষা-প্রতিষ্ঠান-প্রধানগণের-দৈনিক-ভিত্তিতে-গুগল-ডকস্-এর-মাধ্যমে-তথ্য-প্রেরণ-a">
-                                <a href="https://tinyurl.com/dshe-school-reopen">শিক্ষা প্রতিষ্ঠান প্রধানগণের দৈনিক ভিত্তিতে গুগল ডকস্ এর মাধ্যমে তথ্য প্রেরণ</a>
-                            </a>
-                            <i>(&#x09E8;&#x09E6;&#x09E8;&#x09E7;-&#x09E6;&#x09EF;-&#x09E6;&#x09EF;)</i>
-                        </li>
-                    </ul>
-                    <div style="float: right;">
-                        <a class="btn" href="/site/view/news">সকল</a>
-                    </div>
-                </div>
-            </div> --}}
+            
             <style>
                 .lineheight {
                     line-height: 22px;

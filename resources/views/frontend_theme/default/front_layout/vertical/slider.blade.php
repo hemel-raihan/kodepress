@@ -1,4 +1,3 @@
-
 <div class="sixteen columns">
     <div class="callbacks_container" style="box-shadow: 0 1px 5px #999999;">
         <ul class="rslides" id="front-image-slider">

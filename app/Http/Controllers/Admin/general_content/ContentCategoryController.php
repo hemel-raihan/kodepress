@@ -52,7 +52,7 @@ class ContentCategoryController extends Controller
     {
         Gate::authorize('app.content.categories.create');
         $this->validate($request,[
-            'name' => 'required|unique:contentcategories',
+           'name' => 'required|unique:contentcategories',
             'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
             'leftsidebar_id' => 'required',
             'rightsidebar_id' => 'required',
@@ -67,16 +67,6 @@ class ContentCategoryController extends Controller
         {
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
-
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('contentcategoryphoto/'))
-            // {
-            //     Storage::disk('public')->makeDirectory('contentcategoryphoto/');
-            // }
-
-            // //resize image
-            // $category = Image::make($image)->resize(500,333)->save($imagename,90);
-            // Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$category);
 
             $categoryphotoPath = public_path('uploads/contentcategoryphoto');
             $img                     =       Image::make($image->path());
@@ -197,22 +187,6 @@ class ContentCategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            // //check image folder existance
-            // if(!Storage::disk('public')->exists('contentcategoryphoto'))
-            // {
-            //     Storage::disk('public')->makeDirectory('contentcategoryphoto');
-            // }
-
-            // //delete old image
-            // if(Storage::disk('public')->exists('contentcategoryphoto/'.$contentcategory->image))
-            // {
-            //     Storage::disk('public')->delete('contentcategoryphoto/'.$contentcategory->image);
-            // }
-
-            // //resize image
-            // $categoryimg = Image::make($image)->resize(500,333)->save($imagename,90);
-            // Storage::disk('public')->put('contentcategoryphoto/'.$imagename,$categoryimg);
-
             $categoryphotoPath = public_path('uploads/contentcategory');
 
             $categoryphoto_path = public_path('uploads/contentcategory/'.$contentcategory->image);  // Value is not URL but directory file path
@@ -222,7 +196,7 @@ class ContentCategoryController extends Controller
 
             }
 
-            $img                     =       Image::make($image->path());
+           $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
         }

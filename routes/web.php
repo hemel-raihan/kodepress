@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Artisan;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 /*
@@ -20,6 +21,7 @@ Auth::routes();
 Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logout'])->name('logout');
 //Route::get('user/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
+
 //single page test
 // Route::get('/all', function () {
 //     return view('frontend_theme.default.front_layout.all-notice');
@@ -28,31 +30,41 @@ Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logou
 //     return view('frontend_theme.default.test');
 // });
 
-Route::get('/', 'HomepageController@index')->name('home');
-Route::get('/content/details/{id}', 'HomepageController@contentdetails')->name('content.details');
+Route::get('fetch-portfolios', 'Admin\Portfolio\PortfolioController@fetchportfolios')->name('hemel');
 
-Route::get('/blog/posts/{id}', 'HomepageController@blogposts')->name('blog.posts');
-Route::get('/post/details/{id}', 'HomepageController@postdetails')->name('posts.details');
+Route::get('/', function () {
+    return 'hii Kodepress';
+})->name('home');
 
-Route::get('/general/posts/{id}', 'HomepageController@generalposts')->name('general.posts');
-Route::get('/general/details/{id}', 'HomepageController@generaldetails')->name('general.details');
+// Route::get('/', 'HomepageController@index')->name('home');
+// Route::get('/content/details/{id}', 'HomepageController@contentdetails')->name('content.details');
 
-Route::get('/hotlinks/details/{id}', 'HomepageController@hhotlinksdetails')->name('hotlinks.details');
+// Route::get('/team/details/{id}', 'HomepageController@teamdetails')->name('team.details');
 
-Route::get('/widget/details/{id}', 'Admin\sidebar\WidgetbuilderController@widgetdetails')->name('widget.details');
+// Route::get('/blog/posts/{id}', 'HomepageController@blogposts')->name('blog.posts');
+// Route::get('/post/details/{id}', 'HomepageController@postdetails')->name('posts.details');
 
-Route::get('/single', 'HomepageController@single')->name('single');
-Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
+// Route::get('/general/posts/{id}', 'HomepageController@generalposts')->name('general.posts');
+// Route::get('/general/details/{id}', 'HomepageController@generaldetails')->name('general.details');
 
-Route::get('notices/all','Admin\Notice\NoticeController@noticeList')->name('notice.all');
-Route::get('/notice/details/{id}', 'HomepageController@noticedetails')->name('notice.details');
+// Route::get('/notice/details/{id}', 'HomepageController@noticedetails')->name('notice.details');
+
+// Route::get('/hotlinks/details/{id}', 'HomepageController@hhotlinksdetails')->name('hotlinks.details');
+
+// Route::get('/widget/details/{id}', 'Admin\sidebar\WidgetbuilderController@widgetdetails')->name('widget.details');
+
+// Route::get('/single', 'HomepageController@single')->name('single');
+// Route::get('/single-page', 'HomepageController@singlepage')->name('single.page');
+
+// Route::get('notices/all','Admin\Notice\NoticeController@noticeList')->name('notice.all');
 
 //Route::get('links/{details}','Admin\Link\LinkController@details')->name('link.details');
 
 
 //for admin authentication
 Route::get('adminlogin', 'Adminlogin\LoginController@showloginform')->name('admin.login');
-Route::post('adminlogin', 'AdminLogin\LoginController@login')->name('admin.loginform');
+ Route::post('adminlogin', 'Adminlogin\LoginController@login')->name('admin.loginform');
+//Route::post('adminlogin',[\App\Http\Controllers\AdminLogin\LoginController::class, 'login'])->name('admin.loginform');
 Route::post('admin-password/email', 'Adminlogin\ForgotPasswordController@sendResetLinkEmail')->name('admin.password.email');
 Route::get('admin-password/reset', 'Adminlogin\ForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
 Route::post('admin-password/reset', 'Adminlogin\ResetPasswordController@reset')->name('admin.password.reset');
@@ -96,7 +108,7 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('menuitem/{id}/create', 'frontmenu\MenuitemController@create')->name('menuitem.create');
     Route::post('menuitem/{id}/store', 'frontmenu\MenuitemController@store')->name('menuitem.store');
     Route::get('menuitem/{id}/edit/{menuId}', 'frontmenu\MenuitemController@edit')->name('menuitem.edit');
-    Route::put('menuitem/{id}/update/{menuId}', 'frontmenu\MenuitemController@update')->name('menuitem.update');
+    Route::put('menuitem/update/{menuId}', 'frontmenu\MenuitemController@update')->name('menuitem.update');
     Route::get('menuitem/{id}/destroy/{menuId}', 'frontmenu\MenuitemController@destroy')->name('menuitem.destroy');
     Route::post('menuitem/{id}/order', 'frontmenu\MenuitemController@order')->name('menuitem.order');
 
@@ -114,11 +126,37 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('link/{id}/status','Link\LinkController@status')->name('link.status');
 
 
-    Route::resource('videos', 'Video\VideoController');
-    Route::get('video/{id}/status', 'Video\VideoController@status_approval')->name('video.status');
+    Route::resource('videos', 'video\VideoController');
+    Route::get('video/{id}/status', 'video\VideoController@status_approval')->name('video.status');
 
     Route::get('settings','SettingController@index')->name('settings');
     Route::put('settings/update/{setting}', 'SettingController@update')->name('settings.update');
+
+    Route::resource('teams/teamcategories','Teams\CategoryController');
+    Route::get('teams/teamcategories/{id}/approve', 'Teams\CategoryController@approval')->name('team.category.approve');
+
+    Route::resource('teams/teamposts','Teams\PostController');
+    Route::get('teams/teamposts/{id}/status', 'Teams\PostController@status_approval')->name('team.post.status');
+
+    Route::resource('products/productcategories','Product\CategoryController');
+    Route::get('products/productcategories/{id}/approve', 'Product\CategoryController@approval')->name('product.category.approve');
+
+    Route::resource('products','Product\ProductController');
+    Route::get('products/{id}/status', 'Product\ProductController@status')->name('product.status');
+
+    Route::resource('services/servicecategories','Service\CategoryController');
+    Route::get('services/servicecategories/{id}/approve', 'Service\CategoryController@approval')->name('service.category.approve');
+
+    Route::resource('services','Service\ServiceController');
+    Route::get('products/{id}/status', 'Service\ServiceController@status')->name('service.status');
+
+    Route::resource('portfolios/portfoliocategories','Portfolio\CategoryController');
+    Route::get('portfolios/portfoliocategories/{id}/approve', 'Portfolio\CategoryController@approval')->name('portfolio.category.approve');
+
+    Route::resource('portfolios','Portfolio\PortfolioController');
+
+    Route::get('portfolios/{id}/status', 'Portfolio\PortfolioController@status')->name('portfolio.status');
+
 });
 
 

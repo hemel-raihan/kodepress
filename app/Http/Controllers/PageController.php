@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Admin\Page;
 use Illuminate\Http\Request;
-use App\Models\blog\Category;
+use App\Models\blog\category;
+use App\Models\Teams\Teamcategory;
+use Illuminate\Support\Facades\Artisan;
 use App\Models\general_content\Contentcategory;
 
 class PageController extends Controller
@@ -12,6 +14,8 @@ class PageController extends Controller
     public function index($slug)
     {
         $category = Contentcategory::all();
+        $teamcategory = Teamcategory::all();
+        $blogcategory = category::all();
         $pages = Page::all();
 
         foreach($pages  as $page)
@@ -19,10 +23,13 @@ class PageController extends Controller
             if($page->slug == $slug)
             {
                 $page = Page::findBySlug($slug);
+                Artisan::call('cache:clear');
                 return view('frontend_theme.default.default_pages',compact('page','slug'));
             }
 
         }
+
+
 
         foreach($category  as $cat)
         {
@@ -31,7 +38,34 @@ class PageController extends Controller
                 $title = Contentcategory::findBySlug($slug);
                 $contentcategory = Contentcategory::findBySlug($slug);
                 $contentcategoryposts = $contentcategory->contentposts()->get();
+                Artisan::call('cache:clear');
                 return view('frontend_theme.default.all_contentpost',compact('contentcategoryposts','title'));
+            }
+
+        }
+
+        foreach($teamcategory  as $teamcat)
+        {
+            if($teamcat->slug == $slug)
+            {
+                $title = Teamcategory::findBySlug($slug);
+                $teamcategory = Teamcategory::findBySlug($slug);
+                $teamcategoryposts = $teamcategory->teamposts()->get();
+                Artisan::call('cache:clear');
+                return view('frontend_theme.default.all_contentpost',compact('teamcategoryposts','title'));
+            }
+
+        }
+
+        foreach($blogcategory  as $blogcat)
+        {
+            if($blogcat->slug == $slug)
+            {
+                $title = category::findBySlug($slug);
+                $category = category::findBySlug($slug);
+                $categoryposts = $category->posts()->get();
+                Artisan::call('cache:clear');
+                return view('frontend_theme.default.all_contentpost',compact('categoryposts','title'));
             }
 
         }
@@ -39,7 +73,9 @@ class PageController extends Controller
 
 
 
-    }
+}
+
+
 
 
 
