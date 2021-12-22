@@ -1,4 +1,4 @@
-@extends('front_layout.app')
+@extends('frontend_theme.canvas.front_layout.app')
 
 @section('styles')
 

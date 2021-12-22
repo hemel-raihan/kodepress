@@ -18,6 +18,7 @@ class CreateServicecategoriesTable extends Migration
             $table->string('name');
             $table->string('slug');
             $table->string('image')->default('default.png')->nullable();
+            $table->text('desc')->nullable();
             $table->integer('parent_id')->unsigned()->default(0);
             $table->boolean('status')->default(true);
             $table->timestamps();

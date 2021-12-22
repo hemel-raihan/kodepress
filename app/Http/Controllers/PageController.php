@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Admin\Page;
 use Illuminate\Http\Request;
 use App\Models\blog\category;
+use App\Models\Frontmenu\Frontmenuitem;
 use App\Models\Teams\Teamcategory;
 use Illuminate\Support\Facades\Artisan;
 use App\Models\general_content\Contentcategory;
@@ -18,13 +19,16 @@ class PageController extends Controller
         $blogcategory = category::all();
         $pages = Page::all();
 
+        $menuitem = Frontmenuitem::where('slug',$slug)->firstOrFail();
+        $page_id = $menuitem->page_id;
         foreach($pages  as $page)
         {
-            if($page->slug == $slug)
+            if($page->id == $page_id)
             {
-                $page = Page::findBySlug($slug);
+                $page = Page::where('id',$page_id)->firstOrFail();;
                 Artisan::call('cache:clear');
-                return view('frontend_theme.default.default_pages',compact('page','slug'));
+                return $page;
+                //return view('frontend_theme.default.default_pages',compact('page','slug'));
             }
 
         }

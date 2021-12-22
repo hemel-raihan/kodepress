@@ -91,6 +91,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => $slug,
             'image' => $imagename,
+            'desc' => $request->desc,
             'parent_id' => $parent_id,
             'status' => $status,
 
@@ -208,6 +209,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => $slug,
             'image' => $imagename,
+            'desc' => $request->desc,
             'parent_id' => $parent_id,
             'status' => $status,
 

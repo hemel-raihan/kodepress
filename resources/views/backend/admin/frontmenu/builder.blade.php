@@ -91,11 +91,11 @@
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.menuitem.create',$menu->id)}}" class="btn btn-success btn-icon text-white">
+								{{-- <a href="{{route('admin.menuitem.create',$menu->id)}}" class="btn btn-success btn-icon text-white">
 									<span>
 										<i class="fe fe-log-in"></i>
 									</span> Create New MenuItem
-								</a>
+								</a> --}}
 								<a href="{{route('admin.frontmenus.index')}}" class="btn btn-danger btn-icon text-white me-2">
 									<span>
 										<i class="fas fa-arrow-circle-left"></i>
@@ -147,7 +147,7 @@
                                                             @foreach($pages as $key => $page)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$page->title}}" name="pagebox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$page->title}}</label>
+                                                                    <input type="checkbox" value="{{$page->title}}" data-src="{{$page->id}}" data-id="{{$page->slug}}" name="pagebox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$page->title}}</label>
                                                                 </div>
                                                             </li>
                                                             @endforeach
@@ -172,7 +172,7 @@
                                                             @foreach($categories as $key => $category)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$category->name}}" name="categorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492752" /><label for="group_{{$key}}_1636878492752" class="group-name-163687849275">{{$category->name}}</label>
+                                                                    <input type="checkbox" value="{{$category->name}}" data-src="{{$category->id}}" data-id="{{$category->slug}}" name="categorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492752" /><label for="group_{{$key}}_1636878492752" class="group-name-163687849275">{{$category->name}}</label>
                                                                 </div>
                                                                 @if($category->childrenRecursive->count()>0)
 
@@ -205,7 +205,7 @@
                                                             @foreach($contentcategories as $key => $category)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$category->name}}"  name="contentcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492753" /><label for="group_{{$key}}_1636878492753" class="group-name-163687849275">{{$category->name}}</label>
+                                                                    <input type="checkbox" value="{{$category->name}}" data-src="{{$category->id}}" data-id="{{$category->slug}}" name="contentcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492753" /><label for="group_{{$key}}_1636878492753" class="group-name-163687849275">{{$category->name}}</label>
 
                                                                 </div>
                                                                 @if($category->childrenRecursive->count()>0)
@@ -239,7 +239,7 @@
                                                             @foreach($teamcategories as $key => $category)
                                                             <li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
                                                                 <div class="checkbox-group">
-                                                                    <input type="checkbox" value="{{$category->name}}" name="teamcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492754" /><label for="group_{{$key}}_1636878492754" class="group-name-163687849275">{{$category->name}}</label>
+                                                                    <input type="checkbox" value="{{$category->name}}" data-src="{{$category->id}}" data-id="{{$category->slug}}" name="teamcategorybox[]" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492754" /><label for="group_{{$key}}_1636878492754" class="group-name-163687849275">{{$category->name}}</label>
                                                                 </div>
                                                                 @if($category->childrenRecursive->count()>0)
 
@@ -255,6 +255,30 @@
                                                 </div>
 
                                                 <button id="add_teamcategory" class="btn btn-primary">Add to Menu</button>
+                                            </div>
+                                          </div>
+
+
+                                          <p style="background: #f3f8fb;">
+                                            <a class="btn" data-bs-toggle="collapse" href="#collapseExample5" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                              Create Custom Menu
+                                            </a>
+                                          </p>
+                                          <div class="collapse" id="collapseExample5">
+                                            <div class="main-card mb-3 card">
+                                                <h5 style="text-align: center; margin-top: 10px;" class="card-title">
+                                                    Add Menu
+                                                </h5>
+                                                <form method="post" action="{{route('admin.menuitem.menustore',$menu->id)}}"  method="POST">
+                                                    @csrf
+                                                <label style="margin-left: 20px;" for="exampleInputname">Menu Title :</label>
+                                                <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="" name="title" id="title" placeholder="Menu Name">
+
+                                                <label style="margin-left: 20px;" for="exampleInputname">Menu URL :</label>
+                                                <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="" name="slug" id="menuslug" placeholder="Menu URL">
+
+                                                <button style="width: 20%; margin-left: 40%; " type="submit"  class="btn btn-success mt-5 mb-5">Save</button>
+                                                </form>
                                             </div>
                                           </div>
 
@@ -293,7 +317,10 @@
                                             <label style="margin-left: 20px;" for="exampleInputname">Menu Title :</label>
                                             <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="" name="title" id="menutitle" placeholder="Menu Name">
 
-                                            <button style="width: 20%; margin-left: 40%; " type="submit" class="btn btn-success mt-5 mb-5">Edit</button>
+                                            <label style="margin-left: 20px;" for="exampleInputname">Menu URL :</label>
+                                            <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="" name="slug" id="slug" placeholder="Menu Slug">
+
+                                            <button style="width: 20%; margin-left: 40%; " type="submit"  class="btn btn-success mt-5 mb-5">Edit</button>
                                         </div>
                                     </div>
                             </div>
@@ -335,7 +362,7 @@
                                                             <strong> Divider: {{$item->divider_title }}</strong>
                                                             @else
                                                             <span id="span_title-{{$item->id}}"> {{$item->title }}</span>
-                                                            <small class="url">{{$item->url}}</small>
+                                                            <small id="span_slug-{{$item->id}}" class="url">{{$item->slug}}</small>
                                                             @endif
                                                         </div>
 
@@ -409,9 +436,137 @@
 
 @section('scripts')
 
+
+{{-- <script>
+
+function fetchportfolio()
+        {
+            $.ajax({
+                type: "GET",
+                url: "{{route('admin.menuitem.show')}}",
+                dtaType: "json",
+                success: function(response)
+                {
+                    $.each(response.menuitem, function(key, item){
+                        $('#dd_handle').append(``);
+                    });
+                }
+            });
+        }
+
+
+    $(document).ready(function(){
+
+        fetchportfolio();
+
+
+    });
+</script> --}}
+
+
+{{-- <script>
+    $(function(){
+     /* $.ajaxSetup({
+        headers: { 'X-CSRF-Token' : '{{csrf_token()}}'}
+      })*/
+      $('#ajaxinsert').submit(function(e){
+        e.preventDefault();
+
+        var data = $(this).serialize();
+        var url = '{{url('admin/menuitem/menustore')}}'
+        console.log(data);
+
+        $.ajax({
+          url: url,
+          method: 'POST',
+          data: data,
+          success: function(response){
+            if(response.success){
+              alert(response.success);
+            }
+            fetchportfolio();
+          },
+          error: function(error){
+            console.log(error)
+          }
+
+        })
+      })
+    })
+  </script> --}}
+
+
+{{-- <script type="text/javascript">
+
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    $("#btnsubmit").click(function(e){
+        //e.preventDefault();
+
+        var title = $("#title").val();
+        var slug = $("#menuslug").val();
+        //var url = '{{ route("admin.menuitem.menustore") }}';
+
+        $.ajax({
+              url: "{{route('hemel')}}",
+              type: "POST",
+              data: {
+                  _token: $("#csrf").val(),
+                  type: 1,
+                  title: title,
+                  slug: slug,
+                  menu_id: $menu->id,
+              },
+              cache: false,
+              success: function(dataResult){
+                  console.log(dataResult);
+                  var dataResult = JSON.parse(dataResult);
+                  if(dataResult.statusCode==200){
+                    alert('ass');
+                  }
+                  else if(dataResult.statusCode==201){
+                     alert("Error occured !");
+                  }
+
+              }
+          });
+
+        // $.ajax({
+        //    url: '{{ route("admin.menuitem.menustore") }}',
+        //    //_token: '{{csrf_token()}}'
+        //    method:'POST',
+        //    data:{
+        //     _token: $("#csrf").val(),
+        //           title: title,
+        //           slug: slug,
+        //           id: $menu->id
+        //         },
+        //    success:function(response){
+        //     //   if(response.success){
+        //     //       alert(response.message) //Message come from controller
+        //     //   }else{
+        //     //       alert("Error")
+        //     //   }
+        //     alert('asd');
+        //    },
+        //    error:function(error){
+        //       console.log(error)
+        //    }
+        // });
+	});
+
+</script> --}}
+
+
 <script>
     function Foo(id) {
         var span_Text = document.getElementById("span_title-"+id).innerText;
+        var span_Slug = document.getElementById("span_slug-"+id).innerText;
         var idd = id;
         var url = '{{ route("admin.menuitem.update", ":id") }}';
         url = url.replace(':id', id);
@@ -427,6 +582,9 @@
                                     <label style="margin-left: 20px;" for="exampleInputname">Menu Title :</label>
                                     <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="`+span_Text+`" name="title" id="menutitle" placeholder="Menu Name">
 
+                                    <label style="margin-left: 20px;" for="exampleInputname">Menu URL :</label>
+                                    <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="`+span_Slug+`" name="slug" id="slug" placeholder="Menu Slug">
+
                                     <button style="width: 20%; margin-left: 40%; " type="submit" class="btn btn-success mt-5 mb-5">Edit</button>
                                 </div>
                                 </form>`);
@@ -440,6 +598,7 @@
 
     function Foo_child(id) {
         var span_Text = document.getElementById("titlee-"+id).innerText;
+        var span_Slug = document.getElementById("slug-"+id).innerText;
         var url = '{{ route("admin.menuitem.update", ":id") }}';
         url = url.replace(':id', id);
 
@@ -453,6 +612,9 @@
                                     </h5>
                                     <label style="margin-left: 20px;" for="exampleInputname">Menu Title :</label>
                                     <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="`+span_Text+`" name="title" id="menutitle" placeholder="Menu Name">
+
+                                    <label style="margin-left: 20px;" for="exampleInputname">Menu URL :</label>
+                                    <input style="margin-left: 20px; width: 80%;" type="text" class="form-control" value="`+span_Slug+`" name="slug" id="slug" placeholder="Menu Slug">
 
                                     <button style="width: 20%; margin-left: 40%; " type="submit" class="btn btn-success mt-5 mb-5">Edit</button>
                                 </div>
@@ -472,7 +634,7 @@ for (var i=0, n=checkboxes.length;i<n;i++)
 
         $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
                                                                 <i class="fa fa-trash"></i>
-                                                            </a></div><div class="dd-handle"><span>`+checkboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+checkboxes[i].value+`"></div></li>`);
+                                                            </a></div><div class="dd-handle"><span>`+checkboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+checkboxes[i].value+`"> <input type="hidden" name="id[]" value="`+checkboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+checkboxes[i].getAttribute('data-id')+`"> </div></li>`);
 
                 iziToast.success({
                 title: 'Success',
@@ -492,7 +654,7 @@ for (var i=0, n=categoryboxes.length;i<n;i++)
     {
         $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
                                                                 <i class="fa fa-trash"></i>
-                                                            </a></div><div class="dd-handle"><span>`+categoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+categoryboxes[i].value+`"></div></li>`);
+                                                            </a></div><div class="dd-handle"><span>`+categoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+categoryboxes[i].value+`"> <input type="hidden" name="id[]" value="`+categoryboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+categoryboxes[i].getAttribute('data-id')+`"> </div></li>`);
 
                                                             iziToast.success({
                 title: 'Success',
@@ -511,9 +673,13 @@ for (var i=0, n=contentcategoryboxes.length;i<n;i++)
     if (contentcategoryboxes[i].checked)
     {
 
+            //console.log(contentcategoryboxes[i].getAttribute('data-id'));
+
+
+
         $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
                                                                 <i class="fa fa-trash"></i>
-                                                            </a></div><div class="dd-handle"><span>`+contentcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+contentcategoryboxes[i].value+`"></div></li>`);
+                                                            </a></div><div class="dd-handle"><span>`+contentcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+contentcategoryboxes[i].value+`"> <input type="hidden" name="id[]" value="`+contentcategoryboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+contentcategoryboxes[i].getAttribute('data-id')+`"> </div></li>`);
 
                 iziToast.success({
                 title: 'Success',
@@ -534,7 +700,7 @@ for (var i=0, n=teamcategoryboxes.length;i<n;i++)
 
         $('#dd_handle').append(`<li class="dd-item" <?php foreach ($menu->menuItems as $item): ?> data-id="<?php echo $item["id"] ?>" <?php endforeach; ?> ><div class="pull-right item_actions"><a <?php foreach ($menu->menuItems as $item): ?> href="<?php route('admin.menuitem.destroy',['id'=>$menu->id,'menuId'=>$item->id]) ?>  <?php endforeach; ?>  " class="btn btn-danger waves effect" >
                                                                 <i class="fa fa-trash"></i>
-                                                            </a></div><div class="dd-handle"><span>`+teamcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+teamcategoryboxes[i].value+`"></div></li>`);
+                                                            </a></div><div class="dd-handle"><span>`+teamcategoryboxes[i].value+`</span> <input type="hidden" name="title[]" value="`+teamcategoryboxes[i].value+`"> <input type="hidden" name="id[]" value="`+teamcategoryboxes[i].getAttribute('data-src')+`"> <input type="hidden" name="slug[]" value="`+teamcategoryboxes[i].getAttribute('data-id')+`"> </div></li>`);
 
                                                             iziToast.success({
                 title: 'Success',

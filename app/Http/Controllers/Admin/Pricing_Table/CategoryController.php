@@ -1,16 +1,15 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Service;
+namespace App\Http\Controllers\Admin\Pricing_Table;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
-use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
-use App\Models\Service\Servicecategory;
+use App\Models\Pricing_Table\Pricecategory;
 
 class CategoryController extends Controller
 {
@@ -21,10 +20,10 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        Gate::authorize('app.service.categories.self');
-        $categories = Servicecategory::paginate(2);
+        Gate::authorize('app.price.categories.self');
+        $categories = Pricecategory::paginate(2);
         $auth = Auth::guard('admin')->user();
-        return view('backend.admin.service.category.index',compact('categories','auth'));
+        return view('backend.admin.pricing_table.category.index',compact('categories','auth'));
     }
 
     /**
@@ -34,10 +33,10 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        Gate::authorize('app.service.categories.create');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
-        return view('backend.admin.service.category.form',compact('categories','subcat'));
+        Gate::authorize('app.price.categories.create');
+        $categories = Pricecategory::where('parent_id', '=', 0)->get();
+        $subcat = Pricecategory::all();
+        return view('backend.admin.pricing_table.category.form',compact('categories','subcat'));
     }
 
     /**
@@ -48,9 +47,9 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('app.service.categories.create');
+        Gate::authorize('app.price.categories.create');
         $this->validate($request,[
-            'name' => 'required|unique:servicecategories',
+            'name' => 'required|unique:pricecategories',
             'image' => 'required|mimes:png,jpg,jpeg,bmp|max:1024',
         ]);
 
@@ -64,7 +63,7 @@ class CategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-             $categoryphotoPath = public_path('uploads/servicecategory_photo');
+             $categoryphotoPath = public_path('uploads/pricecategory_photo');
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($categoryphotoPath.'/'.$imagename);
 
@@ -88,7 +87,7 @@ class CategoryController extends Controller
             $status = 1;
         }
 
-        $category = Servicecategory::create([
+        $category = Pricecategory::create([
             'name' => $request->name,
             'slug' => $slug,
             'image' => $imagename,
@@ -99,13 +98,14 @@ class CategoryController extends Controller
         ]);
 
         notify()->success("Category Successfully created","Added");
-        return redirect()->route('admin.servicecategories.index');
+        return redirect()->route('admin.pricecategories.index');
     }
+
 
     public function approval($id)
     {
-        Gate::authorize('app.service.categories.approve');
-        $category = Servicecategory::find($id);
+        Gate::authorize('app.price.categories.approve');
+        $category = Pricecategory::find($id);
         if($category->status == true)
         {
             $category->status = false;
@@ -121,16 +121,16 @@ class CategoryController extends Controller
             notify()->success('Removed the Category Approval');
         }
 
-        return redirect()->back();
+       return redirect()->back();
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Service\Servicecategory  $servicecategory
+     * @param  \App\Models\Pricing_Table\Pricecategory  $pricecategory
      * @return \Illuminate\Http\Response
      */
-    public function show(Servicecategory $servicecategory)
+    public function show(Pricecategory $pricecategory)
     {
         //
     }
@@ -138,27 +138,27 @@ class CategoryController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Service\Servicecategory  $servicecategory
+     * @param  \App\Models\Pricing_Table\Pricecategory  $pricecategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(Servicecategory $servicecategory)
+    public function edit(Pricecategory $pricecategory)
     {
-        Gate::authorize('app.service.categories.edit');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
-        return view('backend.admin.service.category.form',compact('servicecategory','categories','subcat'));
+        Gate::authorize('app.price.categories.edit');
+        $categories = Pricecategory::where('parent_id', '=', 0)->get();
+        $subcat = Pricecategory::all();
+        return view('backend.admin.pricing_table.category.form',compact('servicecategory','categories','subcat'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service\Servicecategory  $servicecategory
+     * @param  \App\Models\Pricing_Table\Pricecategory  $pricecategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Servicecategory $servicecategory)
+    public function update(Request $request, Pricecategory $pricecategory)
     {
-        Gate::authorize('app.service.categories.edit');
+        Gate::authorize('app.price.categories.edit');
         $this->validate($request,[
             'name' => 'required',
             'image' => 'mimes:png,jpg,jpeg,bmp|max:1024',
@@ -173,9 +173,9 @@ class CategoryController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            $categoryphotoPath = public_path('uploads/servicecategory_photo');
+            $categoryphotoPath = public_path('uploads/pricecategory_photo');
 
-            $categoryphoto_path = public_path('uploads/servicecategory_photo/'.$servicecategory->image);  // Value is not URL but directory file path
+            $categoryphoto_path = public_path('uploads/pricecategory_photo/'.$pricecategory->image);  // Value is not URL but directory file path
             if (file_exists($categoryphoto_path)) {
 
                 @unlink($categoryphoto_path);
@@ -188,7 +188,7 @@ class CategoryController extends Controller
         }
         else
         {
-            $imagename = $servicecategory->image;
+            $imagename = $pricecategory->image;
         }
 
 
@@ -210,7 +210,7 @@ class CategoryController extends Controller
             $status = 1;
         }
 
-        $servicecategory->update([
+        $pricecategory->update([
             'name' => $request->name,
             'slug' => $slug,
             'image' => $imagename,
@@ -221,37 +221,37 @@ class CategoryController extends Controller
         ]);
 
         notify()->success("Category Successfully Updated","Update");
-        return redirect()->route('admin.servicecategories.index');
+        return redirect()->route('admin.pricecategories.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Service\Servicecategory  $servicecategory
+     * @param  \App\Models\Pricing_Table\Pricecategory  $pricecategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Servicecategory $servicecategory)
+    public function destroy(Pricecategory $pricecategory)
     {
         Gate::authorize('app.service.categories.destroy');
 
-        $categoryphoto_path = public_path('uploads/servicecategory_photo/'.$servicecategory->image);  // Value is not URL but directory file path
+        $categoryphoto_path = public_path('uploads/pricecategory_photo/'.$pricecategory->image);  // Value is not URL but directory file path
             if (file_exists($categoryphoto_path)) {
 
                 @unlink($categoryphoto_path);
 
             }
 
-        if($servicecategory->childrenRecursive->count()>0)
+        if($pricecategory->childrenRecursive->count()>0)
         {
             notify()->error('You Can not Delete this Item !! Sub-category exist','Alert');
         }
-        elseif($servicecategory->services()->count() >0)
+        elseif($pricecategory->prices()->count() >0)
         {
             notify()->error('You Can not Delete this Item !! Post exist under this category','Alert');
         }
         else
         {
-            $servicecategory->delete();
+            $pricecategory->delete();
             notify()->success('Category Deleted Successfully','Delete');
         }
 

@@ -23,7 +23,7 @@
         @else
 
         <span  id="titlee-{{$childItem->id}}" > {{$childItem->title }}</span>
-        <small class="url">{{$childItem->url}}</small>
+        <small id="slug-{{$childItem->id}}" class="url">{{$childItem->slug}}</small>
         @endif
     </div>
 

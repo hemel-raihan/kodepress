@@ -9,6 +9,7 @@ use App\Models\blog\Post;
 use App\Models\Product\Product;
 use App\Models\Service\Service;
 use App\Models\Portfolio\Portfolio;
+use App\Models\Pricing_Table\Price;
 use App\Models\Admin\Page;
 use App\Models\general_content\Contentpost;
 use Illuminate\Notifications\Notifiable;
@@ -76,6 +77,11 @@ class Admin extends Authenticatable
     public function portfolios()
     {
         return $this->hasMany(Portfolio::class);
+    }
+
+    public function prices()
+    {
+        return $this->hasMany(Price::class);
     }
 
     public function contentposts()

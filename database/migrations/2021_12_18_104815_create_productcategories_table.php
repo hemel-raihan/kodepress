@@ -19,6 +19,7 @@ class CreateProductcategoriesTable extends Migration
             $table->string('slug');
             $table->integer('parent_id')->unsigned()->default(0);
             $table->string('image')->default('default.png');
+            $table->text('desc')->nullable();
             $table->integer('leftsidebar_id');
             $table->integer('rightsidebar_id');
             $table->boolean('status')->default(true);

@@ -83,14 +83,14 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($portfoliocategory) ? 'Edit ' : 'Create '}}Categories</h1>
+								<h1 class="page-title">{{ isset($pricecategory) ? 'Edit ' : 'Create '}}Categories</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.portfoliocategories.index')}}" class="btn btn-primary btn-icon text-white me-2">
+								<a href="{{route('admin.pricecategories.index')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
 									</span> Back To CategoryList
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($portfoliocategory) ? route('admin.portfoliocategories.update',$portfoliocategory->id) : route('admin.portfoliocategories.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($pricecategory) ? route('admin.pricecategories.update',$pricecategory->id) : route('admin.pricecategories.store')}}" enctype="multipart/form-data">
     @csrf
-    @isset($portfoliocategory)
+    @isset($pricecategory)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -115,7 +115,7 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Portfolio Category</h3>
+					<h3 class="card-title">Create Price Category</h3>
 				</div>
 				<div class="card-body">
 
@@ -132,7 +132,7 @@
 
 					<div class="form-group">
 						<label for="exampleInputname">Category Name</label>
-						<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$portfoliocategory->name ?? old('name')}}" name="name" id="exampleInputname" placeholder="Category Name">
+						<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$pricecategory->name ?? old('name')}}" name="name" id="exampleInputname" placeholder="Category Name">
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
@@ -143,7 +143,7 @@
                     <div class="form-group">
 						<label class="form-label">Category Image</label>
 						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($portfoliocategory) ? asset('uploads/portfoliocategory_photo/'.$portfoliocategory->image) : '' }}" name="image">
+                        <input type="file" data-height="100" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($pricecategory) ? asset('uploads/pricecategory_photo/'.$pricecategory->image) : '' }}" name="image">
                         @error('image')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{$message}}</strong>
@@ -151,18 +151,18 @@
                         @enderror
 					</div>
 
-
                     <div class="form-group">
 						<label for="exampleInputContent">Post Description</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
-                            <textarea name="desc" class="my-editor form-control" id="editor" style="height: 200px;" cols="30" rows="10">{!!$portfoliocategory->desc ?? old('desc')!!}</textarea>
+                            <textarea name="desc" class="my-editor form-control" id="editor" style="height: 200px;" cols="30" rows="10">{!!$pricecategory->desc ?? old('desc')!!}</textarea>
 						</div>
 					</div>
+
 
 				</div>
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($portfoliocategory)
+                        @isset($pricecategory)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -170,7 +170,7 @@
                         Create
                         @endisset
                     </button>
-					<a href="{{route('admin.portfoliocategories.index')}}" class="btn btn-danger mt-1">Cancel</a>
+					<a href="{{route('admin.pricecategories.index')}}" class="btn btn-danger mt-1">Cancel</a>
 				</div>
 			</div>
 		</div>
@@ -193,7 +193,7 @@
 										<div class="transfer-double-list-search"><input class="transfer-double-list-search-input" type="text" id="groupListSearch_1636878492751" placeholder="Search" value="" /></div>
 									</div> --}}
 
-                                    @isset($portfoliocategory)
+                                    @isset($pricecategory)
 
                                     <div class="transfer-double-list-content">
 										<div class="transfer-double-list-main">
@@ -204,12 +204,12 @@
 
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
-														<input type="checkbox" name="parent_id" value="{{$categoryy->id}}" {{$categoryy->id == $portfoliocategory->parent_id ? 'checked' : ''}} class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
+														<input type="checkbox" name="parent_id" value="{{$categoryy->id}}" {{$categoryy->id == $pricecategory->parent_id ? 'checked' : ''}} class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
 													</div>
                                                     @if($categoryy->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.portfolio.category.child_category_edit', ['sub_category' => $categoryy,'category' => $portfoliocategory])
+													  @include('backend.admin.pricing_table.category.child_category_edit', ['sub_category' => $categoryy,'category' => $pricecategory])
 
 
                                                     @endif
@@ -239,7 +239,7 @@
                                                     @if($category->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.portfolio.category.child_categories', ['sub_category' => $category])
+													  @include('backend.admin.pricing_table.category.child_categories', ['sub_category' => $category])
 
 
                                                     @endif
@@ -269,11 +269,11 @@
 					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
-                    @isset($portfoliocategory)
+                    @isset($pricecategory)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$portfoliocategory->status == true ? 'checked' : ''}} class="custom-switch-input ">
+							<input type="checkbox" name="status" {{$pricecategory->status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>

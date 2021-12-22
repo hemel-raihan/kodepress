@@ -7,7 +7,7 @@
 
 	<!-- Stylesheets
 	============================================= -->
-    @include('front_layout.vertical.styles')
+    @include('frontend_theme.canvas.front_layout.vertical.styles')
 
 	<meta name="viewport" content="width=device-width, initial-scale=1" />
 
@@ -26,14 +26,14 @@
 		<!-- Top Bar
 		============================================= -->
 
-        @include('front_layout.vertical.topbar')
+        @include('frontend_theme.canvas.front_layout.vertical.topbar')
 
 		<!-- #top-bar end -->
 
 		<!-- Header
 		============================================= -->
 
-        @include('front_layout.vertical.header')
+        @include('frontend_theme.canvas.front_layout.vertical.header')
 
 		<!-- #header end -->
 
@@ -50,7 +50,7 @@
 		<!-- Footer
 		============================================= -->
 
-        @include('front_layout.vertical.footer')
+        @include('frontend_theme.canvas.front_layout.vertical.footer')
 
 		<!-- #footer end -->
 
@@ -60,7 +60,7 @@
 	============================================= -->
 	<div id="gotoTop" class="icon-angle-up"></div>
 
-    @include('front_layout.vertical.scripts')
+    @include('frontend_theme.canvas.front_layout.vertical.scripts')
 
 
 </body>

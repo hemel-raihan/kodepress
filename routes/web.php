@@ -32,11 +32,11 @@ Route::get('/logout', [\App\Http\Controllers\Auth\LoginController::class, 'logou
 
 Route::get('fetch-portfolios', 'Admin\Portfolio\PortfolioController@fetchportfolios')->name('hemel');
 
-Route::get('/', function () {
-    return 'hii Kodepress';
-})->name('home');
+// Route::get('/', function () {
+//     return view('frontend_theme.corporate.homepage');
+// })->name('home');
 
-// Route::get('/', 'HomepageController@index')->name('home');
+Route::get('/', 'Corporate\HomepageController@index')->name('home');
 // Route::get('/content/details/{id}', 'HomepageController@contentdetails')->name('content.details');
 
 // Route::get('/team/details/{id}', 'HomepageController@teamdetails')->name('team.details');
@@ -105,8 +105,10 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('frontmenus','frontmenu\MenuController');
     Route::get('frontmenus/{id}/status', 'frontmenu\MenuController@status_approval')->name('frontmenu.status');
     Route::get('menuitem/{id}/builder', 'frontmenu\MenuitemController@index')->name('menuitem.builder');
+    Route::get('menuitem/show', 'frontmenu\MenuitemController@show')->name('menuitem.show');
     Route::get('menuitem/{id}/create', 'frontmenu\MenuitemController@create')->name('menuitem.create');
     Route::post('menuitem/{id}/store', 'frontmenu\MenuitemController@store')->name('menuitem.store');
+    Route::post('menuitem/{id}/menustore', 'frontmenu\MenuitemController@menustore')->name('menuitem.menustore');
     Route::get('menuitem/{id}/edit/{menuId}', 'frontmenu\MenuitemController@edit')->name('menuitem.edit');
     Route::put('menuitem/update/{menuId}', 'frontmenu\MenuitemController@update')->name('menuitem.update');
     Route::get('menuitem/{id}/destroy/{menuId}', 'frontmenu\MenuitemController@destroy')->name('menuitem.destroy');
@@ -154,8 +156,13 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('portfolios/portfoliocategories/{id}/approve', 'Portfolio\CategoryController@approval')->name('portfolio.category.approve');
 
     Route::resource('portfolios','Portfolio\PortfolioController');
-
     Route::get('portfolios/{id}/status', 'Portfolio\PortfolioController@status')->name('portfolio.status');
+
+    Route::resource('prices/pricecategories','Pricing_Table\CategoryController');
+    Route::get('prices/pricecategories/{id}/approve', 'Pricing_Table\CategoryController@approval')->name('price.category.approve');
+
+    Route::resource('prices','Pricing_Table\PriceController');
+    Route::get('prices/{id}/status', 'Pricing_Table\PriceController@status')->name('price.status');
 
 });
 

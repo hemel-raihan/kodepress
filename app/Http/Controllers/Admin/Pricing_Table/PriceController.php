@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Admin\Service;
+namespace App\Http\Controllers\Admin\Pricing_Table;
 
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Models\Admin\Sidebar;
-use App\Models\Service\Service;
+use App\Models\Pricing_Table\Price;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 use Intervention\Image\Facades\Image;
-use App\Models\Service\Servicecategory;
+use App\Models\Pricing_Table\Pricecategory;
 
-class ServiceController extends Controller
+class PriceController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,10 +22,10 @@ class ServiceController extends Controller
      */
     public function index()
     {
-        Gate::authorize('app.service.posts.self');
+        Gate::authorize('app.price.posts.self');
         $auth = Auth::guard('admin')->user();
-        $posts = Service::latest()->get();
-        return view('backend.admin.service.post.index',compact('posts','auth'));
+        $posts = Price::latest()->get();
+        return view('backend.admin.pricing_table.post.index',compact('posts','auth'));
     }
 
     /**
@@ -35,11 +35,11 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        Gate::authorize('app.service.posts.create');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
+        Gate::authorize('app.price.posts.create');
+        $categories = Pricecategory::where('parent_id', '=', 0)->get();
+        $subcat = Pricecategory::all();
         $sidebars = Sidebar::all();
-        return view('backend.admin.service.post.form',compact('categories','subcat','sidebars'));
+        return view('backend.admin.pricing_table.post.form',compact('categories','subcat','sidebars'));
     }
 
     /**
@@ -50,9 +50,9 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('app.service.posts.create');
+        Gate::authorize('app.price.posts.create');
             $this->validate($request,[
-                'title' => 'required|unique:services',
+                'title' => 'required|unique:prices',
                 'image' => 'max:1024',
                 'categories' => 'required',
                 'leftsidebar_id' => 'required',
@@ -69,7 +69,7 @@ class ServiceController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            $postphotoPath = public_path('uploads/servicephoto');
+            $postphotoPath = public_path('uploads/pricephoto');
             $img                     =       Image::make($image->path());
             $img->resize(900, 600)->save($postphotoPath.'/'.$imagename);
 
@@ -100,7 +100,7 @@ class ServiceController extends Controller
 
 
 
-        $service = Service::create([
+        $price = Price::create([
             'title' => $request->title,
             'slug' => $slug,
             'admin_id' => Auth::id(),
@@ -117,18 +117,18 @@ class ServiceController extends Controller
         ]);
 
         //for many to many
-        $service->servicecategories()->attach($request->categories);
+        $price->pricecategories()->attach($request->categories);
 
 
-        notify()->success("Service Successfully created","Added");
-        return redirect()->route('admin.services.index');
+        notify()->success("Price Successfully created","Added");
+        return redirect()->route('admin.prices.index');
     }
 
 
     public function status($id)
     {
-        Gate::authorize('app.service.posts.status');
-        $post = Service::find($id);
+        Gate::authorize('app.price.posts.status');
+        $post = Price::find($id);
         if($post->status == true)
         {
             $post->status = false;
@@ -150,10 +150,10 @@ class ServiceController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Service\Service  $service
+     * @param  \App\Models\Pricing_Table\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function show(Service $service)
+    public function show(Price $price)
     {
         //
     }
@@ -161,28 +161,28 @@ class ServiceController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Service\Service  $service
+     * @param  \App\Models\Pricing_Table\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function edit(Service $service)
+    public function edit(Price $price)
     {
-        Gate::authorize('app.service.posts.edit');
-        $categories = Servicecategory::where('parent_id', '=', 0)->get();
-        $subcat = Servicecategory::all();
+        Gate::authorize('app.price.posts.edit');
+        $categories = Pricecategory::where('parent_id', '=', 0)->get();
+        $subcat = Pricecategory::all();
         $editsidebars = Sidebar::all();
-        return view('backend.admin.service.post.form',compact('service','categories','subcat','editsidebars'));
+        return view('backend.admin.price.post.form',compact('price','categories','subcat','editsidebars'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Service\Service  $service
+     * @param  \App\Models\Pricing_Table\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Service $service)
+    public function update(Request $request, Price $price)
     {
-        Gate::authorize('app.service.posts.edit');
+        Gate::authorize('app.price.posts.edit');
         $this->validate($request,[
             'title' => 'required',
             'image' => 'max:1024',
@@ -200,9 +200,9 @@ class ServiceController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            $postphotoPath = public_path('uploads/servicephoto');
+            $postphotoPath = public_path('uploads/pricephoto');
 
-            $postphoto_path = public_path('uploads/servicephoto/'.$service->image);  // Value is not URL but directory file path
+            $postphoto_path = public_path('uploads/pricephoto/'.$price->image);  // Value is not URL but directory file path
             if (file_exists($postphoto_path)) {
 
                 @unlink($postphoto_path);
@@ -215,7 +215,7 @@ class ServiceController extends Controller
         }
         else
         {
-            $imagename = $service->image;
+            $imagename = $price->image;
         }
 
 
@@ -238,13 +238,12 @@ class ServiceController extends Controller
         }
 
 
-        $service->update([
+        $price->update([
             'title' => $request->title,
             'slug' => $request->slug,
             'admin_id' => Auth::id(),
             'image' => $imagename,
             'body' => $request->body,
-            'order' => $request->order,
             'leftsidebar_id' => $request->leftsidebar_id,
             'rightsidebar_id' => $request->rightsidebar_id,
             'status' => $status,
@@ -254,34 +253,34 @@ class ServiceController extends Controller
         ]);
 
         //for many to many
-        $service->servicecategories()->sync($request->categories);
+        $price->servicecategories()->sync($request->categories);
 
 
-        notify()->success("Service Successfully Updated","Update");
-        return redirect()->route('admin.services.index');
+        notify()->success("Price Successfully Updated","Update");
+        return redirect()->route('admin.prices.index');
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Service\Service  $service
+     * @param  \App\Models\Pricing_Table\Price  $price
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Service $service)
+    public function destroy(Price $price)
     {
-        Gate::authorize('app.service.posts.destroy');
+        Gate::authorize('app.price.posts.destroy');
 
-        $postphoto_path = public_path('uploads/servicephoto/'.$service->image);  // Value is not URL but directory file path
+        $postphoto_path = public_path('uploads/pricephoto/'.$price->image);  // Value is not URL but directory file path
             if (file_exists($postphoto_path)) {
 
                 @unlink($postphoto_path);
 
             }
 
-        $service->servicecategories()->detach();
+        $price->pricecategories()->detach();
 
-        $service->delete();
-        notify()->success('Service Deleted Successfully','Delete');
+        $price->delete();
+        notify()->success('Price Deleted Successfully','Delete');
         return back();
     }
 }

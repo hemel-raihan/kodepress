@@ -728,5 +728,78 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.portfolio.posts.approve'
         ]);
 
+
+        $moduleAppPriceCategory = Module::updateOrCreate(['name' => 'Price-Category Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPriceCategory->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.price.categories.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPriceCategory->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.price.categories.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPriceCategory->id,
+            'name' => 'Create PriceCategory',
+            'slug' => 'app.price.categories.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPriceCategory->id,
+            'name' => 'Edit PriceCategory',
+            'slug' => 'app.price.categories.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPriceCategory->id,
+            'name' => 'Delete PriceCategory',
+            'slug' => 'app.price.categories.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPriceCategory->id,
+            'name' => 'Approve PriceCategory',
+            'slug' => 'app.price.categories.approve'
+        ]);
+
+
+        $moduleAppPricePost = Module::updateOrCreate(['name' => 'Price-Post Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPricePost->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.price.posts.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPricePost->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.price.posts.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPricePost->id,
+            'name' => 'Create PricePost',
+            'slug' => 'app.price.posts.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPricePost->id,
+            'name' => 'Edit PricePost',
+            'slug' => 'app.price.posts.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPricePost->id,
+            'name' => 'Delete PricePost',
+            'slug' => 'app.price.posts.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPricePost->id,
+            'name' => 'Approve PricePost',
+            'slug' => 'app.price.posts.status'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppPricePost->id,
+            'name' => 'Approve PricePost',
+            'slug' => 'app.price.posts.approve'
+        ]);
+
     }
 }

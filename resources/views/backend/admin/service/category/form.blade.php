@@ -151,6 +151,13 @@
                         @enderror
 					</div>
 
+                    <div class="form-group">
+						<label for="exampleInputContent">Post Description</label>
+						<div class="ql-wrapper ql-wrapper-demo bg-light">
+                            <textarea name="desc" class="my-editor form-control" id="editor" style="height: 200px;" cols="30" rows="10">{!!$servicecategory->desc ?? old('desc')!!}</textarea>
+						</div>
+					</div>
+
 
 				</div>
 				<div class="card-footer text-end">

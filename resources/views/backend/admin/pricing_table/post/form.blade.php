@@ -83,17 +83,17 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($portfoliocategory) ? 'Edit ' : 'Create '}}Categories</h1>
+								<h1 class="page-title">{{ isset($price) ? 'Edit ' : 'Create '}}Prices</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.portfoliocategories.index')}}" class="btn btn-primary btn-icon text-white me-2">
+								<a href="{{route('admin.prices.index')}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
-									</span> Back To CategoryList
+									</span> Back To PriceList
 								</a>
 								{{-- <a href="#" class="btn btn-success btn-icon text-white">
 									<span>
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($portfoliocategory) ? route('admin.portfoliocategories.update',$portfoliocategory->id) : route('admin.portfoliocategories.store')}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($price) ? route('admin.prices.update',$price->id) : route('admin.prices.store')}}" enctype="multipart/form-data">
     @csrf
-    @isset($portfoliocategory)
+    @isset($price)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -115,7 +115,7 @@
 		<div class="col-lg-9 col-xl-9 col-md-12 col-sm-12">
 			<div class="card">
 				<div class="card-header">
-					<h3 class="card-title">Create Portfolio Category</h3>
+					<h3 class="card-title">Create Prices</h3>
 				</div>
 				<div class="card-body">
 
@@ -129,40 +129,45 @@
                         </div>
                     @endif
 
+					<div class="form-group">
+						<label for="exampleInputname">Price Title</label>
+						<input type="text" class="form-control @error('title') is-invalid @enderror" value="{{$price->title ?? old('title')}}" name="title" id="" placeholder="Title">
+                        @error('title')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{$message}}</strong>
+                        </span>
+                        @enderror
+					</div>
+
+                    <div class="form-group featur">
+						<label class="form-label">Feature Image</label>
+						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
+                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($price) ? asset('uploads/pricephoto/'.$price->image) : '' }}" name="image">
+					</div>
+
 
 					<div class="form-group">
-						<label for="exampleInputname">Category Name</label>
-						<input type="text" class="form-control @error('name') is-invalid @enderror" value="{{$portfoliocategory->name ?? old('name')}}" name="name" id="exampleInputname" placeholder="Category Name">
-                        @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
-					</div>
-
-                    <div class="form-group">
-						<label class="form-label">Category Image</label>
-						<!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                        <input type="file" data-height="100" class="dropify form-control @error('image') is-invalid @enderror" data-default-file="{{ isset($portfoliocategory) ? asset('uploads/portfoliocategory_photo/'.$portfoliocategory->image) : '' }}" name="image">
-                        @error('image')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{$message}}</strong>
-                        </span>
-                        @enderror
-					</div>
-
-
-                    <div class="form-group">
 						<label for="exampleInputContent">Post Description</label>
 						<div class="ql-wrapper ql-wrapper-demo bg-light">
-                            <textarea name="desc" class="my-editor form-control" id="editor" style="height: 200px;" cols="30" rows="10">{!!$portfoliocategory->desc ?? old('desc')!!}</textarea>
+                            <textarea name="body" class="my-editor form-control" id="editor" style="height: 200px;" cols="30" rows="10">{!!$price->body ?? old('body')!!}</textarea>
 						</div>
 					</div>
+
+                    <div class="form-group">
+                        <label for="exampleInputname">Meta Title</label>
+                        <input type="text" class="form-control" value="{{isset($price->meta_title) ? old('meta_title') : ''}}" name="meta_title" id="">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="exampleInputname">Meta Description</label>
+                        <textarea name="meta_desc" class="my-editor form-control" id="" style="height: 200px;" cols="30" rows="10">{{isset($price->meta_desc) ? old('meta_desc') : ''}}</textarea>
+                    </div>
+
 
 				</div>
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($portfoliocategory)
+                        @isset($price)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -170,7 +175,7 @@
                         Create
                         @endisset
                     </button>
-					<a href="{{route('admin.portfoliocategories.index')}}" class="btn btn-danger mt-1">Cancel</a>
+					<a href="{{route('admin.prices.index')}}" class="btn btn-danger mt-1">Cancel</a>
 				</div>
 			</div>
 		</div>
@@ -193,7 +198,7 @@
 										<div class="transfer-double-list-search"><input class="transfer-double-list-search-input" type="text" id="groupListSearch_1636878492751" placeholder="Search" value="" /></div>
 									</div> --}}
 
-                                    @isset($portfoliocategory)
+                                    @isset($price)
 
                                     <div class="transfer-double-list-content">
 										<div class="transfer-double-list-main">
@@ -204,12 +209,14 @@
 
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
-														<input type="checkbox" name="parent_id" value="{{$categoryy->id}}" {{$categoryy->id == $portfoliocategory->parent_id ? 'checked' : ''}} class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
+
+														<input type="checkbox" name="categories[]" value="{{$categoryy->id}}" @foreach($price->pricecategories as $category) {{$categoryy->id == $category->id ? 'checked' : ''}} @endforeach class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$categoryy->name}}</label>
+
 													</div>
                                                     @if($categoryy->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.portfolio.category.child_category_edit', ['sub_category' => $categoryy,'category' => $portfoliocategory])
+													  @include('backend.admin.pricing_table.post.child_category_edit', ['sub_category' => $categoryy,'post' => $price])
 
 
                                                     @endif
@@ -232,21 +239,26 @@
 
                                             @foreach($categories as $key => $category)
 
+                                            @if($category->status == true)
+
 												<li class="transfer-double-group-list-li transfer-double-group-list-li-1636878492751">
 													<div class="checkbox-group">
-														<input type="checkbox" name="parent_id" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
+														<input type="checkbox" name="categories[]" value="{{$category->id}}" class="checkbox-normal group-select-all-1636878492751" id="group_{{$key}}_1636878492751" /><label for="group_{{$key}}_1636878492751" class="group-name-1636878492751">{{$category->name}}</label>
 													</div>
                                                     @if($category->childrenRecursive->count()>0)
 
 
-													  @include('backend.admin.portfolio.category.child_categories', ['sub_category' => $category])
+													  @include('backend.admin.pricing_table.post.child_categories', ['sub_category' => $category])
 
 
                                                     @endif
 
 
 												</li>
+
+                                            @endif
                                             @endforeach
+
 
 											</ul>
 										</div>
@@ -269,11 +281,11 @@
 					<h3 class="card-title">Create Page</h3>
 				</div>
 				<div class="card-body">
-                    @isset($portfoliocategory)
+                    @isset($price)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$portfoliocategory->status == true ? 'checked' : ''}} class="custom-switch-input ">
+							<input type="checkbox" name="status" {{$price->status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>
@@ -290,9 +302,75 @@
 
                     @endisset
 
+					@isset($editsidebars)
+
+                    <div class="form-group">
+						<label class="form-label">Left Sidebar</label>
+						<select name="leftsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Left Sidebar</option>
+                            <option value="0" {{($price->leftsidebar_id == 0) ? 'selected' : ''}}>None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Left Side Bar')
+                            <option value="{{$editsidebar->id}}" {{($price->leftsidebar_id == $editsidebar->id) ? 'selected' : ''}}>{{$editsidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+					</div>
 
 
+					<div class="form-group">
+						<label class="form-label">Right Sidebar</label>
+						<select name="rightsidebar_id" class="form-control form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Right Sidebar</option>
+                            <option value="0" {{($price->rightsidebar_id == 0) ? 'selected' : ''}} >None</option>
+                            @foreach ($editsidebars as $editsidebar)
+                            @if($editsidebar->type == 'Right Side Bar')
+							<option value="{{$editsidebar->id}}" {{($price->rightsidebar_id == $editsidebar->id) ? 'selected' : ''}} >{{$editsidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+					</div>
 
+                    @else
+
+                    <div class="form-group">
+						<label class="form-label">Left Sidebar</label>
+						<select name="leftsidebar_id" class="form-control @error('leftsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Left Sidebar</option>
+                            <option value="0">None</option>
+                            @foreach ($sidebars as $sidebar)
+                            @if($sidebar->type == 'Left Side Bar')
+                            <option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+                        @error('leftsidebar_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+					</div>
+
+
+					<div class="form-group">
+						<label class="form-label">Right Sidebar</label>
+						<select name="rightsidebar_id" class="form-control @error('rightsidebar_id') is-invalid @enderror form-select select2" data-bs-placeholder="Select Sidebar">
+							<option value="">Select Right Sidebar</option>
+                            <option value="0">None</option>
+                            @foreach ($sidebars as $sidebar)
+                            @if($sidebar->type == 'Right Side Bar')
+							<option value="{{$sidebar->id}}">{{$sidebar->title}}</option>
+                            @endif
+                            @endforeach
+						</select>
+                        @error('rightsidebar_id')
+                            <span class="invalid-feedback" role="alert">
+                                <strong>{{ $message }}</strong>
+                            </span>
+                        @enderror
+					</div>
+
+                    @endisset
 
 				</div>
 
@@ -306,6 +384,77 @@
 
 @section('scripts')
 
+
+
+    {{-- <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script> --}}
+
+    <script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
+
+<script>
+	window.onload = function () {
+		CKEDITOR.replace('editor', {
+	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+            //filebrowserImageBrowseUrl: 'admin/filemanager/ckeditor',
+            //filebrowserBrowseUrl: '/admin/filemanager',
+	    });
+	}
+</script>
+
+{{-- <script src="{{asset('ckeditor/ckeditor.js')}}"></script> --}}
+
+{{-- <script src="https://cdn.ckeditor.com/ckeditor5/31.1.0/decoupled-document/ckeditor.js"></script> --}}
+
+{{-- <script>
+    DecoupledEditor
+        .create( document.querySelector( '#editor' ) )
+        .then( editor => {
+            const toolbarContainer = document.querySelector( '#toolbar-container' );
+
+            toolbarContainer.appendChild( editor.ui.view.toolbar.element );
+        } )
+        .catch( error => {
+            console.error( error );
+        } );
+</script> --}}
+
+
+
+<script>
+$(document).ready(function() {
+    $("input[id$='test1']").click(function() {
+        var link = $(this).val();
+
+        $("div.youtube").show();
+        $("div.featur").hide();
+    });
+
+    $("input[id$='test2']").click(function() {
+        var link = $(this).val();
+
+        $("div.youtube").hide();
+        $("div.featur").show();
+    });
+});
+</script>
+
+
+     {{-- <script>
+
+function myFunction() {
+    var title = document.getElementById('posttitle').value;
+  document.getElementById("postslug").value = title;
+}
+//         document.getElementById('postslug').addEventListener('click', FILLSLUG);
+
+// function FILLSLUG() {
+
+//     var title = document.getElementById('posttitle');
+//     var slug = document.getElementById('postslug');
+
+//     slug.value = title.value;
+
+// };
+    </script> --}}
 
 
         <!-- <script>
