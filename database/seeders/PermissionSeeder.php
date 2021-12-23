@@ -801,5 +801,73 @@ class PermissionSeeder extends Seeder
             'slug' => 'app.price.posts.approve'
         ]);
 
+
+        $moduleAppcustompage = Module::updateOrCreate(['name' => 'Custom-Page Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppcustompage->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.custom.pages.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppcustompage->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.custom.pages.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppcustompage->id,
+            'name' => 'Create Custompage',
+            'slug' => 'app.custom.pages.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppcustompage->id,
+            'name' => 'Edit Custompage',
+            'slug' => 'app.custom.pages.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppcustompage->id,
+            'name' => 'Delete Custompage',
+            'slug' => 'app.custom.pages.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleAppcustompage->id,
+            'name' => 'Approve Custompage',
+            'slug' => 'app.custom.pages.status'
+        ]);
+
+
+        $moduleApppagebuilder = Module::updateOrCreate(['name' => 'Widget Management']);
+
+        Permission::updateOrCreate([
+            'module_id' => $moduleApppagebuilder->id,
+            'name' => 'View (Global)',
+            'slug' => 'app.build.pages.global'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleApppagebuilder->id,
+            'name' => 'View (Self)',
+            'slug' => 'app.build.pages.self'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleApppagebuilder->id,
+            'name' => 'Create Pagebuilder',
+            'slug' => 'app.build.pages.create'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleApppagebuilder->id,
+            'name' => 'Edit Pagebuilder',
+            'slug' => 'app.build.pages.edit'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleApppagebuilder->id,
+            'name' => 'Delete Pagebuilder',
+            'slug' => 'app.build.pages.destroy'
+        ]);
+        Permission::updateOrCreate([
+            'module_id' => $moduleApppagebuilder->id,
+            'name' => 'Pagebuilder',
+            'slug' => 'app.build.pages.pagebuilder'
+        ]);
+
     }
 }

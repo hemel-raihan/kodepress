@@ -1,4 +1,4 @@
-@extends('frontend_theme.canvas.front_layout.app')
+@extends('frontend_theme.corporate.front_layout.app')
 
 @section('styles')
 
@@ -6,8 +6,10 @@
 
 @section('content')
 
-<section id="content">
+<section id="content" style="background-color: {{$page->background_color}}; background-image: url('{{asset('uploads/custompagephoto/'.$page->background_img)}}');">
     <div class="content-wrap">
+<div class="{{$page->container}} clearfix">
+
 
         <div class="promo promo-light promo-full bottommargin-lg header-stick border-top-0 p-5">
             <div class="container clearfix">
@@ -23,57 +25,112 @@
             </div>
         </div>
 
+        @foreach ($page->pagebuilders as $pagebuilder)
         <div class="container clearfix">
 
-            <div class="row col-mb-50">
-                <div class="col-sm-6 col-lg-3">
-                    <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
+            <div class="row">
+                <div class="col-md-{{($pagebuilder->layout == 'one-col') ? 12 : 6}}">
+                    <div class="row col-mb-50">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>e-Commerce Solutions<span class="subtitle">Start your Own Shop today</span></h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="fbox-content">
-                            <h3>e-Commerce Solutions<span class="subtitle">Start your Own Shop today</span></h3>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-6 col-lg-3">
-                    <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt border-0 icon-wallet"></i></a>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-wallet"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>Easy Payment Options<span class="subtitle">Credit Cards &amp; PayPal Support</span></h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="fbox-content">
-                            <h3>Easy Payment Options<span class="subtitle">Credit Cards &amp; PayPal Support</span></h3>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-6 col-lg-3">
-                    <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt border-0 icon-megaphone"></i></a>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-megaphone"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>Instant Notifications<span class="subtitle">Realtime Email &amp; SMS Support</span></h3>
+                                </div>
+                            </div>
                         </div>
-                        <div class="fbox-content">
-                            <h3>Instant Notifications<span class="subtitle">Realtime Email &amp; SMS Support</span></h3>
-                        </div>
-                    </div>
-                </div>
 
-                <div class="col-sm-6 col-lg-3">
-                    <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                        <div class="fbox-icon">
-                            <a href="#"><i class="i-alt border-0 icon-fire"></i></a>
-                        </div>
-                        <div class="fbox-content">
-                            <h3>Hot Offers Daily<span class="subtitle">Upto 50% Discounts</span></h3>
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-fire"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>Hot Offers Daily<span class="subtitle">Upto 50% Discounts</span></h3>
+                                </div>
+                            </div>
                         </div>
                     </div>
+
                 </div>
+                
+                {{-- <div class="col-md-6">
+                    <div class="row col-mb-50">
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>e-Commerce Solutions<span class="subtitle">Start your Own Shop today</span></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-wallet"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>Easy Payment Options<span class="subtitle">Credit Cards &amp; PayPal Support</span></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-megaphone"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>Instant Notifications<span class="subtitle">Realtime Email &amp; SMS Support</span></h3>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 col-lg-3">
+                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
+                                <div class="fbox-icon">
+                                    <a href="#"><i class="i-alt border-0 icon-fire"></i></a>
+                                </div>
+                                <div class="fbox-content">
+                                    <h3>Hot Offers Daily<span class="subtitle">Upto 50% Discounts</span></h3>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
             </div>
+
 
             <div class="line"></div>
 
-            <div class="row col-mb-50">
+            {{-- <div class="row col-mb-50">
                 <div class="col-md-5">
                     <a href="https://vimeo.com/101373765" class="d-block position-relative rounded overflow-hidden" data-lightbox="iframe">
                         <img src="images/others/1.jpg" alt="Image" class="w-100">
@@ -113,11 +170,13 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
 
         </div>
+        @endforeach
 
-        <div class="section topmargin-lg">
+
+        {{-- <div class="section topmargin-lg">
             <div class="container clearfix">
 
                 <div class="heading-block center">
@@ -517,14 +576,14 @@
 
             </div>
 
-        </div>
+        </div> --}}
 
         <a href="#" class="button button-full center text-end footer-stick">
             <div class="container clearfix">
                 Canvas comes with Unlimited Customizations &amp; Options. <strong>Check Out</strong> <i class="icon-caret-right" style="top:4px;"></i>
             </div>
         </a>
-
+    </div>
     </div>
 </section>
 

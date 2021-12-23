@@ -164,6 +164,19 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::resource('prices','Pricing_Table\PriceController');
     Route::get('prices/{id}/status', 'Pricing_Table\PriceController@status')->name('price.status');
 
+    Route::resource('custompages','Pagebuilder\CustompageController');
+    Route::get('custompages/{id}/status', 'Pagebuilder\CustompageController@status_approval')->name('custompage.status');
+    Route::get('custompage/{id}/builder', 'Pagebuilder\PagebuilderController@index')->name('custompage.builder');
+
+    //for Page Builder
+    Route::get('pagebuilder/{id}/create', 'Pagebuilder\PagebuilderController@create')->name('pagebuilder.create');
+    Route::post('pagebuilder/{id}/store', 'Pagebuilder\PagebuilderController@store')->name('pagebuilder.store');
+    Route::get('pagebuilder/{id}/edit/{pageId}', 'Pagebuilder\PagebuilderController@edit')->name('pagebuilder.edit');
+    Route::put('pagebuilder/{id}/update/{pageId}', 'Pagebuilder\PagebuilderController@update')->name('pagebuilder.update');
+    Route::delete('pagebuilder/{id}/destroy/{pageId}', 'Pagebuilder\PagebuilderController@destroy')->name('pagebuilder.destroy');
+    Route::post('pagebuilder/{id}/order', 'Pagebuilder\PagebuilderController@order')->name('pagebuilder.order');
+    //end Page Builder
+
 });
 
 

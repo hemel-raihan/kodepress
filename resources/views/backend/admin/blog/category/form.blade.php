@@ -76,6 +76,14 @@
 				<!-- INTERNAL multi css-->
 				<link rel="stylesheet" href="{{ asset('assets/plugins/multi/multi.min.css') }}">
 
+                <style>
+                    #preview {
+  display:inline-block;
+  position:absolute;
+  margin-left:20px;
+}
+                    </style>
+
 @endsection
 
 @section('content')
@@ -161,7 +169,16 @@
                         @enderror
 					</div>
 
+                    {{-- <label><span><i class="icon-check"></i></span> Click on a room to select it</label>
+                    <select name="rooms[]" multiple="multiple" class="image-picker">
+                        <option value=""></option>
+                        <option name="1room" data-img-src="{{asset('assets/frontend/images/slider/2.jpg')}}" value="Single room">Single room</option>
+                        <option name="2room" data-img-src="{{asset('assets/frontend/images/slider/3.jpg')}}" value="Double room">Double room</option>
+                    </select>
 
+                    <div id="preview">
+
+                    </div> --}}
 
 				</div>
 				<div class="card-footer text-end">
@@ -378,6 +395,16 @@
 
 @section('scripts')
 
+{{-- <script>
+    // $("select").imagepicker()
+    $(document).ready( function() {
+   $(document).on("change", "select", function() {
+      let img = $(this).find("option:selected").attr("data-img-src");
+      $("#preview").empty().append("<image src=" + img + "/>");
+   });
+});
+
+    </script> --}}
 
 
         <!-- <script>

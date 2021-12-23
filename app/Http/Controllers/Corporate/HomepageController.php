@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Corporate;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Models\Pagebuilder\Custompage;
 use Illuminate\Support\Facades\Artisan;
 
 class HomepageController extends Controller
@@ -19,8 +20,9 @@ class HomepageController extends Controller
         // $links = Link::where('status',1)->orderBy('id','desc')->limit(5)->get();
         // $posts = Post::where('scrollable',1)->orderBy('id','desc')->limit(5)->get();
 
+        $page = Custompage::where([['type','=','main-page'],['status','=',true]])->orderBy('id','desc')->first();
         Artisan::call('cache:clear');
 
-        return view('frontend_theme.corporate.homepage');
+        return view('frontend_theme.corporate.homepage',compact('page'));
     }
 }

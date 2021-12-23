@@ -19,6 +19,13 @@
 							<a class="side-menu__item" href="{{ url('widgets') }}"><i class="side-menu__icon fe fe-grid"></i><span class="side-menu__label">Widgets</span></a>
 						</li> -->
 
+                        <li class="slide">
+							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-layers"></i><span class="side-menu__label">Page Builder</span><i class="angle fa fa-angle-right"></i></a>
+							<ul class="slide-menu">
+								<li><a href="{{route('admin.custompages.create')}}" class="slide-item">Create Custom Page </a></li>
+								<li><a href="{{route('admin.custompages.index')}}" class="slide-item">All Pages</a></li>
+							</ul>
+						</li>
 
                         <li class="slide">
 							<a class="side-menu__item" data-bs-toggle="slide" href="#"><i class="side-menu__icon fe fe-layers"></i><span class="side-menu__label">Page Management</span><i class="angle fa fa-angle-right"></i></a>

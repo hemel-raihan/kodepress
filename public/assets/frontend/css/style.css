@@ -6670,7 +6670,7 @@ body:not(.has-plugin-html5video) .video-wrap video {
 
 #content {
 	position: relative;
-	background-color: #FFF;
+	/* background-color: #FFF; */
 }
 
 #content p { line-height: 1.8; }
