@@ -83,14 +83,14 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($widget) ? 'Edit ' : 'Create '}}Section ({{$page->name}})</h1>
+								<h1 class="page-title">{{ isset($widget) ? 'Edit ' : 'Create '}}Element ({{$page->title}})</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
 								</ol> --}}
 							</div>
 							<div class="ms-auto pageheader-btn">
-								<a href="{{route('admin.custompage.builder',$page->id)}}" class="btn btn-primary btn-icon text-white me-2">
+								<a href="{{route('admin.element.index',$page->id)}}" class="btn btn-primary btn-icon text-white me-2">
 									<span>
 										{{-- <i class="fe fe-minus"></i> --}}
 									</span> Back To List
@@ -105,7 +105,7 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($widget) ? route('admin.pagebuilder.update',['id'=>$page->id,'pagetId'=>$widget->id]) : route('admin.pagebuilder.store',$page->id)}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($widget) ? route('admin.pagebuilder.update',['id'=>$page->id,'pagetId'=>$widget->id]) : route('admin.element.store',$page->id)}}" enctype="multipart/form-data">
     @csrf
     @isset($widget)
     @method('PUT')
@@ -122,7 +122,7 @@
 				<div class="form-group">
                     @isset($widget)
                     <label class="form-label" for="type">Select Widget Type</label>
-					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" required onChange="setWidget()">
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type"  >
 						<option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
 						<option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
                         <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
@@ -132,118 +132,125 @@
                         <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
 					</select>
                     @else
-                    <label class="form-label" for="type">Select Layout Type</label>
-					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="layout" id="type" required onChange="setWidget()">
-                        <option value="">Select Layout</option>
-						<option value="One Column">One Column</option>
-						<option value="Two Column">Two Column</option>
-                        <option value="Three Column">Three Column</option>
-                        <option value="Four Column">Four Column</option>
+                    <label class="form-label" for="type">Select Module Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="module_type" id="type" >
+                        <option value="">Select Module</option>
+						<option value="Blog Category">Blog Category</option>
+						<option value="Blog Post">Blog Post</option>
+                        <option value="General Category">General Category</option>
+                        <option value="General Post">General Post</option>
+                        <option value="Service Category">Service Category</option>
+                        <option value="Service Post">Service Post</option>
+                        <option value="Portfolio Category">Portfolio Category</option>
+                        <option value="Portfolio Post">Portfolio Post</option>
+                        <option value="Price-Table Category">Price-Table Category</option>
+                        <option value="Price-Table Post">Price-Table Post</option>
 					</select>
                     @endisset
 				</div>
 
                 <div class="form-group">
-                    <label for="exampleInputname">Section Title</label>
-                    <input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Section Title">
-                </div>
-
-
-                <div class="form-group">
-                    <label for="exampleInputname">Padding</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="padding" id="" placeholder="section padding. ex: 10,20,30">
+                    <label for="exampleInputname">Element Title</label>
+                    <input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Element Title">
                 </div>
 
                 <div class="form-group">
-                    <label for="exampleInputname">Margin</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="margin" id="" placeholder="section margin. ex: 10,20,30">
+                    <label for="exampleInputname">How Many Post want to Show</label>
+                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="post_qty" id="" placeholder="enter post quantity">
                 </div>
+
+                <div class="card-header">
+					<h3 class="card-title">For Custom Elements: </h3>
+				</div>
+            </br>
 
                 <div class="form-group">
-                    <label for="exampleInputname">Border</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="border" id="" placeholder="section padding. ex: 1,2,3">
-                </div>
-
-                <div class="form-group">
-                    <label for="exampleInputname">Border Color</label>
-                    <input type="text" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="bordercolor" id="" placeholder="ex: #fffff">
-                </div>
-
-                <input type="radio" name="link" id="test2">
-                <label for="css">Background Image</label>
-                <input type="radio" name="link" id="test1">
-                <label for="html">Background Color</label>
-
-
-                <div class="form-group background_img" style="display:none">
-                    <label class="form-label">Background Image</label>
+                    <label class="form-label">Feature Image</label>
                     <!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                    <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($custompage) ? asset('uploads/sectionpagephoto/'.$custompage->background_img) : '' }}" name="background_img">
+                    <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($custompage) ? asset('uploads/elementphoto/'.$custompage->image) : '' }}" name="image">
                 </div>
 
-                <div class="form-group background_color" style="display:none">
-                    <label for="exampleInputname">Background Color</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="background_color" id="" placeholder="ex: #fffff">
+                <div class="form-group">
+                    <label for="exampleInputname">Image Width</label>
+                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="img_width" id="" placeholder="ex: 100,200">
+                </div>
+
+                <div class="form-group">
+                    <label for="exampleInputname">Image Height</label>
+                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="img_height" id="" placeholder="ex: 100,200">
                 </div>
 
 
-                </div>
+                @isset($widget)
+                <label class="form-label" for="type">Select Widget Type</label>
+                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" onChange="setMargin()">
+                    <option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
+                    <option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
+                    <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
+                    <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
+                    <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
+                    <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
+                    <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
+                </select>
+                @else
+                <label class="form-label" for="type">Select Image Margin Type</label>
+                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="img_margin" id="type" onChange="setMargin()">
+                    <option value="">Select Left or Right Margin</option>
+                    <option value="Left Margin">Left Margin</option>
+                    <option value="Right Margin">Right Margin</option>
+                </select>
+                @endisset
 
-				{{-- <div id="blog_category">
-					<div class="card-body">
-						<div class="form-group row" id="category">
-                            <label class="col-md-3 col-from-label">Select Category<span class="text-danger">*</span></label>
-                            @isset($editcategories)
-                            <div>
-                                <select class="form-control" name="category_id" id="category_id" data-live-search="true">
-                                    <option value="0">Select Category</option>
-                                    @foreach ($editcategories as $key => $category)
-                                    <option value="{{ $category->id }}" {{($widget->category_id == $category->id) ? 'selected' : ''}} >{{ $category->name }} ({{$category->posts()->count()}})</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @else
-                            <div>
-                                <select class="form-control" name="category_id" id="category_id" data-live-search="true">
-                                    <option value="0">Select Category</option>
-                                    @foreach ($categories as $key => $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }} ({{$category->posts()->count()}})</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @endisset
-                        </div>
-					</div>
-				</div> --}}
-
-                {{-- <div id="recent_post">
-					<div class="card-body">
-					</div>
-				</div>
-
-                <div id="image_widget">
-					<div class="card-body">
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($widget) ? asset('uploads/sidebarphoto/'.$widget->image) : '' }}" name="image">
-					</div>
-				</div> --}}
-
-				{{-- <div id="popular_post">
-					<div class="card-body">
-					</div>
-				</div>
-
-                <div id="text_widget">
+                <div id="img_margin" style="display: none;">
 					<div class="card-body">
                         <div class="form-group">
-                            <label for="exampleInputContent">Post Description</label>
-                            <div class="ql-wrapper ql-wrapper-demo bg-light">
-
-                                <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$widget->body ?? old('body')!!}</textarea>
-
-                            </div>
+                            <label for="exampleInputname">Margin Amount</label>
+                            <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="margin_amt" id="" placeholder="ex: 10,20">
                         </div>
 					</div>
-				</div> --}}
+				</div>
+
+
+                @isset($widget)
+                <label class="form-label" for="type">Select Widget Type</label>
+                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type"  onChange="setTopMargin()">
+                    <option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
+                    <option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
+                    <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
+                    <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
+                    <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
+                    <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
+                    <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
+                </select>
+                @else
+                <label class="form-label" for="type">Select Image Margin Type</label>
+                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="img_topmargin" id="type" onChange="setTopMargin()">
+                    <option value="">Select Top or Bottom Margin</option>
+                    <option value="Top Margin">Top Margin</option>
+                    <option value="Bottom Margin">Bottom Margin</option>
+                </select>
+                @endisset
+
+                <div id="img_topmargin" style="display: none;">
+					<div class="card-body">
+                        <div class="form-group">
+                            <label for="exampleInputname">Top-Margin Amount</label>
+                            <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="topmargin_amt" id="" placeholder="ex: 10,20">
+                        </div>
+					</div>
+				</div>
+
+
+
+                <div class="form-group">
+                    <label for="exampleInputContent">Description</label>
+                    <div class="ql-wrapper ql-wrapper-demo bg-light">
+                        <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$contentpost->body ?? old('body')!!}</textarea>
+                    </div>
+                </div>
+
+
+                </div>
 
 
 				<div class="card-footer text-end">
@@ -304,6 +311,16 @@
 
 @section('scripts')
 
+<script src="//cdn.ckeditor.com/4.17.1/full/ckeditor.js"></script>
+
+<script>
+	window.onload = function () {
+		CKEDITOR.replace('ckeditor', {
+	        filebrowserBrowseUrl: filemanager.ckBrowseUrl,
+	    });
+	}
+</script>
+
 <script>
     $(document).ready(function() {
         $("input[id$='test1']").click(function() {
@@ -324,58 +341,32 @@
 
 
 <script>
-	function setWidget()
+	function setMargin()
 	{
-		if($('select[name="type"]').val() === 'Blog Category')
+		if($('select[name="img_margin"]').val() === 'Left Margin')
 		{
-			$('#blog_category').removeClass('d-none');
-            $('#category').removeClass('d-none');
-            $('#recent_post').addClass('d-none');
-			$('#popular_post').addClass('d-none');
-            $('#text_widget').addClass('d-none');
-            $('#image_widget').addClass('d-none');
+			$('#img_margin').show();
 		}
-		else if($('select[name="type"]').val() === 'Recent Post')
+		else if($('select[name="img_margin"]').val() === 'Right Margin')
 		{
-			$('#no_of_post').removeClass('d-none');
-			$('#blog_category').addClass('d-none');
-            $('#category').addClass('d-none');
-			$('#popular_post').addClass('d-none');
-            $('#text_widget').addClass('d-none');
-            $('#image_widget').addClass('d-none');
-		}
-		else if($('select[name="type"]').val() === 'Popular Post')
-		{
-			$('#recent_post').addClass('d-none');
-			$('#blog_category').addClass('d-none');
-            $('#category').addClass('d-none');
-			$('#popular_post').removeClass('d-none');
-			$('#no_of_post').removeClass('d-none');
-            $('#text_widget').addClass('d-none');
-            $('#image_widget').addClass('d-none');
-		}
-        else if($('select[name="type"]').val() === 'Text Widget')
-		{
-			$('#recent_post').addClass('d-none');
-			$('#no_of_post').addClass('d-none');
-			$('#blog_category').addClass('d-none');
-            $('#category').addClass('d-none');
-			$('#popular_post').addClass('d-none');
-            $('#text_widget').removeClass('d-none');
-            $('#image_widget').addClass('d-none');
-		}
-        else if($('select[name="type"]').val() === 'Image Widget')
-		{
-			$('#recent_post').addClass('d-none');
-			$('#blog_category').addClass('d-none');
-            $('#category').addClass('d-none');
-			$('#popular_post').addClass('d-none');
-            $('#text_widget').removeClass('d-none');
-            $('#no_of_post').addClass('d-none');
-            $('#image_widget').removeClass('d-none');
+			$('#img_margin').show();
 		}
 	}
 	setWidget();
+
+    function setTopMargin()
+	{
+		if($('select[name="img_topmargin"]').val() === 'Top Margin')
+		{
+			$('#img_topmargin').show();
+		}
+		else if($('select[name="img_topmargin"]').val() === 'Bottom Margin')
+		{
+			$('#img_topmargin').show();
+		}
+	}
+	setWidget();
+
 </script>
 
 <script src="https://cdn.ckeditor.com/4.14.0/standard/ckeditor.js"></script>

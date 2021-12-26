@@ -16,6 +16,11 @@ class Pagebuilder extends Model
         return $this->belongsTo(Custompage::class);
     }
 
+    public function elements()
+    {
+        return $this->hasMany(Element::class);
+    }
+
     public function childs()
     {
         return $this->hasMany(Pagebuilder::class, 'parent_id', 'id');

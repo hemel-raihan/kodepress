@@ -177,6 +177,16 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::post('pagebuilder/{id}/order', 'Pagebuilder\PagebuilderController@order')->name('pagebuilder.order');
     //end Page Builder
 
+    //for Section Element
+    Route::get('element/{id}/index', 'Pagebuilder\ElementController@index')->name('element.index');
+    Route::get('element/{id}/create', 'Pagebuilder\ElementController@create')->name('element.create');
+    Route::post('element/{id}/store', 'Pagebuilder\ElementController@store')->name('element.store');
+    Route::get('element/{id}/edit/{elementId}', 'Pagebuilder\ElementController@edit')->name('element.edit');
+    Route::put('element/{id}/update/{elementId}', 'Pagebuilder\ElementController@update')->name('element.update');
+    Route::delete('element/{id}/destroy/{elementId}', 'Pagebuilder\ElementController@destroy')->name('element.destroy');
+    Route::get('element/{id}/status/{elementId}', 'Pagebuilder\ElementController@status')->name('element.status');
+    //end Section Element
+
 });
 
 

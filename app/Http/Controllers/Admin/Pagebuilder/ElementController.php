@@ -7,31 +7,30 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Gate;
-use App\Models\Pagebuilder\Custompage;
+use App\Models\Pagebuilder\Pagebuilder;
 
-class PagebuilderController extends Controller
+class ElementController extends Controller
 {
     public function index($id)
     {
-        Gate::authorize('app.build.pages.pagebuilder');
-        $page = Custompage::findOrFail($id);
+        //Gate::authorize('app.build.pages.pagebuilder');
+        $page = Pagebuilder::findOrFail($id);
         $auth = Auth::guard('admin')->user();
-        return view('backend.admin.pagebuilder.builder',compact('page','auth'));
+        return view('backend.admin.pagebuilder.element.index',compact('page','auth'));
     }
 
     public function create($id)
     {
-        $page = Custompage::findOrFail($id);
-        return view('backend.admin.pagebuilder.section.form',compact('page'));
+        $page = Pagebuilder::findOrFail($id);
+        return view('backend.admin.pagebuilder.element.form',compact('page'));
     }
 
     public function store(Request $request,$id)
     {
-        $page = Custompage::findOrFail($id);
+        $page = Pagebuilder::findOrFail($id);
 
         //get form image
-        $image = $request->file('background_img');
+        $image = $request->file('image');
         $slug = Str::slug($request->title);
 
         if(isset($image))
@@ -39,7 +38,7 @@ class PagebuilderController extends Controller
             $currentDate = Carbon::now()->toDateString();
             $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-            $sidebarphotoPath = public_path('uploads/sectionpagephoto');
+            $sidebarphotoPath = public_path('uploads/elementphoto');
             $image->move($sidebarphotoPath,$imagename);
 
         }
@@ -57,38 +56,24 @@ class PagebuilderController extends Controller
             $status = 1;
         }
 
-        if(!$request->background_img)
-        {
-            $background_img = null;
-        }
-        else
-        {
-            $background_img = $imagename;
-        }
-
-        if(!$request->background_color)
-        {
-            $background_color = null;
-        }
-        else
-        {
-            $background_color = $request->background_color;
-        }
-
-        $page->pagebuilders()->create([
+        $page->elements()->create([
             'title' => $request->title,
-            'layout' => $request->layout,
-            'padding' => $request->padding.'px',
-            'margin' => $request->margin.'px',
-            'border' => $request->border,
-            'bordercolor' => $request->bordercolor,
+            'module_type' => $request->module_type,
+            'post_qty' => $request->post_qty,
+            'image' => $imagename,
+            'img_width' => $request->img_width.'px',
+            'img_height' => $request->img_height.'px',
+            'img_margin' => $request->img_margin,
+            'margin_amt' => $request->margin_amt.'px',
+            'img_topmargin' => $request->img_topmargin,
+            'topmargin_amt' => $request->topmargin_amt.'px',
+            'body' => $request->body,
             'status' => $status,
-            'background_color' => $background_color,
-            'background_img' => $background_img,
+
 
         ]);
-        notify()->success("Section Successfully created","Added");
-        return redirect()->route('admin.custompage.builder',$id);
+        notify()->success("Element Successfully created","Added");
+        return redirect()->route('admin.element.index',$id);
     }
 
     // public function order(Request $request, $id)

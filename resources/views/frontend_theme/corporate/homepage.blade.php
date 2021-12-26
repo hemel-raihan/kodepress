@@ -27,104 +27,79 @@
 
         @foreach ($page->pagebuilders as $pagebuilder)
         <div class="container clearfix">
-
+            <div class="heading-block center">
+                <h2>{{$pagebuilder->title}}</h2>
+            </div>
             <div class="row">
-                <div class="col-md-{{($pagebuilder->layout == 'one-col') ? 12 : 6}}">
+                @foreach ($pagebuilder->elements as $element)
+                @if ($pagebuilder->layout == 'one-col')
+                <div class="col-md-12">
+                @elseif ($pagebuilder->layout == 'Two-col')
+                <div class="col-md-6">
+                @elseif ($pagebuilder->layout == 'Three Column')
+                <div class="col-md-4">
+                @endif
+
+                {{-- <div class="col-md-{{($pagebuilder->layout == 'one-col') ? 12 : 6}}"> --}}
+
                     <div class="row col-mb-50">
+                        @if($element->module_type == 'Blog Category')
+                        <div class="heading-block">
+                            <h2>{{$element->title}}</h2>
+                        </div>
+                        @foreach ($blogcategories as $blogcategory)
                         <div class="col-sm-6 col-lg-3">
                             <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
                                 <div class="fbox-icon">
                                     <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
                                 </div>
                                 <div class="fbox-content">
-                                    <h3>e-Commerce Solutions<span class="subtitle">Start your Own Shop today</span></h3>
+                                    <h3>{{$blogcategory->name}}<span class="subtitle">Start your Own Shop today</span></h3>
                                 </div>
                             </div>
                         </div>
+                        @endforeach
 
+                        @elseif($element->module_type == 'Service Category')
+
+                        @foreach ($blogcategorie as $blogcategorie)
                         <div class="col-sm-6 col-lg-3">
                             <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
                                 <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-wallet"></i></a>
+                                    <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
                                 </div>
                                 <div class="fbox-content">
-                                    <h3>Easy Payment Options<span class="subtitle">Credit Cards &amp; PayPal Support</span></h3>
+                                    <h3>{{$blogcategory->name}}<span class="subtitle">Start your Own Shop today</span></h3>
                                 </div>
                             </div>
+                        </div>
+                        @endforeach
+
+                        @else
+
+                        <div class="heading-block">
+                            <h2>{{$element->title}}</h2>
                         </div>
 
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                                <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-megaphone"></i></a>
+                        @isset($element->image)
+                        <a href="https://vimeo.com/101373765" class="d-block position-relative rounded overflow-hidden" data-lightbox="iframe">
+                            <img src="{{asset('uploads/elementphoto/'.$element->image)}}" alt="Image" class="w-100">
+                            <div class="bg-overlay">
+                                <div class="bg-overlay-content dark">
+                                    <i class="i-circled i-light icon-line-play m-0"></i>
                                 </div>
-                                <div class="fbox-content">
-                                    <h3>Instant Notifications<span class="subtitle">Realtime Email &amp; SMS Support</span></h3>
-                                </div>
+                                <div class="bg-overlay-bg op-06 dark"></div>
                             </div>
-                        </div>
+                        </a>
+                        @endisset
 
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                                <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-fire"></i></a>
-                                </div>
-                                <div class="fbox-content">
-                                    <h3>Hot Offers Daily<span class="subtitle">Upto 50% Discounts</span></h3>
-                                </div>
-                            </div>
-                        </div>
+                        {!!$element->body!!}
+
+                        @endif
+
                     </div>
-
                 </div>
-                
-                {{-- <div class="col-md-6">
-                    <div class="row col-mb-50">
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                                <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
-                                </div>
-                                <div class="fbox-content">
-                                    <h3>e-Commerce Solutions<span class="subtitle">Start your Own Shop today</span></h3>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                                <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-wallet"></i></a>
-                                </div>
-                                <div class="fbox-content">
-                                    <h3>Easy Payment Options<span class="subtitle">Credit Cards &amp; PayPal Support</span></h3>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                                <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-megaphone"></i></a>
-                                </div>
-                                <div class="fbox-content">
-                                    <h3>Instant Notifications<span class="subtitle">Realtime Email &amp; SMS Support</span></h3>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                                <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-fire"></i></a>
-                                </div>
-                                <div class="fbox-content">
-                                    <h3>Hot Offers Daily<span class="subtitle">Upto 50% Discounts</span></h3>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
+                @endforeach
             </div>
 
 

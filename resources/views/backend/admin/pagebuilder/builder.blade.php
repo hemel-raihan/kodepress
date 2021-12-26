@@ -84,7 +84,7 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">Sidebar Builder ({{$page->title}})</h1>
+								<h1 class="page-title">Page Builder ({{$page->title}})</h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
@@ -127,16 +127,23 @@
 												@forelse ($page->pagebuilders as $pagebuilder)
 													<li class="dd-item" data-id="{{$pagebuilder->id}}">
                                                         <div class="pull-right item_actions">
+
+                                                            <a href="{{route('admin.element.index',$pagebuilder->id)}}" class="btn btn-success">
+                                                                Element List
+                                                            </a>
+
                                                             <a href="{{route('admin.pagebuilder.edit',['id'=>$page->id,'pageId'=>$pagebuilder->id])}}" class="btn btn-success">
                                                                 <i class="fa fa-edit"></i>
                                                             </a>
+
+
                                                             {{-- @if($auth->hasPermission('app.sidebars.destroy')) --}}
 
                                                             <button class="btn btn-danger waves effect" type="button"
                                                                 onclick="deletepost$widget({{ $pagebuilder->id}})" >
                                                                 <i class="fa fa-trash"></i>
                                                                 </button>
-                                                                <form id="deleteform-{{$pagebuilder->id}}" action="{{route('admin.pagebuilder.destroy',['id'=>$sidebar->id,'pageId'=>$pagebuilder->id])}}" method="POST" style="display: none;">
+                                                                <form id="deleteform-{{$pagebuilder->id}}" action="{{route('admin.pagebuilder.destroy',['id'=>$page->id,'pageId'=>$pagebuilder->id])}}" method="POST" style="display: none;">
                                                                 @csrf
                                                                 @method('DELETE')
                                                                 </form>
