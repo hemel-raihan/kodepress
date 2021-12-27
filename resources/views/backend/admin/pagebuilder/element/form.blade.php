@@ -83,7 +83,7 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($widget) ? 'Edit ' : 'Create '}}Element ({{$page->title}})</h1>
+								<h1 class="page-title">{{ isset($element) ? 'Edit ('.$element->title.')' : 'Create '}}Element </h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($widget) ? route('admin.pagebuilder.update',['id'=>$page->id,'pagetId'=>$widget->id]) : route('admin.element.store',$page->id)}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($element) ? route('admin.element.update',['id'=>$page->id,'elementId'=>$element->id]) : route('admin.element.store',$page->id)}}" enctype="multipart/form-data">
     @csrf
-    @isset($widget)
+    @isset($element)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -120,16 +120,20 @@
 
                 <div class="card-body">
 				<div class="form-group">
-                    @isset($widget)
-                    <label class="form-label" for="type">Select Widget Type</label>
-					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type"  >
-						<option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
-						<option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
-                        <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
-                        <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
-                        <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
-                        <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
-                        <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
+                    @isset($element)
+                    <label class="form-label" for="type">Select Module Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="module_type" id="type"  >
+                        <option value="">Select Module</option>
+						<option value="Blog Category" {{($element->module_type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
+						<option value="Blog Post" {{($element->module_type == 'Blog Post') ? 'selected' : ''}}>Blog Post</option>
+                        <option value="General Category" {{($element->module_type == 'General Category') ? 'selected' : ''}} >General Category</option>
+                        <option value="General Post" {{($element->module_type == 'General Post') ? 'selected' : ''}} >General Post</option>
+                        <option value="Service Category" {{($element->module_type == 'Service Category') ? 'selected' : ''}} >Service Category</option>
+                        <option value="Service Post" {{($element->module_type == 'Service Post') ? 'selected' : ''}} >Service Post</option>
+                        <option value="Portfolio Category" {{($element->module_type == 'Portfolio Category') ? 'selected' : ''}} >Portfolio Category</option>
+                        <option value="Portfolio Post" {{($element->module_type == 'Portfolio Post') ? 'selected' : ''}} >Portfolio Post</option>
+                        <option value="Price-Table Category" {{($element->module_type == 'Price-Table Category') ? 'selected' : ''}} >Price-Table Category</option>
+                        <option value="Price-Table Post" {{($element->module_type == 'Price-Table Post') ? 'selected' : ''}} >Price-Table Post</option>
 					</select>
                     @else
                     <label class="form-label" for="type">Select Module Type</label>
@@ -150,13 +154,35 @@
 				</div>
 
                 <div class="form-group">
+                    @isset($element)
+                    <label class="form-label" for="type">Select Layout Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="layout" id="type" >
+                        <option value="">Select Layout</option>
+						<option value="One Column" {{($element->layout == 'One Column') ? 'selected' : ''}} >One Column</option>
+						<option value="Two Column" {{($element->layout == 'Two Column') ? 'selected' : ''}}>Two Column</option>
+                        <option value="Three Column" {{($element->layout == 'Three Column') ? 'selected' : ''}} >Three Column</option>
+                        <option value="Four Column" {{($element->layout == 'Four Column') ? 'selected' : ''}} >Four Column</option>
+					</select>
+                    @else
+                    <label class="form-label" for="type">Select Layout Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="layout" id="type" >
+                        <option value="">Select Layout</option>
+						<option value="One Column">One Column</option>
+						<option value="Two Column">Two Column</option>
+                        <option value="Three Column">Three Column</option>
+                        <option value="Four Column">Four Column</option>
+					</select>
+                    @endisset
+				</div>
+
+                <div class="form-group">
                     <label for="exampleInputname">Element Title</label>
-                    <input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Element Title">
+                    <input type="text" class="form-control " value="{{$element->title ?? old('title')}}" name="title" id="" placeholder="Element Title">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputname">How Many Post want to Show</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="post_qty" id="" placeholder="enter post quantity">
+                    <input type="text" class="form-control " value="{{$element->post_qty ?? old('post_qty')}}" name="post_qty" id="" placeholder="enter post quantity">
                 </div>
 
                 <div class="card-header">
@@ -167,30 +193,26 @@
                 <div class="form-group">
                     <label class="form-label">Feature Image</label>
                     <!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                    <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($custompage) ? asset('uploads/elementphoto/'.$custompage->image) : '' }}" name="image">
+                    <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($element) ? asset('uploads/elementphoto/'.$element->image) : '' }}" name="image">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputname">Image Width</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="img_width" id="" placeholder="ex: 100,200">
+                    <input type="text" class="form-control " value="{{$element->img_width ?? old('img_width')}}" name="img_width" id="" placeholder="ex: 100px,200px">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputname">Image Height</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="img_height" id="" placeholder="ex: 100,200">
+                    <input type="text" class="form-control " value="{{$element->img_width ?? old('img_width')}}" name="img_height" id="" placeholder="ex: 100px,200px">
                 </div>
 
 
-                @isset($widget)
-                <label class="form-label" for="type">Select Widget Type</label>
-                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" onChange="setMargin()">
-                    <option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
-                    <option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
-                    <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
-                    <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
-                    <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
-                    <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
-                    <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
+                @isset($element)
+                <label class="form-label" for="type">Select Image Margin Type</label>
+                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="img_margin" id="type" onChange="setMargin()">
+                    <option value="">Select Left or Right Margin</option>
+                    <option value="Left Margin" {{($element->img_margin == 'Left Margin') ? 'selected' : ''}} >Left Margin</option>
+                    <option value="Right Margin" {{($element->img_margin == 'Right Margin') ? 'selected' : ''}}>Right Margin</option>
                 </select>
                 @else
                 <label class="form-label" for="type">Select Image Margin Type</label>
@@ -205,25 +227,21 @@
 					<div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputname">Margin Amount</label>
-                            <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="margin_amt" id="" placeholder="ex: 10,20">
+                            <input type="text" class="form-control " value="{{$element->margin_amt ?? old('margin_amt')}}" name="margin_amt" id="" placeholder="ex: 10px,20px">
                         </div>
 					</div>
 				</div>
 
 
-                @isset($widget)
-                <label class="form-label" for="type">Select Widget Type</label>
-                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type"  onChange="setTopMargin()">
-                    <option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
-                    <option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
-                    <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
-                    <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
-                    <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
-                    <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
-                    <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
+                @isset($element)
+                <label class="form-label" for="type">Select Image Top-Margin Type</label>
+                <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="img_topmargin" id="type"  onChange="setTopMargin()">
+                    <option value="">Select Top or Bottom Margin</option>
+                    <option value="Top Margin" {{($element->img_topmargin == 'Top Margin') ? 'selected' : ''}} >Top Margin</option>
+                    <option value="Bottom Margin" {{($element->img_topmargin == 'Bottom Margin') ? 'selected' : ''}}>Bottom Margin</option>
                 </select>
                 @else
-                <label class="form-label" for="type">Select Image Margin Type</label>
+                <label class="form-label" for="type">Select Image Top-Margin Type</label>
                 <select class="form-control form-select select2" data-bs-placeholder="Select Type" name="img_topmargin" id="type" onChange="setTopMargin()">
                     <option value="">Select Top or Bottom Margin</option>
                     <option value="Top Margin">Top Margin</option>
@@ -235,7 +253,7 @@
 					<div class="card-body">
                         <div class="form-group">
                             <label for="exampleInputname">Top-Margin Amount</label>
-                            <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="topmargin_amt" id="" placeholder="ex: 10,20">
+                            <input type="text" class="form-control " value="{{$element->topmargin_amt ?? old('topmargin_amt')}}" name="topmargin_amt" id="" placeholder="ex: 10px,20px">
                         </div>
 					</div>
 				</div>
@@ -245,7 +263,7 @@
                 <div class="form-group">
                     <label for="exampleInputContent">Description</label>
                     <div class="ql-wrapper ql-wrapper-demo bg-light">
-                        <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$contentpost->body ?? old('body')!!}</textarea>
+                        <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$element->body ?? old('body')!!}</textarea>
                     </div>
                 </div>
 
@@ -255,7 +273,7 @@
 
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($widget)
+                        @isset($element)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -276,11 +294,11 @@
 				</div>
 				<div class="card-body">
 
-					@isset($custompage)
+					@isset($element)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$custompage->status == true ? 'checked' : ''}} class="custom-switch-input ">
+							<input type="checkbox" name="status" {{$element->status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>

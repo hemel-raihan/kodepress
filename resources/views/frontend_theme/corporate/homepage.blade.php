@@ -26,15 +26,15 @@
         </div>
 
         @foreach ($page->pagebuilders as $pagebuilder)
-        <div class="container clearfix">
+        <div class="container clearfix" style="background-color: {{$pagebuilder->background_color}}; background-image: url('{{asset('uploads/sectionpagephoto/'.$pagebuilder->background_img)}}');">
             <div class="heading-block center">
                 <h2>{{$pagebuilder->title}}</h2>
             </div>
             <div class="row">
                 @foreach ($pagebuilder->elements as $element)
-                @if ($pagebuilder->layout == 'one-col')
+                @if ($pagebuilder->layout == 'One Column')
                 <div class="col-md-12">
-                @elseif ($pagebuilder->layout == 'Two-col')
+                @elseif ($pagebuilder->layout == 'Two Column')
                 <div class="col-md-6">
                 @elseif ($pagebuilder->layout == 'Three Column')
                 <div class="col-md-4">
@@ -43,37 +43,129 @@
                 {{-- <div class="col-md-{{($pagebuilder->layout == 'one-col') ? 12 : 6}}"> --}}
 
                     <div class="row col-mb-50">
-                        @if($element->module_type == 'Blog Category')
+                        @if($element->module_type == 'Blog Post')
                         <div class="heading-block">
-                            <h2>{{$element->title}}</h2>
+                            <h3>{{$element->title}}</h3>
                         </div>
-                        @foreach ($blogcategories as $blogcategory)
-                        <div class="col-sm-6 col-lg-3">
-                            <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
-                                <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
+                        @isset($blogposts)
+                        @foreach ($blogposts as $blogpost)
+                        <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
+                            {{-- <div class="entry col-sm-6 col-12"> --}}
+                                <div class="grid-inner">
+                                    @isset($blogpost->image)
+                                    <div class="entry-image">
+                                        <a href="#" data-lightbox="image"><img src="{{asset('uploads/postphoto/'.$blogpost->image)}}" alt="Standard Post with Image"></a>
+                                    </div>
+                                    @endisset
+                                    @isset($blogpost->youtube_link)
+                                    <div class="entry-image">
+                                    <p>&nbsp;<iframe frameborder="1"  height="400" src="{{$blogpost->youtube_link}}" width="720"></iframe></p>
+                                    </div>
+                                    @endisset
+                                    <div class="entry-title">
+                                        <h2><a href="blog-single.html">{{$blogpost->title}}</a></h2>
+                                    </div>
+                                    <div class="entry-meta">
+                                        <ul>
+                                            <li><i class="icon-calendar3"></i> 10th Feb 2021</li>
+                                            <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13</a></li>
+                                            <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="entry-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in. Eligendi, deserunt, blanditiis est quisquam doloribus.</p>
+                                        <a href="blog-single.html" class="more-link">Read More</a>
+                                    </div>
                                 </div>
-                                <div class="fbox-content">
-                                    <h3>{{$blogcategory->name}}<span class="subtitle">Start your Own Shop today</span></h3>
-                                </div>
-                            </div>
+                            {{-- </div> --}}
                         </div>
                         @endforeach
+                        @endisset
+
+
+                        @elseif ($element->module_type == 'General Post')
+                        @isset($generalposts)
+                        @foreach ($generalposts as $generalpost)
+                        <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
+                            {{-- <div class="entry col-sm-6 col-12"> --}}
+                                <div class="grid-inner">
+                                    @isset($blogpost->image)
+                                    <div class="entry-image">
+                                        <a href="#" data-lightbox="image"><img src="{{asset('uploads/contentpostphoto/'.$generalpost->image)}}" alt="Standard Post with Image"></a>
+                                    </div>
+                                    @endisset
+                                    @isset($blogpost->youtube_link)
+                                    <div class="entry-image">
+                                    <p>&nbsp;<iframe frameborder="1"  height="400" src="{{$generalpost->youtube_link}}" width="720"></iframe></p>
+                                    </div>
+                                    @endisset
+                                    <div class="entry-title">
+                                        <h2><a href="blog-single.html">{{$generalpost->title}}</a></h2>
+                                    </div>
+                                    <div class="entry-meta">
+                                        <ul>
+                                            <li><i class="icon-calendar3"></i> 10th Feb 2021</li>
+                                            <li><a href="blog-single.html#comments"><i class="icon-comments"></i> 13</a></li>
+                                            <li><a href="#"><i class="icon-camera-retro"></i></a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="entry-content">
+                                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Cupiditate, asperiores quod est tenetur in. Eligendi, deserunt, blanditiis est quisquam doloribus.</p>
+                                        <a href="blog-single.html" class="more-link">Read More</a>
+                                    </div>
+                                </div>
+                            {{-- </div> --}}
+                        </div>
+                        @endforeach
+                        @endisset
+
 
                         @elseif($element->module_type == 'Service Category')
-
-                        @foreach ($blogcategorie as $blogcategorie)
-                        <div class="col-sm-6 col-lg-3">
+                        @isset($servicecategories)
+                        @foreach ($servicecategories as $servicecategory)
+                        <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
                             <div class="feature-box fbox-center fbox-light fbox-effect border-bottom-0">
                                 <div class="fbox-icon">
-                                    <a href="#"><i class="i-alt border-0 icon-shop"></i></a>
+                                    <a href="#"><img src="{{asset('uploads/servicecategory_photo/'.$servicecategory->image)}}" ></a>
                                 </div>
                                 <div class="fbox-content">
-                                    <h3>{{$blogcategory->name}}<span class="subtitle">Start your Own Shop today</span></h3>
+                                    <h3>{{$servicecategory->name}}<span class="subtitle">Start your Own Shop today</span></h3>
                                 </div>
+
                             </div>
                         </div>
                         @endforeach
+                        @endisset
+
+
+                        @elseif($element->module_type == 'Portfolio Category' && $element->status == true)
+                        @isset($portfoliocategories)
+
+                        <div id="oc-portfolio" class="owl-carousel portfolio-carousel carousel-widget" data-margin="1" data-pagi="false" data-autoplay="5000" data-items-xs="1" data-items-sm="2" data-items-md="3" data-items-xl="4">
+                            @foreach ($portfoliocategories as $portfoliocategory)
+                            <div class="portfolio-item">
+                                <div class="portfolio-image">
+                                    <a href="portfolio-single.html">
+                                        <img src="{{asset('uploads/portfoliocategory_photo/'.$portfoliocategory->image)}}" alt="Open Imagination">
+                                    </a>
+                                    <div class="bg-overlay">
+                                        <div class="bg-overlay-content dark" data-hover-animate="fadeIn" data-hover-speed="350">
+                                            <a href="{{asset('uploads/portfoliocategory_photo/'.$portfoliocategory->image)}}" class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall" data-hover-animate-out="fadeInUpSmall" data-hover-speed="350" data-lightbox="image"><i class="icon-line-plus"></i></a>
+                                            <a href="portfolio-single.html" class="overlay-trigger-icon bg-light text-dark" data-hover-animate="fadeInDownSmall" data-hover-animate-out="fadeInUpSmall" data-hover-speed="350"><i class="icon-line-ellipsis"></i></a>
+                                        </div>
+                                        <div class="bg-overlay-bg dark" data-hover-animate="fadeIn" data-hover-speed="350"></div>
+                                    </div>
+                                </div>
+                                <div class="portfolio-desc">
+                                    <h3><a href="portfolio-single.html">{{$portfoliocategory->name}}</a></h3>
+                                    {{-- <span><a href="#">Media</a>, <a href="#">Icons</a></span> --}}
+                                </div>
+                            </div>
+                            @endforeach
+                        </div>
+
+                        @endisset
+
 
                         @else
 

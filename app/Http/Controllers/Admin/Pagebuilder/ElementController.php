@@ -59,14 +59,15 @@ class ElementController extends Controller
         $page->elements()->create([
             'title' => $request->title,
             'module_type' => $request->module_type,
+            'layout' => $request->layout,
             'post_qty' => $request->post_qty,
             'image' => $imagename,
-            'img_width' => $request->img_width.'px',
-            'img_height' => $request->img_height.'px',
+            'img_width' => $request->img_width,
+            'img_height' => $request->img_height,
             'img_margin' => $request->img_margin,
-            'margin_amt' => $request->margin_amt.'px',
+            'margin_amt' => $request->margin_amt,
             'img_topmargin' => $request->img_topmargin,
-            'topmargin_amt' => $request->topmargin_amt.'px',
+            'topmargin_amt' => $request->topmargin_amt,
             'body' => $request->body,
             'status' => $status,
 
@@ -76,101 +77,91 @@ class ElementController extends Controller
         return redirect()->route('admin.element.index',$id);
     }
 
-    // public function order(Request $request, $id)
-    // {
-    //     $sidebar = Sidebar::findOrFail($id);
-    //     $widgetItemOrder = json_decode($request->get('order'));
-    //     $this->orderWidget($widgetItemOrder,null);
-    // }
+    public function edit($id,$elementId)
+    {
+        $auth = Auth::user();
+        $page = Pagebuilder::findOrFail($id);
+        $element = $page->elements()->findOrFail($elementId);
+        return view('backend.admin.pagebuilder.element.form',compact('page','auth','element'));
+    }
 
-    // private function orderWidget(array $widgetItems, $parentId)
-    // {
-    //     foreach($widgetItems as $index => $item)
-    //     {
-    //         $widgetItem = Widget::findOrFail($item->id);
-    //         $widgetItem->update([
-    //             'order' => $index + 1,
-    //         ]);
+    public function update(Request $request,$id,$elementId)
+    {
+        //Gate::authorize('app.menus.edit');
+        $page = Pagebuilder::findOrFail($id);
 
-    //     }
-    // }
+        //get form image
+        $image = $request->file('image');
+        $slug = Str::slug($request->name);
 
-    // public function edit($id,$widgetId)
-    // {
-    //     $auth = Auth::user();
-    //     $sidebar = Sidebar::findOrFail($id);
-    //     $widget = $sidebar->widgets()->findOrFail($widgetId);
-    //     $editcategories = category::all();
-    //     return view('backend.admin.sidebar.widget.form',compact('sidebar','auth','widget','editcategories'));
-    // }
+        if(isset($image))
+        {
+            $currentDate = Carbon::now()->toDateString();
+            $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
 
-    // public function update(Request $request,$id,$widgetId)
-    // {
-    //     //Gate::authorize('app.menus.edit');
-    //     $sidebar = Sidebar::findOrFail($id);
+            $sidebarphotoPath = public_path('uploads/elementphoto');
 
-    //     //get form image
-    //     $image = $request->file('image');
-    //     $slug = Str::slug($request->name);
+            $sidebarphoto_path = public_path('uploads/elementphoto/'.$page->elements()->findOrFail($elementId)->image);  // Value is not URL but directory file path
+            if (file_exists($sidebarphoto_path)) {
 
-    //     if(isset($image))
-    //     {
-    //         $currentDate = Carbon::now()->toDateString();
-    //         $imagename = $slug.'-'.$currentDate.'-'.uniqid().'.'.$image->getClientOriginalExtension();
+                @unlink($sidebarphoto_path);
 
-    //         $sidebarphotoPath = public_path('uploads/sidebarphoto');
+            }
 
-    //         $sidebarphoto_path = public_path('uploads/sidebarphoto/'.$sidebar->widgets()->findOrFail($widgetId)->image);  // Value is not URL but directory file path
-    //         if (file_exists($sidebarphoto_path)) {
+            $image->move($sidebarphotoPath,$imagename);
 
-    //             @unlink($sidebarphoto_path);
+        }
+        else
+        {
+            $imagename = $page->elements()->findOrFail($elementId)->image;
+        }
 
-    //         }
+        if(!$request->status)
+        {
+            $status = 0;
+        }
+        else
+        {
+            $status = 1;
+        }
 
-    //         $image->move($sidebarphotoPath,$imagename);
+        $page->elements()->findOrFail($elementId)->update([
+            'title' => $request->title,
+            'module_type' => $request->module_type,
+            'layout' => $request->layout,
+            'post_qty' => $request->post_qty,
+            'image' => $imagename,
+            'img_width' => $request->img_width,
+            'img_height' => $request->img_height,
+            'img_margin' => $request->img_margin,
+            'margin_amt' => $request->margin_amt,
+            'img_topmargin' => $request->img_topmargin,
+            'topmargin_amt' => $request->topmargin_amt,
+            'body' => $request->body,
+            'status' => $status,
+        ]);
 
-    //     }
-    //     else
-    //     {
-    //         $imagename = $sidebar->widgets()->findOrFail($widgetId)->image;
-    //     }
+        notify()->success('Element Updated','Update');
+        return redirect()->route('admin.element.index',$id);
+    }
 
-    //     $sidebar->widgets()->findOrFail($widgetId)->update([
-    //         'title' => $request->title,
-    //         'category_id' => $request->category_id,
-    //         'no_of_post' => $request->no_of_post,
-    //         'type' => $request->type,
-    //         'image' => $imagename,
-    //         'body' => $request->body,
-    //     ]);
+    public function destroy($id,$elementId)
+    {
+        $page = Pagebuilder::findOrFail($id);
 
-    //     notify()->success('Widget Item Updated','Update');
-    //     return redirect()->route('admin.widget.builder',$id);
-    // }
+        $sidebarphoto_path = public_path('uploads/elementphoto/'.$page->elements()->findOrFail($elementId)->image);  // Value is not URL but directory file path
+        if (file_exists($sidebarphoto_path)) {
 
-    // public function widgetdetails($id)
-    // {
-    //     $widget = Widget::find($id);
-    //     return view('frontend_theme.default.widget_detailspage',compact('widget'));
-    // }
+            @unlink($sidebarphoto_path);
 
-    // public function destroy($id,$widgetId)
-    // {
-    //     $sidebar = Sidebar::findOrFail($id);
+        }
 
-    //     $sidebarphoto_path = public_path('uploads/sidebarphoto/'.$sidebar->widgets()->findOrFail($widgetId)->image);  // Value is not URL but directory file path
-    //     if (file_exists($sidebarphoto_path)) {
+        Pagebuilder::findOrFail($id)
+                 ->elements()
+                 ->findOrFail($elementId)
+                 ->delete();
 
-    //         @unlink($sidebarphoto_path);
-
-    //     }
-
-    //     Sidebar::findOrFail($id)
-    //              ->widgets()
-    //              ->findOrFail($widgetId)
-    //              ->delete();
-
-    //     notify()->success('Widget Delete Successfully');
-    //     return back();
-    // }
+        notify()->success('Element Delete Successfully');
+        return back();
+    }
 }

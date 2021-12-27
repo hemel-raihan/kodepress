@@ -83,7 +83,7 @@
 						<!-- PAGE-HEADER -->
 						<div class="page-header">
 							<div>
-								<h1 class="page-title">{{ isset($widget) ? 'Edit ' : 'Create '}}Section ({{$page->name}})</h1>
+								<h1 class="page-title">{{ isset($pagebuilder) ? 'Edit ('.$pagebuilder->title.') ' : 'Create '}}Section </h1>
 								{{-- <ol class="breadcrumb">
 									<li class="breadcrumb-item"><a href="#">Tables</a></li>
 									<li class="breadcrumb-item active" aria-current="page">Table</li>
@@ -105,9 +105,9 @@
 						<!-- PAGE-HEADER END -->
 
                    <!-- ROW-1 OPEN -->
-    <form method="POST" action="{{isset($widget) ? route('admin.pagebuilder.update',['id'=>$page->id,'pagetId'=>$widget->id]) : route('admin.pagebuilder.store',$page->id)}}" enctype="multipart/form-data">
+    <form method="POST" action="{{isset($pagebuilder) ? route('admin.pagebuilder.update',['id'=>$page->id,'pageId'=>$pagebuilder->id]) : route('admin.pagebuilder.store',$page->id)}}" enctype="multipart/form-data">
     @csrf
-    @isset($widget)
+    @isset($pagebuilder)
     @method('PUT')
     @endisset
 	<div class="row">
@@ -120,20 +120,18 @@
 
                 <div class="card-body">
 				<div class="form-group">
-                    @isset($widget)
-                    <label class="form-label" for="type">Select Widget Type</label>
-					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="type" id="type" required onChange="setWidget()">
-						<option value="Blog Category" {{($widget->type == 'Blog Category') ? 'selected' : ''}} >Blog Category</option>
-						<option value="Recent Post" {{($widget->type == 'Recent Post') ? 'selected' : ''}}>Recent Post</option>
-                        <option value="Popular Post" {{($widget->type == 'Popular Post') ? 'selected' : ''}} >Popular Post</option>
-                        <option value="Menu Widget" {{($widget->type == 'Menu Widget') ? 'selected' : ''}} >Menu Widget</option>
-                        <option value="Text Widget" {{($widget->type == 'Text Widget') ? 'selected' : ''}} >Text Widget</option>
-                        <option value="Gallary Widget" {{($widget->type == 'Gallary Widget') ? 'selected' : ''}} >Gallary Widget</option>
-                        <option value="Image Widget" {{($widget->type == 'Image Widget') ? 'selected' : ''}} >Image Widget</option>
+                    @isset($pagebuilder)
+                    <label class="form-label" for="type">Select Layout Type</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="layout" id="type" >
+                        <option value="">Select Layout</option>
+						<option value="One Column" {{($pagebuilder->layout == 'One Column') ? 'selected' : ''}} >One Column</option>
+						<option value="Two Column" {{($pagebuilder->layout == 'Two Column') ? 'selected' : ''}}>Two Column</option>
+                        <option value="Three Column" {{($pagebuilder->layout == 'Three Column') ? 'selected' : ''}} >Three Column</option>
+                        <option value="Four Column" {{($pagebuilder->layout == 'Four Column') ? 'selected' : ''}} >Four Column</option>
 					</select>
                     @else
                     <label class="form-label" for="type">Select Layout Type</label>
-					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="layout" id="type" required onChange="setWidget()">
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="layout" id="type" >
                         <option value="">Select Layout</option>
 						<option value="One Column">One Column</option>
 						<option value="Two Column">Two Column</option>
@@ -145,28 +143,28 @@
 
                 <div class="form-group">
                     <label for="exampleInputname">Section Title</label>
-                    <input type="text" class="form-control " value="{{$widget->title ?? old('title')}}" name="title" id="" placeholder="Section Title">
+                    <input type="text" class="form-control " value="{{$pagebuilder->title ?? old('title')}}" name="title" id="" placeholder="Section Title">
                 </div>
 
 
                 <div class="form-group">
                     <label for="exampleInputname">Padding</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="padding" id="" placeholder="section padding. ex: 10,20,30">
+                    <input type="text" class="form-control " value="{{$pagebuilder->padding ?? old('padding')}}" name="padding" id="" placeholder="section padding. ex: 10px,20px,30px">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputname">Margin</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="margin" id="" placeholder="section margin. ex: 10,20,30">
+                    <input type="text" class="form-control " value="{{$pagebuilder->margin ?? old('margin')}}" name="margin" id="" placeholder="section margin. ex: 10px,20px,30px">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputname">Border</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="border" id="" placeholder="section padding. ex: 1,2,3">
+                    <input type="text" class="form-control " value="{{$pagebuilder->border ?? old('border')}}" name="border" id="" placeholder="section padding. ex: 1,2,3">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputname">Border Color</label>
-                    <input type="text" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="bordercolor" id="" placeholder="ex: #fffff">
+                    <input type="text" class="form-control " value="{{$pagebuilder->bordercolor ?? old('bordercolor')}}" name="bordercolor" id="" placeholder="ex: #fffff">
                 </div>
 
                 <input type="radio" name="link" id="test2">
@@ -178,77 +176,21 @@
                 <div class="form-group background_img" style="display:none">
                     <label class="form-label">Background Image</label>
                     <!-- <input id="demo" type="file" name="image" accept=".jpg, .png, image/jpeg, image/png" multiple="" class="ff_fileupload_hidden"> -->
-                    <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($custompage) ? asset('uploads/sectionpagephoto/'.$custompage->background_img) : '' }}" name="background_img">
+                    <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($pagebuilder) ? asset('uploads/sectionpagephoto/'.$pagebuilder->background_img) : '' }}" name="background_img">
                 </div>
 
                 <div class="form-group background_color" style="display:none">
                     <label for="exampleInputname">Background Color</label>
-                    <input type="number" class="form-control " value="{{$widget->no_of_post ?? old('no_of_post')}}" name="background_color" id="" placeholder="ex: #fffff">
+                    <input type="text" class="form-control " value="{{$pagebuilder->background_color ?? old('background_color')}}" name="background_color" id="" placeholder="ex: #fffff">
                 </div>
 
 
                 </div>
-
-				{{-- <div id="blog_category">
-					<div class="card-body">
-						<div class="form-group row" id="category">
-                            <label class="col-md-3 col-from-label">Select Category<span class="text-danger">*</span></label>
-                            @isset($editcategories)
-                            <div>
-                                <select class="form-control" name="category_id" id="category_id" data-live-search="true">
-                                    <option value="0">Select Category</option>
-                                    @foreach ($editcategories as $key => $category)
-                                    <option value="{{ $category->id }}" {{($widget->category_id == $category->id) ? 'selected' : ''}} >{{ $category->name }} ({{$category->posts()->count()}})</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @else
-                            <div>
-                                <select class="form-control" name="category_id" id="category_id" data-live-search="true">
-                                    <option value="0">Select Category</option>
-                                    @foreach ($categories as $key => $category)
-                                    <option value="{{ $category->id }}">{{ $category->name }} ({{$category->posts()->count()}})</option>
-                                    @endforeach
-                                </select>
-                            </div>
-                            @endisset
-                        </div>
-					</div>
-				</div> --}}
-
-                {{-- <div id="recent_post">
-					<div class="card-body">
-					</div>
-				</div>
-
-                <div id="image_widget">
-					<div class="card-body">
-                        <input type="file" data-height="100" class="dropify form-control" data-default-file="{{ isset($widget) ? asset('uploads/sidebarphoto/'.$widget->image) : '' }}" name="image">
-					</div>
-				</div> --}}
-
-				{{-- <div id="popular_post">
-					<div class="card-body">
-					</div>
-				</div>
-
-                <div id="text_widget">
-					<div class="card-body">
-                        <div class="form-group">
-                            <label for="exampleInputContent">Post Description</label>
-                            <div class="ql-wrapper ql-wrapper-demo bg-light">
-
-                                <textarea name="body" class="my-editor form-control" id="ckeditor" style="height: 200px;" cols="30" rows="10">{!!$widget->body ?? old('body')!!}</textarea>
-
-                            </div>
-                        </div>
-					</div>
-				</div> --}}
 
 
 				<div class="card-footer text-end">
 					<button type="submit" class="btn btn-success mt-1">
-                        @isset($widget)
+                        @isset($pagebuilder)
                         <i class="fas fa-arrow-circle-up"></i>
                         Update
                         @else
@@ -269,11 +211,11 @@
 				</div>
 				<div class="card-body">
 
-					@isset($custompage)
+					@isset($pagebuilder)
 					<div class="form-group">
 						<div class="form-label">Status</div>
 						<label class="custom-switch">
-							<input type="checkbox" name="status" {{$custompage->status == true ? 'checked' : ''}} class="custom-switch-input ">
+							<input type="checkbox" name="status" {{$pagebuilder->status == true ? 'checked' : ''}} class="custom-switch-input ">
 							<span class="custom-switch-indicator"></span>
 						</label>
 					</div>

@@ -28,7 +28,7 @@ class CreatePostsTable extends Migration
             $table->boolean('is_approved')->default(false);
             $table->integer('rightsidebar_id')->nullable();
             $table->integer('leftsidebar_id')->nullable();
-            $table->string('files');
+            $table->string('files')->nullable();
             $table->timestamps();
         });
     }
