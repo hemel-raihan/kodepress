@@ -121,10 +121,18 @@ class HomepageController extends Controller
             }
 
         }
-        //$page->pagebuilders->elements
-        Artisan::call('cache:clear');
 
-        return view('frontend_theme.corporate.homepage',compact('page','blogcategories','servicecategories','generalcategories','portfoliocategories','pricecategories','blogposts'
-                                                                   ,'generalposts','serviceposts','portfolioposts','priceposts'));
+        Artisan::call('cache:clear');
+        
+        if ($page->pagebuilders()->exists())
+        {
+            return view('frontend_theme.corporate.homepage',compact('page','blogcategories','servicecategories','generalcategories','portfoliocategories','pricecategories','blogposts'
+            ,'generalposts','serviceposts','portfolioposts','priceposts'));
+        }
+        else
+        {
+            return view('frontend_theme.corporate.homepage',compact('page'));
+        }
+
     }
 }

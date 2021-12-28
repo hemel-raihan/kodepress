@@ -6,38 +6,31 @@
 
 @section('content')
 
-<section id="content" style="background-color: {{$page->background_color}}; background-image: url('{{asset('uploads/custompagephoto/'.$page->background_img)}}');">
-    <div class="content-wrap">
-<div class="{{$page->container}} clearfix">
-
-
-        <div class="promo promo-light promo-full bottommargin-lg header-stick border-top-0 p-5">
-            <div class="container clearfix">
-                <div class="row align-items-center">
-                    <div class="col-12 col-lg">
-                        <h3>Try Premium Free for <span>30 Days</span> and you'll never regret it!</h3>
-                        <span>Starts at just <em>$0/month</em> afterwards. No Ads, No Gimmicks and No SPAM. Just Real Content.</span>
-                    </div>
-                    <div class="col-12 col-lg-auto mt-4 mt-lg-0">
-                        <a href="#" class="button button-large button-circle m-0">Start Trial</a>
-                    </div>
-                </div>
-            </div>
-        </div>
+        @if ($page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
+        <div class="postcontent col-lg-12">
+        @elseif(!$page->rightsidebar_id == 0 && $page->leftsidebar_id == 0)
+        <div class="postcontent col-lg-9">
+        @elseif($page->rightsidebar_id == 0 && !$page->leftsidebar_id == 0)
+        <div class="postcontent col-lg-9">
+        @elseif(!$page->rightsidebar_id == 0 && !$page->leftsidebar_id == 0)
+        <div class="postcontent col-lg-6">
+        @endif
 
         @foreach ($page->pagebuilders as $pagebuilder)
-        <div class="container clearfix" style="background-color: {{$pagebuilder->background_color}}; background-image: url('{{asset('uploads/sectionpagephoto/'.$pagebuilder->background_img)}}');">
+        <div class="container clearfix" style="background-color: {{$pagebuilder->background_color}}; background-image: url('{{asset('uploads/sectionpagephoto/'.$pagebuilder->background_img)}}');  border: {{$pagebuilder->border}} {{$pagebuilder->border_style}} {{$pagebuilder->border_color}};">
             <div class="heading-block center">
                 <h2>{{$pagebuilder->title}}</h2>
             </div>
             <div class="row">
-                @foreach ($pagebuilder->elements as $element)
+                @foreach ($pagebuilder->elements as $key => $element)
                 @if ($pagebuilder->layout == 'One Column')
                 <div class="col-md-12">
                 @elseif ($pagebuilder->layout == 'Two Column')
                 <div class="col-md-6">
                 @elseif ($pagebuilder->layout == 'Three Column')
                 <div class="col-md-4">
+                @elseif ($pagebuilder->layout == 'Five : Seven')
+                <div class="col-md-{{ ($key%2 == 0) ? 5 : 7 }}">
                 @endif
 
                 {{-- <div class="col-md-{{($pagebuilder->layout == 'one-col') ? 12 : 6}}"> --}}
@@ -134,6 +127,72 @@
 
                             </div>
                         </div>
+                        @endforeach
+                        @endisset
+
+
+                        @elseif($element->module_type == 'Price-Table Post')
+                        @isset($priceposts)
+                        @foreach ($priceposts as $pricepost)
+                        <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
+
+							<div class="pricing-box pricing-simple px-5 py-4 bg-light text-center text-md-start">
+								<div class="pricing-title">
+									<span class="text-danger">Most Popular</span>
+									<h3>Professional</h3>
+								</div>
+								<div class="pricing-price">
+									<span class="price-unit">&euro;</span>19<span class="price-tenure">monthly</span>
+								</div>
+								<div class="pricing-features">
+									<ul class="iconlist">
+										<li><i class="icon-check text-smaller"></i> <strong>Premium</strong> Plugins</li>
+										<li><i class="icon-check text-smaller"></i> <strong>SEO</strong> Features</li>
+										<li><i class="icon-check text-smaller"></i> <strong>Full</strong> Access</li>
+										<li><i class="icon-check text-smaller"></i> <strong>100</strong> User Accounts</li>
+										<li><i class="icon-check text-smaller"></i> <strong>1 Year</strong> License</li>
+										<li><i class="icon-check text-smaller"></i> <strong>24/7</strong> Support</li>
+									</ul>
+								</div>
+								<div class="pricing-action">
+									<a href="#" class="btn btn-danger btn-lg">Get Started</a>
+								</div>
+							</div>
+
+						</div>
+                        @endforeach
+                        @endisset
+
+
+                        @elseif($element->module_type == 'Price-Table Category')
+                        @isset($pricecategories)
+                        @foreach ($pricecategories as $pricecategory)
+                        <div class="col-sm-6 col-lg-{{($element->layout == 'One Column') ? 12 : (($element->layout == 'Two Column') ? 6 : (($element->layout == 'Three Column') ? 4 : 3)) }}">
+
+							<div class="pricing-box pricing-simple px-5 py-4 bg-light text-center text-md-start">
+								<div class="pricing-title">
+									<span class="text-danger">Most Popular</span>
+									<h3>Professional</h3>
+								</div>
+								<div class="pricing-price">
+									<span class="price-unit">&euro;</span>19<span class="price-tenure">monthly</span>
+								</div>
+								<div class="pricing-feature">
+									<ul class="iconlist">
+										<li><i class="icon-check text-smaller"></i> <strong>Premium</strong> Plugins</li>
+										<li><i class="icon-check text-smaller"></i> <strong>SEO</strong> Features</li>
+										<li><i class="icon-check text-smaller"></i> <strong>Full</strong> Access</li>
+										<li><i class="icon-check text-smaller"></i> <strong>100</strong> User Accounts</li>
+										<li><i class="icon-check text-smaller"></i> <strong>1 Year</strong> License</li>
+										<li><i class="icon-check text-smaller"></i> <strong>24/7</strong> Support</li>
+									</ul>
+								</div>
+								<div class="pricing-action">
+									<a href="#" class="btn btn-danger btn-lg">Get Started</a>
+								</div>
+							</div>
+
+						</div>
                         @endforeach
                         @endisset
 
@@ -241,7 +300,7 @@
 
         </div>
         @endforeach
-
+        </div>
 
         {{-- <div class="section topmargin-lg">
             <div class="container clearfix">
@@ -645,14 +704,6 @@
 
         </div> --}}
 
-        <a href="#" class="button button-full center text-end footer-stick">
-            <div class="container clearfix">
-                Canvas comes with Unlimited Customizations &amp; Options. <strong>Check Out</strong> <i class="icon-caret-right" style="top:4px;"></i>
-            </div>
-        </a>
-    </div>
-    </div>
-</section>
 
 @endsection()
 

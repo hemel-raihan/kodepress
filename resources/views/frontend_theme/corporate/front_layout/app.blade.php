@@ -61,8 +61,40 @@
 		============================================= -->
 		<section id="content">
 			<div class="content-wrap">
+                <section id="content" style="background-color: {{$page->background_color}}; background-image: url('{{asset('uploads/custompagephoto/'.$page->background_img)}}');">
+                    <div class="content-wrap">
+                       <div class="{{$page->container}} clearfix">
+                            <div class="row gutter-40 col-mb-80">
+                                @if(!$page->leftsidebar_id == 0)
+                                @php
+                                $sidebars = \App\Models\Admin\Sidebar::where([['type','=','Left Side Bar'],['id','=',$page->leftsidebar_id]])->get();
+                                foreach($sidebars as $sidebar)
+                                {
+                                    $widgets = $sidebar->widgets()->get();
+                                }
+                                @endphp
 
-                @yield('content')
+                                @include('frontend_theme.corporate.front_layout.vertical.left_sidebar',['widgets'=>$widgets])
+                                @endif
+
+                                @yield('content')
+
+                                @if(!$page->rightsidebar_id == 0)
+                                @php
+                                $sidebars = \App\Models\Admin\Sidebar::where([['type','=','Right Side Bar'],['id','=',$page->rightsidebar_id]])->get();
+                                foreach($sidebars as $sidebar)
+                                {
+                                    $widgets = $sidebar->widgets()->get();
+                                }
+                                @endphp
+
+                                @include('frontend_theme.corporate.front_layout.vertical.right_sidebar',['widgets'=>$widgets])
+                                @endif
+
+                            </div>
+                        </div>
+                    </div>
+                </section>
 
 			</div>
 		</section><!-- #content end -->

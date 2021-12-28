@@ -4,12 +4,20 @@
 
 
 
-        <!-- INTERNAL SELECT2 CSS -->
+        {{-- <!-- INTERNAL SELECT2 CSS -->
         <link href="{{ asset('assets/plugins/select2/select2.min.css') }}" rel="stylesheet"/>
 		<!-- DATA TABLE CSS -->
 		<link href="{{ asset('assets/plugins/datatable/css/dataTables.bootstrap5.css') }}" rel="stylesheet" />
 		<link href="{{ asset('assets/plugins/datatable/css/buttons.bootstrap5.min.css') }}"  rel="stylesheet">
-		<link href="{{ asset('assets/plugins/datatable/responsive.bootstrap5.css') }}" rel="stylesheet" />
+		<link href="{{ asset('assets/plugins/datatable/responsive.bootstrap5.css') }}" rel="stylesheet" /> --}}
+        <style type="text/css">
+            .my-active span{
+                background-color: #5cb85c !important;
+                color: white !important;
+                border-color: #5cb85c !important;
+            }
+        </style>
+
 
 @endsection
 
@@ -107,8 +115,28 @@
 
 								</tbody>
 							</table>
-                            {{-- {{ $categories->links('vendor.pagination.custom') }} --}}
-                            {{ $categories->links() }}
+                            {{-- <table class="table table-stripped">
+                                <thead>
+                                    <tr>
+                                        <th>No</th>
+                                        <th>Name</th>
+                                        <th>Email</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @forelse($categories as $category)
+                                    <tr>
+                                        <td>{{ $loop->index + 1 }}</td>
+                                        <td>{{ $category->name }}</td>
+                                        <td>{{ $category->email }}</td>
+                                    </tr>
+                                    @empty
+                                    <p>No user found!</p>
+                                    @endforelse
+                                </tbody>
+                            </table> --}}
+                            {{ $categories->links('vendor.pagination.custom') }}
+                            {{-- {{ $categories->links() }} --}}
 
 						</div>
 
@@ -146,7 +174,7 @@
 @section('scripts')
 
 <!-- DATA TABLE JS-->
-        <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
+        {{-- <script src="{{ asset('assets/plugins/datatable/js/jquery.dataTables.min.js') }}"></script>
 		<script src="{{ asset('assets/plugins/datatable/js/dataTables.bootstrap5.js') }}"></script>
 		<script src="{{ asset('assets/plugins/datatable/js/dataTables.buttons.min.js') }}"></script>
 		<script src="{{ asset('assets/plugins/datatable/js/buttons.bootstrap5.min.js') }}"></script>
@@ -166,6 +194,6 @@
 
         <!-- INTERNAL SELECT2 JS -->
         <script src="{{ asset('assets/plugins/select2/select2.full.min.js') }}"></script>
-		<script src="{{ asset('assets/js/select2.js') }}"></script>
+		<script src="{{ asset('assets/js/select2.js') }}"></script> --}}
 
 @endsection

@@ -4,6 +4,7 @@
 
 		<!-- BOOTSTRAP CSS -->
 		<link href="{{ asset('assets/plugins/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet" />
+        <link rel="stylesheet" type="text/css" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
 		<!-- STYLE CSS -->
 		<link href="{{ asset('assets/css/style.css') }}" rel="stylesheet"/>
@@ -29,7 +30,7 @@
 
         <link href="{{ asset('css/iziToast.css') }}" rel="stylesheet">
 
-        
+
 		@yield('styles')
 
 		<!-- COLOR SKIN CSS -->

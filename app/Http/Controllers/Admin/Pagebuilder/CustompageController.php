@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin\Pagebuilder;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use App\Models\Admin\Sidebar;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
@@ -34,7 +35,8 @@ class CustompageController extends Controller
     public function create()
     {
         Gate::authorize('app.custom.pages.create');
-        return view('backend.admin.pagebuilder.form');
+        $sidebars = Sidebar::all();
+        return view('backend.admin.pagebuilder.form',compact('sidebars'));
     }
 
     /**
@@ -51,6 +53,8 @@ class CustompageController extends Controller
             'background_img' => 'max:1024',
             'type' => 'required',
             'container' => 'required',
+            'leftsidebar_id' => 'required',
+            'rightsidebar_id' => 'required',
         ]);
 
         $image = $request->file('background_img');
@@ -116,6 +120,8 @@ class CustompageController extends Controller
             'transparent' => $transparent,
             'background_img' => $background_img,
             'background_color' => $background_color,
+            'leftsidebar_id' => $request->leftsidebar_id,
+            'rightsidebar_id' => $request->rightsidebar_id,
             'container' => $request->container,
         ]);
 
@@ -169,7 +175,8 @@ class CustompageController extends Controller
     public function edit(Custompage $custompage)
     {
         Gate::authorize('app.custom.pages.edit');
-        return view('backend.admin.pagebuilder.form',compact('custompage'));
+        $editsidebars = Sidebar::all();
+        return view('backend.admin.pagebuilder.form',compact('custompage','editsidebars'));
     }
 
     /**
@@ -187,6 +194,8 @@ class CustompageController extends Controller
             'background_img' => 'max:1024',
             'type' => 'required',
             'container' => 'required',
+            'leftsidebar_id' => 'required',
+            'rightsidebar_id' => 'required',
         ]);
 
         $image = $request->file('background_img');
@@ -259,6 +268,8 @@ class CustompageController extends Controller
             'transparent' => $transparent,
             'background_img' => $background_img,
             'background_color' => $background_color,
+            'leftsidebar_id' => $request->leftsidebar_id,
+            'rightsidebar_id' => $request->rightsidebar_id,
             'container' => $request->container,
         ]);
 

@@ -16,6 +16,11 @@ class Widget extends Model
         return $this->belongsTo(Menu::class);
     }
 
+    public function Sidebar()
+    {
+        return $this->belongsTo(Sidebar::class);
+    }
+
     public function category()
     {
         return $this->belongsTo(Category::class);

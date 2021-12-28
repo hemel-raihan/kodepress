@@ -159,13 +159,31 @@
 
                 <div class="form-group">
                     <label for="exampleInputname">Border</label>
-                    <input type="text" class="form-control " value="{{$pagebuilder->border ?? old('border')}}" name="border" id="" placeholder="section padding. ex: 1,2,3">
+                    <input type="text" class="form-control " value="{{$pagebuilder->border ?? old('border')}}" name="border" id="" placeholder="section padding. ex: 1px,2px,3px">
                 </div>
 
                 <div class="form-group">
                     <label for="exampleInputname">Border Color</label>
-                    <input type="text" class="form-control " value="{{$pagebuilder->bordercolor ?? old('bordercolor')}}" name="bordercolor" id="" placeholder="ex: #fffff">
+                    <input type="text" class="form-control " value="{{$pagebuilder->bordercolor ?? old('bordercolor')}}" name="bordercolor" id="" placeholder="ex: black,red,white">
                 </div>
+
+                <div class="form-group">
+                    @isset($pagebuilder)
+                    <label class="form-label" for="type">Select Border Style</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="border_style" id="type" >
+                        <option value="">Select Border Style</option>
+						<option value="solid" {{($pagebuilder->border_style == 'solid') ? 'selected' : ''}} >Solid</option>
+						<option value="dotted" {{($pagebuilder->border_style == 'dotted') ? 'selected' : ''}}>Dotted</option>
+					</select>
+                    @else
+                    <label class="form-label" for="type">Select Border Style</label>
+					<select class="form-control form-select select2" data-bs-placeholder="Select Type" name="border_style" id="type" >
+                        <option value="">Select Border Style</option>
+						<option value="solid">Solid</option>
+						<option value="dotted">Dotted</option>
+					</select>
+                    @endisset
+				</div>
 
                 <input type="radio" name="link" id="test2">
                 <label for="css">Background Image</label>

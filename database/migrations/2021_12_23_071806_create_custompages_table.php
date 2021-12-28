@@ -23,6 +23,8 @@ class CreateCustompagesTable extends Migration
             $table->string('background_color')->nullable();
             $table->boolean('transparent')->nullable();
             $table->boolean('status')->default(true);
+            $table->integer('leftsidebar_id')->nullable();
+            $table->integer('rightsidebar_id')->nullable();
             $table->timestamps();
         });
     }

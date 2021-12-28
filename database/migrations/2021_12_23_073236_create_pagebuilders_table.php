@@ -22,6 +22,7 @@ class CreatePagebuildersTable extends Migration
             $table->string('margin')->nullable();
             $table->string('border')->nullable();
             $table->string('bordercolor')->nullable();
+            $table->string('border_style')->nullable();
             $table->string('background_img')->nullable();
             $table->string('background_color')->nullable();
             $table->boolean('status')->nullable();
