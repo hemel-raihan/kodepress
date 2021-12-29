@@ -415,7 +415,7 @@
 </script> --}}
 
 <script type="text/javascript">
-    $('.dd').nestable({maxDepth: 3});
+    $('.dd').nestable({maxDepth: 4});
     $('.dd').on('change',function(e)
     {
         $.post("{{route('admin.menuitem.order',$menu->id)}}",{

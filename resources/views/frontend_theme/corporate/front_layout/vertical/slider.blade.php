@@ -1,4 +1,4 @@
-<section id="slider" class="slider-element swiper_wrapper min-vh-60 min-vh-md-100">
+<section id="slider" class="slider-element swiper_wrapper min-vh-60 min-vh-md-70">
     <div class="slider-inner">
 
         <div class="swiper-container swiper-parent">

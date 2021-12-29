@@ -29,8 +29,12 @@
                 <div class="col-md-6">
                 @elseif ($pagebuilder->layout == 'Three Column')
                 <div class="col-md-4">
-                @elseif ($pagebuilder->layout == 'Five : Seven')
-                <div class="col-md-{{ ($key%2 == 0) ? 5 : 7 }}">
+                @elseif ($pagebuilder->layout == 'One/Two Column')
+                <div class="col-md-{{ ($key%2 == 0) ? 4 : 8 }}">
+                @elseif ($pagebuilder->layout == 'Two/One Column')
+                <div class="col-md-{{ ($key%2 == 0) ? 8 : 4 }}">
+                @elseif ($pagebuilder->layout == 'One/Two/One Column')
+                <div class="col-md-{{ ($key%2 == 0) ? 3 : ((!$key%2 == 0) ? 6 : 3) }}">
                 @endif
 
                 {{-- <div class="col-md-{{($pagebuilder->layout == 'one-col') ? 12 : 6}}"> --}}
