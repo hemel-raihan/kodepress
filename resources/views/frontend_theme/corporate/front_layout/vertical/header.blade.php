@@ -1,7 +1,8 @@
 @php
-    $navbar = \App\Models\Appearance_settings\Navbarsetting::find(1);
+    $navbar = \App\Models\Appearance_Settings\Navbarsetting::find(1);
 @endphp
 @if ($navbar->navbar_style == 'default')
+<header id="header" class="full-header" data-sticky-logo-height="74" data-menu-padding="32">
 <div id="header-wrap">
     <div class="container">
         <div class="header-row">
@@ -1110,10 +1111,14 @@
         </div>
     </div>
 </div>
+{{-- <div class="header-wrap-clone"></div> --}}
 
-@elseif ($navbar->navbar_style == 'defaultt')
+</header>
+
+@elseif ($navbar->navbar_style == 'menu2')
 
 
+<header id="header" class="header-size-sm">
     <div class="container">
         <div class="header-row flex-column flex-lg-row justify-content-center justify-content-lg-start">
 
@@ -1212,6 +1217,59 @@
                 <nav class="primary-menu">
 
                     <ul class="menu-container">
+                        @isset($menuitems)
+                        @foreach ($menuitems as $menuitem)
+                        @if($menuitem->childs->isEmpty())
+                        <li class="menu-item">
+                            <a class="menu-link" href="{{route('page',$menuitem->slug)}}"><div>{{$menuitem->title}}</div></a>
+                        </li>
+
+                        @else
+
+                        <li class="menu-item">
+                            <a class="menu-link" href="#"><div>{{$menuitem->title}}</div></a>
+                            <ul class="sub-menu-container">
+                                @foreach ($menuitem->childs as $item)
+                                @if ($item->childs->isEmpty())
+                                <li class="menu-item">
+                                    <a class="menu-link" href="{{route('page',$item->slug)}}"><div>{{$item->title}}</div></a>
+                                </li>
+                                @else
+                                <li class="menu-item">
+                                    <a class="menu-link" href="#"><div>{{$item->title}}</div></a>
+                                    <ul class="sub-menu-container">
+                                        @foreach ($item->childs as $itemm)
+                                        @if ($itemm->childs->isEmpty())
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="{{route('page',$itemm->slug)}}"><div>{{$itemm->title}}</div></a>
+                                        </li>
+                                        @else
+                                        <li class="menu-item">
+                                            <a class="menu-link" href="#"><div>{{$itemm->title}}</div></a>
+                                            <ul class="sub-menu-container">
+                                                @foreach ($itemm->childs as $itemmm)
+                                                <li class="menu-item">
+                                                    <a class="menu-link" href="{{route('page',$itemmm->slug)}}"><div>{{$itemmm->title}}</div></a>
+                                                </li>
+                                                @endforeach
+                                            </ul>
+                                        </li>
+                                        @endif
+                                        @endforeach
+
+                                    </ul>
+                                </li>
+                                @endif
+
+                                @endforeach
+
+                            </ul>
+                        </li>
+                        @endif
+                        @endforeach
+                        @endisset
+                    </ul>
+                    {{-- <ul class="menu-container">
                         <li class="menu-item">
                             <a class="menu-link" href="index.html"><div>Home</div></a>
                             <ul class="sub-menu-container">
@@ -2607,7 +2665,7 @@
                                 </div>
                             </div>
                         </li>
-                    </ul>
+                    </ul> --}}
 
                 </nav><!-- #primary-menu end -->
 
@@ -2619,7 +2677,8 @@
 
         </div>
     </div>
-    <div class="header-wrap-clone"></div>
+    {{-- <div class="header-wrap-clone"></div> --}}
+</header>
 
 @endif
 

@@ -26,7 +26,7 @@
 
         <!-- Header
 		============================================= -->
-        <header id="header" class="full-header" data-sticky-logo-height="74" data-menu-padding="32">
+        
 
             @php
             $menus = \App\Models\Frontmenu\Frontmenu::where([['type','=','main-menu'],['status','=',true]])->get();

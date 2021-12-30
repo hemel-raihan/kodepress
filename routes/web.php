@@ -187,6 +187,9 @@ Route::group(['as'=>'admin.','prefix'=>'admin', 'namespace'=>'Admin', 'middlewar
     Route::get('element/{id}/status/{elementId}', 'Pagebuilder\ElementController@status')->name('element.status');
     //end Section Element
 
+    Route::get('navbar/settings','Appearance_settings\AppearanceController@index')->name('navbar.settings');
+    Route::put('navbar/settings/update/{setting}', 'Appearance_settings\AppearanceController@update')->name('navbar.settings.update');
+
 });
 
 
